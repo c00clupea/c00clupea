@@ -1,0 +1,1925 @@
+$ ls
+ls
+Makefile                          cooclupea.c                       pandora.config                    sloc.count
+Makefile~                         cooclupea.c~                      pandora_boundaryinit.config       strategy.c
+config.c                          cooclupea.h                       ringbuffer.c                      strategy.h
+config.h                          global.h                          ringbuffer.h                      test.c
+$ whoami
+whoami
+develop
+$ make all
+make all
+make clean
+rm -rf *.o
+rm -rf cooclupea
+make countloc
+sloccount . 2>&1 | tee sloc.count
+tee: sloc.count: Permission denied
+/bin/sh: sloccount: not found
+*** Error 1 in . (Makefile:62 'countloc')
+*** Error 1 in /home/develop/honeypot/src (Makefile:85 'all')
+$ make all
+make all
+make clean
+rm -rf *.o
+rm -rf cooclupea
+#make countloc
+make cooclupea 
+gcc   -c cooclupea.c
+cooclupea.c: In function 'init_producer':
+cooclupea.c:212: error: 'for' loop initial declaration used outside C99 mode
+cooclupea.c:221: error: redefinition of 'i'
+cooclupea.c:212: error: previous definition of 'i' was here
+cooclupea.c:221: error: 'for' loop initial declaration used outside C99 mode
+cooclupea.c: In function 'main':
+cooclupea.c:374: error: 'for' loop initial declaration used outside C99 mode
+*** Error 1 in . (<sys.mk>:87 'cooclupea.o')
+*** Error 1 in /home/develop/honeypot/src (Makefile:86 'all')
+$ gcc -c cooclupea.c
+gcc -c cooclupea.c
+cooclupea.c: In function 'init_producer':
+cooclupea.c:212: error: 'for' loop initial declaration used outside C99 mode
+cooclupea.c:221: error: redefinition of 'i'
+cooclupea.c:212: error: previous definition of 'i' was here
+cooclupea.c:221: error: 'for' loop initial declaration used outside C99 mode
+cooclupea.c: In function 'main':
+cooclupea.c:374: error: 'for' loop initial declaration used outside C99 mode
+$ man make
+man make
+MAKE(1)                    OpenBSD Reference Manual                    MAKE(1)
+
+NAME
+     make - maintain program dependencies
+
+SYNOPSIS
+     make [-BeiknpqrSst] [-D variable] [-d flags] [-f mk] [-I directory]
+          [-j max_processes] [-m directory] [-V variable] [NAME=value]
+          [target ...]
+
+DESCRIPTION
+     make is a program designed to simplify the maintenance of other programs.
+     Its input is a makefile: a list of specifications (target rules)
+     describing build relationships between programs and other files.  By
+     default, this makefile is determined as follows: first the file
+     `BSDmakefile', if it exists, then the files `makefile' and `Makefile', in
+     that order.  If none of these files exist, make can still rely on a set
+     of built-in system rules.
+
+     In addition, if the file `.depend' exists, it is also read on top of the
+     main makefile (see mkdep(1)).
+
+     The handling of `BSDmakefile' and `.depend' are BSD extensions.
+/tmp/man.SLmcs2rTqW 3%
+
+/tmp/man.SLmcs2rTqW 3%
+     Standard options are as follows:
+/tmp/man.SLmcs2rTqW 3%
+
+/tmp/man.SLmcs2rTqW 3%
+     -e      Environment variables override macro assignments within
+/tmp/man.SLmcs2rTqW 3%
+             makefiles.
+/tmp/man.SLmcs2rTqW 3%
+
+/tmp/man.SLmcs2rTqW 3%
+     -f mk   Read file mk instead of the default makefile.  If mk is `-',
+/tmp/man.SLmcs2rTqW 3%
+             standard input is used.  Multiple makefiles may be specified, and
+/tmp/man.SLmcs2rTqW 3%
+             are read in the order specified.
+/tmp/man.SLmcs2rTqW 4%
+
+/tmp/man.SLmcs2rTqW 4%
+     -i      Ignore non-zero exit of shell commands in the makefile.
+/tmp/man.SLmcs2rTqW 4%
+             Equivalent to specifying `-' before each command line in the
+/tmp/man.SLmcs2rTqW 4%
+             makefile.
+/tmp/man.SLmcs2rTqW 4%
+
+/tmp/man.SLmcs2rTqW 4%
+     -k      Continue processing after errors are encountered, but only on
+/tmp/man.SLmcs2rTqW 4%
+             those targets that do not depend on the target whose creation
+/tmp/man.SLmcs2rTqW 4%
+             caused the error.
+/tmp/man.SLmcs2rTqW 4%
+
+/tmp/man.SLmcs2rTqW 4%
+     -n      Display the commands that would have been executed, but do not
+/tmp/man.SLmcs2rTqW 4%
+             actually execute them.
+/tmp/man.SLmcs2rTqW 5%
+
+/tmp/man.SLmcs2rTqW 5%
+     -p      Print a dump of the target rules and variables on stdout.  Do not
+/tmp/man.SLmcs2rTqW 5%
+             build anything.
+/tmp/man.SLmcs2rTqW 5%
+
+/tmp/man.SLmcs2rTqW 5%
+     -q      Do not execute any commands, but exit with status 0 if the
+/tmp/man.SLmcs2rTqW 5%
+             specified targets are up-to-date, and 1 otherwise.
+/tmp/man.SLmcs2rTqW 5%
+
+/tmp/man.SLmcs2rTqW 5%
+     -r      Do not use the built-in rules specified in the system makefile,
+/tmp/man.SLmcs2rTqW 5%
+             <sys.mk>.
+/tmp/man.SLmcs2rTqW 5%
+
+/tmp/man.SLmcs2rTqW 5%
+     -S      Stop processing when an error is encountered.  This is the
+/tmp/man.SLmcs2rTqW 5%
+             default behavior.  This is needed to negate the -k option during
+/tmp/man.SLmcs2rTqW 6%
+             recursive builds.
+/tmp/man.SLmcs2rTqW 6%
+
+/tmp/man.SLmcs2rTqW 6%
+     -s      Do not echo commands as they are executed.  Equivalent to
+/tmp/man.SLmcs2rTqW 6%
+             specifying `@' before each command line in the makefile.
+/tmp/man.SLmcs2rTqW 6%
+
+/tmp/man.SLmcs2rTqW 6%
+     -t      Rather than re-building a target as specified in the makefile,
+/tmp/man.SLmcs2rTqW 6%
+             create it or update its modification time to make it appear up-
+/tmp/man.SLmcs2rTqW 6%
+             to-date, a bit like touch(1).
+/tmp/man.SLmcs2rTqW 6%
+
+/tmp/man.SLmcs2rTqW 6%
+     NAME=value
+/tmp/man.SLmcs2rTqW 6%
+             Set the value of the variable NAME to value.
+/tmp/man.SLmcs2rTqW 7%
+
+/tmp/man.SLmcs2rTqW 7%
+     Extended options are as follows:
+/tmp/man.SLmcs2rTqW 7%
+
+/tmp/man.SLmcs2rTqW 7%
+     -B      Try to be backwards compatible by executing the commands to make
+/tmp/man.SLmcs2rTqW 7%
+             the prerequisites in a target rule in sequence.  This is the
+/tmp/man.SLmcs2rTqW 7%
+             default, in the absence of -j max_processes.
+/tmp/man.SLmcs2rTqW 7%
+
+/tmp/man.SLmcs2rTqW 7%
+     -D variable
+/tmp/man.SLmcs2rTqW 7%
+             Define variable to be 1.
+/tmp/man.SLmcs2rTqW 7%
+
+/tmp/man.SLmcs2rTqW 7%
+     -d flags
+/tmp/man.SLmcs2rTqW 7%
+             Turn on debugging, and specify which portions of make are to
+/tmp/man.SLmcs2rTqW 8%
+             print debugging information.  flags is one or more of the
+/tmp/man.SLmcs2rTqW 8%
+             following:
+/tmp/man.SLmcs2rTqW 8%q
+$ 
+$ make all
+make all
+make clean
+rm -rf *.o
+rm -rf cooclupea
+#make countloc
+make cooclupea 
+gcc -std=99 -Wall -Wextra -Wpedantic  -c cooclupea.c
+cc1: error: unrecognized command line option "-Wpedantic"
+cc1: error: unrecognized command line option "-std=99"
+*** Error 1 in . (<sys.mk>:87 'cooclupea.o')
+*** Error 1 in /home/develop/honeypot/src (Makefile:86 'all')
+$ make all
+make all
+make clean
+rm -rf *.o
+rm -rf cooclupea
+#make countloc
+make cooclupea 
+gcc -std=99 -Wall -Wextra -Wpedantic  -c cooclupea.c
+cc1: error: unrecognized command line option "-Wpedantic"
+cc1: error: unrecognized command line option "-std=99"
+*** Error 1 in . (<sys.mk>:87 'cooclupea.o')
+*** Error 1 in /home/develop/honeypot/src (Makefile:86 'all')
+$ make all
+make all
+make clean
+rm -rf *.o
+rm -rf cooclupea
+#make countloc
+make cooclupea 
+gcc -std=99 -Wall -Wextra -Wpedantic  -c cooclupea.c
+cc1: error: unrecognized command line option "-Wpedantic"
+cc1: error: unrecognized command line option "-std=99"
+*** Error 1 in . (<sys.mk>:87 'cooclupea.o')
+*** Error 1 in /home/develop/honeypot/src (Makefile:86 'all')
+$ make cooclupea
+make cooclupea
+gcc -std=99 -Wall -Wextra -Wpedantic  -c cooclupea.c
+cc1: error: unrecognized command line option "-Wpedantic"
+cc1: error: unrecognized command line option "-std=99"
+*** Error 1 in /home/develop/honeypot/src (<sys.mk>:87 'cooclupea.o')
+$ make all
+make all
+make clean
+rm -rf *.o
+rm -rf cooclupea
+#make countloc
+make cooclupea 
+gcc -std=99 -Wall -Wextra -Wpedantic  -c cooclupea.c
+cc1: error: unrecognized command line option "-Wpedantic"
+cc1: error: unrecognized command line option "-std=99"
+*** Error 1 in . (<sys.mk>:87 'cooclupea.o')
+*** Error 1 in /home/develop/honeypot/src (Makefile:86 'all')
+$ make all
+make all
+make clean
+rm -rf *.o
+rm -rf cooclupea
+#make countloc
+make cooclupea 
+gcc -std=99 -Wall -Wextra -Wpedantic  -c cooclupea.c
+cc1: error: unrecognized command line option "-Wpedantic"
+cc1: error: unrecognized command line option "-std=99"
+*** Error 1 in . (<sys.mk>:87 'cooclupea.o')
+*** Error 1 in /home/develop/honeypot/src (Makefile:86 'all')
+$ make all
+make all
+make clean
+rm -rf *.o
+rm -rf cooclupea
+#make countloc
+make cooclupea 
+gcc -std=99 -Wall -Wextra -Wpedantic  -c cooclupea.c
+cc1: error: unrecognized command line option "-Wpedantic"
+cc1: error: unrecognized command line option "-std=99"
+*** Error 1 in . (<sys.mk>:87 'cooclupea.o')
+*** Error 1 in /home/develop/honeypot/src (Makefile:86 'all')
+$ gcc -Wpedantic
+gcc -Wpedantic
+gcc: no input files
+$ gcc -Wpedantic -std=C99 -Wall cooclupea.c
+gcc -Wpedantic -std=C99 -Wall cooclupea.c
+cc1: error: unrecognized command line option "-Wpedantic"
+cc1: error: unrecognized command line option "-std=C99"
+$ make all
+make all
+make clean
+rm -rf *.o
+rm -rf cooclupea
+#make countloc
+make cooclupea 
+gcc -std=c99 -Wall -Wextra -Wpedantic  -c cooclupea.c
+cc1: error: unrecognized command line option "-Wpedantic"
+*** Error 1 in . (<sys.mk>:87 'cooclupea.o')
+*** Error 1 in /home/develop/honeypot/src (Makefile:86 'all')
+$ make all
+make all
+make clean
+rm -rf *.o
+rm -rf cooclupea
+#make countloc
+make cooclupea 
+gcc -std=c99 -Wall -Wextra -pedantic  -c cooclupea.c
+cooclupea.c: In function 'set_signal_mask':
+cooclupea.c:67: warning: unused variable 'sig_thr_id'
+cooclupea.c: In function 'worker_operation':
+cooclupea.c:162: warning: ISO C forbids passing argument 1 of 'pthread_exit' between function pointer and 'void *'
+cooclupea.c:163: warning: control reaches end of non-void function
+cooclupea.c: In function 'single_producer':
+cooclupea.c:202: warning: ISO C forbids passing argument 1 of 'pthread_exit' between function pointer and 'void *'
+cooclupea.c:203: warning: control reaches end of non-void function
+gcc -std=c99 -Wall -Wextra -pedantic  -c config.c
+gcc -std=c99 -Wall -Wextra -pedantic  -c ringbuffer.c
+gcc -std=c99 -Wall -Wextra -pedantic  -c strategy.c
+strategy.c: In function 'strategy_dev_null':
+strategy.c:7: warning: unused variable 'result'
+gcc -std=c99 -Wall -Wextra -pedantic -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS="Vhp:b:c:s:" -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024 -DNDEBUG -o cooclupea  
+gcc: no input files
+*** Error 1 in . (Makefile:52 'cooclupea')
+*** Error 1 in /home/develop/honeypot/src (Makefile:86 'all')
+$ make all
+make all
+make clean
+rm -rf *.o
+rm -rf cooclupea
+#make countloc
+make cooclupea 
+gcc -std=c99 -Wall -Wextra -pedantic  -c cooclupea.c
+cooclupea.c: In function 'set_signal_mask':
+cooclupea.c:67: warning: unused variable 'sig_thr_id'
+cooclupea.c: In function 'worker_operation':
+cooclupea.c:162: warning: ISO C forbids passing argument 1 of 'pthread_exit' between function pointer and 'void *'
+cooclupea.c:163: warning: control reaches end of non-void function
+cooclupea.c: In function 'single_producer':
+cooclupea.c:202: warning: ISO C forbids passing argument 1 of 'pthread_exit' between function pointer and 'void *'
+cooclupea.c:203: warning: control reaches end of non-void function
+gcc -std=c99 -Wall -Wextra -pedantic  -c config.c
+gcc -std=c99 -Wall -Wextra -pedantic  -c ringbuffer.c
+gcc -std=c99 -Wall -Wextra -pedantic  -c strategy.c
+strategy.c: In function 'strategy_dev_null':
+strategy.c:7: warning: unused variable 'result'
+gcc -std=c99 -Wall -Wextra -pedantic -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024 -DNDEBUG -o cooclupea  
+gcc: no input files
+*** Error 1 in . (Makefile:52 'cooclupea')
+*** Error 1 in /home/develop/honeypot/src (Makefile:86 'all')
+$ make all
+make all
+make clean
+rm -rf *.o
+rm -rf cooclupea
+#make countloc
+make cooclupea 
+gcc -std=c99 -Wall -Wextra -pedantic -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024 -DNDEBUG -c -o cooclupea.c cooclupea.h
+gcc -std=c99 -Wall -Wextra -pedantic -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024 -DNDEBUG -c -o config.c config.h
+gcc -std=c99 -Wall -Wextra -pedantic -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024 -DNDEBUG -c -o ringbuffer.c ringbuffer.h
+gcc -std=c99 -Wall -Wextra -pedantic -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024 -DNDEBUG -c -o strategy.c strategy.h
+gcc -std=c99 -Wall -Wextra -pedantic -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024 -DNDEBUG -o cooclupea cooclupea.o config.o ringbuffer.o strategy.o 
+gcc: cooclupea.o: No such file or directory
+gcc: config.o: No such file or directory
+gcc: ringbuffer.o: No such file or directory
+gcc: strategy.o: No such file or directory
+gcc: no input files
+*** Error 1 in . (Makefile:52 'cooclupea')
+*** Error 1 in /home/develop/honeypot/src (Makefile:86 'all')
+$ ls
+ls
+Makefile                          cooclupea.c                       pandora.config                    sloc.count
+Makefile~                         cooclupea.c~                      pandora_boundaryinit.config       strategy.c
+config.c                          cooclupea.h                       ringbuffer.c                      strategy.h
+config.h                          global.h                          ringbuffer.h                      test.c
+$ cat cooclupea.c
+cat cooclupea.c
+   __DEC32_MAX__ 9.999999E96DF
+     __unix__ 1      __DECIMAL_DIG__ 21      __LDBL_HAS_QUIET_NAN__ 1
+   __SSE2_MATH__ 1	      __amd64 1      __FLT_HAS_DENORM__ 1'      __LONG_LONG_MAX__ 9223372036854775807LL      __GXX_ABI_VERSION 1002
+     __x86_64 1#      __DBL_MIN__ 2.2250738585072014e-308      ALLOWED_OPTS "Vhp:b:c:s:"
+   __FLT_RADIX__ 2,      __LDBL_EPSILON__ 1.08420217248550443401e-19L      __SSE_MATH__ 1      __k8 1      _LP64 1     INET_FAM AF_INET      __LDBL_DIG__ 18   
+   __ANSI_COMPAT 1$      __INTMAX_MAX__ 9223372036854775807LL"      __FLT_DENORM_MIN__ 1.40129846e-45F	      __PIC__ 1      __FLT_MAX__ 3.40282347e+38F
+     __SSE2__ 1      __FLT_MIN_10_EXP__ (-37)      __INTMAX_TYPE__ long long int      __DEC128_MAX_EXP__ 6144      __GNUC_MINOR__ 2	      __PIE__ 1      __DBL_MAX_10_EXP__ 3081      __LDBL_DENORM_MIN__ 3.64519953188247460253e-4951L
+      STDERR stderr      __DEC128_MANT_DIG__ 34      __LDBL_MIN_10_EXP__ (-4931)      __GNUC_GNU_INLINE__ 1•ô      AF_APPLETALK AF_BLUETOOTH AF_CCITT AF_CHAOS AF_CNT AF_COIP AF_DATAKIT AF_DECnet AF_DLI AF_E164 AF_ECMA AF_ENCAP AF_HYLINK AF_IMPLINK AF_INET AF_INET6 AF_IPX AF_ISDN AF_ISO AF_KEY AF_LAT AF_LINK AF_LOCAL AF_MAX AF_MPLS AF_NATM AF_NS AF_OSI AF_PUP AF_ROUTE AF_SIP AF_SNA AF_UNIX AF_UNSPEC ARG_MAX AUTHOR BADSIG BC_BASE_MAX BC_DIM_MAX BC_SCALE_MAX BC_STRING_MAX BIG_ENDIAN BUFSIZ BUS_ADRALN BUS_ADRERR BUS_OBJERR BYTE_ORDER CHAR_BIT CHAR_MAX CHAR_MIN CHILD_MAX CLD_CONTINUED CLD_DUMPED CLD_EXITED CLD_KILLED CLD_STOPPED CLD_TRAPPED CLK_TCK CLOCKS_PER_SEC CLOCK_MONOTONIC CLOCK_PROCESS_CPUTIME_ID CLOCK_REALTIME CLOCK_THREAD_CPUTIME_ID CLOCK_UPTIME CLOCK_VIRTUAL CMSG_ALIGN CMSG_DATA CMSG_FIRSTHDR CMSG_LEN CMSG_NXTHDR CMSG_SPACE CODE COLL_WEIGHTS_MAX COMMAND_CODE COMMAND_TARGET_CODE COMM_GET COMM_ILL COMM_INIT COMM_SET COMM_TARG_ILL COMM_TARG_SERVER CONFIG_H CONFIG_LEN CTLTYPE_INT CTLTYPE_NODE CTLTYPE_STRING CTLTYPE_STRUCT CTL_IPPROTO_NAMES CTL_IPV6PROTO_NAMES CTL_NET_BPF_NAMES CTL_NET_KEY_NAMES CTL_NET_NAMES CTL_NET_PFLOW_NAMES CTL_NET_RT_NAMES DBL_DIG DBL_MAX DBL_MIN DST_AUST DST_CAN DST_EET DST_MET DST_NONE DST_USA DST_WET EMT_TAGOVF EOF EXIT_FAILURE EXIT_SUCCESS EXPR_NEST_MAX FD_CLR FD_COPY FD_ISSET FD_SET FD_SETSIZE FD_ZERO FILE FILENAME_MAX FLT_DIG FLT_MAX FLT_MIN FOPEN_MAX FPE_FLTDIV FPE_FLTINV FPE_FLTOVF FPE_FLTRES FPE_FLTSUB FPE_FLTUND FPE_INTDIV FPE_INTOVF FROMBCD F_LOCK F_OK F_TEST F_TLOCK F_ULOCK GCC GID_MAX GLOBAL_H HONEYPOT_NAME HOST_NAME_MAX HTONL HTONS ICMP6_FILTER IFA6_IS_DEPRECATED IFA6_IS_INVALID ILL_BADSTK ILL_COPROC ILL_ILLADR ILL_ILLOPC ILL_ILLOPN ILL_ILLTRP ILL_PRVOPC ILL_PRVREG IN6ADDR_ANY_INIT IN6ADDR_INTFACELOCAL_ALLNODES_INIT IN6ADDR_LINKLOCAL_ALLNODES_INIT IN6ADDR_LINKLOCAL_ALLROUTERS_INIT IN6ADDR_LOOPBACK_INIT IN6ADDR_NODELOCAL_ALLNODES_INIT IN6MASK0 IN6MASK128 IN6MASK32 IN6MASK64 IN6MASK96 IN6_ARE_ADDR_EQUAL IN6_IS_ADDR_LINKLOCAL IN6_IS_ADDR_LOOPBACK IN6_IS_ADDR_MC_GLOBAL IN6_IS_ADDR_MC_INTFACELOCAL IN6_IS_ADDR_MC_LINKLOCAL IN6_IS_ADDR_MC_NODELOCAL IN6_IS_ADDR_MC_ORGLOCAL IN6_IS_ADDR_MC_SITELOCAL IN6_IS_ADDR_MULTICAST IN6_IS_ADDR_SITELOCAL IN6_IS_ADDR_UNSPECIFIED IN6_IS_ADDR_V4COMPAT IN6_IS_ADDR_V4MAPPED IN6_IS_SCOPE_EMBED IN6_IS_SCOPE_LINKLOCAL INADDR_ALLHOSTS_GROUP INADDR_ALLROUTERS_GROUP INADDR_ANY INADDR_BROADCAST INADDR_CARP_GROUP INADDR_LOOPBACK INADDR_MAX_LOCAL_GROUP INADDR_NONE INADDR_PFSYNC_GROUP INADDR_UNSPEC_GROUP INET6_ADDRSTRLEN INET_ADDRSTRLEN INT32_MAX INT32_MIN INT64_MAX INT64_MIN INTERNAL_MARK INTERNAL_NOPRI INT_MAX INT_MIN IN_BADCLASS IN_CLASSA IN_CLASSA_HOST IN_CLASSA_MAX IN_CLASSA_NET IN_CLASSA_NSHIFT IN_CLASSB IN_CLASSB_HOST IN_CLASSB_MAX IN_CLASSB_NET IN_CLASSB_NSHIFT IN_CLASSC IN_CLASSC_HOST IN_CLASSC_NET IN_CLASSC_NSHIFT IN_CLASSD IN_CLASSD_HOST IN_CLASSD_NET IN_CLASSD_NSHIFT IN_CLASSFULBROADCAST IN_EXPERIMENTAL IN_LOCAL_GROUP IN_LOOPBACKNET IN_MULTICAST IN_RFC3021_HOST IN_RFC3021_NET IN_RFC3021_NSHIFT IN_RFC3021_SUBNET IOV_MAX IPCTL_ARPQUEUED IPCTL_DEFMTU IPCTL_DEFTTL IPCTL_DIRECTEDBCAST IPCTL_ENCDEBUG IPCTL_FORWARDING IPCTL_GIF_TTL IPCTL_IFQUEUE IPCTL_IPPORT_FIRSTAUTO IPCTL_IPPORT_HIFIRSTAUTO IPCTL_IPPORT_HILASTAUTO IPCTL_IPPORT_LASTAUTO IPCTL_IPPORT_MAXQUEUE IPCTL_IPSEC_ALLOCATIONS IPCTL_IPSEC_AUTH_ALGORITHM IPCTL_IPSEC_BYTES IPCTL_IPSEC_EMBRYONIC_SA_TIMEOUT IPCTL_IPSEC_ENC_ALGORITHM IPCTL_IPSEC_EXPIRE_ACQUIRE IPCTL_IPSEC_FIRSTUSE IPCTL_IPSEC_IPCOMP_ALGORITHM IPCTL_IPSEC_REQUIRE_PFS IPCTL_IPSEC_SOFT_ALLOCATIONS IPCTL_IPSEC_SOFT_BYTES IPCTL_IPSEC_SOFT_FIRSTUSE IPCTL_IPSEC_SOFT_TIMEOUT IPCTL_IPSEC_TIMEOUT IPCTL_MAXID IPCTL_MFORWARDING IPCTL_MRTPROTO IPCTL_MRTSTATS IPCTL_MTUDISC IPCTL_MTUDISCTIMEOUT IPCTL_MULTIPATH IPCTL_NAMES IPCTL_SENDREDIRECTS IPCTL_SOURCEROUTE IPCTL_STATS IPCTL_VARS IPPORT_HIFIRSTAUTO IPPORT_HILASTAUTO IPPORT_RESERVED IPPORT_USERRESERVED IPPROTO_AH IPPROTO_CARP IPPROTO_DIVERT IPPROTO_DIVERT_INIT IPPROTO_DIVERT_RESP IPPROTO_DONE IPPROTO_DSTOPTS IPPROTO_EGP IPPROTO_ENCAP IPPROTO_EON IPPROTO_ESP IPPROTO_ETHERIP IPPROTO_FRAGMENT IPPROTO_GGP IPPROTO_GRE IPPROTO_HOPOPTS IPPROTO_ICMP IPPROTO_ICMPV6 IPPROTO_IDP IPPROTO_IGMP IPPROTO_IP IPPROTO_IPCOMP IPPROTO_IPIP IPPROTO_IPV4 IPPROTO_IPV6 IPPROTO_MAX IPPROTO_MAXID IPPROTO_MOBILE IPPROTO_MPLS IPPROTO_NONE IPPROTO_PFSYNC IPPROTO_PIM IPPROTO_PUP IPPROTO_RAW IPPROTO_ROUTING IPPROTO_RSVP IPPROTO_TCP IPPROTO_TP IPPROTO_UDP IPSEC6_OUTSA IPSEC_AUTH_LEVEL_DEFAULT IPSEC_ESP_NETWORK_LEVEL_DEFAULT IPSEC_ESP_TRANS_LEVEL_DEFAULT IPSEC_IPCOMP_LEVEL_DEFAULT IPSEC_LEVEL_AVAIL IPSEC_LEVEL_BYPASS IPSEC_LEVEL_DEFAULT IPSEC_LEVEL_NONE IPSEC_LEVEL_REQUIRE IPSEC_LEVEL_UNIQUE IPSEC_LEVEL_USE IPV6CTL_ACCEPT_RTADV IPV6CTL_AUTO_FLOWLABEL IPV6CTL_DAD_COUNT IPV6CTL_DAD_PENDING IPV6CTL_DEFHLIM IPV6CTL_DEFMCASTHLIM IPV6CTL_FORWARDING IPV6CTL_FORWSRCRT IPV6CTL_HDRNESTLIMIT IPV6CTL_LOG_INTERVAL IPV6CTL_MAXDYNROUTES IPV6CTL_MAXFRAGPACKETS IPV6CTL_MAXFRAGS IPV6CTL_MAXID IPV6CTL_MAXIFDEFROUTERS IPV6CTL_MAXIFPREFIXES IPV6CTL_MCAST_PMTU IPV6CTL_MFORWARDING IPV6CTL_MRTPROTO IPV6CTL_MRTSTATS IPV6CTL_MTUDISCTIMEOUT IPV6CTL_MULTIPATH IPV6CTL_NAMES IPV6CTL_NEIGHBORGCTHRESH IPV6CTL_RR_PRUNE IPV6CTL_SENDREDIRECTS IPV6CTL_SOURCECHECK IPV6CTL_SOURCECHECK_LOGINT IPV6CTL_STATS IPV6CTL_USE_DEPRECATED IPV6CTL_V6ONLY IPV6CTL_VARS IPV6PROTO_MAXID IPV6_2292DSTOPTS IPV6_2292HOPLIMIT IPV6_2292HOPOPTS IPV6_2292NEXTHOP IPV6_2292PKTINFO IPV6_2292PKTOPTIONS IPV6_2292RTHDR IPV6_AUTH_LEVEL IPV6_AUTOFLOWLABEL IPV6_CHECKSUM IPV6_DEFAULT_MULTICAST_HOPS IPV6_DEFAULT_MULTICAST_LOOP IPV6_DONTFRAG IPV6_DSTOPTS IPV6_ESP_NETWORK_LEVEL IPV6_ESP_TRANS_LEVEL IPV6_HOPLIMIT IPV6_HOPOPTS IPV6_IPCOMP_LEVEL IPV6_JOIN_GROUP IPV6_LEAVE_GROUP IPV6_MULTICAST_HOPS IPV6_MULTICAST_IF IPV6_MULTICAST_LOOP IPV6_NEXTHOP IPV6_PATHMTU IPV6_PIPEX IPV6_PKTINFO IPV6_PORTRANGE IPV6_PORTRANGE_DEFAULT IPV6_PORTRANGE_HIGH IPV6_PORTRANGE_LOW IPV6_RECVDSTOPTS IPV6_RECVDSTPORT IPV6_RECVHOPLIMIT IPV6_RECVHOPOPTS IPV6_RECVPATHMTU IPV6_RECVPKTINFO IPV6_RECVRTHDR IPV6_RECVRTHDRDSTOPTS IPV6_RECVTCLASS IPV6_RTABLE IPV6_RTHDR IPV6_RTHDRDSTOPTS IPV6_RTHDR_LOOSE IPV6_RTHDR_TYPE_0 IPV6_TCLASS IPV6_UNICAST_HOPS IPV6_USE_MIN_MTU IPV6_V6ONLY IP_ADD_MEMBERSHIP IP_AUTH_LEVEL IP_DEFAULT_MULTICAST_LOOP IP_DEFAULT_MULTICAST_TTL IP_DIVERTFL IP_DROP_MEMBERSHIP IP_ESP_NETWORK_LEVEL IP_ESP_TRANS_LEVEL IP_HDRINCL IP_IPCOMP_LEVEL IP_IPSECFLOWINFO IP_IPSEC_LOCAL_AUTH IP_IPSEC_LOCAL_CRED IP_IPSEC_LOCAL_ID IP_IPSEC_REMOTE_AUTH IP_IPSEC_REMOTE_CRED IP_IPSEC_REMOTE_ID IP_MAX_MEMBERSHIPS IP_MINTTL IP_MIN_MEMBERSHIPS IP_MULTICAST_IF IP_MULTICAST_LOOP IP_MULTICAST_TTL IP_OPTIONS IP_PIPEX IP_PORTRANGE IP_PORTRANGE_DEFAULT IP_PORTRANGE_HIGH IP_PORTRANGE_LOW IP_RECVDSTADDR IP_RECVDSTPORT IP_RECVIF IP_RECVOPTS IP_RECVRETOPTS IP_RECVRTABLE IP_RECVTTL IP_RETOPTS IP_RTABLE IP_TOS IP_TTL ITIMER_PROF ITIMER_REAL ITIMER_VIRTUAL Ip_opts LINE_MAX LINK_MAX LITTLE_ENDIAN LLONG_MAX LLONG_MIN LOGIN_NAME_MAX LOG_ALERT LOG_AUTH LOG_AUTHPRIV LOG_CONS LOG_CRIT LOG_CRON LOG_DAEMON LOG_DEBUG LOG_EMERG LOG_ERR LOG_FAC LOG_FACMASK LOG_FTP LOG_INFO LOG_KERN LOG_LOCAL0 LOG_LOCAL1 LOG_LOCAL2 LOG_LOCAL3 LOG_LOCAL4 LOG_LOCAL5 LOG_LOCAL6 LOG_LOCAL7 LOG_LPR LOG_MAIL LOG_MASK LOG_NDELAY LOG_NEWS LOG_NFACILITIES LOG_NOTICE LOG_NOWAIT LOG_ODELAY LOG_PERROR LOG_PID LOG_PRI LOG_PRIMASK LOG_PRINTF LOG_SYSLOG LOG_UPTO LOG_USER LOG_UUCP LOG_WARNING LONG_BIT LONG_MAX LONG_MIN L_INCR L_SET L_XTND L_ctermid L_tmpnam MAINCONFIG MAX_CANON MAX_INPUT MAX_SERVER MB_CUR_MAX MB_LEN_MAX MD_SWAP MINSIGSTKSZ MSG_BCAST MSG_CTRUNC MSG_DONTROUTE MSG_DONTWAIT MSG_EOR MSG_MCAST MSG_NOSIGNAL MSG_OOB MSG_PEEK MSG_TRUNC MSG_WAITALL NAME_MAX NBBY ND6_INFINITE_LIFETIME NET_BPF_BUFSIZE NET_BPF_MAXBUFSIZE NET_BPF_MAXID NET_KEY_MAXID NET_KEY_SADB_DUMP NET_KEY_SPD_DUMP NET_MAXID NET_PFLOW_MAXID NET_PFLOW_STATS NET_RT_DUMP NET_RT_FLAGS NET_RT_IFLIST NET_RT_MAXID NET_RT_STATS NET_RT_TABLE NFDBITS NGROUPS_MAX NL_ARGMAX NL_LANGMAX NL_MSGMAX NL_NMAX NL_SETMAX NL_TEXTMAX NO_ANSI_KEYWORDS NSIG NSIGBUS NSIGCLD NSIGEMT NSIGFPE NSIGILL NSIGPOLL NSIGPROF NSIGSEGV NSIGTRAP NTOHL NTOHS NULL NZERO OPEN_MAX OpenBSD PANDORA_H PASS_MAX PATH_MAX PDP_ENDIAN PF_APPLETALK PF_BLUETOOTH PF_BPF PF_CCITT PF_CHAOS PF_CNT PF_COIP PF_DATAKIT PF_DECnet PF_DLI PF_ECMA PF_ENCAP PF_HYLINK PF_IMPLINK PF_INET PF_INET6 PF_IPX PF_ISDN PF_ISO PF_KEY PF_LAT PF_LINK PF_LOCAL PF_MAX PF_MPLS PF_NATM PF_NS PF_OSI PF_PFLOW PF_PIP PF_PIPEX PF_PUP PF_ROUTE PF_RTIP PF_SIP PF_SNA PF_UNIX PF_UNSPEC PF_XTP PIPE_BUF POLL_ERR POLL_HUP POLL_IN POLL_MSG POLL_OUT POLL_PRI POSIX_BASE_YEAR PROF_SIG PTHREAD_BARRIER_SERIAL_THREAD PTHREAD_CANCELED PTHREAD_CANCEL_ASYNCHRONOUS PTHREAD_CANCEL_DEFERRED PTHREAD_CANCEL_DISABLE PTHREAD_CANCEL_ENABLE PTHREAD_COND_INITIALIZER PTHREAD_CREATE_DETACHED PTHREAD_CREATE_JOINABLE PTHREAD_DESTRUCTOR_ITERATIONS PTHREAD_DETACHED PTHREAD_DONE_INIT PTHREAD_EXPLICIT_SCHED PTHREAD_INHERIT_SCHED PTHREAD_KEYS_MAX PTHREAD_MUTEX_DEFAULT PTHREAD_MUTEX_ERRORCHECK PTHREAD_MUTEX_INITIALIZER PTHREAD_MUTEX_NORMAL PTHREAD_MUTEX_RECURSIVE PTHREAD_MUTEX_STRICT_NP PTHREAD_MUTEX_TYPE_MAX PTHREAD_NEEDS_INIT PTHREAD_NOFLOAT PTHREAD_ONCE_INIT PTHREAD_PRIO_INHERIT PTHREAD_PRIO_NONE PTHREAD_PRIO_PROTECT PTHREAD_PROCESS_PRIVATE PTHREAD_PROCESS_SHARED PTHREAD_RWLOCK_INITIALIZER PTHREAD_SCOPE_PROCESS PTHREAD_SCOPE_SYSTEM PTHREAD_STACK_MIN PTHREAD_THREADS_MAX P_tmpdir QUAD_MAX QUAD_MIN RAND_MAX RE_DUP_MAX RINGBUFFER_H RT_TABLEID_MAX R_OK SA_LEN SA_NOCLDSTOP SA_NOCLDWAIT SA_NODEFER SA_ONSTACK SA_RESETHAND SA_RESTART SA_SIGINFO SCHAR_MAX SCHAR_MIN SCHED_FIFO SCHED_OTHER SCHED_RR SCM_RIGHTS SCM_TIMESTAMP SECDAY SECYR SEEK_CUR SEEK_END SEEK_SET SEGV_ACCERR SEGV_MAPERR SEM_FAILED SEM_VALUE_MAX SHRT_MAX SHRT_MIN SHUT_RD SHUT_RDWR SHUT_WR SIGABRT SIGALRM SIGBUS SIGCHLD SIGCONT SIGEMT SIGFPE SIGHUP SIGILL SIGINFO SIGINT SIGIO SIGIOT SIGKILL SIGPIPE SIGPROF SIGQUIT SIGSEGV SIGSTKSZ SIGSTOP SIGSYS SIGTERM SIGTHR SIGTRAP SIGTSTP SIGTTIN SIGTTOU SIGURG SIGUSR1 SIGUSR2 SIGVTALRM SIGWINCH SIGXCPU SIGXFSZ SIG_BLOCK SIG_DFL SIG_ERR SIG_IGN SIG_SETMASK SIG_UNBLOCK SIN6_LEN SIZE_MAX SIZE_T_MAX SI_FROMKERNEL SI_FROMUSER SI_LWP SI_MAXSZ SI_NOINFO SI_PAD SI_QUEUE SI_TIMER SI_USER SOCK_DGRAM SOCK_RAW SOCK_RDM SOCK_SEQPACKET SOCK_STREAM SOL_SOCKET SOMAXCONN SO_ACCEPTCONN SO_BINDANY SO_BROADCAST SO_DEBUG SO_DONTROUTE SO_ERROR SO_KEEPALIVE SO_LINGER SO_NETPROC SO_OOBINLINE SO_PEERCRED SO_RCVBUF SO_RCVLOWAT SO_RCVTIMEO SO_REUSEADDR SO_REUSEPORT SO_RTABLE SO_SNDBUF SO_SNDLOWAT SO_SNDTIMEO SO_SPLICE SO_TIMESTAMP SO_TYPE SO_USELOOPBACK SSIZE_MAX SS_DISABLE SS_ONSTACK SServerList STANDARD_PORT STDERR_FILENO STDIN_FILENO STDOUT_FILENO STRATEGY_H STRAT_DEFAULT STRAT_LEN SV_INTERRUPT SV_ONSTACK SV_RESETHAND SYMLINK_MAX SYMLOOP_MAX SYSLOG_DATA_INIT SYSLOG_NAMES TARGET_CODE TARG_IFACE TARG_ILL TARG_PORT TIMER_ABSTIME TIMER_RELTIME TIMESPEC_TO_TIMEVAL TIMEVAL_TO_TIMESPEC TMP_MAX TOBCD TRAP_BRKPT TRAP_TRACE TTY_NAME_MAX UCHAR_MAX UID_MAX UINT32_MAX UINT64_MAX UINT_MAX ULLONG_MAX ULONG_MAX UQUAD_MAX USHRT_MAX VERSION WORD_BIT W_OK X_OK _ALIGN _ALIGNBYTES _ALIGNED_POINTER _ANSI_LIBRARY _ANSI_SOURCE _B _BIG_ENDIAN _BSD_SOURCE _BYTE_ORDER _Bool _C _CLOCKID_T_DEFINED_ _CLOCK_T_DEFINED_ _CS_PATH _CS_POSIX_V6_ILP32_OFF32_CFLAGS _CS_POSIX_V6_ILP32_OFF32_LDFLAGS _CS_POSIX_V6_ILP32_OFF32_LIBS _CS_POSIX_V6_ILP32_OFFBIG_CFLAGS _CS_POSIX_V6_ILP32_OFFBIG_LDFLAGS _CS_POSIX_V6_ILP32_OFFBIG_LIBS _CS_POSIX_V6_LP64_OFF64_CFLAGS _CS_POSIX_V6_LP64_OFF64_LDFLAGS _CS_POSIX_V6_LP64_OFF64_LIBS _CS_POSIX_V6_LPBIG_OFFBIG_CFLAGS _CS_POSIX_V6_LPBIG_OFFBIG_LDFLAGS _CS_POSIX_V6_LPBIG_OFFBIG_LIBS _CS_POSIX_V6_WIDTH_RESTRICTED_ENVS _CS_POSIX_V7_ILP32_OFF32_CFLAGS _CS_POSIX_V7_ILP32_OFF32_LDFLAGS _CS_POSIX_V7_ILP32_OFF32_LIBS _CS_POSIX_V7_ILP32_OFFBIG_CFLAGS _CS_POSIX_V7_ILP32_OFFBIG_LDFLAGS _CS_POSIX_V7_ILP32_OFFBIG_LIBS _CS_POSIX_V7_LP64_OFF64_CFLAGS _CS_POSIX_V7_LP64_OFF64_LDFLAGS _CS_POSIX_V7_LP64_OFF64_LIBS _CS_POSIX_V7_LPBIG_OFFBIG_CFLAGS _CS_POSIX_V7_LPBIG_OFFBIG_LDFLAGS _CS_POSIX_V7_LPBIG_OFFBIG_LIBS _CS_POSIX_V7_THREADS_CFLAGS _CS_POSIX_V7_THREADS_LDFLAGS _CS_POSIX_V7_WIDTH_RESTRICTED_ENVS _CS_V6_ENV _CS_V7_ENV _CTYPE_H_ _Complex _Exit _FSTDIO _GETOPT_DEFINED_ _INET_H_ _INT16_T_DEFINED_ _INT32_T_DEFINED_ _INT64_T_DEFINED_ _INT8_T_DEFINED_ _IN_ADDR_DECLARED _IOFBF _IOLBF _IONBF _ISOC99_SOURCE _KERNEL _L _LIMITS_H_ _LITTLE_ENDIAN _MACHINE_CDEFS_H_ _MACHINE_ENDIAN_H_ _MACHINE_LIMITS_H_ _MACHINE_SIGNAL_H_ _MACHINE__TYPES_H_ _N _NETINET6_IN6_H_ _NETINET_IN_H_ _NSIG _OFF_T_DEFINED_ _P _PATH_LOG _PC_2_SYMLINKS _PC_ALLOC_SIZE_MIN _PC_ASYNC_IO _PC_CHOWN_RESTRICTED _PC_FILESIZEBITS _PC_LINK_MAX _PC_MAX_CANON _PC_MAX_INPUT _PC_NAME_MAX _PC_NO_TRUNC _PC_PATH_MAX _PC_PIPE_BUF _PC_PRIO_IO _PC_REC_INCR_XFER_SIZE _PC_REC_MAX_XFER_SIZE _PC_REC_MIN_XFER_SIZE _PC_REC_XFER_ALIGN _PC_SYMLINK_MAX _PC_SYNC_IO _PC_TIMESTAMP_RESOLUTION _PC_VDISABLE _PDP_ENDIAN _PID_T_DEFINED_ _POSIX2_BC_BASE_MAX _POSIX2_BC_DIM_MAX _POSIX2_BC_SCALE_MAX _POSIX2_BC_STRING_MAX _POSIX2_CHARCLASS_NAME_MAX _POSIX2_CHAR_TERM _POSIX2_COLL_WEIGHTS_MAX _POSIX2_C_BIND _POSIX2_C_DEV _POSIX2_EXPR_NEST_MAX _POSIX2_FORT_DEV _POSIX2_FORT_RUN _POSIX2_LINE_MAX _POSIX2_LOCALEDEF _POSIX2_PBS _POSIX2_PBS_ACCOUNTING _POSIX2_PBS_CHECKPOINT _POSIX2_PBS_LOCATE _POSIX2_PBS_MESSAGE _POSIX2_PBS_TRACK _POSIX2_RE_DUP_MAX _POSIX2_SW_DEV _POSIX2_UPE _POSIX2_VERSION _POSIX_ADVISORY_INFO _POSIX_ARG_MAX _POSIX_ASYNCHRONOUS_IO _POSIX_ASYNC_IO _POSIX_BARRIERS _POSIX_CHILD_MAX _POSIX_CHOWN_RESTRICTED _POSIX_CLOCKRES_MIN _POSIX_CLOCK_SELECTION _POSIX_CPUTIME _POSIX_C_SOURCE _POSIX_FSYNC _POSIX_HOST_NAME_MAX _POSIX_IPV6 _POSIX_JOB_CONTROL _POSIX_LINK_MAX _POSIX_LOGIN_NAME_MAX _POSIX_MAPPED_FILES _POSIX_MAX_CANON _POSIX_MAX_INPUT _POSIX_MEMLOCK _POSIX_MEMLOCK_RANGE _POSIX_MEMORY_PROTECTION _POSIX_MESSAGE_PASSING _POSIX_MONOTONIC_CLOCK _POSIX_NAME_MAX _POSIX_NGROUPS_MAX _POSIX_NO_TRUNC _POSIX_OPEN_MAX _POSIX_PATH_MAX _POSIX_PIPE_BUF _POSIX_PRIORITIZED_IO _POSIX_PRIORITY_SCHEDULING _POSIX_PRIO_IO _POSIX_RAW_SOCKETS _POSIX_READER_WRITER_LOCKS _POSIX_REALTIME_SIGNALS _POSIX_REGEXP _POSIX_RE_DUP_MAX _POSIX_SAVED_IDS _POSIX_SEMAPHORES _POSIX_SEM_NSEMS_MAX _POSIX_SEM_VALUE_MAX _POSIX_SHARED_MEMORY_OBJECTS _POSIX_SHELL _POSIX_SOURCE _POSIX_SPAWN _POSIX_SPIN_LOCKS _POSIX_SPORADIC_SERVER _POSIX_SSIZE_MAX _POSIX_STREAM_MAX _POSIX_SYMLINK_MAX _POSIX_SYMLOOP_MAX _POSIX_SYNCHRONIZED_IO _POSIX_SYNC_IO _POSIX_THREADS _POSIX_THREAD_ATTR_STACKADDR _POSIX_THREAD_ATTR_STACKSIZE _POSIX_THREAD_CPUTIME _POSIX_THREAD_DESTRUCTOR_ITERATIONS _POSIX_THREAD_KEYS_MAX _POSIX_THREAD_PRIORITY_SCHEDULING _POSIX_THREAD_PRIO_INHERIT _POSIX_THREAD_PRIO_PROTECT _POSIX_THREAD_PROCESS_SHARED _POSIX_THREAD_ROBUST_PRIO_INHERIT _POSIX_THREAD_ROBUST_PRIO_PROTECT _POSIX_THREAD_SAFE_FUNCTIONS _POSIX_THREAD_SPORADIC_SERVER _POSIX_THREAD_THREADS_MAX _POSIX_TIMEOUTS _POSIX_TIMERS _POSIX_TRACE _POSIX_TRACE_EVENT_FILTER _POSIX_TRACE_INHERIT _POSIX_TRACE_LOG _POSIX_TTY_NAME_MAX _POSIX_TYPED_MEMORY_OBJECTS _POSIX_TZNAME_MAX _POSIX_V6_ILP32_OFF32 _POSIX_V6_ILP32_OFFBIG _POSIX_V6_LP64_OFF64 _POSIX_V6_LPBIG_OFFBIG _POSIX_V7_ILP32_OFF32 _POSIX_V7_ILP32_OFFBIG _POSIX_V7_LP64_OFF64 _POSIX_V7_LPBIG_OFFBIG _POSIX_VDISABLE _POSIX_VERSION _PTHREAD_H_ _QUAD_HIGHWORD _QUAD_LOWWORD _REENTRANT _S _SA_FAMILY_T_DEFINED_ _SCHED_H_ _SC_2_CHAR_TERM _SC_2_C_BIND _SC_2_C_DEV _SC_2_FORT_DEV _SC_2_FORT_RUN _SC_2_LOCALEDEF _SC_2_PBS _SC_2_PBS_ACCOUNTING _SC_2_PBS_CHECKPOINT _SC_2_PBS_LOCATE _SC_2_PBS_MESSAGE _SC_2_PBS_TRACK _SC_2_SW_DEV _SC_2_UPE _SC_2_VERSION _SC_ADVISORY_INFO _SC_AIO_LISTIO_MAX _SC_AIO_MAX _SC_AIO_PRIO_DELTA_MAX _SC_ARG_MAX _SC_ASYNCHRONOUS_IO _SC_ATEXIT_MAX _SC_AVPHYS_PAGES _SC_BARRIERS _SC_BC_BASE_MAX _SC_BC_DIM_MAX _SC_BC_SCALE_MAX _SC_BC_STRING_MAX _SC_CHILD_MAX _SC_CLK_TCK _SC_CLOCK_SELECTION _SC_COLL_WEIGHTS_MAX _SC_CPUTIME _SC_DELAYTIMER_MAX _SC_EXPR_NEST_MAX _SC_FSYNC _SC_GETGR_R_SIZE_MAX _SC_GETPW_R_SIZE_MAX _SC_HOST_NAME_MAX _SC_IOV_MAX _SC_IPV6 _SC_JOB_CONTROL _SC_LINE_MAX _SC_LOGIN_NAME_MAX _SC_MAPPED_FILES _SC_MEMLOCK _SC_MEMLOCK_RANGE _SC_MEMORY_PROTECTION _SC_MESSAGE_PASSING _SC_MONOTONIC_CLOCK _SC_MQ_OPEN_MAX _SC_MQ_PRIO_MAX _SC_NGROUPS_MAX _SC_NPROCESSORS_CONF _SC_NPROCESSORS_ONLN _SC_OPEN_MAX _SC_PAGESIZE _SC_PAGE_SIZE _SC_PHYS_PAGES _SC_PRIORITIZED_IO _SC_PRIORITY_SCHEDULING _SC_RAW_SOCKETS _SC_READER_WRITER_LOCKS _SC_REALTIME_SIGNALS _SC_REGEXP _SC_RE_DUP_MAX _SC_RTSIG_MAX _SC_SAVED_IDS _SC_SEMAPHORES _SC_SEM_NSEMS_MAX _SC_SEM_VALUE_MAX _SC_SHARED_MEMORY_OBJECTS _SC_SHELL _SC_SIGQUEUE_MAX _SC_SPAWN _SC_SPIN_LOCKS _SC_SPORADIC_SERVER _SC_SS_REPL_MAX _SC_STREAM_MAX _SC_SYMLOOP_MAX _SC_SYNCHRONIZED_IO _SC_THREADS _SC_THREAD_ATTR_STACKADDR _SC_THREAD_ATTR_STACKSIZE _SC_THREAD_CPUTIME _SC_THREAD_DESTRUCTOR_ITERATIONS _SC_THREAD_KEYS_MAX _SC_THREAD_PRIORITY_SCHEDULING _SC_THREAD_PRIO_INHERIT _SC_THREAD_PRIO_PROTECT _SC_THREAD_PROCESS_SHARED _SC_THREAD_ROBUST_PRIO_INHERIT _SC_THREAD_ROBUST_PRIO_PROTECT _SC_THREAD_SAFE_FUNCTIONS _SC_THREAD_SPORADIC_SERVER _SC_THREAD_STACK_MIN _SC_THREAD_THREADS_MAX _SC_TIMEOUTS _SC_TIMERS _SC_TIMER_MAX _SC_TRACE _SC_TRACE_EVENT_FILTER _SC_TRACE_EVENT_NAME_MAX _SC_TRACE_INHERIT _SC_TRACE_LOG _SC_TRACE_NAME_MAX _SC_TRACE_SYS_MAX _SC_TRACE_USER_EVENT_MAX _SC_TTY_NAME_MAX _SC_TYPED_MEMORY_OBJECTS _SC_TZNAME_MAX _SC_V6_ILP32_OFF32 _SC_V6_ILP32_OFFBIG _SC_V6_LP64_OFF64 _SC_V6_LPBIG_OFFBIG _SC_V7_ILP32_OFF32 _SC_V7_ILP32_OFFBIG _SC_V7_LP64_OFF64 _SC_V7_LPBIG_OFFBIG _SC_VERSION _SC_XOPEN_CRYPT _SC_XOPEN_ENH_I18N _SC_XOPEN_LEGACY _SC_XOPEN_REALTIME _SC_XOPEN_REALTIME_THREADS _SC_XOPEN_SHM _SC_XOPEN_STREAMS _SC_XOPEN_UNIX _SC_XOPEN_UUCP _SC_XOPEN_VERSION _SELECT_DEFINED_ _SEMAPHORE_H_ _SIGSET_T_DEFINED_ _SIZE_T_DEFINED_ _SOCKLEN_T_DEFINED_ _SSIZE_T_DEFINED_ _STACKALIGNBYTES _STANDALONE _STDIO_H_ _STDLIB_H_ _STRING_H_ _SYS_CDEFS_H_ _SYS_ENDIAN_H_ _SYS_LIMITS_H_ _SYS_SELECT_H_ _SYS_SIGINFO_H _SYS_SIGNAL_H_ _SYS_SOCKET_H_ _SYS_SYSLOG_H_ _SYS_TIME_H_ _SYS_TYPES_H_ _SYS_UNISTD_H_ _SYS__TIME_H_ _SYS__TYPES_H_ _TIMER_T_DEFINED_ _TIMESPEC_DECLARED _TIME_H_ _TIME_T_DEFINED_ _U _UINT16_T_DEFINED_ _UINT32_T_DEFINED_ _UINT64_T_DEFINED_ _UINT8_T_DEFINED_ _UNISTD_H_ _USER_SIGNAL_H _Unwind_SjLj_Register _Unwind_SjLj_Unregister _WCHAR_T_DEFINED_ _X _XOPEN_CRYPT _XOPEN_ENH_I18N _XOPEN_IOV_MAX _XOPEN_LEGACY _XOPEN_NAME_MAX _XOPEN_PATH_MAX _XOPEN_REALTIME _XOPEN_REALTIME_THREADS _XOPEN_SHM _XOPEN_SOURCE _XOPEN_SOURCE_EXTENDED _XOPEN_STREAMS _XOPEN_UNIX _XOPEN_UUCP _XOPEN_VERSION __BEGIN_DECLS __BEGIN_EXTERN_C __BEGIN_HIDDEN_DECLS __BEGIN_PUBLIC_DECLS __BIT_TYPES_DEFINED__ __BSD_VISIBLE __CHAR_UNSIGNED__ __CLOCK_ENCODE __CLOCK_PTID __CLOCK_TYPE __CLOCK_USE_TICKET_LOCKS __CONCAT __DBL_DIG __DBL_MAX __DBL_MIN __END_DECLS __END_EXTERN_C __END_HIDDEN_DECLS __END_PUBLIC_DECLS __FLT_DIG __FLT_MAX __FLT_MIN __FUNCTION__ __GNUC_PREREQ__ __GNUG__ __INT_FAST16_MAX __INT_FAST16_MIN __INT_FAST32_MAX __INT_FAST32_MIN __INT_FAST64_MAX __INT_FAST64_MIN __INT_FAST8_MAX __INT_FAST8_MIN __IPADDR __IPV6_ADDR_INT16_MLL __IPV6_ADDR_INT16_ULL __IPV6_ADDR_INT16_USL __IPV6_ADDR_INT32_MLL __IPV6_ADDR_INT32_MNL __IPV6_ADDR_INT32_ONE __IPV6_ADDR_INT32_SMP __IPV6_ADDR_INT32_TWO __IPV6_ADDR_MC_SCOPE __IPV6_ADDR_SCOPE_GLOBAL __IPV6_ADDR_SCOPE_INTFACELOCAL __IPV6_ADDR_SCOPE_LINKLOCAL __IPV6_ADDR_SCOPE_NODELOCAL __IPV6_ADDR_SCOPE_ORGLOCAL __IPV6_ADDR_SCOPE_SITELOCAL __ISO_C_VISIBLE __KAME_NETINET_IN_H_INCLUDED_ __KAME__ __NBBY __NFDBITS __P __PCC__ __POSIX_VISIBLE __PRETTY_FUNCTION__ __SALC __SAPP __SEOF __SERR __SIGN __SLBF __SMBF __SMOD __SNBF __SNPT __SOFF __SOPT __SRD __SRW __SSTR __STRING __SWR __SYS_ERRLIST __UINT_FAST16_MAX __UINT_FAST32_MAX __UINT_FAST64_MAX __UINT_FAST8_MAX __VA_ARGS__ __XPG_VISIBLE __adddd3 __adddf3 __adddi3 __addsd3 __addsf3 __addtd3 __addtf3 __addti3 __addvdi3 __addvti3 __addxf3 __alignof __alignof__ __anddi3 __andti3 __ashldi3 __ashlti3 __ashrdi3 __ashrti3 __asm __asm__ __attribute __attribute__ __bool_true_false_are_defined __bounded__ __buffer__ __builtin__Exit __builtin___fprintf_chk __builtin___memcpy_chk __builtin___memmove_chk __builtin___mempcpy_chk __builtin___memset_chk __builtin___printf_chk __builtin___snprintf_chk __builtin___sprintf_chk __builtin___stpcpy_chk __builtin___strcat_chk __builtin___strcpy_chk __builtin___strncat_chk __builtin___strncpy_chk __builtin___vfprintf_chk __builtin___vprintf_chk __builtin___vsnprintf_chk __builtin___vsprintf_chk __builtin__exit __builtin_abort __builtin_abs __builtin_acos __builtin_acosf __builtin_acosh __builtin_acoshf __builtin_acoshl __builtin_acosl __builtin_adjust_trampoline __builtin_aggregate_incoming_address __builtin_alloca __builtin_apply __builtin_apply_args __builtin_args_info __builtin_asin __builtin_asinf __builtin_asinh __builtin_asinhf __builtin_asinhl __builtin_asinl __builtin_atan __builtin_atan2 __builtin_atan2f __builtin_atan2l __builtin_atanf __builtin_atanh __builtin_atanhf __builtin_atanhl __builtin_atanl __builtin_bcmp __builtin_bcopy __builtin_bzero __builtin_cabs __builtin_cabsf __builtin_cabsl __builtin_cacos __builtin_cacosf __builtin_cacosh __builtin_cacoshf __builtin_cacoshl __builtin_cacosl __builtin_calloc __builtin_carg __builtin_cargf __builtin_cargl __builtin_casin __builtin_casinf __builtin_casinh __builtin_casinhf __builtin_casinhl __builtin_casinl __builtin_catan __builtin_catanf __builtin_catanh __builtin_catanhf __builtin_catanhl __builtin_catanl __builtin_cbrt __builtin_cbrtf __builtin_cbrtl __builtin_ccos __builtin_ccosf __builtin_ccosh __builtin_ccoshf __builtin_ccoshl __builtin_ccosl __builtin_ceil __builtin_ceilf __builtin_ceill __builtin_cexp __builtin_cexpf __builtin_cexpl __builtin_choose_expr __builtin_cimag __builtin_cimagf __builtin_cimagl __builtin_classify_type __builtin_clog __builtin_clog10 __builtin_clog10f __builtin_clog10l __builtin_clogf __builtin_clogl __builtin_clz __builtin_clzimax __builtin_clzl __builtin_clzll __builtin_conj __builtin_conjf __builtin_conjl __builtin_constant_p __builtin_copysign __builtin_copysignf __builtin_copysignl __builtin_cos __builtin_cosf __builtin_cosh __builtin_coshf __builtin_coshl __builtin_cosl __builtin_cpow __builtin_cpowf __builtin_cpowl __builtin_cproj __builtin_cprojf __builtin_cprojl __builtin_creal __builtin_crealf __builtin_creall __builtin_csin __builtin_csinf __builtin_csinh __builtin_csinhf __builtin_csinhl __builtin_csinl __builtin_csqrt __builtin_csqrtf __builtin_csqrtl __builtin_ctan __builtin_ctanf __builtin_ctanh __builtin_ctanhf __builtin_ctanhl __builtin_ctanl __builtin_ctz __builtin_ctzimax __builtin_ctzl __builtin_ctzll __builtin_dcgettext __builtin_dgettext __builtin_drem __builtin_dremf __builtin_dreml __builtin_dwarf_cfa __builtin_dwarf_sp_column __builtin_eh_return __builtin_eh_return_data_regno __builtin_erf __builtin_erfc __builtin_erfcf __builtin_erfcl __builtin_erff __builtin_erfl __builtin_execl __builtin_execle __builtin_execlp __builtin_execv __builtin_execve __builtin_execvp __builtin_exit __builtin_exp __builtin_exp10 __builtin_exp10f __builtin_exp10l __builtin_exp2 __builtin_exp2f __builtin_exp2l __builtin_expect __builtin_expf __builtin_expl __builtin_expm1 __builtin_expm1f __builtin_expm1l __builtin_extend_pointer __builtin_extract_return_addr __builtin_fabs __builtin_fabsf __builtin_fabsl __builtin_fdim __builtin_fdimf __builtin_fdiml __builtin_ffs __builtin_ffsimax __builtin_ffsl __builtin_ffsll __builtin_finite __builtin_finited128 __builtin_finited32 __builtin_finited64 __builtin_finitef __builtin_finitel __builtin_floor __builtin_floorf __builtin_floorl __builtin_fma __builtin_fmaf __builtin_fmal __builtin_fmax __builtin_fmaxf __builtin_fmaxl __builtin_fmin __builtin_fminf __builtin_fminl __builtin_fmod __builtin_fmodf __builtin_fmodl __builtin_fork __builtin_fprintf __builtin_fprintf_unlocked __builtin_fputc __builtin_fputc_unlocked __builtin_fputs __builtin_fputs_unlocked __builtin_frame_address __builtin_frexp __builtin_frexpf __builtin_frexpl __builtin_frob_return_addr __builtin_fscanf __builtin_fwrite __builtin_fwrite_unlocked __builtin_gamma __builtin_gammaf __builtin_gammal __builtin_gettext __builtin_huge_val __builtin_huge_valf __builtin_huge_vall __builtin_hypot __builtin_hypotf __builtin_hypotl __builtin_ia32_addpd __builtin_ia32_addps __builtin_ia32_addsd __builtin_ia32_addss __builtin_ia32_andnpd __builtin_ia32_andnps __builtin_ia32_andpd __builtin_ia32_andps __builtin_ia32_clflush __builtin_ia32_cmpeqpd __builtin_ia32_cmpeqps __builtin_ia32_cmpeqsd __builtin_ia32_cmpeqss __builtin_ia32_cmpgepd __builtin_ia32_cmpgeps __builtin_ia32_cmpgtpd __builtin_ia32_cmpgtps __builtin_ia32_cmplepd __builtin_ia32_cmpleps __builtin_ia32_cmplesd __builtin_ia32_cmpless __builtin_ia32_cmpltpd __builtin_ia32_cmpltps __builtin_ia32_cmpltsd __builtin_ia32_cmpltss __builtin_ia32_cmpneqpd __builtin_ia32_cmpneqps __builtin_ia32_cmpneqsd __builtin_ia32_cmpneqss __builtin_ia32_cmpngepd __builtin_ia32_cmpngeps __builtin_ia32_cmpngess __builtin_ia32_cmpngtpd __builtin_ia32_cmpngtps __builtin_ia32_cmpngtss __builtin_ia32_cmpnlepd __builtin_ia32_cmpnleps __builtin_ia32_cmpnlesd __builtin_ia32_cmpnless __builtin_ia32_cmpnltpd __builtin_ia32_cmpnltps __builtin_ia32_cmpnltsd __builtin_ia32_cmpnltss __builtin_ia32_cmpordpd __builtin_ia32_cmpordps __builtin_ia32_cmpordsd __builtin_ia32_cmpordss __builtin_ia32_cmpunordpd __builtin_ia32_cmpunordps __builtin_ia32_cmpunordsd __builtin_ia32_cmpunordss __builtin_ia32_comieq __builtin_ia32_comige __builtin_ia32_comigt __builtin_ia32_comile __builtin_ia32_comilt __builtin_ia32_comineq __builtin_ia32_comisdeq __builtin_ia32_comisdge __builtin_ia32_comisdgt __builtin_ia32_comisdle __builtin_ia32_comisdlt __builtin_ia32_comisdneq __builtin_ia32_cvtdq2pd __builtin_ia32_cvtdq2ps __builtin_ia32_cvtpd2dq __builtin_ia32_cvtpd2pi __builtin_ia32_cvtpd2ps __builtin_ia32_cvtpi2pd __builtin_ia32_cvtpi2ps __builtin_ia32_cvtps2dq __builtin_ia32_cvtps2pd __builtin_ia32_cvtps2pi __builtin_ia32_cvtsd2si __builtin_ia32_cvtsd2si64 __builtin_ia32_cvtsd2ss __builtin_ia32_cvtsi2sd __builtin_ia32_cvtsi2ss __builtin_ia32_cvtsi642sd __builtin_ia32_cvtsi642ss __builtin_ia32_cvtss2sd __builtin_ia32_cvtss2si __builtin_ia32_cvtss2si64 __builtin_ia32_cvttpd2dq __builtin_ia32_cvttpd2pi __builtin_ia32_cvttps2dq __builtin_ia32_cvttps2pi __builtin_ia32_cvttsd2si __builtin_ia32_cvttsd2si64 __builtin_ia32_cvttss2si __builtin_ia32_cvttss2si64 __builtin_ia32_divpd __builtin_ia32_divps __builtin_ia32_divsd __builtin_ia32_divss __builtin_ia32_emms __builtin_ia32_ldmxcsr __builtin_ia32_lfence __builtin_ia32_loaddqu __builtin_ia32_loadhpd __builtin_ia32_loadhps __builtin_ia32_loadlpd __builtin_ia32_loadlps __builtin_ia32_loadupd __builtin_ia32_loadups __builtin_ia32_maskmovdqu __builtin_ia32_maskmovq __builtin_ia32_maxpd __builtin_ia32_maxps __builtin_ia32_maxsd __builtin_ia32_maxss __builtin_ia32_mfence __builtin_ia32_minpd __builtin_ia32_minps __builtin_ia32_minsd __builtin_ia32_minss __builtin_ia32_movhlps __builtin_ia32_movlhps __builtin_ia32_movmskpd __builtin_ia32_movmskps __builtin_ia32_movntdq __builtin_ia32_movnti __builtin_ia32_movntpd __builtin_ia32_movntps __builtin_ia32_movntq __builtin_ia32_movsd __builtin_ia32_movss __builtin_ia32_mulpd __builtin_ia32_mulps __builtin_ia32_mulsd __builtin_ia32_mulss __builtin_ia32_orpd __builtin_ia32_orps __builtin_ia32_packssdw __builtin_ia32_packssdw128 __builtin_ia32_packsswb __builtin_ia32_packsswb128 __builtin_ia32_packuswb __builtin_ia32_packuswb128 __builtin_ia32_paddb __builtin_ia32_paddb128 __builtin_ia32_paddd __builtin_ia32_paddd128 __builtin_ia32_paddq __builtin_ia32_paddq128 __builtin_ia32_paddsb __builtin_ia32_paddsb128 __builtin_ia32_paddsw __builtin_ia32_paddsw128 __builtin_ia32_paddusb __builtin_ia32_paddusb128 __builtin_ia32_paddusw __builtin_ia32_paddusw128 __builtin_ia32_paddw __builtin_ia32_paddw128 __builtin_ia32_pand __builtin_ia32_pand128 __builtin_ia32_pandn __builtin_ia32_pandn128 __builtin_ia32_pavgb __builtin_ia32_pavgb128 __builtin_ia32_pavgw __builtin_ia32_pavgw128 __builtin_ia32_pcmpeqb __builtin_ia32_pcmpeqb128 __builtin_ia32_pcmpeqd __builtin_ia32_pcmpeqd128 __builtin_ia32_pcmpeqw __builtin_ia32_pcmpeqw128 __builtin_ia32_pcmpgtb __builtin_ia32_pcmpgtb128 __builtin_ia32_pcmpgtd __builtin_ia32_pcmpgtd128 __builtin_ia32_pcmpgtw __builtin_ia32_pcmpgtw128 __builtin_ia32_pmaddwd __builtin_ia32_pmaddwd128 __builtin_ia32_pmaxsw __builtin_ia32_pmaxsw128 __builtin_ia32_pmaxub __builtin_ia32_pmaxub128 __builtin_ia32_pminsw __builtin_ia32_pminsw128 __builtin_ia32_pminub __builtin_ia32_pminub128 __builtin_ia32_pmovmskb __builtin_ia32_pmovmskb128 __builtin_ia32_pmulhuw __builtin_ia32_pmulhuw128 __builtin_ia32_pmulhw __builtin_ia32_pmulhw128 __builtin_ia32_pmullw __builtin_ia32_pmullw128 __builtin_ia32_pmuludq __builtin_ia32_pmuludq128 __builtin_ia32_por __builtin_ia32_por128 __builtin_ia32_psadbw __builtin_ia32_psadbw128 __builtin_ia32_pshufd __builtin_ia32_pshufhw __builtin_ia32_pshuflw __builtin_ia32_pshufw __builtin_ia32_pslld __builtin_ia32_pslld128 __builtin_ia32_pslldi128 __builtin_ia32_pslldqi128 __builtin_ia32_psllq __builtin_ia32_psllq128 __builtin_ia32_psllqi128 __builtin_ia32_psllw __builtin_ia32_psllw128 __builtin_ia32_psllwi128 __builtin_ia32_psrad __builtin_ia32_psrad128 __builtin_ia32_psradi128 __builtin_ia32_psraw __builtin_ia32_psraw128 __builtin_ia32_psrawi128 __builtin_ia32_psrld __builtin_ia32_psrld128 __builtin_ia32_psrldi128 __builtin_ia32_psrldqi128 __builtin_ia32_psrlq __builtin_ia32_psrlq128 __builtin_ia32_psrlqi128 __builtin_ia32_psrlw __builtin_ia32_psrlw128 __builtin_ia32_psrlwi128 __builtin_ia32_psubb __builtin_ia32_psubb128 __builtin_ia32_psubd __builtin_ia32_psubd128 __builtin_ia32_psubq __builtin_ia32_psubq128 __builtin_ia32_psubsb __builtin_ia32_psubsb128 __builtin_ia32_psubsw __builtin_ia32_psubsw128 __builtin_ia32_psubusb __builtin_ia32_psubusb128 __builtin_ia32_psubusw __builtin_ia32_psubusw128 __builtin_ia32_psubw __builtin_ia32_psubw128 __builtin_ia32_punpckhbw __builtin_ia32_punpckhbw128 __builtin_ia32_punpckhdq __builtin_ia32_punpckhdq128 __builtin_ia32_punpckhqdq128 __builtin_ia32_punpckhwd __builtin_ia32_punpckhwd128 __builtin_ia32_punpcklbw __builtin_ia32_punpcklbw128 __builtin_ia32_punpckldq __builtin_ia32_punpckldq128 __builtin_ia32_punpcklqdq128 __builtin_ia32_punpcklwd __builtin_ia32_punpcklwd128 __builtin_ia32_pxor __builtin_ia32_pxor128 __builtin_ia32_rcpps __builtin_ia32_rcpss __builtin_ia32_rsqrtps __builtin_ia32_rsqrtss __builtin_ia32_sfence __builtin_ia32_shufpd __builtin_ia32_shufps __builtin_ia32_sqrtpd __builtin_ia32_sqrtps __builtin_ia32_sqrtsd __builtin_ia32_sqrtss __builtin_ia32_stmxcsr __builtin_ia32_storedqu __builtin_ia32_storehps __builtin_ia32_storelps __builtin_ia32_storeupd __builtin_ia32_storeups __builtin_ia32_subpd __builtin_ia32_subps __builtin_ia32_subsd __builtin_ia32_subss __builtin_ia32_ucomieq __builtin_ia32_ucomige __builtin_ia32_ucomigt __builtin_ia32_ucomile __builtin_ia32_ucomilt __builtin_ia32_ucomineq __builtin_ia32_ucomisdeq __builtin_ia32_ucomisdge __builtin_ia32_ucomisdgt __builtin_ia32_ucomisdle __builtin_ia32_ucomisdlt __builtin_ia32_ucomisdneq __builtin_ia32_unpckhpd __builtin_ia32_unpckhps __builtin_ia32_unpcklpd __builtin_ia32_unpcklps __builtin_ia32_vec_ext_v16qi __builtin_ia32_vec_ext_v2df __builtin_ia32_vec_ext_v2di __builtin_ia32_vec_ext_v2si __builtin_ia32_vec_ext_v4hi __builtin_ia32_vec_ext_v4sf __builtin_ia32_vec_ext_v4si __builtin_ia32_vec_ext_v8hi __builtin_ia32_vec_init_v2si __builtin_ia32_vec_init_v4hi __builtin_ia32_vec_init_v8qi __builtin_ia32_vec_set_v4hi __builtin_ia32_vec_set_v8hi __builtin_ia32_xorpd __builtin_ia32_xorps __builtin_ilogb __builtin_ilogbf __builtin_ilogbl __builtin_imaxabs __builtin_index __builtin_inf __builtin_infd128 __builtin_infd32 __builtin_infd64 __builtin_inff __builtin_infl __builtin_init_dwarf_reg_size_table __builtin_init_trampoline __builtin_isalnum __builtin_isalpha __builtin_isascii __builtin_isblank __builtin_iscntrl __builtin_isdigit __builtin_isgraph __builtin_isgreater __builtin_isgreaterequal __builtin_isinf __builtin_isinfd128 __builtin_isinfd32 __builtin_isinfd64 __builtin_isinff __builtin_isinfl __builtin_isless __builtin_islessequal __builtin_islessgreater __builtin_islower __builtin_isnan __builtin_isnand128 __builtin_isnand32 __builtin_isnand64 __builtin_isnanf __builtin_isnanl __builtin_isprint __builtin_ispunct __builtin_isspace __builtin_isunordered __builtin_isupper __builtin_iswalnum __builtin_iswalpha __builtin_iswblank __builtin_iswcntrl __builtin_iswdigit __builtin_iswgraph __builtin_iswlower __builtin_iswprint __builtin_iswpunct __builtin_iswspace __builtin_iswupper __builtin_iswxdigit __builtin_isxdigit __builtin_j0 __builtin_j0f __builtin_j0l __builtin_j1 __builtin_j1f __builtin_j1l __builtin_jn __builtin_jnf __builtin_jnl __builtin_labs __builtin_lceil __builtin_lceilf __builtin_lceill __builtin_ldexp __builtin_ldexpf __builtin_ldexpl __builtin_lfloor __builtin_lfloorf __builtin_lfloorl __builtin_lgamma __builtin_lgammaf __builtin_lgammal __builtin_llabs __builtin_llceil __builtin_llceilf __builtin_llceill __builtin_llfloor __builtin_llfloorf __builtin_llfloorl __builtin_llrint __builtin_llrintf __builtin_llrintl __builtin_llround __builtin_llroundf __builtin_llroundl __builtin_log __builtin_log10 __builtin_log10f __builtin_log10l __builtin_log1p __builtin_log1pf __builtin_log1pl __builtin_log2 __builtin_log2f __builtin_log2l __builtin_logb __builtin_logbf __builtin_logbl __builtin_logf __builtin_logl __builtin_longjmp __builtin_lrint __builtin_lrintf __builtin_lrintl __builtin_lround __builtin_lroundf __builtin_lroundl __builtin_malloc __builtin_memcmp __builtin_memcpy __builtin_memmove __builtin_mempcpy __builtin_memset __builtin_modf __builtin_modff __builtin_modfl __builtin_nan __builtin_nand128 __builtin_nand32 __builtin_nand64 __builtin_nanf __builtin_nanl __builtin_nans __builtin_nansf __builtin_nansl __builtin_nearbyint __builtin_nearbyintf __builtin_nearbyintl __builtin_next_arg __builtin_nextafter __builtin_nextafterf __builtin_nextafterl __builtin_nexttoward __builtin_nexttowardf __builtin_nexttowardl __builtin_nonlocal_goto __builtin_object_size __builtin_offsetof __builtin_parity __builtin_parityimax __builtin_parityl __builtin_parityll __builtin_popcount __builtin_popcountimax __builtin_popcountl __builtin_popcountll __builtin_pow __builtin_pow10 __builtin_pow10f __builtin_pow10l __builtin_powf __builtin_powi __builtin_powif __builtin_powil __builtin_powl __builtin_prefetch __builtin_printf __builtin_printf_unlocked __builtin_profile_func_enter __builtin_profile_func_exit __builtin_putc __builtin_putc_unlocked __builtin_putchar __builtin_putchar_unlocked __builtin_puts __builtin_puts_unlocked __builtin_remainder __builtin_remainderf __builtin_remainderl __builtin_remquo __builtin_remquof __builtin_remquol __builtin_return __builtin_return_address __builtin_rindex __builtin_rint __builtin_rintf __builtin_rintl __builtin_round __builtin_roundf __builtin_roundl __builtin_saveregs __builtin_scalb __builtin_scalbf __builtin_scalbl __builtin_scalbln __builtin_scalblnf __builtin_scalblnl __builtin_scalbn __builtin_scalbnf __builtin_scalbnl __builtin_scanf __builtin_setjmp __builtin_setjmp_dispatcher __builtin_setjmp_receiver __builtin_setjmp_setup __builtin_signbit __builtin_signbitf __builtin_signbitl __builtin_significand __builtin_significandf __builtin_significandl __builtin_sin __builtin_sincos __builtin_sincosf __builtin_sincosl __builtin_sinf __builtin_sinh __builtin_sinhf __builtin_sinhl __builtin_sinl __builtin_snprintf __builtin_sprintf __builtin_sqrt __builtin_sqrtf __builtin_sqrtl __builtin_sscanf __builtin_stack_restore __builtin_stack_save __builtin_stdarg_start __builtin_stpcpy __builtin_stpncpy __builtin_strcasecmp __builtin_strcat __builtin_strchr __builtin_strcmp __builtin_strcpy __builtin_strcspn __builtin_strdup __builtin_strfmon __builtin_strftime __builtin_strlen __builtin_strncasecmp __builtin_strncat __builtin_strncmp __builtin_strncpy __builtin_strndup __builtin_strpbrk __builtin_strrchr __builtin_strspn __builtin_strstr __builtin_tan __builtin_tanf __builtin_tanh __builtin_tanhf __builtin_tanhl __builtin_tanl __builtin_tgamma __builtin_tgammaf __builtin_tgammal __builtin_toascii __builtin_tolower __builtin_toupper __builtin_towlower __builtin_towupper __builtin_trap __builtin_trunc __builtin_truncf __builtin_truncl __builtin_types_compatible_p __builtin_unwind_init __builtin_update_setjmp_buf __builtin_va_arg __builtin_va_copy __builtin_va_end __builtin_va_list __builtin_va_start __builtin_vfprintf __builtin_vfscanf __builtin_vprintf __builtin_vscanf __builtin_vsnprintf __builtin_vsprintf __builtin_vsscanf __builtin_y0 __builtin_y0f __builtin_y0l __builtin_y1 __builtin_y1f __builtin_y1l __builtin_yn __builtin_ynf __builtin_ynl __clock_t __clockid_t __clzdi2 __clzti2 __cmpdd2 __cmpdf2 __cmpdi2 __cmpsd2 __cmpsf2 __cmptd2 __cmptf2 __cmpti2 __cmpxf2 __complex __complex__ __const __const__ __cplusplus __cpuid_t __ctzdi2 __ctzti2 __cyg_profile_func_enter __cyg_profile_func_exit __dead __dev_t __divdc3 __divdd3 __divdf3 __divdi3 __divmoddi4 __divmodti4 __divsc3 __divsd3 __divsf3 __divtd3 __divtf3 __divti3 __divvdi3 __divvti3 __divxc3 __divxf3 __double_t __dso_hidden __dso_public __eqdd2 __eqdf2 __eqsd2 __eqsf2 __eqtd2 __eqtf2 __eqxf2 __errno __extenddddf __extendddsf __extendddtd2 __extendddtf __extendddxf __extenddfdd __extenddfsd __extenddftd __extenddftf2 __extenddfxf2 __extendsddd2 __extendsddf __extendsdsf __extendsdtd2 __extendsdtf __extendsdxf __extendsfdd __extendsfdf2 __extendsfsd __extendsftd __extendsftf2 __extendsfxf2 __extendtddf __extendtdsf __extendtdtf __extendtdxf __extendtfdd __extendtfsd __extendtftd __extendxfdd __extendxfsd __extendxftd __extendxftf2 __extension__ __fd_mask __ffsdi2 __ffsti2 __fixdddi __fixddhi __fixddqi __fixddsi __fixddti __fixdfdi __fixdfhi __fixdfqi __fixdfsi __fixdfti __fixpt_t __fixsddi __fixsdhi __fixsdqi __fixsdsi __fixsdti __fixsfdi __fixsfhi __fixsfqi __fixsfsi __fixsfti __fixtddi __fixtdhi __fixtdqi __fixtdsi __fixtdti __fixtfdi __fixtfhi __fixtfqi __fixtfsi __fixtfti __fixunsdddi __fixunsddhi __fixunsddqi __fixunsddsi __fixunsddti __fixunsdfdi __fixunsdfhi __fixunsdfqi __fixunsdfsi __fixunsdfti __fixunssddi __fixunssdhi __fixunssdqi __fixunssdsi __fixunssdti __fixunssfdi __fixunssfhi __fixunssfqi __fixunssfsi __fixunssfti __fixunstddi __fixunstdhi __fixunstdqi __fixunstdsi __fixunstdti __fixunstfdi __fixunstfhi __fixunstfqi __fixunstfsi __fixunstfti __fixunsxfdi __fixunsxfhi __fixunsxfqi __fixunsxfsi __fixunsxfti __fixxfdi __fixxfhi __fixxfqi __fixxfsi __fixxfti __float128 __float80 __float_t __floatdidd __floatdidf __floatdisd __floatdisf __floatditd __floatditf __floatdixf __floathidd __floathidf __floathisd __floathisf __floathitd __floathitf __floathixf __floatqidd __floatqidf __floatqisd __floatqisf __floatqitd __floatqitf __floatqixf __floatsidd __floatsidf __floatsisd __floatsisf __floatsitd __floatsitf __floatsixf __floattidd __floattidf __floattisd __floattisf __floattitd __floattitf __floattixf __floatundidd __floatundidf __floatundisd __floatundisf __floatunditd __floatunditf __floatundixf __floatunhidd __floatunhidf __floatunhisd __floatunhisf __floatunhitd __floatunhitf __floatunhixf __floatunqidd __floatunqidf __floatunqisd __floatunqisf __floatunqitd __floatunqitf __floatunqixf __floatunsdidd __floatunsdisd __floatunsditd __floatunshidd __floatunshisd __floatunshitd __floatunsidd __floatunsidf __floatunsisd __floatunsisf __floatunsitd __floatunsitf __floatunsixf __floatunsqidd __floatunsqisd __floatunsqitd __floatunssidd __floatunssisd __floatunssitd __floatunstidd __floatunstisd __floatunstitd __floatuntidd __floatuntidf __floatuntisd __floatuntisf __floatuntitd __floatuntitf __floatuntixf __format__ __fprintf_chk __fsblkcnt_t __fsfilcnt_t __ftruncdd2 __ftruncdf2 __ftruncsd2 __ftruncsf2 __ftrunctd2 __ftrunctf2 __ftruncxf2 __func__ __gcov_flush __gedd2 __gedf2 __gesd2 __gesf2 __getd2 __getf2 __gexf2 __gid_t __gnu_inline__ __gtdd2 __gtdf2 __gtsd2 __gtsf2 __gttd2 __gttf2 __gtxf2 __howmany __id_t __imag __imag__ __in_addr_t __in_port_t __inline __inline__ __ino_t __int128_t __int16_t __int32_t __int64_t __int8_t __int_fast16_t __int_fast32_t __int_fast64_t __int_fast8_t __int_least16_t __int_least32_t __int_least64_t __int_least8_t __intmax_t __intptr_t __iordi3 __iorti3 __isthreaded __key_t __kprintf__ __label__ __ledd2 __ledf2 __lesd2 __lesf2 __letd2 __letf2 __lexf2 __lshrdi3 __lshrti3 __ltdd2 __ltdf2 __ltsd2 __ltsf2 __lttd2 __lttf2 __ltxf2 __malloc __malloc__ __maxdd3 __maxdf3 __maxdi3 __maxsd3 __maxsf3 __maxtd3 __maxtf3 __maxti3 __maxxf3 __mb_cur_max __mbstate8 __mbstateL __mbstate_t __memcpy_chk __memmove_chk __mempcpy_chk __memset_chk __minbytes__ __mindd3 __mindf3 __mindi3 __minsd3 __minsf3 __mintd3 __mintf3 __minti3 __minxf3 __moddi3 __mode_t __modti3 __muldc3 __muldd3 __muldf3 __muldi3 __mulsc3 __mulsd3 __mulsf3 __multd3 __multf3 __multi3 __mulvdi3 __mulvti3 __mulxc3 __mulxf3 __nedd2 __nedf2 __negdd2 __negdf2 __negdi2 __negsd2 __negsf2 __negtd2 __negtf2 __negti2 __negvdi2 __negvti2 __negxf2 __nesd2 __nesf2 __netd2 __netf2 __nexf2 __nlink_t __nonnull__ __noreturn__ __null __off_t __one_cmpldi2 __one_cmplti2 __only_inline __packed __packed__ __paddr_t __paritydi2 __parityti2 __pid_t __popcountdi2 __popcountti2 __powidd2 __powidf2 __powisd2 __powisf2 __powitd2 __powitf2 __powixf2 __predict_false __predict_true __printf__ __printf_chk __psize_t __ptrdiff_t __pure __real __real__ __register_t __restrict __restrict__ __returns_twice __rlim_t __rune_t __sF __sFILE __sa_family_t __sa_handler __sa_sigaction __sbuf __sc_unused __sclearerr __segsz_t __sem __set __setbits __sfeof __sferror __sfileno __sgetc __sigaction_u __signed __signed__ __signo __size__ __size_t __snprintf_chk __socklen_t __sprintf_chk __sputc __srget __ss_pad1 __ss_pad2 __ss_pad3 __ssize_t __statement __stpcpy_chk __strcat_chk __strcpy_chk __string__ __strncat_chk __strncpy_chk __strong_alias __subdd3 __subdf3 __subdi3 __subsd3 __subsf3 __subtd3 __subtf3 __subti3 __subvdi3 __subvti3 __subxf3 __suseconds_t __swap16 __swap16_multi __swap16_multi_n __swap16_multi_v __swap16_x __swap16gen __swap16gen_x __swap16md __swap16md_x __swap32 __swap32_x __swap32gen __swap32gen_x __swap32md __swap32md_x __swap64 __swap64_x __swap64gen __swap64gen_x __swap64md __swap64md_x __swblk_t __swbuf __sync_add_and_fetch __sync_add_and_fetch_1 __sync_add_and_fetch_16 __sync_add_and_fetch_2 __sync_add_and_fetch_4 __sync_add_and_fetch_8 __sync_and_and_fetch __sync_and_and_fetch_1 __sync_and_and_fetch_16 __sync_and_and_fetch_2 __sync_and_and_fetch_4 __sync_and_and_fetch_8 __sync_bool_compare_and_swap __sync_bool_compare_and_swap_1 __sync_bool_compare_and_swap_16 __sync_bool_compare_and_swap_2 __sync_bool_compare_and_swap_4 __sync_bool_compare_and_swap_8 __sync_fetch_and_add __sync_fetch_and_add_1 __sync_fetch_and_add_16 __sync_fetch_and_add_2 __sync_fetch_and_add_4 __sync_fetch_and_add_8 __sync_fetch_and_and __sync_fetch_and_and_1 __sync_fetch_and_and_16 __sync_fetch_and_and_2 __sync_fetch_and_and_4 __sync_fetch_and_and_8 __sync_fetch_and_nand __sync_fetch_and_nand_1 __sync_fetch_and_nand_16 __sync_fetch_and_nand_2 __sync_fetch_and_nand_4 __sync_fetch_and_nand_8 __sync_fetch_and_or __sync_fetch_and_or_1 __sync_fetch_and_or_16 __sync_fetch_and_or_2 __sync_fetch_and_or_4 __sync_fetch_and_or_8 __sync_fetch_and_sub __sync_fetch_and_sub_1 __sync_fetch_and_sub_16 __sync_fetch_and_sub_2 __sync_fetch_and_sub_4 __sync_fetch_and_sub_8 __sync_fetch_and_xor __sync_fetch_and_xor_1 __sync_fetch_and_xor_16 __sync_fetch_and_xor_2 __sync_fetch_and_xor_4 __sync_fetch_and_xor_8 __sync_lock_release __sync_lock_release_1 __sync_lock_release_16 __sync_lock_release_2 __sync_lock_release_4 __sync_lock_release_8 __sync_lock_test_and_set __sync_lock_test_and_set_1 __sync_lock_test_and_set_16 __sync_lock_test_and_set_2 __sync_lock_test_and_set_4 __sync_lock_test_and_set_8 __sync_nand_and_fetch __sync_nand_and_fetch_1 __sync_nand_and_fetch_16 __sync_nand_and_fetch_2 __sync_nand_and_fetch_4 __sync_nand_and_fetch_8 __sync_or_and_fetch __sync_or_and_fetch_1 __sync_or_and_fetch_16 __sync_or_and_fetch_2 __sync_or_and_fetch_4 __sync_or_and_fetch_8 __sync_sub_and_fetch __sync_sub_and_fetch_1 __sync_sub_and_fetch_16 __sync_sub_and_fetch_2 __sync_sub_and_fetch_4 __sync_sub_and_fetch_8 __sync_synchronize __sync_val_compare_and_swap __sync_val_compare_and_swap_1 __sync_val_compare_and_swap_16 __sync_val_compare_and_swap_2 __sync_val_compare_and_swap_4 __sync_val_compare_and_swap_8 __sync_xor_and_fetch __sync_xor_and_fetch_1 __sync_xor_and_fetch_16 __sync_xor_and_fetch_2 __sync_xor_and_fetch_4 __sync_xor_and_fetch_8 __syslog__ __tfork __tfork_thread __thread __time_t __timer_t __truncdddf __truncddsd2 __truncddsf __truncddtf __truncddxf __truncdfdd __truncdfsd __truncdfsf2 __truncdftd __truncsddf __truncsdsf __truncsdtf __truncsdxf __truncsfdd __truncsfsd __truncsftd __trunctddd2 __trunctddf __trunctdsd2 __trunctdsf __trunctdtf __trunctdxf __trunctfdd __trunctfdf2 __trunctfsd __trunctfsf2 __trunctftd __trunctfxf2 __truncxfdd __truncxfdf2 __truncxfsd __truncxfsf2 __truncxftd __typeof __typeof__ __u6_addr __u6_addr16 __u6_addr32 __u6_addr8 __ucmpdi2 __ucmpti2 __udivdi3 __udivmoddi4 __udivmodti4 __udivti3 __uid_t __uint128_t __uint16_t __uint32_t __uint64_t __uint8_t __uint_fast16_t __uint_fast32_t __uint_fast64_t __uint_fast8_t __uint_least16_t __uint_least32_t __uint_least64_t __uint_least8_t __uintmax_t __uintptr_t __umaxdi3 __umaxti3 __umindi3 __uminti3 __umoddi3 __umodti3 __unorddd2 __unorddf2 __unordsd2 __unordsf2 __unordtd2 __unordtf2 __unordxf2 __unused __unused__ __useconds_t __used __used__ __va_list __va_list_tag __vaddr_t __vfprintf_chk __visibility__ __volatile __volatile__ __vprintf_chk __vsize_t __vsnprintf_chk __vsprintf_chk __warn_references __wchar_t __wctrans_t __wctype_t __weak_alias __wint_t __xordi3 __xorti3 _addr _band _base _bf _blksize _c _cld _close _code _cookie _ctype_ _ctype_.1 _ctype_.11 _ctype_.13 _ctype_.15 _ctype_.17 _ctype_.19 _ctype_.21 _ctype_.3 _ctype_.5 _ctype_.7 _ctype_.9 _data _exit _ext _faddr _fault _fd _file _flags _kill _lb _lbfsize _mstate _n _nbuf _nsysarg _offset _p _pad _pdata _pid _proc _prof _r _read _ringbuffer _seek _server _serverList _size _status _stime _sysarg _syscall _tolower _tolower_tab_ _tolower_tab_.23 _toupper _toupper_tab_ _toupper_tab_.25 _trapno _tstamp _ubuf _uid _up _ur _utime _value _w _write a a64l abort abs accept access acct acos acosf acosh acoshf acoshl acosl addlog adjfreq adjtime alarm alias alloca arc4random arc4random_buf arc4random_uniform arg asctime asctime_r asin asinf asinh asinhf asinhl asinl asm_fprintf asprintf assert atan atan2 atan2f atan2l atanf atanh atanhf atanhl atanl atexit atof atoi atol atoll auto b bcmp bcopy betoh16 betoh32 betoh64 bind bindresvport bindresvport_sa bintime bintime2timespec bintime2timeval bintime_add bintime_addx bintime_sub binuptime bit_size_type bool bounded break brk bsd bsd_signal bsearch bt bt2 buf buffer bufferSize buffer_in buffer_max buffer_out bzero c c.22 c.24 c.27 cConfigPath cServerName c_name c_val cabs cabsf cabsl cacos cacosf cacosh cacoshf cacoshl cacosl caddr_t calloc carg cargf cargl case casin casinf casinh casinhf casinhl casinl catan catanf catanh catanhf catanhl catanl cbrt cbrtf cbrtl ccos ccosf ccosh ccoshf ccoshl ccosl ceil ceilf ceill cexp cexpf cexpl cfree cgetcap cgetclose cgetent cgetfirst cgetmatch cgetnext cgetnum cgetset cgetstr cgetusedb cgetustr char chdir check_config chown chroot cimag cimagf cimagl clearerr client client_len clock clock_getcpuclockid clock_getres clock_gettime clock_secs_to_ymdhms clock_settime clock_t clock_ymdhms clock_ymdhms_to_secs clockid_t clockinfo clog clog10 clog10f clog10l clogf clogl close closefrom closelog closelog_r cmd cmp cmsg cmsg_len cmsg_level cmsg_type cmsghdr collides commandCode commandTargetCode complex double complex float complex int complex long double confstr conj conjf conjl connect connected const consumer_command continue cookie copysign copysignf copysignl cos cosf cosh coshf coshl cosl cpow cpowf cpowl cproj cprojf cprojl cpu cpuid_t creal crealf creall create_new_consumer_command crypt csin csinf csinh csinhf csinhl csinl csqrt csqrtf csqrtl ctan ctanf ctanh ctanhf ctanhl ctanl ctermid ctime ctime_r daddr32_t daddr_t daemon dcgettext default define defined dependency des_cipher des_setkey destroy_consumer_command destroy_ringbuffer dev_t devname dgettext diagnostic difftime div div_t do double dprintf drand48 drem dremf dreml dst dt_day dt_hour dt_min dt_mon dt_sec dt_wday dt_year dup dup2 ecvt element_size elif else encdebug encrypt endif endusershell enum erand48 erf erfc erfcf erfcl erff erfl error execl execle execlp exect execv execve execvp execvpe exit exp exp10 exp10f exp10l exp2 exp2f exp2l expf expl explicit_bzero expm1 expm1f expm1l extern extern_prefix f fabs fabsf fabsl faccessat facilitynames false fchdir fchown fchownat fclose fcvt fd_mask fd_set fdatasync fdim fdimf fdiml fdopen fds_bits feof ferror fflagstostr fflush ffs ffsimax ffsl ffsll fgetc fgetln fgetpos fgets file fileno finite finited128 finited32 finited64 finitef finitel fixpt_t float flockfile floor floorf floorl fma fmaf fmal fmax fmaxf fmaxl fmemopen fmin fminf fminl fmod fmodf fmodl fn fopen for fork format format_arg fp fp_offset fpathconf fpos_t fprintf fprintf_unlocked fpurge fputc fputc_unlocked fputs fputs_unlocked frac fread free freopen frexp frexpf frexpl fropen fsblkcnt_t fscanf fseek fseeko fsetpos fsfilcnt_t fsync ftell ftello ftruncate ftrylockfile funlockfile funopen futimes fwopen fwrite fwrite_unlocked fxsave64 gamma gammaf gammal gcc_cdiag gcc_cxxdiag gcc_diag gcvt getbsize getc getc_unlocked getchar getchar_unlocked getcwd getdelim getdomainname getdtablecount getdtablesize getegid getenv geteuid getgid getgrouplist getgroups gethostid gethostname getitimer getline getloadavg getlogin getlogin_r getmicrotime getmicrouptime getmode getnanotime getnanouptime getopt getpagesize getpass getpeereid getpeername getpgid getpgrp getpid getppid getprogname getresgid getresuid getrtable gets getsid getsockname getsockopt getsubopt gettext gettimeofday getuid getusershell getw getwd gid gid_t gmtime gmtime_r goto gp_offset grantpt heapsort howmany htobe16 htobe32 htobe64 htole16 htole32 htole64 htonl htons hypot hypotf hypotl hz i iCountServer iPort ia6_lifetime ia6_updatetime ia6t_pltime ia6t_vltime id id_t ident if ifa ifaddr ifatoia ifatoia6 ifdef ifndef ifnet ifqueue iftmp.0 iftmp.10 iftmp.12 iftmp.14 iftmp.16 iftmp.18 iftmp.2 iftmp.20 iftmp.26 iftmp.4 iftmp.6 iftmp.8 ilogb ilogbf ilogbl imaxabs import imr_interface imr_multiaddr in4_cksum in6_addr in6_addrscope in6_cksum in6_cksum_phdr in6_clearscope in6_embedscope in6_get_rand_ifid in6_if_up in6_ifaddr in6_ifawithscope in6_localaddr in6_mask2len in6_maxmtu in6_pktinfo in6_proto_cksum_out in6_recoverscope in6addr_any in6addr_intfacelocal_allnodes in6addr_linklocal_allnodes in6addr_loopback in6mask0 in6mask128 in6mask32 in6mask64 in6mask96 in_addr in_addr_t in_broadcast in_canforward in_cksum in_cksum_addword in_cksum_phdr in_hosteq in_ifaddr in_ifdetach in_localaddr in_mask2len in_nullhost in_port_t in_proto_cksum_out include include_next index inet6_opt_append inet6_opt_find inet6_opt_finish inet6_opt_get_val inet6_opt_init inet6_opt_next inet6_opt_set_val inet6_option_alloc inet6_option_append inet6_option_find inet6_option_init inet6_option_next inet6_option_space inet6_rth_add inet6_rth_getaddr inet6_rth_init inet6_rth_reverse inet6_rth_segments inet6_rth_space inet6_rthdr_add inet6_rthdr_getaddr inet6_rthdr_getflags inet6_rthdr_init inet6_rthdr_lasthop inet6_rthdr_segments inet6_rthdr_space inet6ctlerrmap inet_addr inet_aton inet_lnaof inet_makeaddr inet_nat46 inet_nat64 inet_net_ntop inet_net_pton inet_neta inet_netof inet_network inet_nsap_addr inet_nsap_ntoa inet_ntoa inet_ntop inet_pton inetctlerrmap init_buffer init_server initgroups initsiginfo initstate inline ino_t inpcb int int16_t int32_t int64_t int8_t iovec ip6_accept_rtadv ip6_auto_flowlabel ip6_dad_count ip6_defhlim ip6_defmcasthlim ip6_forwarding ip6_hdrnestlimit ip6_log_interval ip6_maxdynroutes ip6_maxfragpackets ip6_maxfrags ip6_maxifdefrouters ip6_maxifprefixes ip6_mcast_pmtu ip6_mforwarding ip6_mtuinfo ip6_multipath ip6_neighborgcthresh ip6_rr_prune ip6_sendredirects ip6_sprintf ip6_use_deprecated ip6intrq ip6m_addr ip6m_mtu ip_defttl ip_directedbcast ip_dst ip_maxqueue ip_mreq ip_opts ipforwarding ipi6_addr ipi6_ifindex ipintrq ipmforwarding ipmultipath ipport_firstauto ipport_hifirstauto ipport_hilastauto ipport_lastauto ipsec_exp_allocations ipsec_exp_bytes ipsec_exp_first_use ipsec_exp_timeout ipsec_expire_acquire ipsec_keep_invalid ipsec_require_pfs ipsec_soft_allocations ipsec_soft_bytes ipsec_soft_first_use ipsec_soft_timeout ipsendredirects ipv6_mreq ipv6mr_interface ipv6mr_multiaddr iruserok iruserok_sa isalnum isalpha isascii isatty isblank iscntrl isdigit isgraph isinf isinfd128 isinfd32 isinfd64 isinff isinfl islower isnan isnand128 isnand32 isnand64 isnanf isnanl isprint ispunct issetugid isspace isupper iswalnum iswalpha iswblank iswcntrl iswdigit iswgraph iswlower iswprint iswpunct iswspace iswupper iswxdigit isxdigit it_interval it_value itimerdecr itimerfix itimerround itimerspec itimerval itp j0 j0f j0l j1 j1f j1l jn jnf jnl jrand48 key_t kill killpg l64a l_linger l_onoff la_hold_total label_t labs lchown lcong48 ldexp ldexpf ldexpl ldiv ldiv_t len lenproto letoh16 letoh32 letoh64 lgamma lgammaf lgammal line linger link linkat lint listen llabs lldiv lldiv_t llrint llrintf llrintl llround llroundf llroundl localtime localtime_r lockf log log10 log10f log10l log1p log1pf log1pl log2 log2f log2l log_fac log_file log_mask log_stat log_tag logb logbf logbl logf logl logpri logwakeup long long double long int long long int long long unsigned int long unsigned int lrand48 lrint lrintf lrintl lround lroundf lroundl lseek m ma machine macro main major makedev malloc mblen mbstowcs mbtowc mbuf memccpy memchr memcmp memcpy memmem memmove mempcpy memrchr memset mergesort mhdr mi microtime microuptime minor misc mkdtemp mkstemp mkstemps mktemp mktime mode_t modf modff modfl mrand48 msg msg_control msg_controllen msg_flags msg_iov msg_iovlen msg_name msg_namelen msghdr mutex n nanosleep nanotime nanouptime nearbyint nearbyintf nearbyintl nextafter nextafterf nextafterl nexttoward nexttowardf nexttowardl nfssvc nice nlink_t no vops nonnull noreturn notdef nothrow notyet nrand48 ntohl ntohs nxt off_t once open_memstream opened openlog openlog_r optarg opterr optind optopt optreset osockaddr overflow_arg_area p pack paddr_t pathconf pause pch_preprocess pclose peer_socket perror pfctlinput pgrp pid pid_t pipe poison pop popen posix_memalign posix_openpt pow pow10 pow10f pow10l powf powl ppsratecheck pragma pread pri printf printf_unlocked prioritynames private proc profhz profil profile_func_enter profile_func_exit protected protos prototype pselect pseudo_AF_HDRCMPLT pseudo_AF_PFLOW pseudo_AF_PIP pseudo_AF_PIPEX pseudo_AF_RTIP pseudo_AF_XTP psignal psize_t pthread pthread_addr_t pthread_atfork pthread_attr pthread_attr_destroy pthread_attr_getdetachstate pthread_attr_getguardsize pthread_attr_getinheritsched pthread_attr_getschedparam pthread_attr_getschedpolicy pthread_attr_getscope pthread_attr_getstack pthread_attr_getstackaddr pthread_attr_getstacksize pthread_attr_init pthread_attr_setdetachstate pthread_attr_setguardsize pthread_attr_setinheritsched pthread_attr_setschedparam pthread_attr_setschedpolicy pthread_attr_setscope pthread_attr_setstack pthread_attr_setstackaddr pthread_attr_setstacksize pthread_attr_t pthread_barrier pthread_barrier_destroy pthread_barrier_init pthread_barrier_t pthread_barrier_wait pthread_barrierattr pthread_barrierattr_destroy pthread_barrierattr_getpshared pthread_barrierattr_init pthread_barrierattr_setpshared pthread_barrierattr_t pthread_cancel pthread_cleanup_pop pthread_cleanup_push pthread_cond pthread_cond_attr pthread_cond_broadcast pthread_cond_destroy pthread_cond_init pthread_cond_signal pthread_cond_t pthread_cond_timedwait pthread_cond_wait pthread_condattr_destroy pthread_condattr_getclock pthread_condattr_init pthread_condattr_setclock pthread_condattr_t pthread_create pthread_detach pthread_equal pthread_exit pthread_getconcurrency pthread_getcpuclockid pthread_getprio pthread_getschedparam pthread_getspecific pthread_join pthread_key_create pthread_key_delete pthread_key_t pthread_kill pthread_mutex pthread_mutex_attr pthread_mutex_destroy pthread_mutex_getprioceiling pthread_mutex_init pthread_mutex_lock pthread_mutex_setprioceiling pthread_mutex_t pthread_mutex_timedlock pthread_mutex_trylock pthread_mutex_unlock pthread_mutexattr_destroy pthread_mutexattr_getprioceiling pthread_mutexattr_getprotocol pthread_mutexattr_gettype pthread_mutexattr_init pthread_mutexattr_setprioceiling pthread_mutexattr_setprotocol pthread_mutexattr_settype pthread_mutexattr_t pthread_mutextype pthread_once pthread_once_t pthread_rwlock pthread_rwlock_destroy pthread_rwlock_init pthread_rwlock_rdlock pthread_rwlock_t pthread_rwlock_timedrdlock pthread_rwlock_timedwrlock pthread_rwlock_tryrdlock pthread_rwlock_trywrlock pthread_rwlock_unlock pthread_rwlock_wrlock pthread_rwlockattr pthread_rwlockattr_destroy pthread_rwlockattr_getpshared pthread_rwlockattr_init pthread_rwlockattr_setpshared pthread_rwlockattr_t pthread_self pthread_setcancelstate pthread_setcanceltype pthread_setconcurrency pthread_setprio pthread_setschedparam pthread_setspecific pthread_sigmask pthread_spin_destroy pthread_spin_init pthread_spin_lock pthread_spin_trylock pthread_spin_unlock pthread_spinlock pthread_spinlock_t pthread_startroutine_t pthread_t pthread_testcancel pthread_yield ptsname public pure push putc putc_unlocked putchar putchar_unlocked putenv puts puts_unlocked putw pwrite qabs qaddr_t qdiv qdiv_t qsort quad_t quot quotactl radixsort raise rand rand_r random ratecheck rcmd rcmd_af rcmdsh read read_config readlink  C-c C-c
+$ ls
+ls
+Makefile                          cooclupea.c                       pandora.config                    sloc.count
+Makefile~                         cooclupea.c~                      pandora_boundaryinit.config       strategy.c
+config.c                          cooclupea.h                       ringbuffer.c                      strategy.h
+config.h                          global.h                          ringbuffer.h                      test.c
+$ cat cooclupea.c
+cat cooclupea.c
+#include "cooclupea.h"
+
+
+static int port_number = STANDARD_PORT;
+
+static int default_strategy = STRAT_DEFAULT;
+
+static sig_atomic_t is_running = 0;
+static int tcp_backlog = TCP_BACKLOG;
+static int worker_pool = WORKER_POOL;
+
+int main(int argc, char *argv[]);
+pthread_mutex_t 	mtx_work_buffer						= PTHREAD_MUTEX_INITIALIZER;
+pthread_cond_t  	buf_main_consumer_full_cond    				= PTHREAD_COND_INITIALIZER;
+pthread_cond_t  	buf_main_consumer_not_empty_cond			= PTHREAD_COND_INITIALIZER;
+
+static char 		*main_config;
+
+static ringbuffer_t 	*buf_main_consumer_command;
+
+static int 		(*strategy_ptr[STRAT_LEN])(struct consumer_command *) 	= {NULL};
+
+int(*read_strategy_from_idx(int idx))(struct consumer_command *){
+  if(idx < 0 && idx > (STRAT_LEN -1)){
+    syslog(LOG_ERR,"You tried strategy %d which is out of bound",idx);
+    return strategy_ptr[STRAT_DEFAULT];
+  }
+  return strategy_ptr[idx];
+}
+
+
+int init_strategies(){
+  strategy_ptr[0] = &strategy_dev_null;
+	return 0;
+}
+
+
+int destroy_consumer_command(struct consumer_command *tmp_cmd){
+  //Never ever free serverConfig here....you will need it
+	free(tmp_cmd);
+	return 0;
+}
+
+struct consumer_command* create_new_consumer_command(server* srv){
+  	struct consumer_command *c_cmd = malloc(sizeof(struct consumer_command));
+	c_cmd->serverConfig = srv;
+	c_cmd->peer_socket = -1;  
+	return c_cmd;
+}
+
+
+char* return_actual_time(void) {
+	time_t current_time;
+      	char* c_time_string;
+	current_time = time(NULL);
+	c_time_string = ctime(&current_time);
+	return c_time_string;
+}
+
+void print_version(void) {
+	fprintf(STDERR,"%s (%s) by %s\n",HONEYPOT_NAME,VERSION,AUTHOR);
+}
+
+static void set_signal_mask()
+{
+	static sigset_t   signal_mask;
+	pthread_t  sig_thr_id;      
+	sigemptyset(&signal_mask);
+	sigaddset (&signal_mask, SIGINT);
+	sigaddset (&signal_mask, SIGTERM);
+	sigaddset (&signal_mask, SIGUSR1);
+	sigaddset (&signal_mask, SIGUSR2);
+	pthread_sigmask (SIG_BLOCK, &signal_mask, NULL);
+}
+
+void init_syslog(void) {
+	int options;
+
+#ifdef LOG_PERROR
+	options = LOG_PERROR|LOG_PID|LOG_CONS;
+#else
+	options = LOG_PID|LOG_CONS;
+#endif
+
+	openlog ("pandora", options, SYSLOG);
+}
+
+void end_syslog(void) {
+	closelog();
+}
+
+void shutdown_normal(int sig) {
+	is_running = 0;
+	syslog(STDLOG,"Received signal %d......Terminating",sig);
+}
+
+void show_status(int sig) {
+	print_version();
+	fprintf(STDERR,"Hallo Welt %d\n",sig);
+}
+
+void show_info(int sig){
+	syslog(STDLOG,"Received signal %d",sig);
+	print_version();
+}
+
+void handle_signal(void) {
+	struct sigaction sa;
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = 0;
+	//shutdown
+	sa.sa_handler = shutdown_normal;
+	if (sigaction(SIGTERM, &sa, NULL) == -1){
+		exit(0);
+	}
+	if(sigaction(SIGINT, &sa,NULL) == -1){
+		exit(0);
+	}
+	sa.sa_handler = show_status;
+	if(sigaction(SIGUSR1, &sa, NULL) == -1){
+		exit(0);
+	}
+	sa.sa_handler = show_info;
+	if(sigaction(SIGUSR2, &sa, NULL) == -1){
+		exit(0);
+	}
+
+}
+
+static void* worker_operation(){
+	set_signal_mask();
+	
+	while(is_running){
+	  	if(pthread_mutex_lock(&mtx_work_buffer) != 0){
+		  syslog(LOG_ERR,"consumer is not able to lock");
+	  	}
+		while(ringbuffer_is_empty(buf_main_consumer_command)){
+	      		if(pthread_cond_wait(&buf_main_consumer_not_empty_cond,&mtx_work_buffer)!=0){
+				syslog(LOG_ERR,"sorry but buffer not empty makes some error in consumer");	      
+			}
+		}
+		struct consumer_command *tmp_cmd = (struct consumer_command*)ringbuffer_get(buf_main_consumer_command);
+		if(tmp_cmd->peer_socket < 0){
+			syslog(LOG_ERR,"We have a socket smaller 0 in consumer");
+			destroy_consumer_command(tmp_cmd);
+			continue;
+		}
+		if(pthread_cond_broadcast(&buf_main_consumer_full_cond)!=0){
+			syslog(LOG_ERR,"problem with broadcast in consumer");
+		}			
+		if(pthread_mutex_unlock(&mtx_work_buffer)!=0){
+			syslog(LOG_ERR,"problem with unlock in consumer");
+		}
+		//Here we can do sth --> dispatch to type
+		int (*tmp_strat)(struct consumer_command *) = read_strategy_from_idx(tmp_cmd->serverConfig->strategy_idx);
+		tmp_strat(tmp_cmd);		
+
+		close(tmp_cmd->peer_socket);
+		destroy_consumer_command(tmp_cmd);
+	 }
+       	syslog(STDLOG,"Exit worker");
+	pthread_exit(pthread_self);
+}
+
+
+static void *single_producer(void *srv){
+	set_signal_mask();
+
+	server *tmp_srv = (server*)srv;
+
+	while(is_running){
+	  //int p_socket; 
+		struct consumer_command *new_consumer_command = create_new_consumer_command(srv);
+		new_consumer_command->client_len = sizeof(new_consumer_command->client);
+		new_consumer_command->peer_socket = accept(tmp_srv->socket_handler,(struct sockaddr*)&(new_consumer_command->client),&(new_consumer_command->client_len));
+		
+		if(new_consumer_command->peer_socket < 0){
+			syslog(LOG_ERR,"peer socket from producer is smaller 0....this is a problem...");
+		}
+		if(pthread_mutex_lock(&mtx_work_buffer) != 0){
+			syslog(LOG_ERR,"producer is not able to lock");
+		}
+		while(ringbuffer_is_full(buf_main_consumer_command)){
+			if(pthread_cond_wait(&buf_main_consumer_full_cond,&mtx_work_buffer) != 0){
+				syslog(LOG_ERR,"producer is not able to wait for buffer full condition");
+			}
+		}
+		if(ringbuffer_add(buf_main_consumer_command,new_consumer_command) != 0){
+			syslog(LOG_ERR,"sorry but we can not add sth to ringbuffer");
+		}
+		if(pthread_cond_broadcast(&buf_main_consumer_not_empty_cond) != 0){
+			syslog(LOG_ERR,"sorry but broadcast would not work");
+		}
+		if(pthread_mutex_unlock(&mtx_work_buffer)!=0){
+			syslog(LOG_ERR,"norry but I can not unlock mutex");
+		}
+			
+		//close(new_consumer_command->peer_socket);	
+	}
+	syslog(STDLOG,"Exit producer");
+		
+	pthread_exit(pthread_self);
+}
+
+
+static pthread_t* init_producer(serverList *srv_list){
+	
+	pthread_t* threadpool = (pthread_t*)malloc(srv_list->iCountServer * sizeof(pthread_t));
+
+	/**socket_handler = (int*)malloc(srv_list->iCountServer * sizeof(int));**/
+
+	for(int i = 0; i < srv_list->iCountServer; i++){
+		syslog(STDLOG,"Create socket at port %d",srv_list->rgServer[i].iPort);
+		init_server(&srv_list->rgServer[i]);
+	}
+
+	threadpool = malloc(worker_pool * sizeof(pthread_t));
+
+
+
+	for(int i = 0; i < srv_list->iCountServer; i++){
+		pthread_create(&threadpool[i],NULL,single_producer,&srv_list->rgServer[i]);
+		//pthread_detach(threadpool[i]);
+	}	
+	
+	return threadpool;
+}
+
+int init_server(server *srv) {
+
+	struct sockaddr_in address;
+
+	int socket_handle;
+
+	int optval = 1;
+
+	struct timeval timeout;      
+    	timeout.tv_sec = 5;
+    	timeout.tv_usec = 0;
+
+	socket_handle = socket(INET_FAM,SOCK_STREAM,0);
+
+	if (socket_handle == -1){
+		syslog(LOG_ERR,"Not able to build the socket...\n");
+		exit(1);
+	}
+	
+	if(setsockopt(socket_handle, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof(optval)) == -1){
+		syslog(LOG_WARNING,"Socket Options\n");
+	}
+
+	if (setsockopt (socket_handle, SOL_SOCKET, SO_RCVTIMEO, (char *)&timeout,sizeof(timeout)) < 0){
+        	syslog(LOG_WARNING,"Socket Options\n");
+	}
+
+    	if (setsockopt (socket_handle, SOL_SOCKET, SO_SNDTIMEO, (char *)&timeout,sizeof(timeout)) < 0){
+	  syslog(LOG_WARNING,"Socket Options\n");
+	}
+
+	memset(&address,0,sizeof(address));
+	address.sin_family      = INET_FAM;
+	address.sin_port        = htons(srv->iPort);
+	address.sin_addr.s_addr = INADDR_ANY;
+	
+	if(bind(socket_handle, (struct sockaddr*) &address, sizeof(address)) == -1){	
+		syslog(LOG_ERR,"I can not bind the socket....emergency break");
+		exit(1);
+	}
+
+	if(listen(socket_handle,TCP_BACKLOG)==-1) {                                    
+		syslog(LOG_ERR,"I am not able to listen to anything....emergency break");
+		exit(1);
+	}	
+	srv->socket_handler = socket_handle;
+
+	return 0;
+}
+
+int init_manyserver(pthread_t *threadpool){
+	is_running = 1;
+
+	/**	int* socket_handler = (int*)malloc(port_len * sizeof(int));
+
+	for(int i = 0; i < (int)port_len; i++){
+		syslog(STDLOG,"Create socket at port %d",ports[i]);
+		socket_handler[i] = init_server(ports[i]);
+	}
+**/
+	threadpool = malloc(worker_pool * sizeof(pthread_t));
+
+	handle_signal();
+	  //current worker pool
+        int worker_id = 0;
+         //create worker pool threads
+        for(worker_id = 0; worker_id < worker_pool; worker_id++){
+		pthread_create(&threadpool[worker_id],NULL,worker_operation,NULL);
+        }
+
+	return 0;	
+}
+
+void print_help(void) {
+	fprintf(STDERR,"USAGE: Cooclupea [OPTIONS]\n\n");
+	fprintf(STDERR,"[OPTIONS] can be:\n");
+	fprintf(STDERR,"-h		show some help\n");	
+	fprintf(STDERR,"-V		show Version\n");
+	fprintf(STDERR,"-p <port> 	set port\n");
+	fprintf(STDERR,"-b <backlog>	set TCP backlog\n");
+	fprintf(STDERR,"-c <file>	set config file\n");
+	fprintf(STDERR,"\n\n");
+	fprintf(STDERR,"Use signal SIGTERM or SIGINT for graceful shutdown\n");
+	fprintf(STDERR,"Use signal SIGUSR1 for statistics\n");
+	fprintf(STDERR,"Use signal SIGUSR2 for info\n");
+}
+
+
+int main(int argc, char *argv[]) {
+	int c;
+	int break_command = 0;	
+	int has_config = 0;
+	while ((c = getopt (argc, argv, ALLOWED_OPTS)) != -1)
+	switch(c)
+		{
+		case 'V':
+			print_version();
+			break_command = 1;
+			break;
+		case 'h':
+			print_help();
+			break_command = 1;
+			break;	
+		case 'p':
+			port_number = atoi(optarg);
+			break;	
+		case 'b':
+			tcp_backlog = atoi(optarg);
+			break;
+		case 'c':
+			has_config = 1;
+			main_config = optarg;
+			break;
+		case 's':
+			default_strategy = atoi(optarg);
+			break;
+		default:
+
+			abort();
+		}
+
+	if (break_command) {
+		exit(0);
+	}
+
+	if(!has_config){
+		main_config = MAINCONFIG;
+	}
+
+	init_syslog();
+	
+	syslog(STDLOG,"Pandora started at %s with pid %d and configfile %s",return_actual_time(),getpid(),main_config);
+
+	serverList *SServerList;
+	SServerList = malloc(sizeof(serverList));
+	server *SSingleServer = malloc(MAX_SERVER * sizeof(server));
+
+ 	SServerList->rgServer = SSingleServer;
+
+	if(read_config(main_config,SServerList) != 0){
+		syslog(LOG_ERR,"error while reading config");
+		exit(1);
+	}
+
+	//Overwrite defaults
+	for(int i = 0; i < SServerList->iCountServer; i++){
+		if(SServerList->rgServer[i].strategy_idx == -1){	
+			SServerList->rgServer[i].strategy_idx = default_strategy;
+		}
+	}	
+
+	/**int *socket_handle;**/
+
+	if(init_strategies() != 0){
+	    syslog(LOG_ERR,"Sorry but strategies init made some problems");
+	    exit(1);	
+	}
+
+	buf_main_consumer_command = init_buffer(MAIN_BUFFER_LEN,sizeof(void*));
+
+	pthread_t* consumer_threads = NULL;
+
+	if(init_manyserver(consumer_threads) != 0){
+	  syslog(LOG_ERR,"Sorry worker threads caused a problem during creation");
+	  exit(1);
+	}
+
+	pthread_t* serverthreads;
+
+	serverthreads = init_producer(SServerList); 
+
+	//while (is_running) {
+//		fprintf(STDERR,"Read once");
+	//}
+	/**for(int i = 0; i < worker_pool;i++){
+		pthread_join(consumer_threads[i],NULL);
+		syslog(STDLOG,"joined worker %d",i);
+	}
+	for(int i = 0; i < SServerList->iCountServer;i++){
+		pthread_join(serverthreads[i],NULL);
+		syslog(STDLOG,"joined server %d",i);
+	}**/
+	while(is_running){
+		//Boring but better then join or sth
+		sleep(1000);
+	}
+	
+	syslog(STDLOG,"Close sockets");
+
+	//free the mallocs....
+	//free(socket_handle);
+	free(serverthreads);
+	free(SSingleServer);
+	free(SServerList);
+//	free(consumer_threads);
+	destroy_ringbuffer(buf_main_consumer_command);
+
+	syslog(STDLOG,"Pandora ended at %s",return_actual_time());	
+	end_syslog();
+}
+$ make all
+make all
+make clean
+rm -rf *.o
+rm -rf cooclupea
+#make countloc
+make cooclupea 
+gcc -std=c99 -Wall -Wextra -pedantic -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024 -DNDEBUG -c -o cooclupea.o cooclupea.c cooclupea.h
+gcc: cannot specify -o with -c or -S with multiple files
+*** Error 1 in . (Makefile:55 'cooclupea.o')
+*** Error 1 in /home/develop/honeypot/src (Makefile:86 'all')
+$ make all
+make all
+make clean
+rm -rf *.o
+rm -rf cooclupea
+#make countloc
+make cooclupea 
+gcc -std=c99 -Wall -Wextra -pedantic -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024 -DNDEBUG -c -o cooclupea.o cooclupea.c
+cooclupea.c: In function 'set_signal_mask':
+cooclupea.c:67: warning: unused variable 'sig_thr_id'
+cooclupea.c: In function 'worker_operation':
+cooclupea.c:162: warning: ISO C forbids passing argument 1 of 'pthread_exit' between function pointer and 'void *'
+cooclupea.c:163: warning: control reaches end of non-void function
+cooclupea.c: In function 'single_producer':
+cooclupea.c:202: warning: ISO C forbids passing argument 1 of 'pthread_exit' between function pointer and 'void *'
+cooclupea.c:203: warning: control reaches end of non-void function
+gcc -std=c99 -Wall -Wextra -pedantic -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024 -DNDEBUG -c -o config.o config.c
+gcc -std=c99 -Wall -Wextra -pedantic -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024 -DNDEBUG -c -o ringbuffer.o ringbuffer.c
+gcc -std=c99 -Wall -Wextra -pedantic -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024 -DNDEBUG -c -o strategy.o strategy.c
+strategy.c: In function 'strategy_dev_null':
+strategy.c:7: warning: unused variable 'result'
+gcc -std=c99 -Wall -Wextra -pedantic -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024 -DNDEBUG -o cooclupea cooclupea.o config.o ringbuffer.o strategy.o 
+config.o(.text+0x8a): In function `read_server_name':
+: warning: strcpy() is almost always misused, please use strlcpy()
+cooclupea.o(.text+0x195): In function `set_signal_mask':
+: undefined reference to `pthread_sigmask'
+cooclupea.o(.text+0x33a): In function `worker_operation':
+: undefined reference to `pthread_mutex_lock'
+cooclupea.o(.text+0x369): In function `worker_operation':
+: undefined reference to `pthread_cond_wait'
+cooclupea.o(.text+0x3da): In function `worker_operation':
+: undefined reference to `pthread_cond_broadcast'
+cooclupea.o(.text+0x400): In function `worker_operation':
+: undefined reference to `pthread_mutex_unlock'
+cooclupea.o(.text+0x477): In function `worker_operation':
+: undefined reference to `pthread_self'
+cooclupea.o(.text+0x47c): In function `worker_operation':
+: undefined reference to `pthread_exit'
+cooclupea.o(.text+0x50c): In function `single_producer':
+: undefined reference to `pthread_mutex_lock'
+cooclupea.o(.text+0x53b): In function `single_producer':
+: undefined reference to `pthread_cond_wait'
+cooclupea.o(.text+0x59b): In function `single_producer':
+: undefined reference to `pthread_cond_broadcast'
+cooclupea.o(.text+0x5c1): In function `single_producer':
+: undefined reference to `pthread_mutex_unlock'
+cooclupea.o(.text+0x606): In function `single_producer':
+: undefined reference to `pthread_self'
+cooclupea.o(.text+0x60b): In function `single_producer':
+: undefined reference to `pthread_exit'
+cooclupea.o(.text+0x6f2): In function `init_producer':
+: undefined reference to `pthread_create'
+cooclupea.o(.text+0x95a): In function `init_manyserver':
+: undefined reference to `pthread_create'
+collect2: ld returned 1 exit status
+*** Error 1 in . (Makefile:52 'cooclupea')
+*** Error 1 in /home/develop/honeypot/src (Makefile:86 'all')
+$ cat cooclupea.c
+cat cooclupea.c
+#include "cooclupea.h"
+
+
+static int port_number = STANDARD_PORT;
+
+static int default_strategy = STRAT_DEFAULT;
+
+static sig_atomic_t is_running = 0;
+static int tcp_backlog = TCP_BACKLOG;
+static int worker_pool = WORKER_POOL;
+
+int main(int argc, char *argv[]);
+pthread_mutex_t 	mtx_work_buffer						= PTHREAD_MUTEX_INITIALIZER;
+pthread_cond_t  	buf_main_consumer_full_cond    				= PTHREAD_COND_INITIALIZER;
+pthread_cond_t  	buf_main_consumer_not_empty_cond			= PTHREAD_COND_INITIALIZER;
+
+static char 		*main_config;
+
+static ringbuffer_t 	*buf_main_consumer_command;
+
+static int 		(*strategy_ptr[STRAT_LEN])(struct consumer_command *) 	= {NULL};
+
+int(*read_strategy_from_idx(int idx))(struct consumer_command *){
+  if(idx < 0 && idx > (STRAT_LEN -1)){
+    syslog(LOG_ERR,"You tried strategy %d which is out of bound",idx);
+    return strategy_ptr[STRAT_DEFAULT];
+  }
+  return strategy_ptr[idx];
+}
+
+
+int init_strategies(){
+  strategy_ptr[0] = &strategy_dev_null;
+	return 0;
+}
+
+
+int destroy_consumer_command(struct consumer_command *tmp_cmd){
+  //Never ever free serverConfig here....you will need it
+	free(tmp_cmd);
+	return 0;
+}
+
+struct consumer_command* create_new_consumer_command(server* srv){
+  	struct consumer_command *c_cmd = malloc(sizeof(struct consumer_command));
+	c_cmd->serverConfig = srv;
+	c_cmd->peer_socket = -1;  
+	return c_cmd;
+}
+
+
+char* return_actual_time(void) {
+	time_t current_time;
+      	char* c_time_string;
+	current_time = time(NULL);
+	c_time_string = ctime(&current_time);
+	return c_time_string;
+}
+
+void print_version(void) {
+	fprintf(STDERR,"%s (%s) by %s\n",HONEYPOT_NAME,VERSION,AUTHOR);
+}
+
+static void set_signal_mask()
+{
+	static sigset_t   signal_mask;
+	pthread_t  sig_thr_id;      
+	sigemptyset(&signal_mask);
+	sigaddset (&signal_mask, SIGINT);
+	sigaddset (&signal_mask, SIGTERM);
+	sigaddset (&signal_mask, SIGUSR1);
+	sigaddset (&signal_mask, SIGUSR2);
+	pthread_sigmask (SIG_BLOCK, &signal_mask, NULL);
+}
+
+void init_syslog(void) {
+	int options;
+
+#ifdef LOG_PERROR
+	options = LOG_PERROR|LOG_PID|LOG_CONS;
+#else
+	options = LOG_PID|LOG_CONS;
+#endif
+
+	openlog ("pandora", options, SYSLOG);
+}
+
+void end_syslog(void) {
+	closelog();
+}
+
+void shutdown_normal(int sig) {
+	is_running = 0;
+	syslog(STDLOG,"Received signal %d......Terminating",sig);
+}
+
+void show_status(int sig) {
+	print_version();
+	fprintf(STDERR,"Hallo Welt %d\n",sig);
+}
+
+void show_info(int sig){
+	syslog(STDLOG,"Received signal %d",sig);
+	print_version();
+}
+
+void handle_signal(void) {
+	struct sigaction sa;
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = 0;
+	//shutdown
+	sa.sa_handler = shutdown_normal;
+	if (sigaction(SIGTERM, &sa, NULL) == -1){
+		exit(0);
+	}
+	if(sigaction(SIGINT, &sa,NULL) == -1){
+		exit(0);
+	}
+	sa.sa_handler = show_status;
+	if(sigaction(SIGUSR1, &sa, NULL) == -1){
+		exit(0);
+	}
+	sa.sa_handler = show_info;
+	if(sigaction(SIGUSR2, &sa, NULL) == -1){
+		exit(0);
+	}
+
+}
+
+static void* worker_operation(){
+	set_signal_mask();
+	
+	while(is_running){
+	  	if(pthread_mutex_lock(&mtx_work_buffer) != 0){
+		  syslog(LOG_ERR,"consumer is not able to lock");
+	  	}
+		while(ringbuffer_is_empty(buf_main_consumer_command)){
+	      		if(pthread_cond_wait(&buf_main_consumer_not_empty_cond,&mtx_work_buffer)!=0){
+				syslog(LOG_ERR,"sorry but buffer not empty makes some error in consumer");	      
+			}
+		}
+		struct consumer_command *tmp_cmd = (struct consumer_command*)ringbuffer_get(buf_main_consumer_command);
+		if(tmp_cmd->peer_socket < 0){
+			syslog(LOG_ERR,"We have a socket smaller 0 in consumer");
+			destroy_consumer_command(tmp_cmd);
+			continue;
+		}
+		if(pthread_cond_broadcast(&buf_main_consumer_full_cond)!=0){
+			syslog(LOG_ERR,"problem with broadcast in consumer");
+		}			
+		if(pthread_mutex_unlock(&mtx_work_buffer)!=0){
+			syslog(LOG_ERR,"problem with unlock in consumer");
+		}
+		//Here we can do sth --> dispatch to type
+		int (*tmp_strat)(struct consumer_command *) = read_strategy_from_idx(tmp_cmd->serverConfig->strategy_idx);
+		tmp_strat(tmp_cmd);		
+
+		close(tmp_cmd->peer_socket);
+		destroy_consumer_command(tmp_cmd);
+	 }
+       	syslog(STDLOG,"Exit worker");
+	pthread_exit(pthread_self);
+}
+
+
+static void *single_producer(void *srv){
+	set_signal_mask();
+
+	server *tmp_srv = (server*)srv;
+
+	while(is_running){
+	  //int p_socket; 
+		struct consumer_command *new_consumer_command = create_new_consumer_command(srv);
+		new_consumer_command->client_len = sizeof(new_consumer_command->client);
+		new_consumer_command->peer_socket = accept(tmp_srv->socket_handler,(struct sockaddr*)&(new_consumer_command->client),&(new_consumer_command->client_len));
+		
+		if(new_consumer_command->peer_socket < 0){
+			syslog(LOG_ERR,"peer socket from producer is smaller 0....this is a problem...");
+		}
+		if(pthread_mutex_lock(&mtx_work_buffer) != 0){
+			syslog(LOG_ERR,"producer is not able to lock");
+		}
+		while(ringbuffer_is_full(buf_main_consumer_command)){
+			if(pthread_cond_wait(&buf_main_consumer_full_cond,&mtx_work_buffer) != 0){
+				syslog(LOG_ERR,"producer is not able to wait for buffer full condition");
+			}
+		}
+		if(ringbuffer_add(buf_main_consumer_command,new_consumer_command) != 0){
+			syslog(LOG_ERR,"sorry but we can not add sth to ringbuffer");
+		}
+		if(pthread_cond_broadcast(&buf_main_consumer_not_empty_cond) != 0){
+			syslog(LOG_ERR,"sorry but broadcast would not work");
+		}
+		if(pthread_mutex_unlock(&mtx_work_buffer)!=0){
+			syslog(LOG_ERR,"norry but I can not unlock mutex");
+		}
+			
+		//close(new_consumer_command->peer_socket);	
+	}
+	syslog(STDLOG,"Exit producer");
+		
+	pthread_exit(pthread_self);
+}
+
+
+static pthread_t* init_producer(serverList *srv_list){
+	
+	pthread_t* threadpool = (pthread_t*)malloc(srv_list->iCountServer * sizeof(pthread_t));
+
+	/**socket_handler = (int*)malloc(srv_list->iCountServer * sizeof(int));**/
+
+	for(int i = 0; i < srv_list->iCountServer; i++){
+		syslog(STDLOG,"Create socket at port %d",srv_list->rgServer[i].iPort);
+		init_server(&srv_list->rgServer[i]);
+	}
+
+	threadpool = malloc(worker_pool * sizeof(pthread_t));
+
+
+
+	for(int i = 0; i < srv_list->iCountServer; i++){
+		pthread_create(&threadpool[i],NULL,single_producer,&srv_list->rgServer[i]);
+		//pthread_detach(threadpool[i]);
+	}	
+	
+	return threadpool;
+}
+
+int init_server(server *srv) {
+
+	struct sockaddr_in address;
+
+	int socket_handle;
+
+	int optval = 1;
+
+	struct timeval timeout;      
+    	timeout.tv_sec = 5;
+    	timeout.tv_usec = 0;
+
+	socket_handle = socket(INET_FAM,SOCK_STREAM,0);
+
+	if (socket_handle == -1){
+		syslog(LOG_ERR,"Not able to build the socket...\n");
+		exit(1);
+	}
+	
+	if(setsockopt(socket_handle, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof(optval)) == -1){
+		syslog(LOG_WARNING,"Socket Options\n");
+	}
+
+	if (setsockopt (socket_handle, SOL_SOCKET, SO_RCVTIMEO, (char *)&timeout,sizeof(timeout)) < 0){
+        	syslog(LOG_WARNING,"Socket Options\n");
+	}
+
+    	if (setsockopt (socket_handle, SOL_SOCKET, SO_SNDTIMEO, (char *)&timeout,sizeof(timeout)) < 0){
+	  syslog(LOG_WARNING,"Socket Options\n");
+	}
+
+	memset(&address,0,sizeof(address));
+	address.sin_family      = INET_FAM;
+	address.sin_port        = htons(srv->iPort);
+	address.sin_addr.s_addr = INADDR_ANY;
+	
+	if(bind(socket_handle, (struct sockaddr*) &address, sizeof(address)) == -1){	
+		syslog(LOG_ERR,"I can not bind the socket....emergency break");
+		exit(1);
+	}
+
+	if(listen(socket_handle,TCP_BACKLOG)==-1) {                                    
+		syslog(LOG_ERR,"I am not able to listen to anything....emergency break");
+		exit(1);
+	}	
+	srv->socket_handler = socket_handle;
+
+	return 0;
+}
+
+int init_manyserver(pthread_t *threadpool){
+	is_running = 1;
+
+	/**	int* socket_handler = (int*)malloc(port_len * sizeof(int));
+
+	for(int i = 0; i < (int)port_len; i++){
+		syslog(STDLOG,"Create socket at port %d",ports[i]);
+		socket_handler[i] = init_server(ports[i]);
+	}
+**/
+	threadpool = malloc(worker_pool * sizeof(pthread_t));
+
+	handle_signal();
+	  //current worker pool
+        int worker_id = 0;
+         //create worker pool threads
+        for(worker_id = 0; worker_id < worker_pool; worker_id++){
+		pthread_create(&threadpool[worker_id],NULL,worker_operation,NULL);
+        }
+
+	return 0;	
+}
+
+void print_help(void) {
+	fprintf(STDERR,"USAGE: Cooclupea [OPTIONS]\n\n");
+	fprintf(STDERR,"[OPTIONS] can be:\n");
+	fprintf(STDERR,"-h		show some help\n");	
+	fprintf(STDERR,"-V		show Version\n");
+	fprintf(STDERR,"-p <port> 	set port\n");
+	fprintf(STDERR,"-b <backlog>	set TCP backlog\n");
+	fprintf(STDERR,"-c <file>	set config file\n");
+	fprintf(STDERR,"\n\n");
+	fprintf(STDERR,"Use signal SIGTERM or SIGINT for graceful shutdown\n");
+	fprintf(STDERR,"Use signal SIGUSR1 for statistics\n");
+	fprintf(STDERR,"Use signal SIGUSR2 for info\n");
+}
+
+
+int main(int argc, char *argv[]) {
+	int c;
+	int break_command = 0;	
+	int has_config = 0;
+	while ((c = getopt (argc, argv, ALLOWED_OPTS)) != -1)
+	switch(c)
+		{
+		case 'V':
+			print_version();
+			break_command = 1;
+			break;
+		case 'h':
+			print_help();
+			break_command = 1;
+			break;	
+		case 'p':
+			port_number = atoi(optarg);
+			break;	
+		case 'b':
+			tcp_backlog = atoi(optarg);
+			break;
+		case 'c':
+			has_config = 1;
+			main_config = optarg;
+			break;
+		case 's':
+			default_strategy = atoi(optarg);
+			break;
+		default:
+
+			abort();
+		}
+
+	if (break_command) {
+		exit(0);
+	}
+
+	if(!has_config){
+		main_config = MAINCONFIG;
+	}
+
+	init_syslog();
+	
+	syslog(STDLOG,"Pandora started at %s with pid %d and configfile %s",return_actual_time(),getpid(),main_config);
+
+	serverList *SServerList;
+	SServerList = malloc(sizeof(serverList));
+	server *SSingleServer = malloc(MAX_SERVER * sizeof(server));
+
+ 	SServerList->rgServer = SSingleServer;
+
+	if(read_config(main_config,SServerList) != 0){
+		syslog(LOG_ERR,"error while reading config");
+		exit(1);
+	}
+
+	//Overwrite defaults
+	for(int i = 0; i < SServerList->iCountServer; i++){
+		if(SServerList->rgServer[i].strategy_idx == -1){	
+			SServerList->rgServer[i].strategy_idx = default_strategy;
+		}
+	}	
+
+	/**int *socket_handle;**/
+
+	if(init_strategies() != 0){
+	    syslog(LOG_ERR,"Sorry but strategies init made some problems");
+	    exit(1);	
+	}
+
+	buf_main_consumer_command = init_buffer(MAIN_BUFFER_LEN,sizeof(void*));
+
+	pthread_t* consumer_threads = NULL;
+
+	if(init_manyserver(consumer_threads) != 0){
+	  syslog(LOG_ERR,"Sorry worker threads caused a problem during creation");
+	  exit(1);
+	}
+
+	pthread_t* serverthreads;
+
+	serverthreads = init_producer(SServerList); 
+
+	//while (is_running) {
+//		fprintf(STDERR,"Read once");
+	//}
+	/**for(int i = 0; i < worker_pool;i++){
+		pthread_join(consumer_threads[i],NULL);
+		syslog(STDLOG,"joined worker %d",i);
+	}
+	for(int i = 0; i < SServerList->iCountServer;i++){
+		pthread_join(serverthreads[i],NULL);
+		syslog(STDLOG,"joined server %d",i);
+	}**/
+	while(is_running){
+		//Boring but better then join or sth
+		sleep(1000);
+	}
+	
+	syslog(STDLOG,"Close sockets");
+
+	//free the mallocs....
+	//free(socket_handle);
+	free(serverthreads);
+	free(SSingleServer);
+	free(SServerList);
+//	free(consumer_threads);
+	destroy_ringbuffer(buf_main_consumer_command);
+
+	syslog(STDLOG,"Pandora ended at %s",return_actual_time());	
+	end_syslog();
+}
+$ cat cooclupea.h
+cat cooclupea.h
+#ifndef PANDORA_H
+#define PANDORA_H
+
+#include <stdio.h>
+#include <syslog.h>
+#include <time.h>
+#include <ctype.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <signal.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <string.h>
+#include <semaphore.h>
+#include <pthread.h>
+#include <sys/types.h>
+#include "global.h"
+#include "config.h"
+#include "ringbuffer.h"
+
+
+struct consumer_command{
+	int peer_socket;
+	struct sockaddr_in client;
+  	unsigned int client_len;
+  	server *serverConfig;	
+};
+
+struct consumer_command* create_new_consumer_command(server* srv);
+
+int init_server(server *srv);
+int destroy_consumer_command(struct consumer_command *tmp_cmd);
+
+#include "strategy.h"
+#endif
+
+$ ls
+ls
+Makefile                          cooclupea.c                       pandora.config                    sloc.count
+Makefile~                         cooclupea.c~                      pandora_boundaryinit.config       strategy.c
+config.c                          cooclupea.h                       ringbuffer.c                      strategy.h
+config.h                          cooclupea.o                       ringbuffer.h                      strategy.o
+config.o                          global.h                          ringbuffer.o                      test.c
+$ make all
+make all
+make clean
+rm -rf *.o
+rm -rf cooclupea
+#make countloc
+make cooclupea 
+gcc -std=c99 -Wall -Wextra -pedantic -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024 -DNDEBUG -c -o cooclupea.o cooclupea.c
+cooclupea.c: In function 'set_signal_mask':
+cooclupea.c:67: warning: unused variable 'sig_thr_id'
+cooclupea.c: In function 'worker_operation':
+cooclupea.c:162: warning: ISO C forbids passing argument 1 of 'pthread_exit' between function pointer and 'void *'
+cooclupea.c:163: warning: control reaches end of non-void function
+cooclupea.c: In function 'single_producer':
+cooclupea.c:202: warning: ISO C forbids passing argument 1 of 'pthread_exit' between function pointer and 'void *'
+cooclupea.c:203: warning: control reaches end of non-void function
+gcc -std=c99 -Wall -Wextra -pedantic -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024 -DNDEBUG -c -o config.o config.c
+gcc -std=c99 -Wall -Wextra -pedantic -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024 -DNDEBUG -c -o ringbuffer.o ringbuffer.c
+gcc -std=c99 -Wall -Wextra -pedantic -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024 -DNDEBUG -c -o strategy.o strategy.c
+strategy.c: In function 'strategy_dev_null':
+strategy.c:7: warning: unused variable 'result'
+gcc -std=c99 -Wall -Wextra -pedantic -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024 -DNDEBUG -o cooclupea cooclupea.o config.o ringbuffer.o strategy.o 
+config.o(.text+0x8a): In function `read_server_name':
+: warning: strcpy() is almost always misused, please use strlcpy()
+cooclupea.o(.text+0x195): In function `set_signal_mask':
+: undefined reference to `pthread_sigmask'
+cooclupea.o(.text+0x33a): In function `worker_operation':
+: undefined reference to `pthread_mutex_lock'
+cooclupea.o(.text+0x369): In function `worker_operation':
+: undefined reference to `pthread_cond_wait'
+cooclupea.o(.text+0x3da): In function `worker_operation':
+: undefined reference to `pthread_cond_broadcast'
+cooclupea.o(.text+0x400): In function `worker_operation':
+: undefined reference to `pthread_mutex_unlock'
+cooclupea.o(.text+0x477): In function `worker_operation':
+: undefined reference to `pthread_self'
+cooclupea.o(.text+0x47c): In function `worker_operation':
+: undefined reference to `pthread_exit'
+cooclupea.o(.text+0x50c): In function `single_producer':
+: undefined reference to `pthread_mutex_lock'
+cooclupea.o(.text+0x53b): In function `single_producer':
+: undefined reference to `pthread_cond_wait'
+cooclupea.o(.text+0x59b): In function `single_producer':
+: undefined reference to `pthread_cond_broadcast'
+cooclupea.o(.text+0x5c1): In function `single_producer':
+: undefined reference to `pthread_mutex_unlock'
+cooclupea.o(.text+0x606): In function `single_producer':
+: undefined reference to `pthread_self'
+cooclupea.o(.text+0x60b): In function `single_producer':
+: undefined reference to `pthread_exit'
+cooclupea.o(.text+0x6f2): In function `init_producer':
+: undefined reference to `pthread_create'
+cooclupea.o(.text+0x95a): In function `init_manyserver':
+: undefined reference to `pthread_create'
+collect2: ld returned 1 exit status
+*** Error 1 in . (Makefile:52 'cooclupea')
+*** Error 1 in /home/develop/honeypot/src (Makefile:86 'all')
+$ make all
+make all
+make clean
+rm -rf *.o
+rm -rf cooclupea
+#make countloc
+make cooclupea 
+gcc -std=c99 -Wall -Wextra -pedantic -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024 -DNDEBUG -c -o cooclupea.o cooclupea.c
+cooclupea.c: In function 'set_signal_mask':
+cooclupea.c:67: warning: unused variable 'sig_thr_id'
+cooclupea.c: In function 'worker_operation':
+cooclupea.c:162: warning: ISO C forbids passing argument 1 of 'pthread_exit' between function pointer and 'void *'
+cooclupea.c:163: warning: control reaches end of non-void function
+cooclupea.c: In function 'single_producer':
+cooclupea.c:202: warning: ISO C forbids passing argument 1 of 'pthread_exit' between function pointer and 'void *'
+cooclupea.c:203: warning: control reaches end of non-void function
+gcc -std=c99 -Wall -Wextra -pedantic -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024 -DNDEBUG -c -o config.o config.c
+gcc -std=c99 -Wall -Wextra -pedantic -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024 -DNDEBUG -c -o ringbuffer.o ringbuffer.c
+gcc -std=c99 -Wall -Wextra -pedantic -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024 -DNDEBUG -c -o strategy.o strategy.c
+strategy.c: In function 'strategy_dev_null':
+strategy.c:7: warning: unused variable 'result'
+gcc -std=c99 -Wall -Wextra -pedantic -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024 -DNDEBUG -o cooclupea cooclupea.o config.o ringbuffer.o strategy.o 
+config.o(.text+0x8a): In function `read_server_name':
+: warning: strcpy() is almost always misused, please use strlcpy()
+cooclupea.o(.text+0x195): In function `set_signal_mask':
+: undefined reference to `pthread_sigmask'
+cooclupea.o(.text+0x33a): In function `worker_operation':
+: undefined reference to `pthread_mutex_lock'
+cooclupea.o(.text+0x369): In function `worker_operation':
+: undefined reference to `pthread_cond_wait'
+cooclupea.o(.text+0x3da): In function `worker_operation':
+: undefined reference to `pthread_cond_broadcast'
+cooclupea.o(.text+0x400): In function `worker_operation':
+: undefined reference to `pthread_mutex_unlock'
+cooclupea.o(.text+0x477): In function `worker_operation':
+: undefined reference to `pthread_self'
+cooclupea.o(.text+0x47c): In function `worker_operation':
+: undefined reference to `pthread_exit'
+cooclupea.o(.text+0x50c): In function `single_producer':
+: undefined reference to `pthread_mutex_lock'
+cooclupea.o(.text+0x53b): In function `single_producer':
+: undefined reference to `pthread_cond_wait'
+cooclupea.o(.text+0x59b): In function `single_producer':
+: undefined reference to `pthread_cond_broadcast'
+cooclupea.o(.text+0x5c1): In function `single_producer':
+: undefined reference to `pthread_mutex_unlock'
+cooclupea.o(.text+0x606): In function `single_producer':
+: undefined reference to `pthread_self'
+cooclupea.o(.text+0x60b): In function `single_producer':
+: undefined reference to `pthread_exit'
+cooclupea.o(.text+0x6f2): In function `init_producer':
+: undefined reference to `pthread_create'
+cooclupea.o(.text+0x95a): In function `init_manyserver':
+: undefined reference to `pthread_create'
+collect2: ld returned 1 exit status
+*** Error 1 in . (Makefile:52 'cooclupea')
+*** Error 1 in /home/develop/honeypot/src (Makefile:86 'all')
+$ make all
+make all
+make clean
+rm -rf *.o
+rm -rf cooclupea
+#make countloc
+make cooclupea 
+gcc -std=c99 -Wall -Wextra -pedantic -pthread -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024 -DNDEBUG -c -o cooclupea.o cooclupea.c
+cooclupea.c: In function 'set_signal_mask':
+cooclupea.c:67: warning: unused variable 'sig_thr_id'
+cooclupea.c: In function 'worker_operation':
+cooclupea.c:162: warning: ISO C forbids passing argument 1 of 'pthread_exit' between function pointer and 'void *'
+cooclupea.c:163: warning: control reaches end of non-void function
+cooclupea.c: In function 'single_producer':
+cooclupea.c:202: warning: ISO C forbids passing argument 1 of 'pthread_exit' between function pointer and 'void *'
+cooclupea.c:203: warning: control reaches end of non-void function
+gcc -std=c99 -Wall -Wextra -pedantic -pthread -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024 -DNDEBUG -c -o config.o config.c
+gcc -std=c99 -Wall -Wextra -pedantic -pthread -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024 -DNDEBUG -c -o ringbuffer.o ringbuffer.c
+gcc -std=c99 -Wall -Wextra -pedantic -pthread -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024 -DNDEBUG -c -o strategy.o strategy.c
+strategy.c: In function 'strategy_dev_null':
+strategy.c:7: warning: unused variable 'result'
+gcc -std=c99 -Wall -Wextra -pedantic -pthread -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024 -DNDEBUG -o cooclupea cooclupea.o config.o ringbuffer.o strategy.o 
+config.o(.text+0x8a): In function `read_server_name':
+: warning: strcpy() is almost always misused, please use strlcpy()
+make install
+cp cooclupea ../bin 	
+cp *.config ../bin/config    
+usage: cp [-fip] [-R [-H | -L | -P]] source target
+       cp [-fip] [-R [-H | -L | -P]] source ... directory
+*** Error 1 in . (Makefile:73 'install')
+*** Error 1 in /home/develop/honeypot/src (Makefile:87 'all')
+$ mkdir ../bin/config
+mkdir ../bin/config
+$ make all
+make all
+make clean
+rm -rf *.o
+rm -rf cooclupea
+#make countloc
+make cooclupea 
+gcc -std=c99 -Wall -Wextra -pedantic -pthread -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024 -DNDEBUG -c -o cooclupea.o cooclupea.c
+cooclupea.c: In function 'set_signal_mask':
+cooclupea.c:67: warning: unused variable 'sig_thr_id'
+cooclupea.c: In function 'worker_operation':
+cooclupea.c:162: warning: ISO C forbids passing argument 1 of 'pthread_exit' between function pointer and 'void *'
+cooclupea.c:163: warning: control reaches end of non-void function
+cooclupea.c: In function 'single_producer':
+cooclupea.c:202: warning: ISO C forbids passing argument 1 of 'pthread_exit' between function pointer and 'void *'
+cooclupea.c:203: warning: control reaches end of non-void function
+gcc -std=c99 -Wall -Wextra -pedantic -pthread -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024 -DNDEBUG -c -o config.o config.c
+gcc -std=c99 -Wall -Wextra -pedantic -pthread -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024 -DNDEBUG -c -o ringbuffer.o ringbuffer.c
+gcc -std=c99 -Wall -Wextra -pedantic -pthread -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024 -DNDEBUG -c -o strategy.o strategy.c
+strategy.c: In function 'strategy_dev_null':
+strategy.c:7: warning: unused variable 'result'
+gcc -std=c99 -Wall -Wextra -pedantic -pthread -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024 -DNDEBUG -o cooclupea cooclupea.o config.o ringbuffer.o strategy.o 
+config.o(.text+0x8a): In function `read_server_name':
+: warning: strcpy() is almost always misused, please use strlcpy()
+make install
+cp cooclupea ../bin 	
+cp *.config ../bin/config    
+make quickpack
+tar -czvf "../backup/latest_cooclupea.tar.gz" *.c *.h *.config Makefile *.count
+config.c
+cooclupea.c
+ringbuffer.c
+strategy.c
+test.c
+config.h
+cooclupea.h
+global.h
+ringbuffer.h
+strategy.h
+pandora.config
+pandora_boundaryinit.config
+Makefile
+sloc.count
+make git
+git add -A ../
+git: not found
+*** Error 1 in . (Makefile:76 'git')
+*** Error 1 in /home/develop/honeypot/src (Makefile:89 'all')
+$ pkg_add git
+pkg_add git
+Fatal error: pkg_add must be run as root
+ at /usr/libdata/perl5/OpenBSD/AddDelete.pm line 62.
+$ su
+su
+Password:
+# pkg_add git
+pkg_add git
+Ambiguous: choose dependency for git-1.8.5.3: 
+ a	 0: rsync-3.1.0
+	 1: rsync-3.1.0-iconv
+Your choice: 0
+git-1.8.5.3:libidn-1.28p0: ok
+git-1.8.5.3:curl-7.34.0p0: ok
+git-1.8.5.3:rsync-3.1.0: ok
+git-1.8.5.3:cvsps-2.1p0: ok
+git-1.8.5.3:p5-Error-0.17019: ok
+git-1.8.5.3: ok
+The following new rcscripts were installed: /etc/rc.d/rsyncd
+See rc.d(8) for details.
+Look in /usr/local/share/doc/pkg-readmes for extra documentation.
+# exit
+exit
+$ make all
+make all
+make clean
+rm -rf *.o
+rm -rf cooclupea
+#make countloc
+make cooclupea 
+gcc -std=c99 -Wall -Wextra -pedantic -pthread -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024 -DNDEBUG -c -o cooclupea.o cooclupea.c
+cooclupea.c: In function 'set_signal_mask':
+cooclupea.c:67: warning: unused variable 'sig_thr_id'
+cooclupea.c: In function 'worker_operation':
+cooclupea.c:162: warning: ISO C forbids passing argument 1 of 'pthread_exit' between function pointer and 'void *'
+cooclupea.c:163: warning: control reaches end of non-void function
+cooclupea.c: In function 'single_producer':
+cooclupea.c:202: warning: ISO C forbids passing argument 1 of 'pthread_exit' between function pointer and 'void *'
+cooclupea.c:203: warning: control reaches end of non-void function
+gcc -std=c99 -Wall -Wextra -pedantic -pthread -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024 -DNDEBUG -c -o config.o config.c
+gcc -std=c99 -Wall -Wextra -pedantic -pthread -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024 -DNDEBUG -c -o ringbuffer.o ringbuffer.c
+gcc -std=c99 -Wall -Wextra -pedantic -pthread -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024 -DNDEBUG -c -o strategy.o strategy.c
+strategy.c: In function 'strategy_dev_null':
+strategy.c:7: warning: unused variable 'result'
+gcc -std=c99 -Wall -Wextra -pedantic -pthread -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024 -DNDEBUG -o cooclupea cooclupea.o config.o ringbuffer.o strategy.o 
+config.o(.text+0x8a): In function `read_server_name':
+: warning: strcpy() is almost always misused, please use strlcpy()
+make install
+cp cooclupea ../bin 	
+cp *.config ../bin/config    
+make quickpack
+tar -czvf "../backup/latest_cooclupea.tar.gz" *.c *.h *.config Makefile *.count
+config.c
+cooclupea.c
+ringbuffer.c
+strategy.c
+test.c
+config.h
+cooclupea.h
+global.h
+ringbuffer.h
+strategy.h
+pandora.config
+pandora_boundaryinit.config
+Makefile
+sloc.count
+make git
+git add -A ../
+fatal: Not a git repository (or any parent up to mount point /home)
+Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
+*** Error 128 in . (Makefile:76 'git')
+*** Error 1 in /home/develop/honeypot/src (Makefile:89 'all')
+$ cd ..
+cd ..
+$ git init
+git init
+Initialized empty Git repository in /home/develop/honeypot/.git/
+$ cd src/
+cd src/
+$ make all
+make all
+make clean
+rm -rf *.o
+rm -rf cooclupea
+#make countloc
+make cooclupea 
+gcc -std=c99 -Wall -Wextra -pedantic -pthread -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024 -DNDEBUG -c -o cooclupea.o cooclupea.c
+cooclupea.c: In function 'set_signal_mask':
+cooclupea.c:67: warning: unused variable 'sig_thr_id'
+cooclupea.c: In function 'worker_operation':
+cooclupea.c:162: warning: ISO C forbids passing argument 1 of 'pthread_exit' between function pointer and 'void *'
+cooclupea.c:163: warning: control reaches end of non-void function
+cooclupea.c: In function 'single_producer':
+cooclupea.c:202: warning: ISO C forbids passing argument 1 of 'pthread_exit' between function pointer and 'void *'
+cooclupea.c:203: warning: control reaches end of non-void function
+gcc -std=c99 -Wall -Wextra -pedantic -pthread -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024 -DNDEBUG -c -o config.o config.c
+gcc -std=c99 -Wall -Wextra -pedantic -pthread -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024 -DNDEBUG -c -o ringbuffer.o ringbuffer.c
+gcc -std=c99 -Wall -Wextra -pedantic -pthread -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024 -DNDEBUG -c -o strategy.o strategy.c
+strategy.c: In function 'strategy_dev_null':
+strategy.c:7: warning: unused variable 'result'
+gcc -std=c99 -Wall -Wextra -pedantic -pthread -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024 -DNDEBUG -o cooclupea cooclupea.o config.o ringbuffer.o strategy.o 
+config.o(.text+0x8a): In function `read_server_name':
+: warning: strcpy() is almost always misused, please use strlcpy()
+make install
+cp cooclupea ../bin 	
+cp *.config ../bin/config    
+make quickpack
+tar -czvf "../backup/latest_cooclupea.tar.gz" *.c *.h *.config Makefile *.count
+config.c
+cooclupea.c
+ringbuffer.c
+strategy.c
+test.c
+config.h
+cooclupea.h
+global.h
+ringbuffer.h
+strategy.h
+pandora.config
+pandora_boundaryinit.config
+Makefile
+sloc.count
+make git
+git add -A ../
+git commit -am "nightly build -working"
+[master (root-commit) 2cc74ff] nightly build -working
+ Committer: dev <develop@develop.my.domain>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 25 files changed, 1590 insertions(+)
+ create mode 100644 backup/latest_cooclupea.tar.gz
+ create mode 100644 bin/config/pandora.config
+ create mode 100644 bin/config/pandora_boundaryinit.config
+ create mode 100755 bin/cooclupea
+ create mode 100644 src/Makefile
+ create mode 100644 src/Makefile~
+ create mode 100644 src/config.c
+ create mode 100644 src/config.h
+ create mode 100644 src/config.o
+ create mode 100755 src/cooclupea
+ create mode 100644 src/cooclupea.c
+ create mode 100644 src/cooclupea.c~
+ create mode 100644 src/cooclupea.h
+ create mode 100644 src/cooclupea.o
+ create mode 100644 src/global.h
+ create mode 100644 src/pandora.config
+ create mode 100644 src/pandora_boundaryinit.config
+ create mode 100644 src/ringbuffer.c
+ create mode 100644 src/ringbuffer.h
+ create mode 100644 src/ringbuffer.o
+ create mode 100644 src/sloc.count
+ create mode 100644 src/strategy.c
+ create mode 100644 src/strategy.h
+ create mode 100644 src/strategy.o
+ create mode 100644 src/test.c
+$ cd ../bin/
+cd ../bin/
+$ ./cooclupea 
+./cooclupea 
+pandora[5833]: Pandora started at Fri Jul  4 12:30:40 2014
+ with pid 5833 and configfile ~/.pandora.config
+pandora[5833]: open config ~/.pandora.config as master config
+pandora[5833]: I am so sorry but ~/.pandora.config is not there or I can not open it....
+$ ls
+ls
+config    cooclupea
+$ ls config/
+ls config/
+pandora.config                    pandora_boundaryinit.config
+$ make all
+make all
+make: don't know how to make all
+Stop in /home/develop/honeypot/bin
+$ pwd
+pwd
+/home/develop/honeypot/bin
+$ cd ../src/
+cd ../src/
+$ make all
+make all
+make clean
+rm -rf *.o
+rm -rf cooclupea
+#make countloc
+make cooclupea 
+gcc -std=c99 -Wall -Wextra -pedantic -pthread -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024  -DMAINCONFIG='"config/pandora.config"' -DNDEBUG -c -o cooclupea.o cooclupea.c
+cooclupea.c: In function 'set_signal_mask':
+cooclupea.c:67: warning: unused variable 'sig_thr_id'
+cooclupea.c: In function 'worker_operation':
+cooclupea.c:162: warning: ISO C forbids passing argument 1 of 'pthread_exit' between function pointer and 'void *'
+cooclupea.c:163: warning: control reaches end of non-void function
+cooclupea.c: In function 'single_producer':
+cooclupea.c:202: warning: ISO C forbids passing argument 1 of 'pthread_exit' between function pointer and 'void *'
+cooclupea.c:203: warning: control reaches end of non-void function
+gcc -std=c99 -Wall -Wextra -pedantic -pthread -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024  -DMAINCONFIG='"config/pandora.config"' -DNDEBUG -c -o config.o config.c
+gcc -std=c99 -Wall -Wextra -pedantic -pthread -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024  -DMAINCONFIG='"config/pandora.config"' -DNDEBUG -c -o ringbuffer.o ringbuffer.c
+gcc -std=c99 -Wall -Wextra -pedantic -pthread -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024  -DMAINCONFIG='"config/pandora.config"' -DNDEBUG -c -o strategy.o strategy.c
+strategy.c: In function 'strategy_dev_null':
+strategy.c:7: warning: unused variable 'result'
+gcc -std=c99 -Wall -Wextra -pedantic -pthread -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024  -DMAINCONFIG='"config/pandora.config"' -DNDEBUG -o cooclupea cooclupea.o config.o ringbuffer.o strategy.o 
+config.o(.text+0x8a): In function `read_server_name':
+: warning: strcpy() is almost always misused, please use strlcpy()
+make install
+cp cooclupea ../bin 	
+cp *.config ../bin/config    
+make quickpack
+tar -czvf "../backup/latest_cooclupea.tar.gz" *.c *.h *.config Makefile *.count
+config.c
+cooclupea.c
+ringbuffer.c
+strategy.c
+test.c
+config.h
+cooclupea.h
+global.h
+ringbuffer.h
+strategy.h
+pandora.config
+pandora_boundaryinit.config
+Makefile
+sloc.count
+make git
+git add -A ../
+git commit -am "nightly build -working"
+[master 6d77481] nightly build -working
+ Committer: dev <develop@develop.my.domain>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 7 files changed, 1724 insertions(+), 1 deletion(-)
+ rewrite backup/latest_cooclupea.tar.gz (97%)
+ create mode 100644 bin/*shell*
+ create mode 120000 bin/.#*shell*
+ rewrite bin/cooclupea (60%)
+ rewrite src/cooclupea (60%)
+$ cd ../bin/
+cd ../bin/
+$ ./cooclupea 
+./cooclupea 
+pandora[22725]: Pandora started at Fri Jul  4 12:32:28 2014
+ with pid 22725 and configfile config/pandora.config
+pandora[22725]: open config config/pandora.config as master config
+pandora[22725]: Create socket at port 8080
+pandora[22725]: Create socket at port 8081
+pandora[22725]: Create socket at port 8082
+pandora[22725]: Create socket at port 8083
+  C-c C-cpandora[22725]: Received signal 2......Terminating
+pandora[22725]: Close sockets
+pandora[22725]: Pandora ended at Fri Jul  4 12:32:37 2014
+
+$ make all DEBUG
+make all DEBUG
+make: don't know how to make all
+Stop in /home/develop/honeypot/bin
+$ cd ../src/
+cd ../src/
+
+$ ls
+ls
+Makefile                          cooclupea.c                       pandora_boundaryinit.config       strategy.h
+Makefile~                         cooclupea.c~                      ringbuffer.c                      strategy.o
+config.c                          cooclupea.h                       ringbuffer.h                      test.c
+config.h                          cooclupea.o                       ringbuffer.o
+config.o                          global.h                          sloc.count
+cooclupea                         pandora.config                    strategy.c
+$ ./cooclupea -h
+./cooclupea -h
+USAGE: Cooclupea [OPTIONS]
+
+[OPTIONS] can be:
+-h		show some help
+-V		show Version
+-p <port> 	set port
+-b <backlog>	set TCP backlog
+-c <file>	set config file
+
+
+Use signal SIGTERM or SIGINT for graceful shutdown
+Use signal SIGUSR1 for statistics
+Use signal SIGUSR2 for info
+$ ./cooclupea -c pandora.config 
+./cooclupea -c pandora.config 
+pandora[9982]: Pandora started at Fri Jul  4 12:35:13 2014
+ with pid 9982 and configfile pandora.config
+pandora[9982]: open config pandora.config as master config
+pandora[9982]: Create socket at port 8080
+pandora[9982]: Create socket at port 8081
+pandora[9982]: Create socket at port 8082
+pandora[9982]: Create socket at port 8083
+  C-c C-cpandora[9982]: Received signal 2......Terminating
+pandora[9982]: Close sockets
+pandora[9982]: Pandora ended at Fri Jul  4 12:35:15 2014
+
+$ ls
+ls
+Makefile                          cooclupea.c                       pandora_boundaryinit.config       strategy.h
+Makefile~                         cooclupea.c~                      ringbuffer.c                      strategy.o
+config.c                          cooclupea.h                       ringbuffer.h                      test.c
+config.h                          cooclupea.o                       ringbuffer.o
+config.o                          global.h                          sloc.count
+cooclupea                         pandora.config                    strategy.c
+$ make all DEBUG
+make all DEBUG
+make clean
+rm -rf *.o
+rm -rf cooclupea
+#make countloc
+make cooclupea 
+gcc -std=c99 -Wall -Wextra -pedantic -pthread -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024  -DMAINCONFIG='"config/pandora.config"' -DNDEBUG -c -o cooclupea.o cooclupea.c
+cooclupea.c: In function 'set_signal_mask':
+cooclupea.c:67: warning: unused variable 'sig_thr_id'
+cooclupea.c: In function 'worker_operation':
+cooclupea.c:162: warning: ISO C forbids passing argument 1 of 'pthread_exit' between function pointer and 'void *'
+cooclupea.c:163: warning: control reaches end of non-void function
+cooclupea.c: In function 'single_producer':
+cooclupea.c:202: warning: ISO C forbids passing argument 1 of 'pthread_exit' between function pointer and 'void *'
+cooclupea.c:203: warning: control reaches end of non-void function
+gcc -std=c99 -Wall -Wextra -pedantic -pthread -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024  -DMAINCONFIG='"config/pandora.config"' -DNDEBUG -c -o config.o config.c
+gcc -std=c99 -Wall -Wextra -pedantic -pthread -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024  -DMAINCONFIG='"config/pandora.config"' -DNDEBUG -c -o ringbuffer.o ringbuffer.c
+gcc -std=c99 -Wall -Wextra -pedantic -pthread -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024  -DMAINCONFIG='"config/pandora.config"' -DNDEBUG -c -o strategy.o strategy.c
+strategy.c: In function 'strategy_dev_null':
+strategy.c:7: warning: unused variable 'result'
+gcc -std=c99 -Wall -Wextra -pedantic -pthread -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024  -DMAINCONFIG='"config/pandora.config"' -DNDEBUG -o cooclupea cooclupea.o config.o ringbuffer.o strategy.o 
+config.o(.text+0x8a): In function `read_server_name':
+: warning: strcpy() is almost always misused, please use strlcpy()
+make install
+cp cooclupea ../bin 	
+cp *.config ../bin/config    
+make quickpack
+tar -czvf "../backup/latest_cooclupea.tar.gz" *.c *.h *.config Makefile *.count
+config.c
+cooclupea.c
+ringbuffer.c
+strategy.c
+test.c
+config.h
+cooclupea.h
+global.h
+ringbuffer.h
+strategy.h
+pandora.config
+pandora_boundaryinit.config
+Makefile
+sloc.count
+make git
+git add -A ../
+git commit -am "nightly build -working"
+[master 246e60e] nightly build -working
+ Committer: dev <develop@develop.my.domain>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 2 files changed, 1811 insertions(+)
+ create mode 100644 bin/*shell*~
+make: don't know how to make DEBUG
+Stop in /home/develop/honeypot/src
+$ 
