@@ -1922,4 +1922,92 @@ After doing this, you may fix the identity used for this commit with:
  create mode 100644 bin/*shell*~
 make: don't know how to make DEBUG
 Stop in /home/develop/honeypot/src
+$ make all DEBUG=1
+make all DEBUG=1
+make clean
+rm -rf *.o
+rm -rf cooclupea
+#make countloc
+make cooclupea 
+gcc -std=c99 -Wall -Wextra -pedantic -pthread -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024  -DMAINCONFIG='"config/pandora.config"' -DDEBUG -g -c -o cooclupea.o cooclupea.c
+cooclupea.c: In function 'set_signal_mask':
+cooclupea.c:67: warning: unused variable 'sig_thr_id'
+cooclupea.c: In function 'worker_operation':
+cooclupea.c:162: warning: ISO C forbids passing argument 1 of 'pthread_exit' between function pointer and 'void *'
+cooclupea.c:163: warning: control reaches end of non-void function
+cooclupea.c: In function 'single_producer':
+cooclupea.c:202: warning: ISO C forbids passing argument 1 of 'pthread_exit' between function pointer and 'void *'
+cooclupea.c:203: warning: control reaches end of non-void function
+gcc -std=c99 -Wall -Wextra -pedantic -pthread -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024  -DMAINCONFIG='"config/pandora.config"' -DDEBUG -g -c -o config.o config.c
+gcc -std=c99 -Wall -Wextra -pedantic -pthread -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024  -DMAINCONFIG='"config/pandora.config"' -DDEBUG -g -c -o ringbuffer.o ringbuffer.c
+gcc -std=c99 -Wall -Wextra -pedantic -pthread -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024  -DMAINCONFIG='"config/pandora.config"' -DDEBUG -g -c -o strategy.o strategy.c
+strategy.c: In function 'strategy_dev_null':
+strategy.c:7: warning: unused variable 'result'
+gcc -std=c99 -Wall -Wextra -pedantic -pthread -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024  -DMAINCONFIG='"config/pandora.config"' -DDEBUG -g -o cooclupea cooclupea.o config.o ringbuffer.o strategy.o 
+config.o(.text+0x8a): In function `read_server_name':
+/home/develop/honeypot/src/config.c:12: warning: strcpy() is almost always misused, please use strlcpy()
+make install
+cp cooclupea ../bin 	
+cp *.config ../bin/config    
+make quickpack
+tar -czvf "../backup/latest_cooclupea.tar.gz" *.c *.h *.config Makefile *.count
+config.c
+cooclupea.c
+ringbuffer.c
+strategy.c
+test.c
+config.h
+cooclupea.h
+global.h
+ringbuffer.h
+strategy.h
+pandora.config
+pandora_boundaryinit.config
+Makefile
+sloc.count
+make git
+git add -A ../
+git commit -am "nightly build -working"
+[master 3c5333a] nightly build -working
+ Committer: dev <develop@develop.my.domain>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 7 files changed, 1925 insertions(+)
+ create mode 100644 bin/#*shell*#
+ rewrite src/config.o (60%)
+ rewrite src/cooclupea.o (68%)
+ rewrite src/ringbuffer.o (74%)
+ rewrite src/strategy.o (87%)
+$ gdb ./cooclupea 
+gdb ./cooclupea 
+GNU gdb 6.3
+Copyright 2004 Free Software Foundation, Inc.
+GDB is free software, covered by the GNU General Public License, and you are
+welcome to change it and/or distribute copies of it under certain conditions.
+Type "show copying" to see the conditions.
+There is absolutely no warranty for GDB.  Type "show warranty" for details.
+This GDB was configured as "amd64-unknown-openbsd5.5"...
+(gdb) run
+Starting program: /home/develop/honeypot/src/cooclupea 
+pandora[27653]: Pandora started at Fri Jul  4 12:37:08 2014
+ with pid 27653 and configfile config/pandora.config
+pandora[27653]: open config config/pandora.config as master config
+pandora[27653]: I am so sorry but config/pandora.config is not there or I can not open it....
+
+Program exited with code 01.
+(gdb) x
+0x0:	Cannot access memory at address 0x0
+(gdb) q
+$ run -c pandora.config
+run -c pandora.config
+/bin/ksh: run: not found
 $ 
