@@ -27,7 +27,7 @@
 
 software_name := cooclupea
 
-GCCOPT := -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024
+GCCOPT := -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024  -DMAINCONFIG='"config/pandora.config"'
 CC := gcc
 OBJ = ${software_name}.o config.o ringbuffer.o strategy.o
 CFLAGS := -std=c99 -Wall -Wextra -pedantic -pthread
