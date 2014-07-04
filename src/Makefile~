@@ -1,0 +1,91 @@
+#This is the master Makefile
+#It should be easy to build pandora...
+#However one can adjust some compile params (options)
+#Most of them are more for convenience (perhaps when you want to start pandora with a backlog of 42 and you are bored to use commandline params during startup)
+#Others are feature related like IPv6
+
+#Be careful, these options are also set in the source code (header files)
+#Within this makefile you are able to overwrite these settings
+#Some of those setting you can override with command line params during startup
+
+#However, the order will be: commandline --> Makefile --> SourceCode
+#Hence in source code there are all params predefined, so whenever you do not define it here, the default value from source code will be there...
+
+
+#As options one can use
+#SYSLOG=<WHATEVER YOU WANT>	default LOG_DAEMON
+#PERROR				default not defined , just log error
+#ALLOWEDOPTS=<OPTS>		default is everything from help, defines what opts are allowed
+#STDERR=<stderr>		default is stderr
+#STDLOG=<stdlog>		default is LOG_NOTICE
+#INET_FAM=<inet family>		default is AF_INET
+#TCP_BACKLOG=<backlog count>	default is 128
+#WORKER_POOL=<pool size>	pool size for worker threads default is 10
+#MAINCONFIG=<mainconfig>	main configpath default is "~/.pandora.config"
+#MAIN_BUFFER_LEN=<LEN>		size of mainbuffer default is 1024
+
+
+software_name := cooclupea
+
+GCCOPT = -std=C99 -Wall -Wextra -Wpedantic -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAINCONFIG='"config/pandora.config"' -DMAIN_BUFFER_LEN=1024
+CC = gcc
+OBJ = ${software_name}.o config.o ringbuffer.o strategy.o
+CFLAGS = 
+
+#DEBUG = 1
+.ifdef DEBUG
+    ADEBUG =-DDEBUG -g
+.else
+    ADEBUG =-DNDEBUG
+.endif
+
+backupfolder := ../backup
+actual_tar := ${backupfolder}/$(shell date)_${software_name}.tar.gz
+latest_tar := ${backupfolder}/latest_${software_name}.tar.gz
+files_to_tar := *.c *.h *.config Makefile *.count
+install_dir := ../bin 	#relative only for development
+config_dir := ../bin/config    #use relative only for development...
+config_files := *.config
+install_files := ${software_name}
+
+${software_name}: $(OBJ)
+	${CC} $(CFLAGS) ${GCCOPT} ${ADEBUG} -o $@ $^ 
+
+%.o: %.c %.h
+	$(CC) $(CFLAGS) ${GCCOPT} ${ADEBUG} -c -o $@ $<
+
+clean: 
+	rm -rf *.o
+	rm -rf ${software_name}
+
+countloc:
+	sloccount . 2>&1 | tee sloc.count
+
+pack:
+	tar -czvf "${actual_tar}" ${files_to_tar}
+	make quickpack
+	make gitpack
+
+quickpack:
+	tar -czvf "${latest_tar}" ${files_to_tar}
+install:
+	cp ${install_files} ${install_dir}
+	cp ${config_files} ${config_dir}
+
+git:
+	git add -A ../
+	git commit -am "nightly build -working"
+
+gitpack:
+	git add -A ../
+	git commit -am "backup perhaps untested"
+
+all:
+	make clean
+	make countloc
+	make ${software_name} 
+	make install
+	make quickpack
+	make git
+upload:
+	scp *c *h Makefile *.config develop:/home/develop/honeypot/src
