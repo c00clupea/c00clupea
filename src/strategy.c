@@ -14,8 +14,27 @@ int strategy_dev_null(struct consumer_command *tmp_cmd){
 	  	}	
 	  	input = (char*)malloc(len+1);
 	  	read(tmp_cmd->peer_socket,input,len);
+
+		char *search;
+		search = input;
+		int found_clrf = 0;
+
+		while(*search != "\0"){
+			if(*search == "\r"){
+				if(*(search+1) == "\n"){
+					found_clrf = 1;
+					break;
+				}
+			}
+			search++;
+		}
+
+
 	  	syslog(STDLOG,"rcv from %s len %d bytes input:%s\n",result,len,input);
 	  	free(input);
+		if(found_clrf == 1){
+			break;
+		}
 	}
 	syslog(STDLOG,"Strategy dev null finished");
 
