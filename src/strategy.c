@@ -14,7 +14,7 @@ int strategy_dev_null(struct consumer_command *tmp_cmd){
 	  	}	
 	  	input = (char*)malloc(len+1);
 	  	read(tmp_cmd->peer_socket,input,len);
-	  	syslog(STDLOG,"rcv len %d bytes input:%s\n",len,input);
+	  	syslog(STDLOG,"rcv from %s len %d bytes input:%s\n",result,len,input);
 	  	free(input);
 	}
 	syslog(STDLOG,"Strategy dev null finished");
