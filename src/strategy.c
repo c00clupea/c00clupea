@@ -12,8 +12,8 @@ int strategy_dev_null(struct consumer_command *tmp_cmd){
 	  	if (read (tmp_cmd->peer_socket, &len, sizeof (len)) == 0){
       			break;
 	  	}	
-	  	input = (char*)malloc(len);
-	  	read(tmp_cmd->peer_socket,input,len-1);
+	  	input = (char*)malloc(len+1);
+	  	read(tmp_cmd->peer_socket,input,len);
 	  	syslog(STDLOG,"rcv len %d bytes input:%s\n",len,input);
 	  	free(input);
 	}
