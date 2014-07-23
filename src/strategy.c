@@ -19,7 +19,7 @@ int strategy_dev_null(struct consumer_command *tmp_cmd){
 		search = input;
 		int found_clrf = 0;
 
-		while(*search != "\0"){
+		/**while(*search != "\0"){
 			if(*search == "\r"){
 				if(*(search+1) == "\n"){
 					found_clrf = 1;
@@ -27,7 +27,7 @@ int strategy_dev_null(struct consumer_command *tmp_cmd){
 				}
 			}
 			search++;
-		}
+			}**/
 
 
 	  	syslog(STDLOG,"rcv from %s len %d bytes input:%s\n",result,len,input);
