@@ -12,6 +12,17 @@ void read_server_name(char *line,char* cServerName){
 	strcpy(cServerName,server_name_hold);
 }
 
+void read_server_strategy(char *line, int *strategy){
+	char n1[CONFIG_LEN];
+	char n2[CONFIG_LEN];
+	char n3[CONFIG_LEN];
+	char n4[CONFIG_LEN];
+	if(sscanf(line, "%s %s %s %s %d",n1,n2,n3,n4,strategy) != 5){
+		syslog(LOG_ERR,"wrong params for strategy");
+		exit(1);
+	}
+}
+
 void read_server_port(char *line,int *port){
 	char n1[CONFIG_LEN];
 	char n2[CONFIG_LEN];
@@ -40,6 +51,9 @@ targetCode read_result_target_code(commandTargetCode command_target_code,char *l
 		}
 		else if (strcmp(target,"iface") == 0){
 			target_code = TARG_IFACE;
+		}
+		else if (strcmp(target,"strategy") == 0){
+			target_code = TARG_STRATEGY;
 		}
 		else {
 			syslog(LOG_ERR,"sorry target not found");
@@ -104,6 +118,20 @@ server* find_server_by_name(char *cServerName, serverList *SServerList){
 	return NULL;
 }
 
+void write_strategy_to_server_in_struct(serverList *SServerList, char *line){
+	char rgServerName[CONFIG_LEN];
+	read_server_name(line,rgServerName);
+	server* SSingleServer = find_server_by_name(rgServerName,SServerList);
+	if(SSingleServer == NULL){
+		syslog(LOG_ERR,"Sorry but Server %s is not defined, but you tried to configure a port on it",rgServerName);
+		exit(1);
+	}
+	int *strategy = malloc(sizeof(int));
+	read_server_strategy(line,strategy);
+	SSingleServer->strategy_idx = *strategy;
+	free(strategy);
+}
+
 void write_port_to_server_in_struct(serverList *SServerList,char* line){
 	//init server
 	char rgServerName[CONFIG_LEN];
@@ -156,6 +184,10 @@ int check_config(serverList *SServerList){
 			syslog(LOG_ERR,"port %d for server %s is not valid",SServerList->rgServer[i].iPort,SServerList->rgServer[i].cServerName);
 			result = 1;//This is bad, but one can see more errors for convienience
 		}
+		if(SServerList->rgServer[i].strategy_idx >= STRAT_LEN){
+			syslog(LOG_ERR,"strategy is out of bound");
+			result = 1;
+		}
 	}
 	return result;
 }
@@ -186,6 +218,9 @@ int read_config(char *cConfigPath, serverList *SServerList) {
 				targetCode result_target_code = read_result_target_code(target_code,line);
 				if(result_target_code == TARG_PORT){
 					write_port_to_server_in_struct(SServerList,line);					
+				}
+				if(result_target_code == TARG_STRATEGY){
+					write_strategy_to_server_in_struct(SServerList,line);
 				}
 			}	
 		}
