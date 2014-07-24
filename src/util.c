@@ -18,6 +18,7 @@ int print_safe_log(pthread_mutex_t *mtx, FILE *fp, char *txt){
 	}
 
 	fprintf(fp,txt);
+
 	if(pthread_mutex_unlock(mtx)!=0){
 		syslog(LOG_ERR,"problem with unlock in consumer");
 		return 1;
