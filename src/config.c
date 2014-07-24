@@ -190,6 +190,7 @@ int read_config(char *cConfigPath, serverList *SServerList) {
 			}	
 		}
 	}
+	fclose(config_file);
 	return check_config(SServerList);
 }
 
