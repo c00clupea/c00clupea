@@ -58,7 +58,7 @@
 #endif
 
 #ifndef STRAT_DEFAULT
-#define STRAT_DEFAULT 0
+#define STRAT_DEFAULT 1
 #endif
 
 
