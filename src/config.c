@@ -9,7 +9,7 @@ void read_server_name(char *line,char* cServerName){
 		syslog(LOG_ERR,"wrong params for init");
 		exit(1);
 	}
-	strcpy(cServerName,server_name_hold);
+	strlcpy(cServerName,server_name_hold,(CONFIG_LEN*sizeof(char)));
 }
 
 void read_server_strategy(char *line, int *strategy){
