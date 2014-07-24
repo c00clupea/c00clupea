@@ -1,6 +1,8 @@
 #ifndef GLOBAL_H
 #define GLOBAL_H
 
+#include "util.h"
+
 #ifndef STDERR
 #define STDERR stderr
 #endif
