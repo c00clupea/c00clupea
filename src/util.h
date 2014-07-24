@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <pthread.h>
 #include <syslog.h>
+#include <stdlib.h>
+
 
 #define LOG_LVL_DEBUG = 1
 #define LOG_LVL_INFO = 2
