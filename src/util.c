@@ -16,6 +16,7 @@ int init_safe_log(struct safe_log *logger, char *file_name){
 	logger->mtx = malloc(sizeof(pthread_mutex_t));
 	pthread_mutex_init(logger->mtx,NULL);
 	logger->fp = fopen(file_name,"w");
+	return 0;
 }
 
 int change_safe_log_file(struct safe_log *logger, char *filename){
@@ -33,6 +34,7 @@ int change_safe_log_file(struct safe_log *logger, char *filename){
 		syslog(LOG_ERR,"problem with unlock in consumer");
 		return 1;
 	}
+	return 0;
 }
 
 int close_safe_log(struct safe_log *logger){
@@ -40,6 +42,7 @@ int close_safe_log(struct safe_log *logger){
 	free(logger->file_name);
 	free(logger->mtx);
 	free(logger);
+	return 0;
 }
 
 int print_safe_log(struct safe_log *logger, char *txt){
