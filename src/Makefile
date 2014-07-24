@@ -23,11 +23,11 @@
 #WORKER_POOL=<pool size>	pool size for worker threads default is 10
 #MAINCONFIG=<mainconfig>	main configpath default is "~/.pandora.config"
 #MAIN_BUFFER_LEN=<LEN>		size of mainbuffer default is 1024
-
+#STRAT_DEFAULT=<idx>		default strategy = 0
 
 software_name := cooclupea
 
-GCCOPT := -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024  -DMAINCONFIG='"config/pandora.config"'
+GCCOPT := -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024  -DMAINCONFIG='"config/pandora.config"' -DSTRAT_DEFAULT=0
 CC := gcc
 OBJ = ${software_name}.o config.o ringbuffer.o strategy.o
 CFLAGS := -std=c99 -Wall -Wextra -pedantic -pthread
