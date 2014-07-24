@@ -4,9 +4,5 @@
 int print_log(FILE *fp, char *text){
 	if(fp){
 		fprintf(fp,text);
-		return 0;
-	}
-	else{
-		return 1;
 	}
 }	
