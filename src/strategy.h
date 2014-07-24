@@ -5,6 +5,8 @@
 #include <arpa/inet.h>
 #include <netinet/in.h>
 #include "cooclupea.h"
+#include "strategy_dev_null.h"
+
 
 int strategy_http_simple(struct consumer_command *tmp_cmd);
 
