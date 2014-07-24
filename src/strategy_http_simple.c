@@ -24,13 +24,17 @@ int destroy_http_simple_log(){
 
 int print_http_simple_log()
 {
+	int res = 0;
 	if(pthread_mutex_lock(&mtx_http_simple_write_lock) != 0){
 		syslog(LOG_ERR,"logwriter is not able to lock");
+		return 1;
 	}
 
 	if(pthread_mutex_unlock(&mtx_http_simple_write_lock)!=0){
 		syslog(LOG_ERR,"problem with unlock in consumer");
+		return 1;
 	}
+	return res;
 
 }
 
