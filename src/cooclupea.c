@@ -47,7 +47,7 @@ void print_version(void) {
 static void set_signal_mask()
 {
 	static sigset_t   signal_mask;
-	pthread_t  sig_thr_id;      
+	//pthread_t  sig_thr_id;      
 	sigemptyset(&signal_mask);
 	sigaddset (&signal_mask, SIGINT);
 	sigaddset (&signal_mask, SIGTERM);
@@ -142,7 +142,8 @@ static void* worker_operation(){
 		destroy_consumer_command(tmp_cmd);
 	 }
        	syslog(STDLOG,"Exit worker");
-	pthread_exit(pthread_self);
+	pthread_exit((void *) 0);
+	return NULL;
 }
 
 
