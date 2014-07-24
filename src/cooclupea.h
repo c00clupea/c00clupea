@@ -32,5 +32,7 @@ int init_server(server *srv);
 int destroy_consumer_command(struct consumer_command *tmp_cmd);
 
 #include "strategy.h"
+#include "strategy_dev_null.h"
+
 #endif
 
