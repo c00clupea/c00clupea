@@ -32,6 +32,7 @@ int(*read_strategy_from_idx(int idx))(struct consumer_command *){
 int init_strategies()
 {
         strategy_ptr[0] = &strategy_dev_null;
+	strategy_ptr[1] = &strategy_http_simple;
 	return 0;
 }
 

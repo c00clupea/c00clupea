@@ -7,6 +7,6 @@
 #include "cooclupea.h"
 
 int strategy_dev_null(struct consumer_command *tmp_cmd);
-
+int strategy_http_simple(struct consumer_command *tmp_cmd);
 
 #endif
