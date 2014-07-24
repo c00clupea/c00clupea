@@ -22,5 +22,6 @@ int print_safe_log(pthread_mutex_t *mtx, FILE *fp, char *txt){
 		syslog(LOG_ERR,"problem with unlock in consumer");
 		return 1;
 	}
+	return 0;
 
 }
