@@ -17,9 +17,12 @@ int init_http_simple_log(){
 }
 
 int destroy_http_simple_log(){
+	int res = 1;
 	if(log_file){
 		fclose(log_file);
+		res = 1;
 	}
+	return res;
 }
 
 int print_http_simple_log()
