@@ -161,7 +161,7 @@ void write_server_to_struct(serverList *SServerList,char* line){
 
 	if(find_server_by_name(rgServerName,SServerList) == NULL){
 		SServerList->iCountServer++;
-		strcpy(SServerList->rgServer[SServerList->iCountServer-1].cServerName,rgServerName);		
+		strlcpy(SServerList->rgServer[SServerList->iCountServer-1].cServerName,rgServerName,sizeof(rgServerName));		
 		write_init_config_to_Server(&SServerList->rgServer[SServerList->iCountServer-1]);
 	}
 	else{
