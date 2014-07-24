@@ -183,7 +183,8 @@ static void *single_producer(void *srv){
 	}
 	syslog(STDLOG,"Exit producer");
 		
-	pthread_exit(pthread_self);
+	pthread_exit((void *) 0);
+	return NULL;
 }
 
 
