@@ -12,5 +12,8 @@
 #include "strategy_http_simple.h"
 
 
+int init_strategies();
+int(*read_strategy_from_idx(int idx))(struct consumer_command *);
+
 
 #endif

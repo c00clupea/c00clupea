@@ -17,7 +17,7 @@ pthread_cond_t  	buf_main_consumer_not_empty_cond			= PTHREAD_COND_INITIALIZER;
 static char 		*main_config;
 
 static ringbuffer_t 	*buf_main_consumer_command;
-
+/**
 static int 		(*strategy_ptr[STRAT_LEN])(struct consumer_command *) 	= {NULL};
 
 int(*read_strategy_from_idx(int idx))(struct consumer_command *){
@@ -35,7 +35,7 @@ int init_strategies()
 	strategy_ptr[1] = &strategy_http_simple;
 	return 0;
 }
-
+**/
 
 int destroy_consumer_command(struct consumer_command *tmp_cmd){
   //Never ever free serverConfig here....you will need it
