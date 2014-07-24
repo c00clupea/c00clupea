@@ -14,7 +14,7 @@ int strategy_http_simple(struct consumer_command *tmp_cmd){
 	return 0;
 }
 
-static int receive_simple_http(struct consumer_command *tmp_cmd){
+int receive_simple_http(struct consumer_command *tmp_cmd){
 	FILE *fr;
 	fr = fdopen(dup(tmp_cmd->peer_socket),"r");
 	char header_line[max_line_length];
@@ -31,7 +31,7 @@ static int receive_simple_http(struct consumer_command *tmp_cmd){
 	return 0;
 }
 
-static int send_simple_http(struct consumer_command *tmp_cmd){
+int send_simple_http(struct consumer_command *tmp_cmd){
 	FILE   *fp = fdopen(dup(tmp_cmd->peer_socket),"w");
 	FILE 	*fr = fopen("index.html","r");
 	fprintf(fp,"HTTP/1.1 200 OK\n");
