@@ -80,6 +80,11 @@ gitpack:
 	git add -A ../
 	git commit -am "backup perhaps untested"
 
+full:
+	make clean
+	make ${software_name}
+	make install
+
 all:
 	make clean
 	#make countloc
