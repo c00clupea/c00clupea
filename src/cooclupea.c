@@ -152,6 +152,8 @@ static void *single_producer(void *srv){
 
 	server *tmp_srv = (server*)srv;
 
+	LOGGER_DEBUG(tmp_srv->logger,"Start producer at port %d with strategy %d",tmp_srv->iPort,tmp_srv->strategy_idx);
+
 	while(is_running){
 	  //int p_socket; 
 		struct consumer_command *new_consumer_command = create_new_consumer_command(srv);
@@ -181,7 +183,7 @@ static void *single_producer(void *srv){
 			
 		//close(new_consumer_command->peer_socket);	
 	}
-	syslog(STDLOG,"Exit producer");
+	LOGGER_DEBUG(tmp_srv->logger,"End producer at port %d with strategy %d",tmp_srv->iPort,tmp_srv->strategy_idx);
 		
 	pthread_exit((void *) 0);
 	return NULL;
@@ -258,6 +260,13 @@ int init_server(server *srv) {
 	}	
 	srv->socket_handler = socket_handle;
 
+	char log_template[] = "logfile_%d.log";
+	char log_full[255];
+	snprintf(log_full,255,log_template,srv->iPort);
+
+	srv->logger = init_safe_log(log_full);
+	srv->logger->log_level = srv->log_lvl;
+
 	return 0;
 }
 
@@ -326,7 +335,7 @@ int main(int argc, char *argv[]) {
 			break;
 		case 's':
 			default_strategy = atoi(optarg);
-			break;
+	      		break;
 		default:
 
 			abort();
@@ -399,6 +408,10 @@ int main(int argc, char *argv[]) {
 	}
 	
 	syslog(STDLOG,"Close sockets");
+
+	for(int i = 0; i < SServerList->iCountServer;i++){
+		close_safe_log(SServerList->rgServer[i].logger);
+	}
 
 	//free the mallocs....
 	//free(socket_handle);

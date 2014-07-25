@@ -23,6 +23,17 @@ void read_server_strategy(char *line, int *strategy){
 	}
 }
 
+void read_server_log_lvl(char *line,int *loglvl){
+	char n1[CONFIG_LEN];
+	char n2[CONFIG_LEN];
+	char n3[CONFIG_LEN];
+	char n4[CONFIG_LEN];
+	if(sscanf(line, "%s %s %s %s %d",n1,n2,n3,n4,loglvl) != 5){
+		syslog(LOG_ERR,"wrong params for loglvl");
+		exit(1);
+	}
+	
+}
 void read_server_port(char *line,int *port){
 	char n1[CONFIG_LEN];
 	char n2[CONFIG_LEN];
@@ -54,6 +65,9 @@ targetCode read_result_target_code(commandTargetCode command_target_code,char *l
 		}
 		else if (strcmp(target,"strategy") == 0){
 			target_code = TARG_STRATEGY;
+		}
+		else if (strcmp(target,"loglvl") == 0){
+				target_code = TARG_LOG;
 		}
 		else {
 			syslog(LOG_ERR,"sorry target not found");
@@ -118,6 +132,21 @@ server* find_server_by_name(char *cServerName, serverList *SServerList){
 	return NULL;
 }
 
+
+void write_log_to_server_in_struct(serverList *SServerList, char *line){
+	char rgServerName[CONFIG_LEN];
+	read_server_name(line,rgServerName);
+	server* SSingleServer = find_server_by_name(rgServerName,SServerList);
+	if(SSingleServer == NULL){
+		syslog(LOG_ERR,"Sorry but Server %s is not defined, but you tried to configure a port on it",rgServerName);
+		exit(1);
+	}
+	int *loglvl = malloc(sizeof(int));
+	read_server_log_lvl(line,loglvl);
+	SSingleServer->log_lvl = *loglvl;
+	free(loglvl);
+}
+
 void write_strategy_to_server_in_struct(serverList *SServerList, char *line){
 	char rgServerName[CONFIG_LEN];
 	read_server_name(line,rgServerName);
@@ -152,6 +181,7 @@ void write_init_config_to_Server(server *single_server){
 	single_server->iPort = 0;
 	single_server->socket_handler = -1;
 	single_server->strategy_idx = -1;
+	single_server->log_lvl = STD_LOG_LVL;
 }
 
 void write_server_to_struct(serverList *SServerList,char* line){
@@ -221,6 +251,9 @@ int read_config(char *cConfigPath, serverList *SServerList) {
 				}
 				if(result_target_code == TARG_STRATEGY){
 					write_strategy_to_server_in_struct(SServerList,line);
+				}
+				if(result_target_code == TARG_LOG){
+					write_log_to_server_in_struct(SServerList,line);
 				}
 			}	
 		}

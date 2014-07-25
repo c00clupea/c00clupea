@@ -2,9 +2,9 @@
 
 pthread_mutex_t mtx_http_simple_write_lock = PTHREAD_MUTEX_INITIALIZER;
 
-const int max_line_length = 8 * 1024;//8KB
+const int max_line_length =  HTTP_SIMPLE_LINE_LEN;
 
-int header_max_length = 128;
+int header_max_length = HTTP_SIMPLE_HEADER_LINE;
 
 int strategy_http_simple(struct consumer_command *tmp_cmd){
 	if(receive_simple_http(tmp_cmd) != 0){
@@ -28,12 +28,26 @@ int receive_simple_http(struct consumer_command *tmp_cmd){
 	if(fr){
 
 		int count_all = 0;
-		fgets(header_line,max_line_length,fr);
+		//fgets(header_line,max_line_length,fr);
 		char buffer[INET_ADDRSTRLEN];
 		const char* result=inet_ntop(AF_INET,&(tmp_cmd->client.sin_addr),buffer,sizeof(buffer));
+		char log_all[STD_LOG_LEN];
+		snprintf(log_all,STD_LOG_LEN,"rcv from %s :\n",result);
+		fgets(header_line,max_line_length,fr);
+
 		while(count_all <  header_max_length){
-			syslog(STDLOG,"recv at port %d from %s input %s",tmp_cmd->serverConfig->iPort,result,header_line);
-		}
+			
+			fgets(header_line,max_line_length,fr);
+			if(strstr(header_line,":")){
+				syslog(STDLOG,header_line);
+				strlcat(log_all,header_line,sizeof(log_all));
+				count_all++;
+			}
+			else{
+				break;
+			}
+		}		
+		LOGGER_INFO(tmp_cmd->serverConfig->logger,"%s",log_all);
 	}
 	fclose(fr);
 	return 0;

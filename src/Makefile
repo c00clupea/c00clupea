@@ -24,10 +24,13 @@
 #MAINCONFIG=<mainconfig>	main configpath default is "~/.pandora.config"
 #MAIN_BUFFER_LEN=<LEN>		size of mainbuffer default is 1024
 #STRAT_DEFAULT=<idx>		default strategy = 0
+#STD_LOG_LVL=<lvl>		default log level DEBUG=1,INFO=2,WARN=3,ERR=4
+#STD_LOG_LEN=<len>		len for logbuffer std = 1024Byte
+#STD_FLUSH_COUNT=<count>	flushes logfile after count n STD = 1 == immediately
 
 software_name := cooclupea
 
-GCCOPT := -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024  -DMAINCONFIG='"config/pandora.config"' -DSTRAT_DEFAULT=0
+GCCOPT := -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024  -DMAINCONFIG='"config/pandora.config"' -DSTRAT_DEFAULT=0 -DSTD_LOG_LVL=2 -DSTD_LOG_LEN=1024 -DSTD_FLUSH_COUNT=1
 CC := gcc
 OBJ = ${software_name}.o config.o ringbuffer.o strategy.o strategy_dev_null.o strategy_http_simple.o util.o
 CFLAGS := -std=c99 -Wall -Wextra -pedantic -pthread -D_THREAD_SAFE
