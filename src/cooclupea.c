@@ -206,6 +206,7 @@ static pthread_t* init_producer(serverList *srv_list){
 
 
 	for(int i = 0; i < srv_list->iCountServer; i++){
+		srv_list->rgServer[i].idx = i;
 		pthread_create(&threadpool[i],NULL,single_producer,&srv_list->rgServer[i]);
 		//pthread_detach(threadpool[i]);
 	}	
