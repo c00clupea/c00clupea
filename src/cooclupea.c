@@ -9,6 +9,8 @@ static sig_atomic_t is_running = 0;
 static int tcp_backlog = TCP_BACKLOG;
 static int worker_pool = WORKER_POOL;
 
+static 	serverList *SServerList;
+
 int main(int argc, char *argv[]);
 pthread_mutex_t 	mtx_work_buffer						= PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t  	buf_main_consumer_full_cond    				= PTHREAD_COND_INITIALIZER;
@@ -17,6 +19,47 @@ pthread_cond_t  	buf_main_consumer_not_empty_cond			= PTHREAD_COND_INITIALIZER;
 static char 		*main_config;
 
 static ringbuffer_t 	*buf_main_consumer_command;
+
+
+struct req_count *init_request_counter(){
+	struct req_count *tmp;
+	tmp = malloc(sizeof(struct req_count));
+	tmp->count = 0;
+#ifdef ATOMIC
+	tmp->mtx = malloc(sizeof(pthreadmutex_t));
+	pthread_mutex_init(tmp->mtx,NULL);
+#endif
+	return tmp;
+}
+
+int destroy_request_counter(struct req_count *tmp){
+#ifdef ATOMIC
+	free(tmp->mtx);
+#endif
+	free(tmp);
+	return 0;
+}
+
+int increment_count(struct consumer_command *cmd){
+#ifdef ATOMIC
+	if(pthread_mutex_lock(cmd->serverConfig->count->mtx) != 0){
+		syslog(LOG_ERR,"logwriter is not able to lock");
+		return 1;
+	}
+
+#endif
+
+	cmd->serverConfig->count->count++;//When no atomic flag...this is not threadsafe...
+#ifdef ATOMIC
+	if(pthread_mutex_unlock(cmd->serverConfig->count->mtx)!=0){
+		syslog(LOG_ERR,"problem with unlock in consumer");
+		return 1;
+	}
+#endif
+	return 0;
+
+}
+
 
 int destroy_consumer_command(struct consumer_command *tmp_cmd){
   //Never ever free serverConfig here....you will need it
@@ -42,6 +85,8 @@ char* return_actual_time(void) {
 
 void print_version(void) {
 	fprintf(STDERR,"%s (%s) by %s\n",HONEYPOT_NAME,VERSION,AUTHOR);
+	fprintf(STDERR,"<*)))><\n");
+  	fprintf(STDERR,"c00 == red, Clupea == lat.:herring\n");
 }
 
 static void set_signal_mask()
@@ -83,8 +128,18 @@ void show_status(int sig) {
 }
 
 void show_info(int sig){
-	syslog(STDLOG,"Received signal %d",sig);
 	print_version();
+	fprintf(STDERR,"Rcv sig %d",sig);
+	fprintf(STDERR,"\n###########################################\n");
+	fprintf(STDERR,"Stats\n");
+	fprintf(STDERR,"###########################################\n");
+	fprintf(STDERR,"ID\tName\tPort\tReq\n");
+	server *tmp;
+	for(int i = 0; i < SServerList->iCountServer;i++){
+		tmp = &SServerList->rgServer[i];
+		fprintf(STDERR,"%d\t%s\t%d\t%llu\n",tmp->idx,tmp->cServerName,tmp->iPort,tmp->count->count);	
+	}
+
 }
 
 void handle_signal(void) {
@@ -267,7 +322,8 @@ int init_server(server *srv) {
 
 	srv->logger = init_safe_log(log_full);
 	srv->logger->log_level = srv->log_lvl;
-
+	
+	srv->count = init_request_counter();
 	return 0;
 }
 
@@ -295,6 +351,7 @@ int init_manyserver(pthread_t *threadpool){
 }
 
 void print_help(void) {
+	print_version();
 	fprintf(STDERR,"USAGE: Cooclupea [OPTIONS]\n\n");
 	fprintf(STDERR,"[OPTIONS] can be:\n");
 	fprintf(STDERR,"-h		show some help\n");	
@@ -304,8 +361,9 @@ void print_help(void) {
 	fprintf(STDERR,"-c <file>	set config file\n");
 	fprintf(STDERR,"\n\n");
 	fprintf(STDERR,"Use signal SIGTERM or SIGINT for graceful shutdown\n");
-	fprintf(STDERR,"Use signal SIGUSR1 for statistics\n");
-	fprintf(STDERR,"Use signal SIGUSR2 for info\n");
+	fprintf(STDERR,"Use signal SIGUSR1 for some info\n");
+	fprintf(STDERR,"Use signal SIGUSR2 for statistics\n");
+
 }
 
 
@@ -354,7 +412,7 @@ int main(int argc, char *argv[]) {
 	
 	syslog(STDLOG,"Pandora started at %s with pid %d and configfile %s",return_actual_time(),getpid(),main_config);
 
-	serverList *SServerList;
+//	serverList *SServerList;
 	SServerList = malloc(sizeof(serverList));
 	server *SSingleServer = malloc(MAX_SERVER * sizeof(server));
 
@@ -412,6 +470,7 @@ int main(int argc, char *argv[]) {
 
 	for(int i = 0; i < SServerList->iCountServer;i++){
 		close_safe_log(SServerList->rgServer[i].logger);
+		destroy_request_counter(SServerList->rgServer[i].count);
 	}
 
 	//free the mallocs....

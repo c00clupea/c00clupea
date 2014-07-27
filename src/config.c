@@ -183,6 +183,7 @@ void write_init_config_to_Server(server *single_server){
 	single_server->strategy_idx = -1;
 	single_server->log_lvl = STD_LOG_LVL;
 	single_server->idx = -1;
+	single_server->count = 0;
 }
 
 void write_server_to_struct(serverList *SServerList,char* line){

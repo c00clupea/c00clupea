@@ -27,6 +27,8 @@
 #STD_LOG_LVL=<lvl>		default log level DEBUG=1,INFO=2,WARN=3,ERR=4
 #STD_LOG_LEN=<len>		len for logbuffer std = 1024Byte
 #STD_FLUSH_COUNT=<count>	flushes logfile after count n STD = 1 == immediately
+#ATOMIC				makes even the unimportant things atomic (like counter) but slows down the software immediately - On by Default
+
 
 software_name := cooclupea
 

@@ -1,0 +1,11 @@
+#!/usr/bin/python
+
+import subprocess
+
+p = subprocess.Popen("pgrep cooclupea", stdout=subprocess.PIPE, shell=True)
+
+(output, err) = p.communicate()
+
+p_status = p.wait()
+
+print output

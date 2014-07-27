@@ -24,22 +24,24 @@ int receive_simple_http(struct consumer_command *tmp_cmd){
 	FILE *fr;
 	fr = fdopen(dup(tmp_cmd->peer_socket),"r");
 	char header_line[max_line_length];
-
+	
 	if(fr){
+
+		increment_count(tmp_cmd);
 
 		int count_all = 0;
 		//fgets(header_line,max_line_length,fr);
 		char buffer[INET_ADDRSTRLEN];
 		const char* result=inet_ntop(AF_INET,&(tmp_cmd->client.sin_addr),buffer,sizeof(buffer));
 		char log_all[STD_LOG_LEN];
-		snprintf(log_all,STD_LOG_LEN,"rcv from %s :\n",result);
+		snprintf(log_all,STD_LOG_LEN,"rcv from %s count %llu:\n",result,tmp_cmd->serverConfig->count->count);
 		fgets(header_line,max_line_length,fr);
 
 		while(count_all <  header_max_length){
 			
 			fgets(header_line,max_line_length,fr);
 			if(strstr(header_line,":")){
-				syslog(STDLOG,header_line);
+				//syslog(STDLOG,header_line);
 				strlcat(log_all,header_line,sizeof(log_all));
 				count_all++;
 			}

@@ -16,7 +16,7 @@
 #endif
 
 #define VERSION "1.0"
-#define HONEYPOT_NAME "Cooclupea Honeypot"
+#define HONEYPOT_NAME "c00Clupea Honeypot"
 #define AUTHOR "C.Pohl"
 
 #ifndef ALLOWED_OPTS
