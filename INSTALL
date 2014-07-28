@@ -1,7 +1,28 @@
 
 
+In all cases you will need to create a directory for the logfiles.
+
+The c00clupea-user will need access to this folder.
+
+However, c00clupea needs write access to this folder (including create a new file)
+
 OPENBSD
 
 ./configure --mandir=/usr/local/man --sysconfdir=/etc
 make
 make install
+
+MACOSX
+
+./configure
+make
+make install
+
+I suppose that you will use your Mac for development and not for production usage.
+
+Hence this will work...
+
+WINDOWS
+
+Haven´t tried it
+

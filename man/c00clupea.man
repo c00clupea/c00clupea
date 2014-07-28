@@ -7,7 +7,9 @@ c00clupea \-  just a honeypot
 .SH DESCRIPTION
 c00clupea is just a honeypot and it doese what a honeypot needs to do...
 
-Btw. c00 is red and clupea is lat.: Herring..
+<*)))><
+
+Btw. c00 is red and clupea is lat.: for the family of Herring..
 .SH OPTIONS
 
 .IP -V
@@ -28,15 +30,15 @@ set another default strategy
 .SH CONTROLS
 You are able to see some information when using signals
 
-.IP SIGUSR1
+.IP "kill -30 <pid>"
 Provides some statistics
 
-.IP SIGUSR2
+.IP "kill -31 <pid>"
 provides some informations
 
 .SH BUGS
 There can be some bugs - why not?
-When you find some, write an email to christoph.pohl0@hm.edu.
+When you find some, write an email to c00clupea@gmail.com
 
 .SH OTHER INCONVENIENCE
 You find somethin not very convenient, you want to have some special honeypot adapter or plugin...?
