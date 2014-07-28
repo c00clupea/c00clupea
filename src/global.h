@@ -15,7 +15,6 @@
 #define SYSLOG LOG_DAEMON
 #endif
 
-#define VERSION "1.0"
 #define HONEYPOT_NAME "c00Clupea Honeypot"
 #define AUTHOR "C.Pohl"
 
@@ -40,7 +39,7 @@
 #endif
 
 #ifndef MAINCONFIG
-#define MAINCONFIG "~/.pandora.config"
+#define MAINCONFIG "~/.c00clupea.config"
 #endif
 
 #ifndef CONFIG_LEN
@@ -64,6 +63,13 @@
 #endif
 
 
+#ifndef LOG_MAIN_TEMPLATE
+#define LOG_MAIN_TEMPLATE "/var/log/c00clupea/c00clupea_%d.log"
+#endif
+
+#ifndef STORAGE_TEMPLATE
+#define STORAGE_TEMPLATE "/var/%s/%d"
+#endif
 
 
 #endif

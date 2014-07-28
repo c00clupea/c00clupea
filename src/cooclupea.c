@@ -316,10 +316,11 @@ int init_server(server *srv) {
 	}	
 	srv->socket_handler = socket_handle;
 
-	char log_template[] = "logfile_%d.log";
+	char log_template[] = LOG_MAIN_TEMPLATE;
 	char log_full[255];
 	snprintf(log_full,255,log_template,srv->iPort);
 
+	/**syslog(STDLOG,"init %s",log_full);**/
 	srv->logger = init_safe_log(log_full);
 	srv->logger->log_level = srv->log_lvl;
 	

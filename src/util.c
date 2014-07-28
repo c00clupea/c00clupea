@@ -17,6 +17,10 @@ struct safe_log *init_safe_log( char *file_name){
 	pthread_mutex_init(logger->mtx,NULL);
 	logger->fp = fopen(file_name,"w");
 	logger->flush_count = 0;
+	if(!logger->fp){
+		syslog(LOG_ERR,"Sorry but %s is not writable or permission problem or sth else",file_name);
+		exit(1);
+	}
 	return logger;
 }
 

@@ -8,8 +8,8 @@
 
 /**Strategies**/
 
-#include "strategy_dev_null.h"
-#include "strategy_http_simple.h"
+#include "strategies/strategy_dev_null.h"
+#include "strategies/strategy_http_simple.h"
 
 
 int init_strategies();

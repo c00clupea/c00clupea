@@ -1,0 +1,7 @@
+
+
+OPENBSD
+
+./configure --mandir=/usr/local/man --sysconfdir=/etc
+make
+make install
