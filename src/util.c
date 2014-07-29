@@ -1,16 +1,5 @@
 #include "util.h"
-
-
-int print_log(FILE *fp, char *text){
-	int res = 1;
-	if(fp){
-		fprintf(fp,text);
-		res = 0;
-	}
-	return res;
 	
-}	
-
 struct safe_log *init_safe_log( char *file_name){
 	struct safe_log *logger = malloc(sizeof(struct safe_log));
 	logger->mtx = malloc(sizeof(pthread_mutex_t));
