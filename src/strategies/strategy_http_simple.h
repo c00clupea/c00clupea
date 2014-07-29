@@ -1,6 +1,6 @@
 #ifndef STRATEG_HTTP_SIMPLE_H
 #define STRATEG_HTTP_SIMPLE_H
-#include "strategy.h"
+#include "../strategy.h"
 
 #define HTTP_SIMPLE_HEADER_LINE 128
 #define HTTP_SIMPLE_LINE_LEN 8192

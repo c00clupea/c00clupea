@@ -3,6 +3,10 @@
 
 #include "util.h"
 
+#ifndef VERSION
+#define VERSION -1
+#endif
+
 #ifndef STDERR
 #define STDERR stderr
 #endif

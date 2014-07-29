@@ -256,7 +256,7 @@ static pthread_t* init_producer(serverList *srv_list){
 		init_server(&srv_list->rgServer[i]);
 	}
 
-	threadpool = malloc(worker_pool * sizeof(pthread_t));
+	/**threadpool = malloc(worker_pool * sizeof(pthread_t));**/
 
 
 
@@ -330,15 +330,8 @@ int init_server(server *srv) {
 
 int init_manyserver(pthread_t *threadpool){
 	is_running = 1;
-
-	/**	int* socket_handler = (int*)malloc(port_len * sizeof(int));
-
-	for(int i = 0; i < (int)port_len; i++){
-		syslog(STDLOG,"Create socket at port %d",ports[i]);
-		socket_handler[i] = init_server(ports[i]);
-	}
-**/
-	threadpool = malloc(worker_pool * sizeof(pthread_t));
+	
+//	threadpool = malloc(worker_pool * sizeof(pthread_t));
 
 	handle_signal();
 	  //current worker pool
@@ -440,7 +433,8 @@ int main(int argc, char *argv[]) {
 
 	buf_main_consumer_command = init_buffer(MAIN_BUFFER_LEN,sizeof(void*));
 
-	pthread_t* consumer_threads = NULL;
+	pthread_t* consumer_threads;
+	consumer_threads = malloc(worker_pool * sizeof(pthread_t));
 
 	if(init_manyserver(consumer_threads) != 0){
 	  syslog(LOG_ERR,"Sorry worker threads caused a problem during creation");
@@ -479,7 +473,7 @@ int main(int argc, char *argv[]) {
 	free(serverthreads);
 	free(SSingleServer);
 	free(SServerList);
-//	free(consumer_threads);
+	free(consumer_threads);
 	destroy_ringbuffer(buf_main_consumer_command);
 
 	syslog(STDLOG,"Pandora ended at %s",return_actual_time());	
