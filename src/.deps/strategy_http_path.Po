@@ -1,6 +1,8 @@
-strategy.o: strategy.c strategy.h /usr/include/syslog.h \
-  /usr/include/sys/syslog.h /usr/include/sys/appleapiopts.h \
-  /usr/include/sys/cdefs.h /usr/include/sys/_symbol_aliasing.h \
+strategy_http_path.o: strategies/strategy_http_path.c \
+  strategies/strategy_http_path.h strategies/../strategy.h \
+  /usr/include/syslog.h /usr/include/sys/syslog.h \
+  /usr/include/sys/appleapiopts.h /usr/include/sys/cdefs.h \
+  /usr/include/sys/_symbol_aliasing.h \
   /usr/include/sys/_posix_availability.h /usr/include/sys/_types.h \
   /usr/include/machine/_types.h /usr/include/i386/_types.h \
   /usr/include/stdio.h /usr/include/Availability.h \
@@ -85,9 +87,11 @@ strategy.o: strategy.c strategy.h /usr/include/syslog.h \
   /usr/include/limits.h /usr/include/machine/limits.h \
   /usr/include/i386/limits.h /usr/include/i386/_limits.h \
   /usr/include/sys/syslimits.h strategies/strategy_dev_null.h \
-  strategies/strategy_http_simple.h strategies/strategy_http_path.h
+  strategies/strategy_http_simple.h
 
-strategy.h:
+strategies/strategy_http_path.h:
+
+strategies/../strategy.h:
 
 /usr/include/syslog.h:
 
@@ -392,5 +396,3 @@ ringbuffer.h:
 strategies/strategy_dev_null.h:
 
 strategies/strategy_http_simple.h:
-
-strategies/strategy_http_path.h:

@@ -92,7 +92,7 @@ PROGRAMS = $(bin_PROGRAMS)
 am_c00clupea_OBJECTS = cooclupea.$(OBJEXT) config.$(OBJEXT) \
 	ringbuffer.$(OBJEXT) strategy.$(OBJEXT) \
 	strategy_dev_null.$(OBJEXT) strategy_http_simple.$(OBJEXT) \
-	util.$(OBJEXT)
+	strategy_http_path.$(OBJEXT) util.$(OBJEXT)
 c00clupea_OBJECTS = $(am_c00clupea_OBJECTS)
 c00clupea_LDADD = $(LDADD)
 AM_V_P = $(am__v_P_@AM_V@)
@@ -250,6 +250,7 @@ c00clupea_SOURCES = global.h\
 			strategy.c strategy.h\
 			strategies/strategy_dev_null.c strategies/strategy_dev_null.h\
 			strategies/strategy_http_simple.c strategies/strategy_http_simple.h\
+			strategies/strategy_http_path.c strategies/strategy_http_path.h\
 			util.c util.h
 
 all: all-am
@@ -344,6 +345,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ringbuffer.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/strategy.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/strategy_dev_null.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/strategy_http_path.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/strategy_http_simple.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/util.Po@am__quote@
 
@@ -388,6 +390,20 @@ strategy_http_simple.obj: strategies/strategy_http_simple.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='strategies/strategy_http_simple.c' object='strategy_http_simple.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o strategy_http_simple.obj `if test -f 'strategies/strategy_http_simple.c'; then $(CYGPATH_W) 'strategies/strategy_http_simple.c'; else $(CYGPATH_W) '$(srcdir)/strategies/strategy_http_simple.c'; fi`
+
+strategy_http_path.o: strategies/strategy_http_path.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT strategy_http_path.o -MD -MP -MF $(DEPDIR)/strategy_http_path.Tpo -c -o strategy_http_path.o `test -f 'strategies/strategy_http_path.c' || echo '$(srcdir)/'`strategies/strategy_http_path.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/strategy_http_path.Tpo $(DEPDIR)/strategy_http_path.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='strategies/strategy_http_path.c' object='strategy_http_path.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o strategy_http_path.o `test -f 'strategies/strategy_http_path.c' || echo '$(srcdir)/'`strategies/strategy_http_path.c
+
+strategy_http_path.obj: strategies/strategy_http_path.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT strategy_http_path.obj -MD -MP -MF $(DEPDIR)/strategy_http_path.Tpo -c -o strategy_http_path.obj `if test -f 'strategies/strategy_http_path.c'; then $(CYGPATH_W) 'strategies/strategy_http_path.c'; else $(CYGPATH_W) '$(srcdir)/strategies/strategy_http_path.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/strategy_http_path.Tpo $(DEPDIR)/strategy_http_path.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='strategies/strategy_http_path.c' object='strategy_http_path.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o strategy_http_path.obj `if test -f 'strategies/strategy_http_path.c'; then $(CYGPATH_W) 'strategies/strategy_http_path.c'; else $(CYGPATH_W) '$(srcdir)/strategies/strategy_http_path.c'; fi`
 
 ID: $(am__tagged_files)
 	$(am__define_uniq_tagged_files); mkid -fID $$unique

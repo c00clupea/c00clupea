@@ -86,7 +86,8 @@ strategy_dev_null.o: strategies/strategy_dev_null.c \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.1/include/limits.h \
   /usr/include/limits.h /usr/include/machine/limits.h \
   /usr/include/i386/limits.h /usr/include/i386/_limits.h \
-  /usr/include/sys/syslimits.h strategies/strategy_http_simple.h
+  /usr/include/sys/syslimits.h strategies/strategy_http_simple.h \
+  strategies/strategy_http_path.h
 
 strategies/strategy_dev_null.h:
 
@@ -393,3 +394,5 @@ ringbuffer.h:
 /usr/include/sys/syslimits.h:
 
 strategies/strategy_http_simple.h:
+
+strategies/strategy_http_path.h:
