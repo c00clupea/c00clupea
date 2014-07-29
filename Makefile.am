@@ -1,6 +1,8 @@
 AUTOMAKE_OPTIONS = foreign
 
-CC = @CC@ 
+CC = clang
+
+#CC = @CC@ 
 
 SUBDIRS = src man
 

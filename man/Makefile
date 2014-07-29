@@ -143,10 +143,10 @@ AUTOCONF = ${SHELL} /Users/sec15334/repositories/dissertation/sources/c00clupea/
 AUTOHEADER = ${SHELL} /Users/sec15334/repositories/dissertation/sources/c00clupea/missing autoheader
 AUTOMAKE = ${SHELL} /Users/sec15334/repositories/dissertation/sources/c00clupea/missing automake-1.14
 AWK = awk
-CC = gcc
+CC = /opt/checker-276/libexec/ccc-analyzer
 CCDEPMODE = depmode=gcc3
 CFLAGS = -g -O2
-CPP = gcc -E
+CPP = /opt/checker-276/libexec/ccc-analyzer -E
 CPPFLAGS = 
 CYGPATH_W = echo
 DEFS = -DPACKAGE_NAME=\"c00clupea\" -DPACKAGE_TARNAME=\"c00clupea\" -DPACKAGE_VERSION=\"01\" -DPACKAGE_STRING=\"c00clupea\ 01\" -DPACKAGE_BUGREPORT=\"christoph.pohl0@hm.edu\" -DPACKAGE_URL=\"\" -DPACKAGE=\"c00clupea\" -DVERSION=\"01\" -DSTDC_HEADERS=1 -DHAVE_SYS_TYPES_H=1 -DHAVE_SYS_STAT_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_MEMORY_H=1 -DHAVE_STRINGS_H=1 -DHAVE_INTTYPES_H=1 -DHAVE_STDINT_H=1 -DHAVE_UNISTD_H=1 -DHAVE_ARPA_INET_H=1 -DHAVE_LIMITS_H=1 -DHAVE_NETINET_IN_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_SYS_SOCKET_H=1 -DHAVE_SYSLOG_H=1 -DHAVE_UNISTD_H=1 -DHAVE_STDLIB_H=1 -DHAVE_MALLOC=1 -DHAVE_MEMSET=1 -DHAVE_SOCKET=1 -DHAVE_STRSTR=1
@@ -185,7 +185,7 @@ abs_builddir = /Users/sec15334/repositories/dissertation/sources/c00clupea/man
 abs_srcdir = /Users/sec15334/repositories/dissertation/sources/c00clupea/man
 abs_top_builddir = /Users/sec15334/repositories/dissertation/sources/c00clupea
 abs_top_srcdir = /Users/sec15334/repositories/dissertation/sources/c00clupea
-ac_ct_CC = gcc
+ac_ct_CC = /opt/checker-276/libexec/ccc-analyzer
 am__include = include
 am__leading_dot = .
 am__quote = 
