@@ -59,7 +59,7 @@
 #endif
 
 #ifndef STRAT_LEN
-#define STRAT_LEN 2
+#define STRAT_LEN 3
 #endif
 
 #ifndef STRAT_DEFAULT
