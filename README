@@ -27,6 +27,10 @@ You can use the command line, init.d, rc or whatever you want
 
 "make install" just copies c00clupea to the bin-dir of your choice, copies the man page to the man-dir of your choice and the config to the config-dir of your choice.
 
+After installation you will find a man-page with some little help
+
+Or you can start "c00clupea -h" for some options.
+
 You should be aware that some strategies need other services.
 Normally these service are hardened systems or other honeypots.
 
@@ -39,9 +43,20 @@ It is built for research usage, you can do a lot of fancy things with it.
 
 But when you don´t know what you are doing, try it just inside your LAN.
 
-Btw. c00clupea means red herring....
+c00clupea is built for research (as I told before), we only use it in hardened systems.
+
+Even when someone will hack c00clupea he will be in in a noon-productive and secured area.
+
+Again, when you want to run c00clupea. Do it, but take care that you will not be part of the problem.
+
+Btw. c00clupea means red herring....<*)))><
 
 Btw2. c00clupea can be used as a fast web server, there is a fork of it with built-in webserver.
 
+You can do this, but there are better choices like nginx for this purpose
+
 Btw3. Feel free to contact me c00clupea@gmail.com  
 
+Btw4. But I will not help you with installation, security or consulting...
+
+Btw5. When you have some new ideas, bugs or just want to say "hello", feel free to contact me
