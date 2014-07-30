@@ -85,7 +85,8 @@ strategy.o: strategy.c strategy.h /usr/include/syslog.h \
   /usr/include/limits.h /usr/include/machine/limits.h \
   /usr/include/i386/limits.h /usr/include/i386/_limits.h \
   /usr/include/sys/syslimits.h strategies/strategy_dev_null.h \
-  strategies/strategy_http_simple.h strategies/strategy_http_path.h
+  strategies/strategy_http_simple.h strategies/strategy_http_path.h \
+  strategies/http_codes.h
 
 strategy.h:
 
@@ -394,3 +395,5 @@ strategies/strategy_dev_null.h:
 strategies/strategy_http_simple.h:
 
 strategies/strategy_http_path.h:
+
+strategies/http_codes.h:

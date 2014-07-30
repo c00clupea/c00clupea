@@ -307,7 +307,7 @@ AUTOMAKE_OPTIONS = foreign
 
 #CC = /opt/checker-276/libexec/ccc-analyzer 
 SUBDIRS = src man
-EXTRA_DIST = autogen.sh conf/c00clupea.config man/c00clupea.man
+EXTRA_DIST = autogen.sh conf/c00clupea.config man/c00clupea.man scan_files.sh
 confdir = $(sysconfdir)/c00clupea
 conf_DATA = conf/c00clupea.config
 all: all-recursive

@@ -87,7 +87,7 @@ strategy_http_simple.o: strategies/strategy_http_simple.c \
   /usr/include/limits.h /usr/include/machine/limits.h \
   /usr/include/i386/limits.h /usr/include/i386/_limits.h \
   /usr/include/sys/syslimits.h strategies/strategy_dev_null.h \
-  strategies/strategy_http_path.h
+  strategies/strategy_http_path.h strategies/http_codes.h
 
 strategies/strategy_http_simple.h:
 
@@ -396,3 +396,5 @@ ringbuffer.h:
 strategies/strategy_dev_null.h:
 
 strategies/strategy_http_path.h:
+
+strategies/http_codes.h:

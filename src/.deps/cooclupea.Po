@@ -86,7 +86,7 @@ cooclupea.o: cooclupea.c cooclupea.h /usr/include/stdio.h \
   /usr/include/i386/limits.h /usr/include/i386/_limits.h \
   /usr/include/sys/syslimits.h strategy.h /usr/include/arpa/inet.h \
   strategies/strategy_dev_null.h strategies/strategy_http_simple.h \
-  strategies/strategy_http_path.h
+  strategies/strategy_http_path.h strategies/http_codes.h
 
 cooclupea.h:
 
@@ -395,3 +395,5 @@ strategies/strategy_dev_null.h:
 strategies/strategy_http_simple.h:
 
 strategies/strategy_http_path.h:
+
+strategies/http_codes.h:

@@ -251,6 +251,7 @@ c00clupea_SOURCES = global.h\
 			strategies/strategy_dev_null.c strategies/strategy_dev_null.h\
 			strategies/strategy_http_simple.c strategies/strategy_http_simple.h\
 			strategies/strategy_http_path.c strategies/strategy_http_path.h\
+			http_codes.h\
 			util.c util.h
 
 all: all-am
