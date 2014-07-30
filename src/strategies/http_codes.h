@@ -1,0 +1,7 @@
+#ifndef HTTP_CODES_H
+#define HTTP_CODES_H
+
+#define C00_HTTP_SERVER_OK 200
+#define C00_HTTP_SERVER_ERROR 500
+
+#endif

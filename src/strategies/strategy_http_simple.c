@@ -50,8 +50,12 @@ int receive_simple_http(struct consumer_command *tmp_cmd){
 			}
 		}		
 		LOGGER_INFO(tmp_cmd->serverConfig->logger,"%s",log_all);
+		fclose(fr);
 	}
-	fclose(fr);
+	else{
+		syslog(LOG_ERR,"I can not close fr in http_simple");
+		return 1;
+	}
 	return 0;
 }
 
