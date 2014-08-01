@@ -82,12 +82,12 @@ strategy_http_path.o: strategies/strategy_http_path.c \
   /usr/include/pthread_impl.h /usr/include/sched.h \
   /usr/include/sys/_types/_mach_port_t.h global.h util.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.1/include/stdarg.h \
-  config.h ringbuffer.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.1/include/limits.h \
   /usr/include/limits.h /usr/include/machine/limits.h \
   /usr/include/i386/limits.h /usr/include/i386/_limits.h \
-  /usr/include/sys/syslimits.h strategies/strategy_dev_null.h \
-  strategies/strategy_http_simple.h strategies/http_codes.h
+  /usr/include/sys/syslimits.h config.h ringbuffer.h \
+  strategies/strategy_dev_null.h strategies/strategy_http_simple.h \
+  strategies/http_codes.h
 
 strategies/strategy_http_path.h:
 
@@ -377,10 +377,6 @@ util.h:
 
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.1/include/stdarg.h:
 
-config.h:
-
-ringbuffer.h:
-
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.1/include/limits.h:
 
 /usr/include/limits.h:
@@ -392,6 +388,10 @@ ringbuffer.h:
 /usr/include/i386/_limits.h:
 
 /usr/include/sys/syslimits.h:
+
+config.h:
+
+ringbuffer.h:
 
 strategies/strategy_dev_null.h:
 
