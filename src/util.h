@@ -35,16 +35,16 @@
 	print_safe_log(logger,loglvl,fmt,__VA_ARGS__)
 
 #define LOGGER_DEBUG(logger,fmt,...)\
-	print_safe_log(logger,LOG_LVL_DEBUG,fmt,__VA_ARGS__)
+	c00_print_safe_log(logger,LOG_LVL_DEBUG,fmt,__VA_ARGS__)
 
 #define LOGGER_INFO(logger,fmt,...)\
-	print_safe_log(logger,LOG_LVL_INFO,fmt,__VA_ARGS__)
+	c00_print_safe_log(logger,LOG_LVL_INFO,fmt,__VA_ARGS__)
 
 #define LOGGER_WARN(logger,fmt,...)\
-	print_safe_log(logger,LOG_LVL_WARN,fmt,__VA_ARGS__)
+	c00_print_safe_log(logger,LOG_LVL_WARN,fmt,__VA_ARGS__)
 
 #define LOGGER_ERROR(logger,fmt,...)\
-	print_safe_log(logger,LOG_LVL_ERR,fmt,__VA_ARGS__)
+	c00_print_safe_log(logger,LOG_LVL_ERR,fmt,__VA_ARGS__)
 
 #define LOGGER_NLOG(logger,loglvl,fp,fmt,...)\
 	print_safe_single_log(logger,loglvl,fp,fmt,__VA_ARGS__)
@@ -66,8 +66,8 @@ struct safe_log{
 struct safe_log *c00_init_safe_log(char *file_name);
 int c00_change_safe_log_file(struct safe_log *logger, char *filename);
 int c00_close_safe_log(struct safe_log *logger);
-int print_safe_log(struct safe_log *logger,int log_level, char *txt,...);
-int print_safe_single_log_fr(struct safe_log *logger, int log_lvl, char *file, char *txt,FILE *fr,...);
+int c00_print_safe_log(struct safe_log *logger,int log_level, char *txt,...);
+int c00_print_safe_single_log_fr(struct safe_log *logger, int log_lvl, char *file, char *txt,FILE *fr,...);
 int print_safe_single_log(struct safe_log *logger, int log_lvl,char *file, char *txt,...);
 int c00_create_unique_log_file(char *append,char *end, char *filename);
 int c00_get_current_time(char *t, char *fmt,int len_buf);
