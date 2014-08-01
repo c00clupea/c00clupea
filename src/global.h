@@ -71,6 +71,10 @@
 #define LOG_MAIN_TEMPLATE "/var/log/c00clupea/c00clupea_%d.log"
 #endif
 
+#ifndef LOG_MAIN_PATH
+#define LOG_MAIN_PATH "/var/log/c00clupea/%s"
+#endif
+
 #ifndef STORAGE_TEMPLATE
 #define STORAGE_TEMPLATE "/var/%s/%d"
 #endif
