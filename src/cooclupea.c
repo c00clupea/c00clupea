@@ -6,7 +6,7 @@ static int port_number = STANDARD_PORT;
 static int default_strategy = STRAT_DEFAULT;
 
 static sig_atomic_t is_running = 0;
-static int tcpbacklog = TCP_BACKLOG;
+static int tcp_backlog = TCP_BACKLOG;
 static int worker_pool = WORKER_POOL;
 
 static 	serverList *SServerList;
