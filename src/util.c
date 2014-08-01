@@ -156,7 +156,7 @@ int c00_get_hash_str(char *val,int len){
 }	
 
 int c00_get_hash_int(int val){
-	return val % HASH_LEN;	
+	return val;	
 }
 
 int c00_create_unique_log_file(char *append,char *end, char *filename){
