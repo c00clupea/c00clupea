@@ -1,0 +1,298 @@
+bash-3.2$ ./scan_files.sh 
+bash: ./scan_files.sh: No such file or directory
+bash-3.2$ pwd
+/Users/sec15334/repositories/dissertation/sources/c00clupea/src
+bash-3.2$ cd ..
+bash-3.2$ ./scan_files.sh 
+Making distclean in src
+test -z "c00clupea" || rm -f c00clupea
+rm -f *.o
+rm -f *.tab.c
+test -z "" || rm -f 
+test . = "." || test -z "" || rm -f 
+rm -f TAGS ID GTAGS GRTAGS GSYMS GPATH tags
+rm -rf ./.deps
+rm -f Makefile
+Making distclean in man
+test -z "" || rm -f 
+test . = "." || test -z "" || rm -f 
+rm -f Makefile
+test -z "" || rm -f 
+test . = "." || test -z "" || rm -f 
+rm -f TAGS ID GTAGS GRTAGS GSYMS GPATH tags
+rm -f cscope.out cscope.in.out cscope.po.out cscope.files
+rm -f config.status config.cache config.log configure.lineno config.status.lineno
+rm -f Makefile
+scan-build: Using '/opt/checker-276/bin/clang' for static analysis
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for a thread-safe mkdir -p... ./install-sh -c -d
+checking for gawk... no
+checking for mawk... no
+checking for nawk... no
+checking for awk... awk
+checking whether make sets $(MAKE)... yes
+checking whether make supports nested variables... yes
+checking for gcc... /opt/checker-276/libexec/ccc-analyzer
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether /opt/checker-276/libexec/ccc-analyzer accepts -g... yes
+checking for /opt/checker-276/libexec/ccc-analyzer option to accept ISO C89... none needed
+checking whether /opt/checker-276/libexec/ccc-analyzer understands -c and -o together... yes
+checking for style of include used by make... GNU
+checking dependency style of /opt/checker-276/libexec/ccc-analyzer... gcc3
+checking how to run the C preprocessor... /opt/checker-276/libexec/ccc-analyzer -E
+checking for grep that handles long lines and -e... /usr/bin/grep
+checking for egrep... /usr/bin/grep -E
+checking for ANSI C header files... yes
+checking for sys/types.h... yes
+checking for sys/stat.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for memory.h... yes
+checking for strings.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for unistd.h... yes
+checking arpa/inet.h usability... yes
+checking arpa/inet.h presence... yes
+checking for arpa/inet.h... yes
+checking limits.h usability... yes
+checking limits.h presence... yes
+checking for limits.h... yes
+checking netinet/in.h usability... yes
+checking netinet/in.h presence... yes
+checking for netinet/in.h... yes
+checking for stdlib.h... (cached) yes
+checking for string.h... (cached) yes
+checking sys/socket.h usability... yes
+checking sys/socket.h presence... yes
+checking for sys/socket.h... yes
+checking syslog.h usability... yes
+checking syslog.h presence... yes
+checking for syslog.h... yes
+checking for unistd.h... (cached) yes
+checking for size_t... yes
+checking for stdlib.h... (cached) yes
+checking for GNU libc compatible malloc... yes
+checking for memset... yes
+checking for socket... yes
+checking for strstr... yes
+checking that generated files are newer than configure... done
+configure: creating ./config.status
+config.status: creating Makefile
+config.status: creating src/Makefile
+config.status: creating man/Makefile
+config.status: executing depfiles commands
+scan-build: Removing directory '/var/folders/tw/zqsk_jvn5_3d3cd9bhgj8d6h0000gn/T/scan-build-2014-07-31-231050-43916-1' because it contains no reports.
+scan-build: No bugs found.
+scan-build: Using '/opt/checker-276/bin/clang' for static analysis
+Making all in src
+/opt/checker-276/libexec/ccc-analyzer -DPACKAGE_NAME=\"c00clupea\" -DPACKAGE_TARNAME=\"c00clupea\" -DPACKAGE_VERSION=\"01\" -DPACKAGE_STRING=\"c00clupea\ 01\" -DPACKAGE_BUGREPORT=\"christoph.pohl0@hm.edu\" -DPACKAGE_URL=\"\" -DPACKAGE=\"c00clupea\" -DVERSION=\"01\" -DSTDC_HEADERS=1 -DHAVE_SYS_TYPES_H=1 -DHAVE_SYS_STAT_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_MEMORY_H=1 -DHAVE_STRINGS_H=1 -DHAVE_INTTYPES_H=1 -DHAVE_STDINT_H=1 -DHAVE_UNISTD_H=1 -DHAVE_ARPA_INET_H=1 -DHAVE_LIMITS_H=1 -DHAVE_NETINET_IN_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_SYS_SOCKET_H=1 -DHAVE_SYSLOG_H=1 -DHAVE_UNISTD_H=1 -DHAVE_STDLIB_H=1 -DHAVE_MALLOC=1 -DHAVE_MEMSET=1 -DHAVE_SOCKET=1 -DHAVE_STRSTR=1 -I.  -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024  -DMAINCONFIG='"/usr/local/etc/c00clupea/c00clupea.config"' -DSTRAT_DEFAULT=0 -DSTD_LOG_LVL=2 -DSTD_LOG_LEN=1024 -DSTD_FLUSH_COUNT=1 -DLOG_MAIN_TEMPLATE='"/usr/local/var/log/c00clupea/c00clupea_%d.log"'  -std=c99 -Wall -Wextra -pedantic -pthread -D_THREAD_SAFE -g -O2 -MT cooclupea.o -MD -MP -MF .deps/cooclupea.Tpo -c -o cooclupea.o cooclupea.c
+mv -f .deps/cooclupea.Tpo .deps/cooclupea.Po
+/opt/checker-276/libexec/ccc-analyzer -DPACKAGE_NAME=\"c00clupea\" -DPACKAGE_TARNAME=\"c00clupea\" -DPACKAGE_VERSION=\"01\" -DPACKAGE_STRING=\"c00clupea\ 01\" -DPACKAGE_BUGREPORT=\"christoph.pohl0@hm.edu\" -DPACKAGE_URL=\"\" -DPACKAGE=\"c00clupea\" -DVERSION=\"01\" -DSTDC_HEADERS=1 -DHAVE_SYS_TYPES_H=1 -DHAVE_SYS_STAT_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_MEMORY_H=1 -DHAVE_STRINGS_H=1 -DHAVE_INTTYPES_H=1 -DHAVE_STDINT_H=1 -DHAVE_UNISTD_H=1 -DHAVE_ARPA_INET_H=1 -DHAVE_LIMITS_H=1 -DHAVE_NETINET_IN_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_SYS_SOCKET_H=1 -DHAVE_SYSLOG_H=1 -DHAVE_UNISTD_H=1 -DHAVE_STDLIB_H=1 -DHAVE_MALLOC=1 -DHAVE_MEMSET=1 -DHAVE_SOCKET=1 -DHAVE_STRSTR=1 -I.  -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024  -DMAINCONFIG='"/usr/local/etc/c00clupea/c00clupea.config"' -DSTRAT_DEFAULT=0 -DSTD_LOG_LVL=2 -DSTD_LOG_LEN=1024 -DSTD_FLUSH_COUNT=1 -DLOG_MAIN_TEMPLATE='"/usr/local/var/log/c00clupea/c00clupea_%d.log"'  -std=c99 -Wall -Wextra -pedantic -pthread -D_THREAD_SAFE -g -O2 -MT config.o -MD -MP -MF .deps/config.Tpo -c -o config.o config.c
+mv -f .deps/config.Tpo .deps/config.Po
+/opt/checker-276/libexec/ccc-analyzer -DPACKAGE_NAME=\"c00clupea\" -DPACKAGE_TARNAME=\"c00clupea\" -DPACKAGE_VERSION=\"01\" -DPACKAGE_STRING=\"c00clupea\ 01\" -DPACKAGE_BUGREPORT=\"christoph.pohl0@hm.edu\" -DPACKAGE_URL=\"\" -DPACKAGE=\"c00clupea\" -DVERSION=\"01\" -DSTDC_HEADERS=1 -DHAVE_SYS_TYPES_H=1 -DHAVE_SYS_STAT_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_MEMORY_H=1 -DHAVE_STRINGS_H=1 -DHAVE_INTTYPES_H=1 -DHAVE_STDINT_H=1 -DHAVE_UNISTD_H=1 -DHAVE_ARPA_INET_H=1 -DHAVE_LIMITS_H=1 -DHAVE_NETINET_IN_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_SYS_SOCKET_H=1 -DHAVE_SYSLOG_H=1 -DHAVE_UNISTD_H=1 -DHAVE_STDLIB_H=1 -DHAVE_MALLOC=1 -DHAVE_MEMSET=1 -DHAVE_SOCKET=1 -DHAVE_STRSTR=1 -I.  -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024  -DMAINCONFIG='"/usr/local/etc/c00clupea/c00clupea.config"' -DSTRAT_DEFAULT=0 -DSTD_LOG_LVL=2 -DSTD_LOG_LEN=1024 -DSTD_FLUSH_COUNT=1 -DLOG_MAIN_TEMPLATE='"/usr/local/var/log/c00clupea/c00clupea_%d.log"'  -std=c99 -Wall -Wextra -pedantic -pthread -D_THREAD_SAFE -g -O2 -MT ringbuffer.o -MD -MP -MF .deps/ringbuffer.Tpo -c -o ringbuffer.o ringbuffer.c
+mv -f .deps/ringbuffer.Tpo .deps/ringbuffer.Po
+/opt/checker-276/libexec/ccc-analyzer -DPACKAGE_NAME=\"c00clupea\" -DPACKAGE_TARNAME=\"c00clupea\" -DPACKAGE_VERSION=\"01\" -DPACKAGE_STRING=\"c00clupea\ 01\" -DPACKAGE_BUGREPORT=\"christoph.pohl0@hm.edu\" -DPACKAGE_URL=\"\" -DPACKAGE=\"c00clupea\" -DVERSION=\"01\" -DSTDC_HEADERS=1 -DHAVE_SYS_TYPES_H=1 -DHAVE_SYS_STAT_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_MEMORY_H=1 -DHAVE_STRINGS_H=1 -DHAVE_INTTYPES_H=1 -DHAVE_STDINT_H=1 -DHAVE_UNISTD_H=1 -DHAVE_ARPA_INET_H=1 -DHAVE_LIMITS_H=1 -DHAVE_NETINET_IN_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_SYS_SOCKET_H=1 -DHAVE_SYSLOG_H=1 -DHAVE_UNISTD_H=1 -DHAVE_STDLIB_H=1 -DHAVE_MALLOC=1 -DHAVE_MEMSET=1 -DHAVE_SOCKET=1 -DHAVE_STRSTR=1 -I.  -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024  -DMAINCONFIG='"/usr/local/etc/c00clupea/c00clupea.config"' -DSTRAT_DEFAULT=0 -DSTD_LOG_LVL=2 -DSTD_LOG_LEN=1024 -DSTD_FLUSH_COUNT=1 -DLOG_MAIN_TEMPLATE='"/usr/local/var/log/c00clupea/c00clupea_%d.log"'  -std=c99 -Wall -Wextra -pedantic -pthread -D_THREAD_SAFE -g -O2 -MT strategy.o -MD -MP -MF .deps/strategy.Tpo -c -o strategy.o strategy.c
+mv -f .deps/strategy.Tpo .deps/strategy.Po
+/opt/checker-276/libexec/ccc-analyzer -DPACKAGE_NAME=\"c00clupea\" -DPACKAGE_TARNAME=\"c00clupea\" -DPACKAGE_VERSION=\"01\" -DPACKAGE_STRING=\"c00clupea\ 01\" -DPACKAGE_BUGREPORT=\"christoph.pohl0@hm.edu\" -DPACKAGE_URL=\"\" -DPACKAGE=\"c00clupea\" -DVERSION=\"01\" -DSTDC_HEADERS=1 -DHAVE_SYS_TYPES_H=1 -DHAVE_SYS_STAT_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_MEMORY_H=1 -DHAVE_STRINGS_H=1 -DHAVE_INTTYPES_H=1 -DHAVE_STDINT_H=1 -DHAVE_UNISTD_H=1 -DHAVE_ARPA_INET_H=1 -DHAVE_LIMITS_H=1 -DHAVE_NETINET_IN_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_SYS_SOCKET_H=1 -DHAVE_SYSLOG_H=1 -DHAVE_UNISTD_H=1 -DHAVE_STDLIB_H=1 -DHAVE_MALLOC=1 -DHAVE_MEMSET=1 -DHAVE_SOCKET=1 -DHAVE_STRSTR=1 -I.  -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024  -DMAINCONFIG='"/usr/local/etc/c00clupea/c00clupea.config"' -DSTRAT_DEFAULT=0 -DSTD_LOG_LVL=2 -DSTD_LOG_LEN=1024 -DSTD_FLUSH_COUNT=1 -DLOG_MAIN_TEMPLATE='"/usr/local/var/log/c00clupea/c00clupea_%d.log"'  -std=c99 -Wall -Wextra -pedantic -pthread -D_THREAD_SAFE -g -O2 -MT strategy_dev_null.o -MD -MP -MF .deps/strategy_dev_null.Tpo -c -o strategy_dev_null.o `test -f 'strategies/strategy_dev_null.c' || echo './'`strategies/strategy_dev_null.c
+mv -f .deps/strategy_dev_null.Tpo .deps/strategy_dev_null.Po
+/opt/checker-276/libexec/ccc-analyzer -DPACKAGE_NAME=\"c00clupea\" -DPACKAGE_TARNAME=\"c00clupea\" -DPACKAGE_VERSION=\"01\" -DPACKAGE_STRING=\"c00clupea\ 01\" -DPACKAGE_BUGREPORT=\"christoph.pohl0@hm.edu\" -DPACKAGE_URL=\"\" -DPACKAGE=\"c00clupea\" -DVERSION=\"01\" -DSTDC_HEADERS=1 -DHAVE_SYS_TYPES_H=1 -DHAVE_SYS_STAT_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_MEMORY_H=1 -DHAVE_STRINGS_H=1 -DHAVE_INTTYPES_H=1 -DHAVE_STDINT_H=1 -DHAVE_UNISTD_H=1 -DHAVE_ARPA_INET_H=1 -DHAVE_LIMITS_H=1 -DHAVE_NETINET_IN_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_SYS_SOCKET_H=1 -DHAVE_SYSLOG_H=1 -DHAVE_UNISTD_H=1 -DHAVE_STDLIB_H=1 -DHAVE_MALLOC=1 -DHAVE_MEMSET=1 -DHAVE_SOCKET=1 -DHAVE_STRSTR=1 -I.  -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024  -DMAINCONFIG='"/usr/local/etc/c00clupea/c00clupea.config"' -DSTRAT_DEFAULT=0 -DSTD_LOG_LVL=2 -DSTD_LOG_LEN=1024 -DSTD_FLUSH_COUNT=1 -DLOG_MAIN_TEMPLATE='"/usr/local/var/log/c00clupea/c00clupea_%d.log"'  -std=c99 -Wall -Wextra -pedantic -pthread -D_THREAD_SAFE -g -O2 -MT strategy_http_simple.o -MD -MP -MF .deps/strategy_http_simple.Tpo -c -o strategy_http_simple.o `test -f 'strategies/strategy_http_simple.c' || echo './'`strategies/strategy_http_simple.c
+mv -f .deps/strategy_http_simple.Tpo .deps/strategy_http_simple.Po
+/opt/checker-276/libexec/ccc-analyzer -DPACKAGE_NAME=\"c00clupea\" -DPACKAGE_TARNAME=\"c00clupea\" -DPACKAGE_VERSION=\"01\" -DPACKAGE_STRING=\"c00clupea\ 01\" -DPACKAGE_BUGREPORT=\"christoph.pohl0@hm.edu\" -DPACKAGE_URL=\"\" -DPACKAGE=\"c00clupea\" -DVERSION=\"01\" -DSTDC_HEADERS=1 -DHAVE_SYS_TYPES_H=1 -DHAVE_SYS_STAT_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_MEMORY_H=1 -DHAVE_STRINGS_H=1 -DHAVE_INTTYPES_H=1 -DHAVE_STDINT_H=1 -DHAVE_UNISTD_H=1 -DHAVE_ARPA_INET_H=1 -DHAVE_LIMITS_H=1 -DHAVE_NETINET_IN_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_SYS_SOCKET_H=1 -DHAVE_SYSLOG_H=1 -DHAVE_UNISTD_H=1 -DHAVE_STDLIB_H=1 -DHAVE_MALLOC=1 -DHAVE_MEMSET=1 -DHAVE_SOCKET=1 -DHAVE_STRSTR=1 -I.  -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024  -DMAINCONFIG='"/usr/local/etc/c00clupea/c00clupea.config"' -DSTRAT_DEFAULT=0 -DSTD_LOG_LVL=2 -DSTD_LOG_LEN=1024 -DSTD_FLUSH_COUNT=1 -DLOG_MAIN_TEMPLATE='"/usr/local/var/log/c00clupea/c00clupea_%d.log"'  -std=c99 -Wall -Wextra -pedantic -pthread -D_THREAD_SAFE -g -O2 -MT strategy_http_path.o -MD -MP -MF .deps/strategy_http_path.Tpo -c -o strategy_http_path.o `test -f 'strategies/strategy_http_path.c' || echo './'`strategies/strategy_http_path.c
+strategies/strategy_http_path.c:46:7: warning: unused variable 'count_lines' [-Wunused-variable]
+                int count_lines = 0;
+                    ^
+strategies/strategy_http_path.c:76:45: warning: unused parameter 'tmp_cmd' [-Wunused-parameter]
+int send_http_path(struct consumer_command *tmp_cmd){
+                                            ^
+2 warnings generated.
+mv -f .deps/strategy_http_path.Tpo .deps/strategy_http_path.Po
+/opt/checker-276/libexec/ccc-analyzer -DPACKAGE_NAME=\"c00clupea\" -DPACKAGE_TARNAME=\"c00clupea\" -DPACKAGE_VERSION=\"01\" -DPACKAGE_STRING=\"c00clupea\ 01\" -DPACKAGE_BUGREPORT=\"christoph.pohl0@hm.edu\" -DPACKAGE_URL=\"\" -DPACKAGE=\"c00clupea\" -DVERSION=\"01\" -DSTDC_HEADERS=1 -DHAVE_SYS_TYPES_H=1 -DHAVE_SYS_STAT_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_MEMORY_H=1 -DHAVE_STRINGS_H=1 -DHAVE_INTTYPES_H=1 -DHAVE_STDINT_H=1 -DHAVE_UNISTD_H=1 -DHAVE_ARPA_INET_H=1 -DHAVE_LIMITS_H=1 -DHAVE_NETINET_IN_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_SYS_SOCKET_H=1 -DHAVE_SYSLOG_H=1 -DHAVE_UNISTD_H=1 -DHAVE_STDLIB_H=1 -DHAVE_MALLOC=1 -DHAVE_MEMSET=1 -DHAVE_SOCKET=1 -DHAVE_STRSTR=1 -I.  -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024  -DMAINCONFIG='"/usr/local/etc/c00clupea/c00clupea.config"' -DSTRAT_DEFAULT=0 -DSTD_LOG_LVL=2 -DSTD_LOG_LEN=1024 -DSTD_FLUSH_COUNT=1 -DLOG_MAIN_TEMPLATE='"/usr/local/var/log/c00clupea/c00clupea_%d.log"'  -std=c99 -Wall -Wextra -pedantic -pthread -D_THREAD_SAFE -g -O2 -MT util.o -MD -MP -MF .deps/util.Tpo -c -o util.o util.c
+util.c:61:44: warning: unused parameter 'logger' [-Wunused-parameter]
+int print_safe_single_log(struct safe_log *logger, int log_level, char *file, char *txt,...){
+                                           ^
+util.c:61:56: warning: unused parameter 'log_level' [-Wunused-parameter]
+int print_safe_single_log(struct safe_log *logger, int log_level, char *file, char *txt,...){
+                                                       ^
+util.c:61:85: warning: unused parameter 'txt' [-Wunused-parameter]
+int print_safe_single_log(struct safe_log *logger, int log_level, char *file, char *txt,...){
+                                                                                    ^
+util.c:89:47: warning: unused parameter 'logger' [-Wunused-parameter]
+int print_safe_single_log_fr(struct safe_log *logger, int log_lvl,char *file, char *txt, FILE *fr,...){
+                                              ^
+util.c:89:59: warning: unused parameter 'log_lvl' [-Wunused-parameter]
+int print_safe_single_log_fr(struct safe_log *logger, int log_lvl,char *file, char *txt, FILE *fr,...){
+                                                          ^
+util.c:161:28: warning: missing terminating '"' character [-Winvalid-pp-token]
+        c00_get_current_time(time,"[%Y.%m.%d %T],31);
+                                  ^
+util.c:161:28: error: expected expression
+util.c:157:38: warning: unused parameter 'append' [-Wunused-parameter]
+int c00_create_unique_log_file(char *append,char *end, char *filename){
+                                     ^
+util.c:157:51: warning: unused parameter 'end' [-Wunused-parameter]
+int c00_create_unique_log_file(char *append,char *end, char *filename){
+                                                  ^
+util.c:157:62: warning: unused parameter 'filename' [-Wunused-parameter]
+int c00_create_unique_log_file(char *append,char *end, char *filename){
+                                                             ^
+9 warnings and 1 error generated.
+make[1]: *** [util.o] Error 1
+make: *** [all-recursive] Error 1
+scan-build: Removing directory '/var/folders/tw/zqsk_jvn5_3d3cd9bhgj8d6h0000gn/T/scan-build-2014-07-31-231059-45054-1' because it contains no reports.
+scan-build: No bugs found.
+bash-3.2$                                                                                     ^
+bash: ^: command not found
+bash-3.2$ util.c:161:28: warning: missing terminating '"' character [-Winvalid-pp-token]
+bash: util.c:161:28:: command not found
+bash-3.2$ ./scan_files.sh 
+Making distclean in src
+test -z "c00clupea" || rm -f c00clupea
+rm -f *.o
+rm -f *.tab.c
+test -z "" || rm -f 
+test . = "." || test -z "" || rm -f 
+rm -f TAGS ID GTAGS GRTAGS GSYMS GPATH tags
+rm -rf ./.deps
+rm -f Makefile
+Making distclean in man
+test -z "" || rm -f 
+test . = "." || test -z "" || rm -f 
+rm -f Makefile
+test -z "" || rm -f 
+test . = "." || test -z "" || rm -f 
+rm -f TAGS ID GTAGS GRTAGS GSYMS GPATH tags
+rm -f cscope.out cscope.in.out cscope.po.out cscope.files
+rm -f config.status config.cache config.log configure.lineno config.status.lineno
+rm -f Makefile
+scan-build: Using '/opt/checker-276/bin/clang' for static analysis
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for a thread-safe mkdir -p... ./install-sh -c -d
+checking for gawk... no
+checking for mawk... no
+checking for nawk... no
+checking for awk... awk
+checking whether make sets $(MAKE)... yes
+checking whether make supports nested variables... yes
+checking for gcc... /opt/checker-276/libexec/ccc-analyzer
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether /opt/checker-276/libexec/ccc-analyzer accepts -g... yes
+checking for /opt/checker-276/libexec/ccc-analyzer option to accept ISO C89... none needed
+checking whether /opt/checker-276/libexec/ccc-analyzer understands -c and -o together... yes
+checking for style of include used by make... GNU
+checking dependency style of /opt/checker-276/libexec/ccc-analyzer... gcc3
+checking how to run the C preprocessor... /opt/checker-276/libexec/ccc-analyzer -E
+checking for grep that handles long lines and -e... /usr/bin/grep
+checking for egrep... /usr/bin/grep -E
+checking for ANSI C header files... yes
+checking for sys/types.h... yes
+checking for sys/stat.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for memory.h... yes
+checking for strings.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for unistd.h... yes
+checking arpa/inet.h usability... yes
+checking arpa/inet.h presence... yes
+checking for arpa/inet.h... yes
+checking limits.h usability... yes
+checking limits.h presence... yes
+checking for limits.h... yes
+checking netinet/in.h usability... yes
+checking netinet/in.h presence... yes
+checking for netinet/in.h... yes
+checking for stdlib.h... (cached) yes
+checking for string.h... (cached) yes
+checking sys/socket.h usability... yes
+checking sys/socket.h presence... yes
+checking for sys/socket.h... yes
+checking syslog.h usability... yes
+checking syslog.h presence... yes
+checking for syslog.h... yes
+checking for unistd.h... (cached) yes
+checking for size_t... yes
+checking for stdlib.h... (cached) yes
+checking for GNU libc compatible malloc... yes
+checking for memset... yes
+checking for socket... yes
+checking for strstr... yes
+checking that generated files are newer than configure... done
+configure: creating ./config.status
+config.status: creating Makefile
+config.status: creating src/Makefile
+config.status: creating man/Makefile
+config.status: executing depfiles commands
+scan-build: Removing directory '/var/folders/tw/zqsk_jvn5_3d3cd9bhgj8d6h0000gn/T/scan-build-2014-07-31-231958-45277-1' because it contains no reports.
+scan-build: No bugs found.
+scan-build: Using '/opt/checker-276/bin/clang' for static analysis
+Making all in src
+/opt/checker-276/libexec/ccc-analyzer -DPACKAGE_NAME=\"c00clupea\" -DPACKAGE_TARNAME=\"c00clupea\" -DPACKAGE_VERSION=\"01\" -DPACKAGE_STRING=\"c00clupea\ 01\" -DPACKAGE_BUGREPORT=\"christoph.pohl0@hm.edu\" -DPACKAGE_URL=\"\" -DPACKAGE=\"c00clupea\" -DVERSION=\"01\" -DSTDC_HEADERS=1 -DHAVE_SYS_TYPES_H=1 -DHAVE_SYS_STAT_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_MEMORY_H=1 -DHAVE_STRINGS_H=1 -DHAVE_INTTYPES_H=1 -DHAVE_STDINT_H=1 -DHAVE_UNISTD_H=1 -DHAVE_ARPA_INET_H=1 -DHAVE_LIMITS_H=1 -DHAVE_NETINET_IN_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_SYS_SOCKET_H=1 -DHAVE_SYSLOG_H=1 -DHAVE_UNISTD_H=1 -DHAVE_STDLIB_H=1 -DHAVE_MALLOC=1 -DHAVE_MEMSET=1 -DHAVE_SOCKET=1 -DHAVE_STRSTR=1 -I.  -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024  -DMAINCONFIG='"/usr/local/etc/c00clupea/c00clupea.config"' -DSTRAT_DEFAULT=0 -DSTD_LOG_LVL=2 -DSTD_LOG_LEN=1024 -DSTD_FLUSH_COUNT=1 -DLOG_MAIN_TEMPLATE='"/usr/local/var/log/c00clupea/c00clupea_%d.log"'  -std=c99 -Wall -Wextra -pedantic -pthread -D_THREAD_SAFE -g -O2 -MT cooclupea.o -MD -MP -MF .deps/cooclupea.Tpo -c -o cooclupea.o cooclupea.c
+mv -f .deps/cooclupea.Tpo .deps/cooclupea.Po
+/opt/checker-276/libexec/ccc-analyzer -DPACKAGE_NAME=\"c00clupea\" -DPACKAGE_TARNAME=\"c00clupea\" -DPACKAGE_VERSION=\"01\" -DPACKAGE_STRING=\"c00clupea\ 01\" -DPACKAGE_BUGREPORT=\"christoph.pohl0@hm.edu\" -DPACKAGE_URL=\"\" -DPACKAGE=\"c00clupea\" -DVERSION=\"01\" -DSTDC_HEADERS=1 -DHAVE_SYS_TYPES_H=1 -DHAVE_SYS_STAT_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_MEMORY_H=1 -DHAVE_STRINGS_H=1 -DHAVE_INTTYPES_H=1 -DHAVE_STDINT_H=1 -DHAVE_UNISTD_H=1 -DHAVE_ARPA_INET_H=1 -DHAVE_LIMITS_H=1 -DHAVE_NETINET_IN_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_SYS_SOCKET_H=1 -DHAVE_SYSLOG_H=1 -DHAVE_UNISTD_H=1 -DHAVE_STDLIB_H=1 -DHAVE_MALLOC=1 -DHAVE_MEMSET=1 -DHAVE_SOCKET=1 -DHAVE_STRSTR=1 -I.  -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024  -DMAINCONFIG='"/usr/local/etc/c00clupea/c00clupea.config"' -DSTRAT_DEFAULT=0 -DSTD_LOG_LVL=2 -DSTD_LOG_LEN=1024 -DSTD_FLUSH_COUNT=1 -DLOG_MAIN_TEMPLATE='"/usr/local/var/log/c00clupea/c00clupea_%d.log"'  -std=c99 -Wall -Wextra -pedantic -pthread -D_THREAD_SAFE -g -O2 -MT config.o -MD -MP -MF .deps/config.Tpo -c -o config.o config.c
+mv -f .deps/config.Tpo .deps/config.Po
+/opt/checker-276/libexec/ccc-analyzer -DPACKAGE_NAME=\"c00clupea\" -DPACKAGE_TARNAME=\"c00clupea\" -DPACKAGE_VERSION=\"01\" -DPACKAGE_STRING=\"c00clupea\ 01\" -DPACKAGE_BUGREPORT=\"christoph.pohl0@hm.edu\" -DPACKAGE_URL=\"\" -DPACKAGE=\"c00clupea\" -DVERSION=\"01\" -DSTDC_HEADERS=1 -DHAVE_SYS_TYPES_H=1 -DHAVE_SYS_STAT_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_MEMORY_H=1 -DHAVE_STRINGS_H=1 -DHAVE_INTTYPES_H=1 -DHAVE_STDINT_H=1 -DHAVE_UNISTD_H=1 -DHAVE_ARPA_INET_H=1 -DHAVE_LIMITS_H=1 -DHAVE_NETINET_IN_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_SYS_SOCKET_H=1 -DHAVE_SYSLOG_H=1 -DHAVE_UNISTD_H=1 -DHAVE_STDLIB_H=1 -DHAVE_MALLOC=1 -DHAVE_MEMSET=1 -DHAVE_SOCKET=1 -DHAVE_STRSTR=1 -I.  -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024  -DMAINCONFIG='"/usr/local/etc/c00clupea/c00clupea.config"' -DSTRAT_DEFAULT=0 -DSTD_LOG_LVL=2 -DSTD_LOG_LEN=1024 -DSTD_FLUSH_COUNT=1 -DLOG_MAIN_TEMPLATE='"/usr/local/var/log/c00clupea/c00clupea_%d.log"'  -std=c99 -Wall -Wextra -pedantic -pthread -D_THREAD_SAFE -g -O2 -MT ringbuffer.o -MD -MP -MF .deps/ringbuffer.Tpo -c -o ringbuffer.o ringbuffer.c
+mv -f .deps/ringbuffer.Tpo .deps/ringbuffer.Po
+/opt/checker-276/libexec/ccc-analyzer -DPACKAGE_NAME=\"c00clupea\" -DPACKAGE_TARNAME=\"c00clupea\" -DPACKAGE_VERSION=\"01\" -DPACKAGE_STRING=\"c00clupea\ 01\" -DPACKAGE_BUGREPORT=\"christoph.pohl0@hm.edu\" -DPACKAGE_URL=\"\" -DPACKAGE=\"c00clupea\" -DVERSION=\"01\" -DSTDC_HEADERS=1 -DHAVE_SYS_TYPES_H=1 -DHAVE_SYS_STAT_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_MEMORY_H=1 -DHAVE_STRINGS_H=1 -DHAVE_INTTYPES_H=1 -DHAVE_STDINT_H=1 -DHAVE_UNISTD_H=1 -DHAVE_ARPA_INET_H=1 -DHAVE_LIMITS_H=1 -DHAVE_NETINET_IN_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_SYS_SOCKET_H=1 -DHAVE_SYSLOG_H=1 -DHAVE_UNISTD_H=1 -DHAVE_STDLIB_H=1 -DHAVE_MALLOC=1 -DHAVE_MEMSET=1 -DHAVE_SOCKET=1 -DHAVE_STRSTR=1 -I.  -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024  -DMAINCONFIG='"/usr/local/etc/c00clupea/c00clupea.config"' -DSTRAT_DEFAULT=0 -DSTD_LOG_LVL=2 -DSTD_LOG_LEN=1024 -DSTD_FLUSH_COUNT=1 -DLOG_MAIN_TEMPLATE='"/usr/local/var/log/c00clupea/c00clupea_%d.log"'  -std=c99 -Wall -Wextra -pedantic -pthread -D_THREAD_SAFE -g -O2 -MT strategy.o -MD -MP -MF .deps/strategy.Tpo -c -o strategy.o strategy.c
+mv -f .deps/strategy.Tpo .deps/strategy.Po
+/opt/checker-276/libexec/ccc-analyzer -DPACKAGE_NAME=\"c00clupea\" -DPACKAGE_TARNAME=\"c00clupea\" -DPACKAGE_VERSION=\"01\" -DPACKAGE_STRING=\"c00clupea\ 01\" -DPACKAGE_BUGREPORT=\"christoph.pohl0@hm.edu\" -DPACKAGE_URL=\"\" -DPACKAGE=\"c00clupea\" -DVERSION=\"01\" -DSTDC_HEADERS=1 -DHAVE_SYS_TYPES_H=1 -DHAVE_SYS_STAT_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_MEMORY_H=1 -DHAVE_STRINGS_H=1 -DHAVE_INTTYPES_H=1 -DHAVE_STDINT_H=1 -DHAVE_UNISTD_H=1 -DHAVE_ARPA_INET_H=1 -DHAVE_LIMITS_H=1 -DHAVE_NETINET_IN_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_SYS_SOCKET_H=1 -DHAVE_SYSLOG_H=1 -DHAVE_UNISTD_H=1 -DHAVE_STDLIB_H=1 -DHAVE_MALLOC=1 -DHAVE_MEMSET=1 -DHAVE_SOCKET=1 -DHAVE_STRSTR=1 -I.  -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024  -DMAINCONFIG='"/usr/local/etc/c00clupea/c00clupea.config"' -DSTRAT_DEFAULT=0 -DSTD_LOG_LVL=2 -DSTD_LOG_LEN=1024 -DSTD_FLUSH_COUNT=1 -DLOG_MAIN_TEMPLATE='"/usr/local/var/log/c00clupea/c00clupea_%d.log"'  -std=c99 -Wall -Wextra -pedantic -pthread -D_THREAD_SAFE -g -O2 -MT strategy_dev_null.o -MD -MP -MF .deps/strategy_dev_null.Tpo -c -o strategy_dev_null.o `test -f 'strategies/strategy_dev_null.c' || echo './'`strategies/strategy_dev_null.c
+mv -f .deps/strategy_dev_null.Tpo .deps/strategy_dev_null.Po
+/opt/checker-276/libexec/ccc-analyzer -DPACKAGE_NAME=\"c00clupea\" -DPACKAGE_TARNAME=\"c00clupea\" -DPACKAGE_VERSION=\"01\" -DPACKAGE_STRING=\"c00clupea\ 01\" -DPACKAGE_BUGREPORT=\"christoph.pohl0@hm.edu\" -DPACKAGE_URL=\"\" -DPACKAGE=\"c00clupea\" -DVERSION=\"01\" -DSTDC_HEADERS=1 -DHAVE_SYS_TYPES_H=1 -DHAVE_SYS_STAT_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_MEMORY_H=1 -DHAVE_STRINGS_H=1 -DHAVE_INTTYPES_H=1 -DHAVE_STDINT_H=1 -DHAVE_UNISTD_H=1 -DHAVE_ARPA_INET_H=1 -DHAVE_LIMITS_H=1 -DHAVE_NETINET_IN_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_SYS_SOCKET_H=1 -DHAVE_SYSLOG_H=1 -DHAVE_UNISTD_H=1 -DHAVE_STDLIB_H=1 -DHAVE_MALLOC=1 -DHAVE_MEMSET=1 -DHAVE_SOCKET=1 -DHAVE_STRSTR=1 -I.  -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024  -DMAINCONFIG='"/usr/local/etc/c00clupea/c00clupea.config"' -DSTRAT_DEFAULT=0 -DSTD_LOG_LVL=2 -DSTD_LOG_LEN=1024 -DSTD_FLUSH_COUNT=1 -DLOG_MAIN_TEMPLATE='"/usr/local/var/log/c00clupea/c00clupea_%d.log"'  -std=c99 -Wall -Wextra -pedantic -pthread -D_THREAD_SAFE -g -O2 -MT strategy_http_simple.o -MD -MP -MF .deps/strategy_http_simple.Tpo -c -o strategy_http_simple.o `test -f 'strategies/strategy_http_simple.c' || echo './'`strategies/strategy_http_simple.c
+mv -f .deps/strategy_http_simple.Tpo .deps/strategy_http_simple.Po
+/opt/checker-276/libexec/ccc-analyzer -DPACKAGE_NAME=\"c00clupea\" -DPACKAGE_TARNAME=\"c00clupea\" -DPACKAGE_VERSION=\"01\" -DPACKAGE_STRING=\"c00clupea\ 01\" -DPACKAGE_BUGREPORT=\"christoph.pohl0@hm.edu\" -DPACKAGE_URL=\"\" -DPACKAGE=\"c00clupea\" -DVERSION=\"01\" -DSTDC_HEADERS=1 -DHAVE_SYS_TYPES_H=1 -DHAVE_SYS_STAT_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_MEMORY_H=1 -DHAVE_STRINGS_H=1 -DHAVE_INTTYPES_H=1 -DHAVE_STDINT_H=1 -DHAVE_UNISTD_H=1 -DHAVE_ARPA_INET_H=1 -DHAVE_LIMITS_H=1 -DHAVE_NETINET_IN_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_SYS_SOCKET_H=1 -DHAVE_SYSLOG_H=1 -DHAVE_UNISTD_H=1 -DHAVE_STDLIB_H=1 -DHAVE_MALLOC=1 -DHAVE_MEMSET=1 -DHAVE_SOCKET=1 -DHAVE_STRSTR=1 -I.  -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024  -DMAINCONFIG='"/usr/local/etc/c00clupea/c00clupea.config"' -DSTRAT_DEFAULT=0 -DSTD_LOG_LVL=2 -DSTD_LOG_LEN=1024 -DSTD_FLUSH_COUNT=1 -DLOG_MAIN_TEMPLATE='"/usr/local/var/log/c00clupea/c00clupea_%d.log"'  -std=c99 -Wall -Wextra -pedantic -pthread -D_THREAD_SAFE -g -O2 -MT strategy_http_path.o -MD -MP -MF .deps/strategy_http_path.Tpo -c -o strategy_http_path.o `test -f 'strategies/strategy_http_path.c' || echo './'`strategies/strategy_http_path.c
+strategies/strategy_http_path.c:46:7: warning: unused variable 'count_lines' [-Wunused-variable]
+                int count_lines = 0;
+                    ^
+strategies/strategy_http_path.c:76:45: warning: unused parameter 'tmp_cmd' [-Wunused-parameter]
+int send_http_path(struct consumer_command *tmp_cmd){
+                                            ^
+2 warnings generated.
+mv -f .deps/strategy_http_path.Tpo .deps/strategy_http_path.Po
+/opt/checker-276/libexec/ccc-analyzer -DPACKAGE_NAME=\"c00clupea\" -DPACKAGE_TARNAME=\"c00clupea\" -DPACKAGE_VERSION=\"01\" -DPACKAGE_STRING=\"c00clupea\ 01\" -DPACKAGE_BUGREPORT=\"christoph.pohl0@hm.edu\" -DPACKAGE_URL=\"\" -DPACKAGE=\"c00clupea\" -DVERSION=\"01\" -DSTDC_HEADERS=1 -DHAVE_SYS_TYPES_H=1 -DHAVE_SYS_STAT_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_MEMORY_H=1 -DHAVE_STRINGS_H=1 -DHAVE_INTTYPES_H=1 -DHAVE_STDINT_H=1 -DHAVE_UNISTD_H=1 -DHAVE_ARPA_INET_H=1 -DHAVE_LIMITS_H=1 -DHAVE_NETINET_IN_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_SYS_SOCKET_H=1 -DHAVE_SYSLOG_H=1 -DHAVE_UNISTD_H=1 -DHAVE_STDLIB_H=1 -DHAVE_MALLOC=1 -DHAVE_MEMSET=1 -DHAVE_SOCKET=1 -DHAVE_STRSTR=1 -I.  -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024  -DMAINCONFIG='"/usr/local/etc/c00clupea/c00clupea.config"' -DSTRAT_DEFAULT=0 -DSTD_LOG_LVL=2 -DSTD_LOG_LEN=1024 -DSTD_FLUSH_COUNT=1 -DLOG_MAIN_TEMPLATE='"/usr/local/var/log/c00clupea/c00clupea_%d.log"'  -std=c99 -Wall -Wextra -pedantic -pthread -D_THREAD_SAFE -g -O2 -MT util.o -MD -MP -MF .deps/util.Tpo -c -o util.o util.c
+util.c:61:44: warning: unused parameter 'logger' [-Wunused-parameter]
+int print_safe_single_log(struct safe_log *logger, int log_level, char *file, char *txt,...){
+                                           ^
+util.c:61:56: warning: unused parameter 'log_level' [-Wunused-parameter]
+int print_safe_single_log(struct safe_log *logger, int log_level, char *file, char *txt,...){
+                                                       ^
+util.c:61:85: warning: unused parameter 'txt' [-Wunused-parameter]
+int print_safe_single_log(struct safe_log *logger, int log_level, char *file, char *txt,...){
+                                                                                    ^
+util.c:89:47: warning: unused parameter 'logger' [-Wunused-parameter]
+int print_safe_single_log_fr(struct safe_log *logger, int log_lvl,char *file, char *txt, FILE *fr,...){
+                                              ^
+util.c:89:59: warning: unused parameter 'log_lvl' [-Wunused-parameter]
+int print_safe_single_log_fr(struct safe_log *logger, int log_lvl,char *file, char *txt, FILE *fr,...){
+                                                          ^
+util.c:157:38: warning: unused parameter 'append' [-Wunused-parameter]
+int c00_create_unique_log_file(char *append,char *end, char *filename){
+                                     ^
+util.c:157:51: warning: unused parameter 'end' [-Wunused-parameter]
+int c00_create_unique_log_file(char *append,char *end, char *filename){
+                                                  ^
+util.c:157:62: warning: unused parameter 'filename' [-Wunused-parameter]
+int c00_create_unique_log_file(char *append,char *end, char *filename){
+                                                             ^
+8 warnings generated.
+mv -f .deps/util.Tpo .deps/util.Po
+/opt/checker-276/libexec/ccc-analyzer -std=c99 -Wall -Wextra -pedantic -pthread -D_THREAD_SAFE -g -O2   -o c00clupea cooclupea.o config.o ringbuffer.o strategy.o strategy_dev_null.o strategy_http_simple.o strategy_http_path.o util.o  
+clang: warning: argument unused during compilation: '-pthread'
+Making all in man
+make[1]: Nothing to be done for `all'.
+make[1]: Nothing to be done for `all-am'.
+scan-build: Removing directory '/var/folders/tw/zqsk_jvn5_3d3cd9bhgj8d6h0000gn/T/scan-build-2014-07-31-232004-46414-1' because it contains no reports.
+scan-build: No bugs found.
+bash-3.2$ 

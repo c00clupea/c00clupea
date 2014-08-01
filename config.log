@@ -30,8 +30,8 @@ Kernel configured for up to 4 processors.
 Processor type: i486 (Intel 80486)
 Processors active: 0 1 2 3
 Primary memory available: 8.00 gigabytes
-Default processor set: 244 tasks, 969 threads, 4 processors
-Load average: 1.70, Mach factor: 2.28
+Default processor set: 248 tasks, 1058 threads, 4 processors
+Load average: 1.38, Mach factor: 2.61
 /bin/machine           = unknown
 /usr/bin/oslevel       = unknown
 /bin/universe          = unknown
@@ -50,7 +50,6 @@ PATH: /usr/local/git/bin
 PATH: /usr/local/MacGPG2/bin
 PATH: /opt/local/bin/
 PATH: /usr/texbin
-PATH: /usr/X11R6/bin
 PATH: /opt/X11/bin
 
 
