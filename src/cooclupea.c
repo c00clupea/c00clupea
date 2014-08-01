@@ -256,10 +256,6 @@ static pthread_t* init_producer(serverList *srv_list){
 		init_server(&srv_list->rgServer[i]);
 	}
 
-	/**threadpool = malloc(worker_pool * sizeof(pthread_t));**/
-
-
-
 	for(int i = 0; i < srv_list->iCountServer; i++){
 		srv_list->rgServer[i].idx = i;
 		pthread_create(&threadpool[i],NULL,single_producer,&srv_list->rgServer[i]);
