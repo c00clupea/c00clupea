@@ -42,7 +42,7 @@ int c00_change_safe_log_file(struct safe_log *logger, char *filename){
 
 
 
-int close_safe_log(struct safe_log *logger){
+int c00_close_safe_log(struct safe_log *logger){
 	fclose(logger->fp);
 	free(logger->file_name);
 	free(logger->mtx);
@@ -133,7 +133,7 @@ int print_safe_single_log_fr(struct safe_log *logger, int log_lvl,char *file, ch
 	return 0;
 }
 
-int c00_get_hash_str(char *val,int len){
+int c00_get_hash_str(char *val,unsigned int len){
    	//This is just the standard ELF-Hash as proposed in many books, blogs, and so on
 	unsigned int hash = 0;
    	unsigned int x    = 0;

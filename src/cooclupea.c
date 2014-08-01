@@ -460,7 +460,7 @@ int main(int argc, char *argv[]) {
 	syslog(STDLOG,"Close sockets");
 
 	for(int i = 0; i < SServerList->iCountServer;i++){
-		close_safe_log(SServerList->rgServer[i].logger);
+		c00_close_safe_log(SServerList->rgServer[i].logger);
 		destroy_request_counter(SServerList->rgServer[i].count);
 	}
 
