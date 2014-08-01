@@ -317,7 +317,7 @@ int init_server(server *srv) {
 	snprintf(log_full,255,log_template,srv->iPort);
 
 	/**syslog(STDLOG,"init %s",log_full);**/
-	srv->logger = init_safe_log(log_full);
+	srv->logger = c00_init_safe_log(log_full);
 	srv->logger->log_level = srv->log_lvl;
 	
 	srv->count = init_request_counter();

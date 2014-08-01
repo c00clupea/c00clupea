@@ -63,8 +63,8 @@ struct safe_log{
 
 //int print_log(FILE *fp, char *text);
 
-struct safe_log *init_safe_log(char *file_name);
-int change_safe_log_file(struct safe_log *logger, char *filename);
+struct safe_log *c00_init_safe_log(char *file_name);
+int c00_change_safe_log_file(struct safe_log *logger, char *filename);
 int close_safe_log(struct safe_log *logger);
 int print_safe_log(struct safe_log *logger,int log_level, char *txt,...);
 int print_safe_single_log_fr(struct safe_log *logger, int log_lvl, char *file, char *txt,FILE *fr,...);

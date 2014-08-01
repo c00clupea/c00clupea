@@ -9,7 +9,7 @@ int c00_seek_file(FILE *fp,int offset){
 	return 0;
 }
 	
-struct safe_log *init_safe_log( char *file_name){
+struct safe_log *c00_init_safe_log( char *file_name){
 	struct safe_log *logger = malloc(sizeof(struct safe_log));
 	logger->mtx = malloc(sizeof(pthread_mutex_t));
 	pthread_mutex_init(logger->mtx,NULL);
@@ -22,7 +22,7 @@ struct safe_log *init_safe_log( char *file_name){
 	return logger;
 }
 
-int change_safe_log_file(struct safe_log *logger, char *filename){
+int c00_change_safe_log_file(struct safe_log *logger, char *filename){
 	if(pthread_mutex_lock(logger->mtx) != 0){
 		syslog(LOG_ERR,"logwriter is not able to lock");
 		return 1;
