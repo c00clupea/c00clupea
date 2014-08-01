@@ -60,6 +60,7 @@ int receive_http_path(struct consumer_command *tmp_cmd, struct http_path_request
 			pth_req->minor_version = 1;
 			pth_req->http_response = C00_HTTP_SERVER_ERROR;
 			
+			return 0;
 		}
 		
 
