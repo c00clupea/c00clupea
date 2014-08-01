@@ -1,6 +1,8 @@
 #include "util.h"
 
 int c00_seek_file(FILE *fp,int offset);
+void c00_flush_log(struct safe_log *logger);
+
 
 int c00_seek_file(FILE *fp,int offset){
 	if(fseek(fp,offset,SEEK_SET) == -1){
@@ -50,7 +52,7 @@ int c00_close_safe_log(struct safe_log *logger){
 	return 0;
 }
 
-void flush_log(struct safe_log *logger){
+void c00_flush_log(struct safe_log *logger){
 	logger->flush_count++;
 	if(logger->flush_count > STD_FLUSH_COUNT){
 		fflush(logger->fp);
@@ -86,7 +88,7 @@ int c00_get_current_time(char *t_buf, char *fmt,int len_buf){
 }
 
 
-int print_safe_single_log_fr(struct safe_log *logger, int log_lvl,char *file, char *txt, FILE *fr,...){
+int c00_print_safe_single_log_fr(struct safe_log *logger, int log_lvl,char *file, char *txt, FILE *fr,...){
 	FILE *fp;
 	fp = fopen(file,"w");
 	int chr;
@@ -201,7 +203,7 @@ int c00_print_safe_log(struct safe_log *logger, int log_level, char *txt,...){
 			fprintf(logger->fp,"%s %s\n",tbuf,the_log);
 			va_end(args);
 
-     			flush_log(logger);
+     			c00_flush_log(logger);
 
 		}
 

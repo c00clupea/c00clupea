@@ -922,19 +922,19 @@ src/strategy.h,35
 src/test.c,51
 int main( int argc, const char* argv[] )main5,58
 
-src/util.c,1083
-int c00_seek_file(FILE *fp,int offset){c00_seek_file5,60
-struct safe_log *c00_init_safe_log( char *file_name){c00_init_safe_log12,168
-int c00_change_safe_log_file(struct safe_log *logger, char *filename){c00_change_safe_log_file25,576
-int c00_close_safe_log(struct safe_log *logger){c00_close_safe_log45,973
-void flush_log(struct safe_log *logger){flush_log53,1118
-int c00_print_safe_single_log(struct safe_log *logger, int log_level, char *file, char *txt,...){c00_print_safe_single_log61,1281
-int c00_get_current_time(char *t_buf, char *fmt,int len_buf){c00_get_current_time78,1535
-int print_safe_single_log_fr(struct safe_log *logger, int log_lvl,char *file, char *txt, FILE *fr,...){print_safe_single_log_fr89,1741
-int c00_get_hash_str(char *val,unsigned int len){c00_get_hash_str136,2613
-int c00_get_hash_int(int val){c00_get_hash_int158,3074
-int c00_create_unique_log_file(char *append,char *end, char *filename){c00_create_unique_log_file162,3122
-int c00_print_safe_log(struct safe_log *logger, int log_level, char *txt,...){c00_print_safe_log182,3574
+src/util.c,1101
+int c00_seek_file(FILE *fp,int offset){c00_seek_file7,106
+struct safe_log *c00_init_safe_log( char *file_name){c00_init_safe_log14,214
+int c00_change_safe_log_file(struct safe_log *logger, char *filename){c00_change_safe_log_file27,622
+int c00_close_safe_log(struct safe_log *logger){c00_close_safe_log47,1019
+void c00_flush_log(struct safe_log *logger){c00_flush_log55,1164
+int c00_print_safe_single_log(struct safe_log *logger, int log_level, char *file, char *txt,...){c00_print_safe_single_log63,1331
+int c00_get_current_time(char *t_buf, char *fmt,int len_buf){c00_get_current_time80,1585
+int c00_print_safe_single_log_fr(struct safe_log *logger, int log_lvl,char *file, char *txt, FILE *fr,...){c00_print_safe_single_log_fr91,1791
+int c00_get_hash_str(char *val,unsigned int len){c00_get_hash_str138,2667
+int c00_get_hash_int(int val){c00_get_hash_int160,3128
+int c00_create_unique_log_file(char *append,char *end, char *filename){c00_create_unique_log_file164,3176
+int c00_print_safe_log(struct safe_log *logger, int log_level, char *txt,...){c00_print_safe_log184,3628
 
 src/util.h,855
 #define UTIL_HUTIL_H2,15
@@ -952,10 +952,10 @@ src/util.h,855
 #define LOGGER_WARN(LOGGER_WARN43,745
 #define LOGGER_ERROR(LOGGER_ERROR46,840
 #define LOGGER_NLOG(LOGGER_NLOG49,935
-#define LOGGER_NLOG_FR(LOGGER_NLOG_FR52,1040
-struct safe_log{safe_log55,1151
-	char *file_name;file_name56,1168
-	pthread_mutex_t *mtx;mtx57,1186
-	FILE *fp;fp58,1209
-	int log_level;log_level59,1220
-	int flush_count;flush_count60,1236
+#define LOGGER_NLOG_FR(LOGGER_NLOG_FR52,1044
+struct safe_log{safe_log55,1159
+	char *file_name;file_name56,1176
+	pthread_mutex_t *mtx;mtx57,1194
+	FILE *fp;fp58,1217
+	int log_level;log_level59,1228
+	int flush_count;flush_count60,1244
