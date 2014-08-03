@@ -5,7 +5,7 @@ AM_CPPFLAGS =  -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr
 
 bin_PROGRAMS = c00clupea
 
-c00clupea_SOURCES = 	global.h\
+c00clupea_SOURCES = 	global.h\ c00_convenience.h\
 			cooclupea.c cooclupea.h\
 			config.c config.h\
 			ringbuffer.c ringbuffer.h\
@@ -13,6 +13,7 @@ c00clupea_SOURCES = 	global.h\
 			strategies/strategy_dev_null.c strategies/strategy_dev_null.h\
 			strategies/strategy_http_simple.c strategies/strategy_http_simple.h\
 			strategies/strategy_http_path.c strategies/strategy_http_path.h\
+			util/c00_hashmap.c util/c00_hashmap.h\
 			http_codes.h\
 			util.c util.h
 

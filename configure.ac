@@ -5,7 +5,7 @@ AC_PREREQ([2.69])
 AC_INIT([c00clupea], [01], [christoph.pohl0@hm.edu])
 #AC_CONFIG_SRCDIR([src/config.c])
 #AC_CONFIG_HEADERS([config.h])
-AM_INIT_AUTOMAKE
+AM_INIT_AUTOMAKE([subdir-objects])
 # Checks for programs.
 AC_PROG_CC
 

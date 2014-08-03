@@ -51,7 +51,7 @@ util.o: util.c util.h /usr/include/stdio.h /usr/include/sys/cdefs.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.1/include/limits.h \
   /usr/include/limits.h /usr/include/machine/limits.h \
   /usr/include/i386/limits.h /usr/include/i386/_limits.h \
-  /usr/include/sys/syslimits.h global.h
+  /usr/include/sys/syslimits.h global.h c00_convenience.h
 
 util.h:
 
@@ -238,3 +238,5 @@ util.h:
 /usr/include/sys/syslimits.h:
 
 global.h:
+
+c00_convenience.h:

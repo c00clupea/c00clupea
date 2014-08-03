@@ -1,5 +1,5 @@
-strategy_dev_null.o: strategies/strategy_dev_null.c \
-  strategies/strategy_dev_null.h strategies/../strategy.h \
+strategies/strategy_http_path.o: strategies/strategy_http_path.c \
+  strategies/strategy_http_path.h strategies/../strategy.h \
   /usr/include/syslog.h /usr/include/sys/syslog.h \
   /usr/include/sys/appleapiopts.h /usr/include/sys/cdefs.h \
   /usr/include/sys/_symbol_aliasing.h \
@@ -85,11 +85,11 @@ strategy_dev_null.o: strategies/strategy_dev_null.c \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.1/include/limits.h \
   /usr/include/limits.h /usr/include/machine/limits.h \
   /usr/include/i386/limits.h /usr/include/i386/_limits.h \
-  /usr/include/sys/syslimits.h config.h ringbuffer.h \
-  strategies/strategy_http_simple.h strategies/strategy_http_path.h \
+  /usr/include/sys/syslimits.h c00_convenience.h config.h ringbuffer.h \
+  strategies/strategy_dev_null.h strategies/strategy_http_simple.h \
   strategies/http_codes.h
 
-strategies/strategy_dev_null.h:
+strategies/strategy_http_path.h:
 
 strategies/../strategy.h:
 
@@ -389,12 +389,14 @@ util.h:
 
 /usr/include/sys/syslimits.h:
 
+c00_convenience.h:
+
 config.h:
 
 ringbuffer.h:
 
-strategies/strategy_http_simple.h:
+strategies/strategy_dev_null.h:
 
-strategies/strategy_http_path.h:
+strategies/strategy_http_simple.h:
 
 strategies/http_codes.h:

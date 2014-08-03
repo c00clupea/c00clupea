@@ -2,6 +2,8 @@
 #define GLOBAL_H
 
 #include "util.h"
+#include "c00_convenience.h"
+
 
 #ifndef VERSION
 #define VERSION -1
@@ -79,5 +81,8 @@
 #define STORAGE_TEMPLATE "/var/%s/%d"
 #endif
 
+
+#define FALSE 0
+#define TRUE 1
 
 #endif
