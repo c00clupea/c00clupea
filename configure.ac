@@ -60,6 +60,15 @@ else
 	AC_DEFINE([STDLOG],[x${STDLOG}],[syslog verific])
 fi
 
+#worker pool
+AC_ARG_VAR([WORKER_POOL],[define the worker pool size (default is 10)])
+
+if test "x${WORKER_POOL}" = "x"; then
+	AC_DEFINE([WORKER_POOL],[10],[worker pool size])
+else
+	AC_DEFINE([WORKER_POOL],[x${WORKER_POOL}],[worker_pool size])
+fi
+
 
 AC_OUTPUT
 
