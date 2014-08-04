@@ -41,7 +41,7 @@ There can be some bugs - why not?
 When you find some, write an email to c00clupea@gmail.com
 
 .SH OTHER INCONVENIENCE
-You find somethin not very convenient, you want to have some special honeypot adapter or plugin...?
+You find something not very convenient, you want to have some special honeypot adapter or plugin...?
 Solve it and share it...c00clupea is open source
 
 .SH SEE ALSO
