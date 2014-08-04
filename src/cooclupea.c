@@ -420,6 +420,7 @@ int main(int argc, char *argv[]) {
 		}
 	}	
 
+
 	/**int *socket_handle;**/
 
 	if(init_strategies() != 0){
