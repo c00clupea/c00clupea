@@ -82,9 +82,6 @@
 /* build tests */
 #undef USEC00TESTS
 
-/* desc */
-#undef USEC00TESTS1
-
 /* Version number of package */
 #undef VERSION
 

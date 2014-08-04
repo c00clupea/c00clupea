@@ -716,6 +716,7 @@ enable_option_checking
 enable_silent_rules
 enable_dependency_tracking
 enable_buildtest
+enable_strict_atomic
 '
       ac_precious_vars='build_alias
 host_alias
@@ -1347,6 +1348,8 @@ Optional Features:
   --disable-dependency-tracking 
                           speeds up one-time build
   --enable-buildtest      Enable tests
+  --enable-strict-atomic  Enable strict atomic behaviour...It is safe but
+                          slow....
 
 Some influential environment variables:
   CC          C compiler command
@@ -4360,7 +4363,7 @@ ac_config_headers="$ac_config_headers src/conf.h"
 ac_config_files="$ac_config_files Makefile src/Makefile man/Makefile"
 
 
-#AC_DEFINE([USEC00TESTS1],[],[desc])
+#build tests
 
 @%:@ Check whether --enable-buildtest was given.
 if test "${enable_buildtest+set}" = set; then :
@@ -4376,6 +4379,20 @@ $as_echo "@%:@define USEC00TESTS /**/" >>confdefs.h
 
 fi
 
+#strict atomic 
+@%:@ Check whether --enable-strict-atomic was given.
+if test "${enable_strict_atomic+set}" = set; then :
+  enableval=$enable_strict_atomic; 
+fi
+
+
+if test "$enable_strict-atomic" = "yes"; then :
+  
+	
+$as_echo "@%:@define ATOMIC /**/" >>confdefs.h
+
+
+fi
 
 
 cat >confcache <<\_ACEOF

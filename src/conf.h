@@ -1,6 +1,9 @@
 /* src/conf.h.  Generated from conf.h.in by configure.  */
 /* src/conf.h.in.  Generated from configure.ac by autoheader.  */
 
+/* strict atomic build */
+/* #undef ATOMIC */
+
 /* Define to 1 if you have the <arpa/inet.h> header file. */
 #define HAVE_ARPA_INET_H 1
 
@@ -81,7 +84,7 @@
 #define STDC_HEADERS 1
 
 /* build tests */
-#define USEC00TESTS /**/
+/* #undef USEC00TESTS */
 
 /* Version number of package */
 #define VERSION "01"

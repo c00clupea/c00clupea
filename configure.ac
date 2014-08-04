@@ -25,7 +25,7 @@ AC_CONFIG_HEADERS([src/conf.h])
 
 AC_CONFIG_FILES([Makefile src/Makefile man/Makefile])
 
-#AC_DEFINE([USEC00TESTS1],[],[desc])
+#build tests
 
 AC_ARG_ENABLE([buildtest],
     AS_HELP_STRING([--enable-buildtest], [Enable tests]))
@@ -34,6 +34,13 @@ AS_IF([test "$enable_buildtest" = "yes"], [
 	AC_DEFINE([USEC00TESTS],[],[build tests])
 ])
 
+#strict atomic 
+AC_ARG_ENABLE([strict-atomic],
+    AS_HELP_STRING([--enable-strict-atomic], [Enable strict atomic behaviour...It is safe but slow....]))
+
+AS_IF([test "$enable_strict-atomic" = "yes"], [
+	AC_DEFINE([ATOMIC],[],[strict atomic build])
+])
 
 
 AC_OUTPUT
