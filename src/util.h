@@ -14,7 +14,7 @@
 
 
 #ifndef STD_FLUSH_COUNT
-#define STD_FLUSH_COUNT 1
+#define STD_FLUSH_COUNT 0
 #endif
 
 
