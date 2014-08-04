@@ -54,10 +54,10 @@ int c00_close_safe_log(struct safe_log *logger){
 
 void c00_flush_log(struct safe_log *logger){
 	logger->flush_count++;
-	if(logger->flush_count > STD_FLUSH_COUNT){
+	if(logger->flush_count >= STD_FLUSH_COUNT){
 		fflush(logger->fp);
+		logger->flush_count = 0;
 	}
-	logger->flush_count = 0;
 }
 
 int c00_print_safe_single_log(struct safe_log *logger, int log_level, char *file, char *txt,...){
@@ -202,7 +202,6 @@ int c00_print_safe_log(struct safe_log *logger, int log_level, char *txt,...){
 			vsnprintf(the_log,STD_LOG_LEN,txt,args);
 			fprintf(logger->fp,"%s %s\n",tbuf,the_log);
 			va_end(args);
-
      			c00_flush_log(logger);
 
 		}
