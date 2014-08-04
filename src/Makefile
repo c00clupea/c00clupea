@@ -202,6 +202,7 @@ STDLOG =
 STRIP = 
 SYSLOG = 
 VERSION = 01
+WORKER_POOL = 
 abs_builddir = /Users/sec15334/repositories/dissertation/sources/c00clupea/src
 abs_srcdir = /Users/sec15334/repositories/dissertation/sources/c00clupea/src
 abs_top_builddir = /Users/sec15334/repositories/dissertation/sources/c00clupea
@@ -245,7 +246,7 @@ top_build_prefix = ../
 top_builddir = ..
 top_srcdir = ..
 AM_CFLAGS = -std=c99 -Wall -Wextra -pedantic -pthread -D_THREAD_SAFE
-AM_CPPFLAGS = -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024  -DMAINCONFIG='"$(sysconfdir)/c00clupea/c00clupea.config"' -DSTRAT_DEFAULT=0 -DSTD_LOG_LVL=2 -DSTD_LOG_LEN=1024 -DSTD_FLUSH_COUNT=1 -DLOG_MAIN_TEMPLATE='"$(localstatedir)/log/c00clupea/c00clupea_%d.log"'
+AM_CPPFLAGS = -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DMAIN_BUFFER_LEN=1024  -DMAINCONFIG='"$(sysconfdir)/c00clupea/c00clupea.config"' -DSTRAT_DEFAULT=0 -DSTD_LOG_LVL=2 -DSTD_LOG_LEN=1024 -DSTD_FLUSH_COUNT=1 -DLOG_MAIN_TEMPLATE='"$(localstatedir)/log/c00clupea/c00clupea_%d.log"'
 c00clupea_SOURCES = global.h c00_convenience.h\
 			cooclupea.c cooclupea.h\
 			config.c config.h\

@@ -619,6 +619,7 @@ cat >>"$ac_tmp/subs1.awk" <<\_ACAWK &&
 S["am__EXEEXT_FALSE"]=""
 S["am__EXEEXT_TRUE"]="#"
 S["LTLIBOBJS"]=""
+S["WORKER_POOL"]=""
 S["STDLOG"]=""
 S["SYSLOG"]=""
 S["LIBOBJS"]=""
@@ -781,6 +782,7 @@ D["HAVE_SOCKET"]=" 1"
 D["HAVE_STRSTR"]=" 1"
 D["SYSLOG"]=" LOG_DAEMON"
 D["STDLOG"]=" LOG_NOTICE"
+D["WORKER_POOL"]=" 10"
   for (key in D) D_is_set[key] = 1
   FS = ""
 }

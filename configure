@@ -624,6 +624,7 @@ ac_includes_default="\
 ac_subst_vars='am__EXEEXT_FALSE
 am__EXEEXT_TRUE
 LTLIBOBJS
+WORKER_POOL
 STDLOG
 SYSLOG
 LIBOBJS
@@ -730,7 +731,8 @@ LIBS
 CPPFLAGS
 CPP
 SYSLOG
-STDLOG'
+STDLOG
+WORKER_POOL'
 
 
 # Initialize some variables set by options.
@@ -1366,6 +1368,7 @@ Some influential environment variables:
   CPP         C preprocessor
   SYSLOG      define the syslog daemon (default is LOG_DAEMON)
   STDLOG      define the syslog standardlog (default is LOG_NOTICE)
+  WORKER_POOL define the worker pool size (default is 10)
 
 Use these variables to override the choices made by `configure' or to help
 it to find libraries and programs with nonstandard names/locations.
@@ -4423,6 +4426,19 @@ $as_echo "#define STDLOG LOG_NOTICE" >>confdefs.h
 else
 
 $as_echo "#define STDLOG x\${STDLOG}" >>confdefs.h
+
+fi
+
+#worker pool
+
+
+if test "x${WORKER_POOL}" = "x"; then
+
+$as_echo "#define WORKER_POOL 10" >>confdefs.h
+
+else
+
+$as_echo "#define WORKER_POOL x\${WORKER_POOL}" >>confdefs.h
 
 fi
 

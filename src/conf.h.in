@@ -94,6 +94,9 @@
 /* Version number of package */
 #undef VERSION
 
+/* worker_pool size */
+#undef WORKER_POOL
+
 /* Define to rpl_malloc if the replacement function should be used. */
 #undef malloc
 

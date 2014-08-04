@@ -264,6 +264,7 @@ STDLOG =
 STRIP = 
 SYSLOG = 
 VERSION = 01
+WORKER_POOL = 
 abs_builddir = /Users/sec15334/repositories/dissertation/sources/c00clupea
 abs_srcdir = /Users/sec15334/repositories/dissertation/sources/c00clupea
 abs_top_builddir = /Users/sec15334/repositories/dissertation/sources/c00clupea
