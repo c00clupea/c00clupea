@@ -42,6 +42,24 @@ AS_IF([test "$enable_strict-atomic" = "yes"], [
 	AC_DEFINE([ATOMIC],[],[strict atomic build])
 ])
 
+#syslog daemon
+AC_ARG_VAR([SYSLOG],[define the syslog daemon (default is LOG_DAEMON)])
+
+if test "x${SYSLOG}" = "x"; then
+	AC_DEFINE([SYSLOG],[LOG_DAEMON],[syslog verific])
+else
+	AC_DEFINE([SYSLOG],[x${SYSLOG}],[syslog verific])
+fi
+
+#syslog standardlog
+AC_ARG_VAR([STDLOG],[define the syslog astandardlog (default is LOG_NOTICE)])
+
+if test "x${STDLOG}" = "x"; then
+	AC_DEFINE([STDLOG],[LOG_NOTICE],[syslog standardlog])
+else
+	AC_DEFINE([STDLOG],[x${STDLOG}],[syslog verific])
+fi
+
 
 AC_OUTPUT
 

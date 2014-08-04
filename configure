@@ -624,6 +624,8 @@ ac_includes_default="\
 ac_subst_vars='am__EXEEXT_FALSE
 am__EXEEXT_TRUE
 LTLIBOBJS
+STDLOG
+SYSLOG
 LIBOBJS
 EGREP
 GREP
@@ -726,7 +728,9 @@ CFLAGS
 LDFLAGS
 LIBS
 CPPFLAGS
-CPP'
+CPP
+SYSLOG
+STDLOG'
 
 
 # Initialize some variables set by options.
@@ -1360,6 +1364,8 @@ Some influential environment variables:
   CPPFLAGS    (Objective) C/C++ preprocessor flags, e.g. -I<include dir> if
               you have headers in a nonstandard directory <include dir>
   CPP         C preprocessor
+  SYSLOG      define the syslog daemon (default is LOG_DAEMON)
+  STDLOG      define the syslog astandardlog (default is LOG_NOTICE)
 
 Use these variables to override the choices made by `configure' or to help
 it to find libraries and programs with nonstandard names/locations.
@@ -4391,6 +4397,32 @@ if test "$enable_strict-atomic" = "yes"; then :
 
 $as_echo "#define ATOMIC /**/" >>confdefs.h
 
+
+fi
+
+#syslog daemon
+
+
+if test "x${SYSLOG}" = "x"; then
+
+$as_echo "#define SYSLOG LOG_DAEMON" >>confdefs.h
+
+else
+
+$as_echo "#define SYSLOG x\${SYSLOG}" >>confdefs.h
+
+fi
+
+#syslog standardlog
+
+
+if test "x${STDLOG}" = "x"; then
+
+$as_echo "#define STDLOG LOG_NOTICE" >>confdefs.h
+
+else
+
+$as_echo "#define STDLOG x\${STDLOG}" >>confdefs.h
 
 fi
 
