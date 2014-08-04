@@ -624,6 +624,7 @@ ac_includes_default="\
 ac_subst_vars='am__EXEEXT_FALSE
 am__EXEEXT_TRUE
 LTLIBOBJS
+MAIN_BUFFER_LEN
 WORKER_POOL
 STDLOG
 SYSLOG
@@ -732,7 +733,8 @@ CPPFLAGS
 CPP
 SYSLOG
 STDLOG
-WORKER_POOL'
+WORKER_POOL
+MAIN_BUFFER_LEN'
 
 
 # Initialize some variables set by options.
@@ -1369,6 +1371,8 @@ Some influential environment variables:
   SYSLOG      define the syslog daemon (default is LOG_DAEMON)
   STDLOG      define the syslog standardlog (default is LOG_NOTICE)
   WORKER_POOL define the worker pool size (default is 10)
+  MAIN_BUFFER_LEN
+              define the main buffer len (default is 1024)
 
 Use these variables to override the choices made by `configure' or to help
 it to find libraries and programs with nonstandard names/locations.
@@ -4258,7 +4262,7 @@ fi
 done
 
 
-for ac_header in arpa/inet.h limits.h netinet/in.h stdlib.h string.h sys/socket.h syslog.h unistd.h
+for ac_header in arpa/inet.h limits.h netinet/in.h stdlib.h string.h sys/socket.h syslog.h unistd.h stdarg.h limits.h stdio.h
 do :
   as_ac_Header=`$as_echo "ac_cv_header_$ac_header" | $as_tr_sh`
 ac_fn_c_check_header_mongrel "$LINENO" "$ac_header" "$as_ac_Header" "$ac_includes_default"
@@ -4353,7 +4357,7 @@ $as_echo "#define malloc rpl_malloc" >>confdefs.h
 fi
 
 
-for ac_func in memset socket strstr
+for ac_func in memset socket strstr pthread_mutex_lock snprintf va_start vsnprintf
 do :
   as_ac_var=`$as_echo "ac_cv_func_$ac_func" | $as_tr_sh`
 ac_fn_c_check_func "$LINENO" "$ac_func" "$as_ac_var"
@@ -4442,7 +4446,18 @@ $as_echo "#define WORKER_POOL x\${WORKER_POOL}" >>confdefs.h
 
 fi
 
+#main buffer len
 
+
+if test "x${MAIN_BUFFER_LEN}" = "x"; then
+
+$as_echo "#define MAIN_BUFFER_LEN 1024" >>confdefs.h
+
+else
+
+$as_echo "#define MAIN_BUFFER_LEN x\${MAIN_BUFFER_LEN}" >>confdefs.h
+
+fi
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
 # tests run on this system so they can be shared between configure

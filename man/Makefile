@@ -167,6 +167,7 @@ LDFLAGS =
 LIBOBJS = 
 LIBS = 
 LTLIBOBJS = 
+MAIN_BUFFER_LEN = 
 MAKEINFO = ${SHELL} /Users/sec15334/repositories/dissertation/sources/c00clupea/missing makeinfo
 MKDIR_P = .././install-sh -c -d
 OBJEXT = o
