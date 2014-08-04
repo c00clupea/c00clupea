@@ -52,7 +52,7 @@ else
 fi
 
 #syslog standardlog
-AC_ARG_VAR([STDLOG],[define the syslog astandardlog (default is LOG_NOTICE)])
+AC_ARG_VAR([STDLOG],[define the syslog standardlog (default is LOG_NOTICE)])
 
 if test "x${STDLOG}" = "x"; then
 	AC_DEFINE([STDLOG],[LOG_NOTICE],[syslog standardlog])

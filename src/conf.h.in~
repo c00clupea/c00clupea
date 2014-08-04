@@ -83,6 +83,9 @@
 #undef STDC_HEADERS
 
 /* syslog verific */
+#undef STDLOG
+
+/* syslog verific */
 #undef SYSLOG
 
 /* build tests */

@@ -1365,7 +1365,7 @@ Some influential environment variables:
               you have headers in a nonstandard directory <include dir>
   CPP         C preprocessor
   SYSLOG      define the syslog daemon (default is LOG_DAEMON)
-  STDLOG      define the syslog astandardlog (default is LOG_NOTICE)
+  STDLOG      define the syslog standardlog (default is LOG_NOTICE)
 
 Use these variables to override the choices made by `configure' or to help
 it to find libraries and programs with nonstandard names/locations.
