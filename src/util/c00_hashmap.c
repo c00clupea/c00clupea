@@ -67,7 +67,7 @@ int _c00_hashmap_calculate_idx_from_char(char *key, unsigned int key_len, unsign
 	hash = _c00_hashmap_get_hash(key,key_len);
 	idx = _c00_hashmap_calculate_idx_from_hash(hash,max_len);
 
-	return idx
+	return idx;
 
 }
 
