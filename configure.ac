@@ -69,6 +69,13 @@ else
 	AC_DEFINE([WORKER_POOL],[x${WORKER_POOL}],[worker_pool size])
 fi
 
+#main buffer len
+AC_ARG_VAR([MAIN_BUFFER_LEN],[define the main buffer len (default is 1024)])
 
+if test "x${MAIN_BUFFER_LEN}" = "x"; then
+	AC_DEFINE([MAIN_BUFFER_LEN],[1024],[main buffer len])
+else
+	AC_DEFINE([MAIN_BUFFER_LEN],[x${MAIN_BUFFER_LEN}],[main buffer len])
+fi
 AC_OUTPUT
 
