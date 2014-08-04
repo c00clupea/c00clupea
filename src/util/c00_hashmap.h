@@ -14,8 +14,9 @@ struct c00_hashmap{
 
 struct c00_hashmap_bucket{
 	int	is_first;
-	struct c00hashmap_bucket *next;
+	struct c00_hashmap_bucket *next;
 	char *key;
+	void *val;
 	
 };
 

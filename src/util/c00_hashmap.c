@@ -20,7 +20,7 @@ int c00_hashmap_init(struct c00_hashmap *map, int init_len, int resizable){
 	
 	map->max_len = init_len;
 	map->actual_fill = 0;
-	map->buckets = malloc(map->max_len * sizeof(c00_hashmap_bucket));
+	map->buckets = malloc(map->max_len * sizeof(struct c00_hashmap_bucket));
 	
 	return 0;
 }
@@ -40,7 +40,7 @@ int c00_hashmap_has_key(struct c00_hashmap *map, char *key, unsigned int key_len
 
 	idx = _c00_hashmap_calculate_idx_from_char(key,key_len,map->max_len);
 
-	if(map->buckets[idx] == NULL){
+	if(map->buckets[idx].key == NULL){
 		return FALSE; // shortcut
 	}
 
