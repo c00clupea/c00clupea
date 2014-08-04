@@ -87,6 +87,7 @@ am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
  configure.lineno config.status.lineno
 mkinstalldirs = $(install_sh) -d
+CONFIG_HEADER = $(top_builddir)/src/conf.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 AM_V_P = $(am__v_P_$(V))
@@ -226,10 +227,10 @@ AWK = awk
 CC = clang
 CCDEPMODE = depmode=gcc3
 CFLAGS = -g -O2
-CPP = /opt/checker-276/libexec/ccc-analyzer -E
+CPP = gcc -E
 CPPFLAGS = 
 CYGPATH_W = echo
-DEFS = -DPACKAGE_NAME=\"c00clupea\" -DPACKAGE_TARNAME=\"c00clupea\" -DPACKAGE_VERSION=\"01\" -DPACKAGE_STRING=\"c00clupea\ 01\" -DPACKAGE_BUGREPORT=\"christoph.pohl0@hm.edu\" -DPACKAGE_URL=\"\" -DPACKAGE=\"c00clupea\" -DVERSION=\"01\" -DSTDC_HEADERS=1 -DHAVE_SYS_TYPES_H=1 -DHAVE_SYS_STAT_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_MEMORY_H=1 -DHAVE_STRINGS_H=1 -DHAVE_INTTYPES_H=1 -DHAVE_STDINT_H=1 -DHAVE_UNISTD_H=1 -DHAVE_ARPA_INET_H=1 -DHAVE_LIMITS_H=1 -DHAVE_NETINET_IN_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_SYS_SOCKET_H=1 -DHAVE_SYSLOG_H=1 -DHAVE_UNISTD_H=1 -DHAVE_STDLIB_H=1 -DHAVE_MALLOC=1 -DHAVE_MEMSET=1 -DHAVE_SOCKET=1 -DHAVE_STRSTR=1
+DEFS = -DHAVE_CONFIG_H
 DEPDIR = .deps
 ECHO_C = \c
 ECHO_N = 
@@ -265,7 +266,7 @@ abs_builddir = /Users/sec15334/repositories/dissertation/sources/c00clupea
 abs_srcdir = /Users/sec15334/repositories/dissertation/sources/c00clupea
 abs_top_builddir = /Users/sec15334/repositories/dissertation/sources/c00clupea
 abs_top_srcdir = /Users/sec15334/repositories/dissertation/sources/c00clupea
-ac_ct_CC = /opt/checker-276/libexec/ccc-analyzer
+ac_ct_CC = gcc
 am__include = include
 am__leading_dot = .
 am__quote = 
@@ -305,7 +306,7 @@ top_builddir = .
 top_srcdir = .
 AUTOMAKE_OPTIONS = foreign
 
-#CC = /opt/checker-276/libexec/ccc-analyzer 
+#CC = gcc 
 SUBDIRS = src man
 EXTRA_DIST = autogen.sh conf/c00clupea.config man/c00clupea.man scan_files.sh
 confdir = $(sysconfdir)/c00clupea

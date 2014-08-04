@@ -3,6 +3,8 @@ AM_CFLAGS =  -std=c99 -Wall -Wextra -pedantic -pthread -D_THREAD_SAFE
 AM_CPPFLAGS =  -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024  -DMAINCONFIG='"$(sysconfdir)/c00clupea/c00clupea.config"' -DSTRAT_DEFAULT=0 -DSTD_LOG_LVL=2 -DSTD_LOG_LEN=1024 -DSTD_FLUSH_COUNT=1 -DLOG_MAIN_TEMPLATE='"$(localstatedir)/log/c00clupea/c00clupea_%d.log"'
 
 
+
+
 bin_PROGRAMS = c00clupea
 
 c00clupea_SOURCES = 	global.h c00_convenience.h\

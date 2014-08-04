@@ -1,6 +1,8 @@
 #ifndef GLOBAL_H
 #define GLOBAL_H
 
+#include "conf.h"
+
 #include "util.h"
 #include "c00_convenience.h"
 

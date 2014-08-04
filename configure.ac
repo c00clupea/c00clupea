@@ -21,6 +21,20 @@ AC_TYPE_SIZE_T
 AC_FUNC_MALLOC
 AC_CHECK_FUNCS([memset socket strstr])
 
+AC_CONFIG_HEADERS([src/conf.h])
+
 AC_CONFIG_FILES([Makefile src/Makefile man/Makefile])
 
+#AC_DEFINE([USEC00TESTS1],[],[desc])
+
+AC_ARG_ENABLE([buildtest],
+    AS_HELP_STRING([--enable-buildtest], [Enable tests]))
+
+AS_IF([test "$enable_buildtest" = "yes"], [
+	AC_DEFINE([USEC00TESTS],[],[build tests])
+])
+
+
+
 AC_OUTPUT
+

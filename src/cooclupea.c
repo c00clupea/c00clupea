@@ -361,6 +361,12 @@ int main(int argc, char *argv[]) {
 	int c;
 	int break_command = 0;	
 	int has_config = 0;
+
+#ifdef USE_C00_TEST
+	fprintf(STDERR,"Built with all TESTS########################");
+#endif
+
+
 	while ((c = getopt (argc, argv, ALLOWED_OPTS)) != -1)
 	switch(c)
 		{
