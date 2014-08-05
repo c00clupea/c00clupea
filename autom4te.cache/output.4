@@ -621,7 +621,8 @@ ac_includes_default="\
 # include <unistd.h>
 #endif"
 
-ac_subst_vars='STD_FLUSH_COUNT
+ac_subst_vars='ALLOWED_OPTS
+STD_FLUSH_COUNT
 STD_LOG_LEN
 STD_LOG_LVL
 STRAT_DEFAULT
@@ -746,7 +747,8 @@ STDERR
 STRAT_DEFAULT
 STD_LOG_LVL
 STD_LOG_LEN
-STD_FLUSH_COUNT'
+STD_FLUSH_COUNT
+ALLOWED_OPTS'
 
 
 # Initialize some variables set by options.
@@ -1394,6 +1396,8 @@ Some influential environment variables:
   STD_FLUSH_COUNT 
               define the default flush count (default is 1) flushes log after
               n logs to file n<= 1 == immediate
+  ALLOWED_OPTS 
+              allowed opts for commandline (default is <<Vhp:b:c:s:>>)
 
 Use these variables to override the choices made by `configure' or to help
 it to find libraries and programs with nonstandard names/locations.
@@ -6011,6 +6015,19 @@ $as_echo "@%:@define STD_FLUSH_COUNT 1" >>confdefs.h
 else
 	
 $as_echo "@%:@define STD_FLUSH_COUNT x\${STD_FLUSH_COUNT}" >>confdefs.h
+
+fi
+
+#allowed opts
+
+
+if test "x${ALLOWED_OPTS}" = "x"; then
+	
+$as_echo "@%:@define ALLOWED_OPTS \"Vhp:b:c:s:\"" >>confdefs.h
+
+else
+	
+$as_echo "@%:@define ALLOWED_OPTS x\${ALLOWED_OPTS}" >>confdefs.h
 
 fi
 

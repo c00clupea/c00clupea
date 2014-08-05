@@ -133,6 +133,24 @@ else
 	AC_DEFINE([STD_FLUSH_COUNT],[x${STD_FLUSH_COUNT}],[default flush count])
 fi
 
+#allowed opts
+AC_ARG_VAR([ALLOWED_OPTS],[allowed opts for commandline (default is <<Vhp:b:c:s:>>)])
+
+if test "x${ALLOWED_OPTS}" = "x"; then
+	AC_DEFINE([ALLOWED_OPTS],["Vhp:b:c:s:"],[allowed opts])
+else
+	AC_DEFINE([ALLOWED_OPTS],[x${ALLOWED_OPTS}],[allowed opts])
+fi
+
+#allowed inets
+AC_ARG_VAR([INET_FAM],[inet family for sockets (default is AF_INET)])
+
+if test "x${INET_FAM}" = "x"; then
+	AC_DEFINE([INET_FAM],[AF_INET],[inet family])
+else
+	AC_DEFINE([INET_FAM],[x${INET_FAM}],[inet family])
+fi
+
 
 AC_OUTPUT
 
