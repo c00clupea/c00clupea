@@ -87,5 +87,16 @@ if test "x${TCP_BACKLOG}" = "x"; then
 else
 	AC_DEFINE([TCP_BACKLOG],[x${TCP_BACKLOG}],[tcp backlog len])
 fi
+
+#main stderr
+AC_ARG_VAR([STDERR],[define the standard error output (default is stderr)])
+
+if test "x${STDERR}" = "x"; then
+	AC_DEFINE([STDERR],[stderr],[standard error output])
+else
+	AC_DEFINE([STDERR],[x${STDERR}],[standard error output])
+fi
+
+
 AC_OUTPUT
 
