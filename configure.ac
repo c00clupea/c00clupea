@@ -115,5 +115,14 @@ else
 	AC_DEFINE([STD_LOG_LVL],[x${STD_LOG_LVL}],[default log level])
 fi
 
+#standard log len
+AC_ARG_VAR([STD_LOG_LEN],[define the default log leN (default is 1024)])
+
+if test "x${STD_LOG_LEN}" = "x"; then
+	AC_DEFINE([STD_LOG_LEN],[1024],[default log LEN])
+else
+	AC_DEFINE([STD_LOG_LEN],[x${STD_LOG_LEN}],[default log LEN])
+fi
+
 AC_OUTPUT
 
