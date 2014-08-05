@@ -1,6 +1,6 @@
 AM_CFLAGS =  -std=c99 -Wall -Wextra -pedantic -pthread -D_THREAD_SAFE
 
-AM_CPPFLAGS = -DMAINCONFIG='"$(sysconfdir)/c00clupea/c00clupea.config"' -DLOG_MAIN_TEMPLATE='"$(localstatedir)/log/c00clupea/c00clupea_%d.log"'
+AM_CPPFLAGS = -DLOG_MAIN_TEMPLATE='"$(localstatedir)/log/c00clupea/c00clupea_%d.log"'
 
 
 

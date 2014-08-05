@@ -151,6 +151,14 @@ else
 	AC_DEFINE([INET_FAM],[x${INET_FAM}],[inet family])
 fi
 
+#main config
+AC_ARG_VAR([MAINCONFIG],[main config (default is (sysconfdir)/c00clupea/c00clupea.config)])
+
+if test "x${MAINCONFIG}" = "x"; then
+	AC_DEFINE([MAINCONFIG],["$(sysconfdir)/c00clupea/c00clupea.config"],[inet family])
+else
+	AC_DEFINE([MAINCONFIG],[x${MAINCONFIG}],[inet family])
+fi
 
 AC_OUTPUT
 
