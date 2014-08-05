@@ -124,5 +124,15 @@ else
 	AC_DEFINE([STD_LOG_LEN],[x${STD_LOG_LEN}],[default log LEN])
 fi
 
+#standard FLUSH COUNT
+AC_ARG_VAR([STD_FLUSH_COUNT],[define the default flush count (default is 1) flushes log after n logs to file n<= 1 == immediate])
+
+if test "x${STD_FLUSH_COUNT}" = "x"; then
+	AC_DEFINE([STD_FLUSH_COUNT],[1],[default flush count])
+else
+	AC_DEFINE([STD_FLUSH_COUNT],[x${STD_FLUSH_COUNT}],[default flush count])
+fi
+
+
 AC_OUTPUT
 
