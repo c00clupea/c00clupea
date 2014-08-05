@@ -621,7 +621,9 @@ ac_includes_default="\
 # include <unistd.h>
 #endif"
 
-ac_subst_vars='ALLOWED_OPTS
+ac_subst_vars='MAINCONFIG
+INET_FAM
+ALLOWED_OPTS
 STD_FLUSH_COUNT
 STD_LOG_LEN
 STD_LOG_LVL
@@ -748,7 +750,9 @@ STRAT_DEFAULT
 STD_LOG_LVL
 STD_LOG_LEN
 STD_FLUSH_COUNT
-ALLOWED_OPTS'
+ALLOWED_OPTS
+INET_FAM
+MAINCONFIG'
 
 
 # Initialize some variables set by options.
@@ -1398,6 +1402,8 @@ Some influential environment variables:
               n logs to file n<= 1 == immediate
   ALLOWED_OPTS
               allowed opts for commandline (default is <<Vhp:b:c:s:>>)
+  INET_FAM    inet family for sockets (default is AF_INET)
+  MAINCONFIG  main config (default is (sysconfdir)/c00clupea/c00clupea.config)
 
 Use these variables to override the choices made by `configure' or to help
 it to find libraries and programs with nonstandard names/locations.
@@ -6031,6 +6037,31 @@ $as_echo "#define ALLOWED_OPTS x\${ALLOWED_OPTS}" >>confdefs.h
 
 fi
 
+#allowed inets
+
+
+if test "x${INET_FAM}" = "x"; then
+
+$as_echo "#define INET_FAM AF_INET" >>confdefs.h
+
+else
+
+$as_echo "#define INET_FAM x\${INET_FAM}" >>confdefs.h
+
+fi
+
+#main config
+
+
+if test "x${MAINCONFIG}" = "x"; then
+
+$as_echo "#define MAINCONFIG \"\$(sysconfdir)/c00clupea/c00clupea.config\"" >>confdefs.h
+
+else
+
+$as_echo "#define MAINCONFIG x\${MAINCONFIG}" >>confdefs.h
+
+fi
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure

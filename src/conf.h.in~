@@ -1,5 +1,8 @@
 /* src/conf.h.in.  Generated from configure.ac by autoheader.  */
 
+/* allowed opts */
+#undef ALLOWED_OPTS
+
 /* strict atomic build */
 #undef ATOMIC
 
