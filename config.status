@@ -616,6 +616,8 @@ fi
 
 echo 'BEGIN {' >"$ac_tmp/subs1.awk" &&
 cat >>"$ac_tmp/subs1.awk" <<\_ACAWK &&
+S["STDERR"]=""
+S["TCP_BACKLOG"]=""
 S["am__EXEEXT_FALSE"]=""
 S["am__EXEEXT_TRUE"]="#"
 S["LTLIBOBJS"]=""
@@ -791,6 +793,8 @@ D["SYSLOG"]=" LOG_DAEMON"
 D["STDLOG"]=" LOG_NOTICE"
 D["WORKER_POOL"]=" 10"
 D["MAIN_BUFFER_LEN"]=" 1024"
+D["TCP_BACKLOG"]=" 128"
+D["STDERR"]=" stderr"
   for (key in D) D_is_set[key] = 1
   FS = ""
 }

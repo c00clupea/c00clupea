@@ -104,11 +104,17 @@
 /* Define to 1 if you have the ANSI C header files. */
 #define STDC_HEADERS 1
 
+/* standard error output */
+#define STDERR stderr
+
 /* syslog verific */
 #define STDLOG LOG_NOTICE
 
 /* syslog verific */
 #define SYSLOG LOG_DAEMON
+
+/* tcp backlog len */
+#define TCP_BACKLOG 128
 
 /* build tests */
 /* #undef USEC00TESTS */
