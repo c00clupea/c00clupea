@@ -248,6 +248,7 @@ INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 LDFLAGS = @LDFLAGS@
 LIBOBJS = @LIBOBJS@
 LIBS = @LIBS@
+LOG_MAIN_TEMPLATE = @LOG_MAIN_TEMPLATE@
 LTLIBOBJS = @LTLIBOBJS@
 MAINCONFIG = @MAINCONFIG@
 MAIN_BUFFER_LEN = @MAIN_BUFFER_LEN@
@@ -322,7 +323,7 @@ AUTOMAKE_OPTIONS = foreign
 #CC = @CC@ 
 SUBDIRS = src man
 EXTRA_DIST = autogen.sh conf/c00clupea.config man/c00clupea.man scan_files.sh
-confdir = $(sysconfdir)/c00clupea
+confdir = /etc/c00clupea
 conf_DATA = conf/c00clupea.config
 all: all-recursive
 

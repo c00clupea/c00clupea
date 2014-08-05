@@ -79,6 +79,15 @@
 /* Define to 1 if you have the `vsnprintf' function. */
 #undef HAVE_VSNPRINTF
 
+/* inet family */
+#undef INET_FAM
+
+/* inet family */
+#undef LOG_MAIN_TEMPLATE
+
+/* inet family */
+#undef MAINCONFIG
+
 /* main buffer len */
 #undef MAIN_BUFFER_LEN
 

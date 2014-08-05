@@ -80,6 +80,15 @@
 /* Define to 1 if you have the `vsnprintf' function. */
 #define HAVE_VSNPRINTF 1
 
+/* inet family */
+#define INET_FAM AF_INET
+
+/* inet family */
+#define LOG_MAIN_TEMPLATE "/var/log/c00clupea/c00clupea_%d.log"
+
+/* inet family */
+#define MAINCONFIG "/etc/c00clupea/c00clupea.config"
+
 /* main buffer len */
 #define MAIN_BUFFER_LEN 1024
 

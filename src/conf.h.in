@@ -83,6 +83,9 @@
 #undef INET_FAM
 
 /* inet family */
+#undef LOG_MAIN_TEMPLATE
+
+/* inet family */
 #undef MAINCONFIG
 
 /* main buffer len */

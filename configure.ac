@@ -155,7 +155,7 @@ fi
 AC_ARG_VAR([MAINCONFIG],[main config (default is (sysconfdir)/c00clupea/c00clupea.config)])
 
 if test "x${MAINCONFIG}" = "x"; then
-	AC_DEFINE([MAINCONFIG],["$(sysconfdir)/c00clupea/c00clupea.config"],[inet family])
+	AC_DEFINE([MAINCONFIG],["/etc/c00clupea/c00clupea.config"],[inet family])
 else
 	AC_DEFINE([MAINCONFIG],[x${MAINCONFIG}],[inet family])
 fi
@@ -164,7 +164,7 @@ fi
 AC_ARG_VAR([LOG_MAIN_TEMPLATE],[log template (default is (localstatedir)/log/c00clupea/c00clupea_%d.log)])
 
 if test "x${LOG_MAIN_TEMPLATE}" = "x"; then
-	AC_DEFINE([LOG_MAIN_TEMPLATE],["$(localstatedir)/log/c00clupea/c00clupea_%d.log"],[inet family])
+	AC_DEFINE([LOG_MAIN_TEMPLATE],["/var/log/c00clupea/c00clupea_%d.log"],[inet family])
 else
 	AC_DEFINE([LOG_MAIN_TEMPLATE],[x${LOG_MAIN_TEMPLATE}],[inet family])
 fi

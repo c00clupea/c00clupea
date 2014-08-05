@@ -621,7 +621,8 @@ ac_includes_default="\
 # include <unistd.h>
 #endif"
 
-ac_subst_vars='MAINCONFIG
+ac_subst_vars='LOG_MAIN_TEMPLATE
+MAINCONFIG
 INET_FAM
 ALLOWED_OPTS
 STD_FLUSH_COUNT
@@ -752,7 +753,8 @@ STD_LOG_LEN
 STD_FLUSH_COUNT
 ALLOWED_OPTS
 INET_FAM
-MAINCONFIG'
+MAINCONFIG
+LOG_MAIN_TEMPLATE'
 
 
 # Initialize some variables set by options.
@@ -1404,6 +1406,9 @@ Some influential environment variables:
               allowed opts for commandline (default is <<Vhp:b:c:s:>>)
   INET_FAM    inet family for sockets (default is AF_INET)
   MAINCONFIG  main config (default is (sysconfdir)/c00clupea/c00clupea.config)
+  LOG_MAIN_TEMPLATE 
+              log template (default is
+              (localstatedir)/log/c00clupea/c00clupea_%d.log)
 
 Use these variables to override the choices made by `configure' or to help
 it to find libraries and programs with nonstandard names/locations.
@@ -6055,11 +6060,24 @@ fi
 
 if test "x${MAINCONFIG}" = "x"; then
 	
-$as_echo "@%:@define MAINCONFIG \"\$(sysconfdir)/c00clupea/c00clupea.config\"" >>confdefs.h
+$as_echo "@%:@define MAINCONFIG \"/etc/c00clupea/c00clupea.config\"" >>confdefs.h
 
 else
 	
 $as_echo "@%:@define MAINCONFIG x\${MAINCONFIG}" >>confdefs.h
+
+fi
+
+#log template
+
+
+if test "x${LOG_MAIN_TEMPLATE}" = "x"; then
+	
+$as_echo "@%:@define LOG_MAIN_TEMPLATE \"/var/log/c00clupea/c00clupea_%d.log\"" >>confdefs.h
+
+else
+	
+$as_echo "@%:@define LOG_MAIN_TEMPLATE x\${LOG_MAIN_TEMPLATE}" >>confdefs.h
 
 fi
 

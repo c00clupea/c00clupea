@@ -30,8 +30,8 @@ Kernel configured for up to 4 processors.
 Processor type: i486 (Intel 80486)
 Processors active: 0 1 2 3
 Primary memory available: 8.00 gigabytes
-Default processor set: 214 tasks, 886 threads, 4 processors
-Load average: 1.29, Mach factor: 2.70
+Default processor set: 231 tasks, 1190 threads, 4 processors
+Load average: 0.91, Mach factor: 3.10
 /bin/machine           = unknown
 /usr/bin/oslevel       = unknown
 /bin/universe          = unknown
@@ -62,101 +62,101 @@ PATH: /usr/local/texlive/2013/bin
 ## Core tests. ##
 ## ----------- ##
 
-configure:2286: checking for a BSD-compatible install
-configure:2354: result: /usr/bin/install -c
-configure:2365: checking whether build environment is sane
-configure:2420: result: yes
-configure:2571: checking for a thread-safe mkdir -p
-configure:2610: result: ./install-sh -c -d
-configure:2617: checking for gawk
-configure:2647: result: no
-configure:2617: checking for mawk
-configure:2647: result: no
-configure:2617: checking for nawk
-configure:2647: result: no
-configure:2617: checking for awk
-configure:2633: found /usr/bin/awk
-configure:2644: result: awk
-configure:2655: checking whether make sets $(MAKE)
-configure:2677: result: yes
-configure:2706: checking whether make supports nested variables
-configure:2723: result: yes
-configure:2897: checking for gcc
-configure:2913: found /usr/bin/gcc
-configure:2924: result: gcc
-configure:3153: checking for C compiler version
-configure:3162: gcc --version >&5
+configure:2297: checking for a BSD-compatible install
+configure:2365: result: /usr/bin/install -c
+configure:2376: checking whether build environment is sane
+configure:2431: result: yes
+configure:2582: checking for a thread-safe mkdir -p
+configure:2621: result: ./install-sh -c -d
+configure:2628: checking for gawk
+configure:2658: result: no
+configure:2628: checking for mawk
+configure:2658: result: no
+configure:2628: checking for nawk
+configure:2658: result: no
+configure:2628: checking for awk
+configure:2644: found /usr/bin/awk
+configure:2655: result: awk
+configure:2666: checking whether make sets $(MAKE)
+configure:2688: result: yes
+configure:2717: checking whether make supports nested variables
+configure:2734: result: yes
+configure:2908: checking for gcc
+configure:2924: found /usr/bin/gcc
+configure:2935: result: gcc
+configure:3164: checking for C compiler version
+configure:3173: gcc --version >&5
 Apple LLVM version 5.1 (clang-503.0.40) (based on LLVM 3.4svn)
 Target: x86_64-apple-darwin13.3.0
 Thread model: posix
 Configured with: --prefix=/Applications/Xcode.app/Contents/Developer/usr --with-gxx-include-dir=/usr/include/c++/4.2.1
-configure:3173: $? = 0
-configure:3162: gcc -v >&5
+configure:3184: $? = 0
+configure:3173: gcc -v >&5
 Configured with: --prefix=/Applications/Xcode.app/Contents/Developer/usr --with-gxx-include-dir=/usr/include/c++/4.2.1
 Apple LLVM version 5.1 (clang-503.0.40) (based on LLVM 3.4svn)
 Target: x86_64-apple-darwin13.3.0
 Thread model: posix
-configure:3173: $? = 0
-configure:3162: gcc -V >&5
+configure:3184: $? = 0
+configure:3173: gcc -V >&5
 clang: error: argument to '-V' is missing (expected 1 value)
 clang: error: no input files
-configure:3173: $? = 1
-configure:3162: gcc -qversion >&5
+configure:3184: $? = 1
+configure:3173: gcc -qversion >&5
 clang: error: unknown argument: '-qversion' [-Wunused-command-line-argument-hard-error-in-future]
 clang: note: this will be a hard error (cannot be downgraded to a warning) in the future
 clang: error: no input files
-configure:3173: $? = 1
-configure:3193: checking whether the C compiler works
-configure:3215: gcc    conftest.c  >&5
-configure:3219: $? = 0
-configure:3267: result: yes
-configure:3270: checking for C compiler default output file name
-configure:3272: result: a.out
-configure:3278: checking for suffix of executables
-configure:3285: gcc -o conftest    conftest.c  >&5
-configure:3289: $? = 0
-configure:3311: result: 
-configure:3333: checking whether we are cross compiling
-configure:3341: gcc -o conftest    conftest.c  >&5
-configure:3345: $? = 0
-configure:3352: ./conftest
+configure:3184: $? = 1
+configure:3204: checking whether the C compiler works
+configure:3226: gcc    conftest.c  >&5
+configure:3230: $? = 0
+configure:3278: result: yes
+configure:3281: checking for C compiler default output file name
+configure:3283: result: a.out
+configure:3289: checking for suffix of executables
+configure:3296: gcc -o conftest    conftest.c  >&5
+configure:3300: $? = 0
+configure:3322: result: 
+configure:3344: checking whether we are cross compiling
+configure:3352: gcc -o conftest    conftest.c  >&5
 configure:3356: $? = 0
-configure:3371: result: no
-configure:3376: checking for suffix of object files
-configure:3398: gcc -c   conftest.c >&5
-configure:3402: $? = 0
-configure:3423: result: o
-configure:3427: checking whether we are using the GNU C compiler
-configure:3446: gcc -c   conftest.c >&5
-configure:3446: $? = 0
-configure:3455: result: yes
-configure:3464: checking whether gcc accepts -g
-configure:3484: gcc -c -g  conftest.c >&5
-configure:3484: $? = 0
-configure:3525: result: yes
-configure:3542: checking for gcc option to accept ISO C89
-configure:3605: gcc  -c -g -O2  conftest.c >&5
-configure:3605: $? = 0
-configure:3618: result: none needed
-configure:3643: checking whether gcc understands -c and -o together
-configure:3665: gcc -c conftest.c -o conftest2.o
-configure:3668: $? = 0
-configure:3665: gcc -c conftest.c -o conftest2.o
-configure:3668: $? = 0
-configure:3680: result: yes
-configure:3708: checking for style of include used by make
-configure:3736: result: GNU
-configure:3762: checking dependency style of gcc
-configure:3873: result: gcc3
-configure:3898: checking how to run the C preprocessor
-configure:3929: gcc -E  conftest.c
-configure:3929: $? = 0
-configure:3943: gcc -E  conftest.c
+configure:3363: ./conftest
+configure:3367: $? = 0
+configure:3382: result: no
+configure:3387: checking for suffix of object files
+configure:3409: gcc -c   conftest.c >&5
+configure:3413: $? = 0
+configure:3434: result: o
+configure:3438: checking whether we are using the GNU C compiler
+configure:3457: gcc -c   conftest.c >&5
+configure:3457: $? = 0
+configure:3466: result: yes
+configure:3475: checking whether gcc accepts -g
+configure:3495: gcc -c -g  conftest.c >&5
+configure:3495: $? = 0
+configure:3536: result: yes
+configure:3553: checking for gcc option to accept ISO C89
+configure:3616: gcc  -c -g -O2  conftest.c >&5
+configure:3616: $? = 0
+configure:3629: result: none needed
+configure:3654: checking whether gcc understands -c and -o together
+configure:3676: gcc -c conftest.c -o conftest2.o
+configure:3679: $? = 0
+configure:3676: gcc -c conftest.c -o conftest2.o
+configure:3679: $? = 0
+configure:3691: result: yes
+configure:3719: checking for style of include used by make
+configure:3747: result: GNU
+configure:3773: checking dependency style of gcc
+configure:3884: result: gcc3
+configure:3909: checking how to run the C preprocessor
+configure:3940: gcc -E  conftest.c
+configure:3940: $? = 0
+configure:3954: gcc -E  conftest.c
 conftest.c:11:10: fatal error: 'ac_nonexistent.h' file not found
 #include <ac_nonexistent.h>
          ^
 1 error generated.
-configure:3943: $? = 1
+configure:3954: $? = 1
 configure: failed program was:
 | /* confdefs.h */
 | #define PACKAGE_NAME "c00clupea"
@@ -169,15 +169,15 @@ configure: failed program was:
 | #define VERSION "01"
 | /* end confdefs.h.  */
 | #include <ac_nonexistent.h>
-configure:3968: result: gcc -E
-configure:3988: gcc -E  conftest.c
-configure:3988: $? = 0
-configure:4002: gcc -E  conftest.c
+configure:3979: result: gcc -E
+configure:3999: gcc -E  conftest.c
+configure:3999: $? = 0
+configure:4013: gcc -E  conftest.c
 conftest.c:11:10: fatal error: 'ac_nonexistent.h' file not found
 #include <ac_nonexistent.h>
          ^
 1 error generated.
-configure:4002: $? = 1
+configure:4013: $? = 1
 configure: failed program was:
 | /* confdefs.h */
 | #define PACKAGE_NAME "c00clupea"
@@ -190,141 +190,141 @@ configure: failed program was:
 | #define VERSION "01"
 | /* end confdefs.h.  */
 | #include <ac_nonexistent.h>
-configure:4031: checking for grep that handles long lines and -e
-configure:4089: result: /usr/bin/grep
-configure:4094: checking for egrep
-configure:4156: result: /usr/bin/grep -E
-configure:4161: checking for ANSI C header files
-configure:4181: gcc -c -g -O2  conftest.c >&5
-configure:4181: $? = 0
-configure:4254: gcc -o conftest -g -O2   conftest.c  >&5
-configure:4254: $? = 0
-configure:4254: ./conftest
-configure:4254: $? = 0
-configure:4265: result: yes
-configure:4278: checking for sys/types.h
-configure:4278: gcc -c -g -O2  conftest.c >&5
-configure:4278: $? = 0
-configure:4278: result: yes
-configure:4278: checking for sys/stat.h
-configure:4278: gcc -c -g -O2  conftest.c >&5
-configure:4278: $? = 0
-configure:4278: result: yes
-configure:4278: checking for stdlib.h
-configure:4278: gcc -c -g -O2  conftest.c >&5
-configure:4278: $? = 0
-configure:4278: result: yes
-configure:4278: checking for string.h
-configure:4278: gcc -c -g -O2  conftest.c >&5
-configure:4278: $? = 0
-configure:4278: result: yes
-configure:4278: checking for memory.h
-configure:4278: gcc -c -g -O2  conftest.c >&5
-configure:4278: $? = 0
-configure:4278: result: yes
-configure:4278: checking for strings.h
-configure:4278: gcc -c -g -O2  conftest.c >&5
-configure:4278: $? = 0
-configure:4278: result: yes
-configure:4278: checking for inttypes.h
-configure:4278: gcc -c -g -O2  conftest.c >&5
-configure:4278: $? = 0
-configure:4278: result: yes
-configure:4278: checking for stdint.h
-configure:4278: gcc -c -g -O2  conftest.c >&5
-configure:4278: $? = 0
-configure:4278: result: yes
-configure:4278: checking for unistd.h
-configure:4278: gcc -c -g -O2  conftest.c >&5
-configure:4278: $? = 0
-configure:4278: result: yes
-configure:4293: checking arpa/inet.h usability
-configure:4293: gcc -c -g -O2  conftest.c >&5
-configure:4293: $? = 0
-configure:4293: result: yes
-configure:4293: checking arpa/inet.h presence
-configure:4293: gcc -E  conftest.c
-configure:4293: $? = 0
-configure:4293: result: yes
-configure:4293: checking for arpa/inet.h
-configure:4293: result: yes
-configure:4293: checking limits.h usability
-configure:4293: gcc -c -g -O2  conftest.c >&5
-configure:4293: $? = 0
-configure:4293: result: yes
-configure:4293: checking limits.h presence
-configure:4293: gcc -E  conftest.c
-configure:4293: $? = 0
-configure:4293: result: yes
-configure:4293: checking for limits.h
-configure:4293: result: yes
-configure:4293: checking netinet/in.h usability
-configure:4293: gcc -c -g -O2  conftest.c >&5
-configure:4293: $? = 0
-configure:4293: result: yes
-configure:4293: checking netinet/in.h presence
-configure:4293: gcc -E  conftest.c
-configure:4293: $? = 0
-configure:4293: result: yes
-configure:4293: checking for netinet/in.h
-configure:4293: result: yes
-configure:4293: checking for stdlib.h
-configure:4293: result: yes
-configure:4293: checking for string.h
-configure:4293: result: yes
-configure:4293: checking sys/socket.h usability
-configure:4293: gcc -c -g -O2  conftest.c >&5
-configure:4293: $? = 0
-configure:4293: result: yes
-configure:4293: checking sys/socket.h presence
-configure:4293: gcc -E  conftest.c
-configure:4293: $? = 0
-configure:4293: result: yes
-configure:4293: checking for sys/socket.h
-configure:4293: result: yes
-configure:4293: checking syslog.h usability
-configure:4293: gcc -c -g -O2  conftest.c >&5
-configure:4293: $? = 0
-configure:4293: result: yes
-configure:4293: checking syslog.h presence
-configure:4293: gcc -E  conftest.c
-configure:4293: $? = 0
-configure:4293: result: yes
-configure:4293: checking for syslog.h
-configure:4293: result: yes
-configure:4293: checking for unistd.h
-configure:4293: result: yes
-configure:4293: checking stdarg.h usability
-configure:4293: gcc -c -g -O2  conftest.c >&5
-configure:4293: $? = 0
-configure:4293: result: yes
-configure:4293: checking stdarg.h presence
-configure:4293: gcc -E  conftest.c
-configure:4293: $? = 0
-configure:4293: result: yes
-configure:4293: checking for stdarg.h
-configure:4293: result: yes
-configure:4293: checking for limits.h
-configure:4293: result: yes
-configure:4293: checking stdio.h usability
-configure:4293: gcc -c -g -O2  conftest.c >&5
-configure:4293: $? = 0
-configure:4293: result: yes
-configure:4293: checking stdio.h presence
-configure:4293: gcc -E  conftest.c
-configure:4293: $? = 0
-configure:4293: result: yes
-configure:4293: checking for stdio.h
-configure:4293: result: yes
-configure:4305: checking for size_t
-configure:4305: gcc -c -g -O2  conftest.c >&5
-configure:4305: $? = 0
-configure:4305: gcc -c -g -O2  conftest.c >&5
+configure:4042: checking for grep that handles long lines and -e
+configure:4100: result: /usr/bin/grep
+configure:4105: checking for egrep
+configure:4167: result: /usr/bin/grep -E
+configure:4172: checking for ANSI C header files
+configure:4192: gcc -c -g -O2  conftest.c >&5
+configure:4192: $? = 0
+configure:4265: gcc -o conftest -g -O2   conftest.c  >&5
+configure:4265: $? = 0
+configure:4265: ./conftest
+configure:4265: $? = 0
+configure:4276: result: yes
+configure:4289: checking for sys/types.h
+configure:4289: gcc -c -g -O2  conftest.c >&5
+configure:4289: $? = 0
+configure:4289: result: yes
+configure:4289: checking for sys/stat.h
+configure:4289: gcc -c -g -O2  conftest.c >&5
+configure:4289: $? = 0
+configure:4289: result: yes
+configure:4289: checking for stdlib.h
+configure:4289: gcc -c -g -O2  conftest.c >&5
+configure:4289: $? = 0
+configure:4289: result: yes
+configure:4289: checking for string.h
+configure:4289: gcc -c -g -O2  conftest.c >&5
+configure:4289: $? = 0
+configure:4289: result: yes
+configure:4289: checking for memory.h
+configure:4289: gcc -c -g -O2  conftest.c >&5
+configure:4289: $? = 0
+configure:4289: result: yes
+configure:4289: checking for strings.h
+configure:4289: gcc -c -g -O2  conftest.c >&5
+configure:4289: $? = 0
+configure:4289: result: yes
+configure:4289: checking for inttypes.h
+configure:4289: gcc -c -g -O2  conftest.c >&5
+configure:4289: $? = 0
+configure:4289: result: yes
+configure:4289: checking for stdint.h
+configure:4289: gcc -c -g -O2  conftest.c >&5
+configure:4289: $? = 0
+configure:4289: result: yes
+configure:4289: checking for unistd.h
+configure:4289: gcc -c -g -O2  conftest.c >&5
+configure:4289: $? = 0
+configure:4289: result: yes
+configure:4304: checking arpa/inet.h usability
+configure:4304: gcc -c -g -O2  conftest.c >&5
+configure:4304: $? = 0
+configure:4304: result: yes
+configure:4304: checking arpa/inet.h presence
+configure:4304: gcc -E  conftest.c
+configure:4304: $? = 0
+configure:4304: result: yes
+configure:4304: checking for arpa/inet.h
+configure:4304: result: yes
+configure:4304: checking limits.h usability
+configure:4304: gcc -c -g -O2  conftest.c >&5
+configure:4304: $? = 0
+configure:4304: result: yes
+configure:4304: checking limits.h presence
+configure:4304: gcc -E  conftest.c
+configure:4304: $? = 0
+configure:4304: result: yes
+configure:4304: checking for limits.h
+configure:4304: result: yes
+configure:4304: checking netinet/in.h usability
+configure:4304: gcc -c -g -O2  conftest.c >&5
+configure:4304: $? = 0
+configure:4304: result: yes
+configure:4304: checking netinet/in.h presence
+configure:4304: gcc -E  conftest.c
+configure:4304: $? = 0
+configure:4304: result: yes
+configure:4304: checking for netinet/in.h
+configure:4304: result: yes
+configure:4304: checking for stdlib.h
+configure:4304: result: yes
+configure:4304: checking for string.h
+configure:4304: result: yes
+configure:4304: checking sys/socket.h usability
+configure:4304: gcc -c -g -O2  conftest.c >&5
+configure:4304: $? = 0
+configure:4304: result: yes
+configure:4304: checking sys/socket.h presence
+configure:4304: gcc -E  conftest.c
+configure:4304: $? = 0
+configure:4304: result: yes
+configure:4304: checking for sys/socket.h
+configure:4304: result: yes
+configure:4304: checking syslog.h usability
+configure:4304: gcc -c -g -O2  conftest.c >&5
+configure:4304: $? = 0
+configure:4304: result: yes
+configure:4304: checking syslog.h presence
+configure:4304: gcc -E  conftest.c
+configure:4304: $? = 0
+configure:4304: result: yes
+configure:4304: checking for syslog.h
+configure:4304: result: yes
+configure:4304: checking for unistd.h
+configure:4304: result: yes
+configure:4304: checking stdarg.h usability
+configure:4304: gcc -c -g -O2  conftest.c >&5
+configure:4304: $? = 0
+configure:4304: result: yes
+configure:4304: checking stdarg.h presence
+configure:4304: gcc -E  conftest.c
+configure:4304: $? = 0
+configure:4304: result: yes
+configure:4304: checking for stdarg.h
+configure:4304: result: yes
+configure:4304: checking for limits.h
+configure:4304: result: yes
+configure:4304: checking stdio.h usability
+configure:4304: gcc -c -g -O2  conftest.c >&5
+configure:4304: $? = 0
+configure:4304: result: yes
+configure:4304: checking stdio.h presence
+configure:4304: gcc -E  conftest.c
+configure:4304: $? = 0
+configure:4304: result: yes
+configure:4304: checking for stdio.h
+configure:4304: result: yes
+configure:4316: checking for size_t
+configure:4316: gcc -c -g -O2  conftest.c >&5
+configure:4316: $? = 0
+configure:4316: gcc -c -g -O2  conftest.c >&5
 conftest.c:68:21: error: expected expression
 if (sizeof ((size_t)))
                     ^
 1 error generated.
-configure:4305: $? = 1
+configure:4316: $? = 1
 configure: failed program was:
 | /* confdefs.h */
 | #define PACKAGE_NAME "c00clupea"
@@ -398,58 +398,58 @@ configure: failed program was:
 |   ;
 |   return 0;
 | }
-configure:4305: result: yes
-configure:4320: checking for stdlib.h
-configure:4320: result: yes
-configure:4330: checking for GNU libc compatible malloc
-configure:4354: gcc -o conftest -g -O2   conftest.c  >&5
-configure:4354: $? = 0
-configure:4354: ./conftest
-configure:4354: $? = 0
-configure:4364: result: yes
-configure:4388: checking for memset
-configure:4388: gcc -o conftest -g -O2   conftest.c  >&5
+configure:4316: result: yes
+configure:4331: checking for stdlib.h
+configure:4331: result: yes
+configure:4341: checking for GNU libc compatible malloc
+configure:4365: gcc -o conftest -g -O2   conftest.c  >&5
+configure:4365: $? = 0
+configure:4365: ./conftest
+configure:4365: $? = 0
+configure:4375: result: yes
+configure:4399: checking for memset
+configure:4399: gcc -o conftest -g -O2   conftest.c  >&5
 conftest.c:57:6: warning: incompatible redeclaration of library function 'memset' [-Wincompatible-library-redeclaration]
 char memset ();
      ^
 conftest.c:57:6: note: 'memset' is a builtin with type 'void *(void *, int, unsigned long)'
 1 warning generated.
-configure:4388: $? = 0
-configure:4388: result: yes
-configure:4388: checking for socket
-configure:4388: gcc -o conftest -g -O2   conftest.c  >&5
-configure:4388: $? = 0
-configure:4388: result: yes
-configure:4388: checking for strstr
-configure:4388: gcc -o conftest -g -O2   conftest.c  >&5
+configure:4399: $? = 0
+configure:4399: result: yes
+configure:4399: checking for socket
+configure:4399: gcc -o conftest -g -O2   conftest.c  >&5
+configure:4399: $? = 0
+configure:4399: result: yes
+configure:4399: checking for strstr
+configure:4399: gcc -o conftest -g -O2   conftest.c  >&5
 conftest.c:59:6: warning: incompatible redeclaration of library function 'strstr' [-Wincompatible-library-redeclaration]
 char strstr ();
      ^
 conftest.c:59:6: note: 'strstr' is a builtin with type 'char *(const char *, const char *)'
 1 warning generated.
-configure:4388: $? = 0
-configure:4388: result: yes
-configure:4388: checking for pthread_mutex_lock
-configure:4388: gcc -o conftest -g -O2   conftest.c  >&5
-configure:4388: $? = 0
-configure:4388: result: yes
-configure:4388: checking for snprintf
-configure:4388: gcc -o conftest -g -O2   conftest.c  >&5
+configure:4399: $? = 0
+configure:4399: result: yes
+configure:4399: checking for pthread_mutex_lock
+configure:4399: gcc -o conftest -g -O2   conftest.c  >&5
+configure:4399: $? = 0
+configure:4399: result: yes
+configure:4399: checking for snprintf
+configure:4399: gcc -o conftest -g -O2   conftest.c  >&5
 conftest.c:61:6: warning: incompatible redeclaration of library function 'snprintf' [-Wincompatible-library-redeclaration]
 char snprintf ();
      ^
 conftest.c:61:6: note: 'snprintf' is a builtin with type 'int (char *, unsigned long, const char *, ...)'
 1 warning generated.
-configure:4388: $? = 0
-configure:4388: result: yes
-configure:4388: checking for va_start
-configure:4388: gcc -o conftest -g -O2   conftest.c  >&5
+configure:4399: $? = 0
+configure:4399: result: yes
+configure:4399: checking for va_start
+configure:4399: gcc -o conftest -g -O2   conftest.c  >&5
 Undefined symbols for architecture x86_64:
   "_va_start", referenced from:
-      _main in conftest-49885d.o
+      _main in conftest-49c9c8.o
 ld: symbol(s) not found for architecture x86_64
 clang: error: linker command failed with exit code 1 (use -v to see invocation)
-configure:4388: $? = 1
+configure:4399: $? = 1
 configure: failed program was:
 | /* confdefs.h */
 | #define PACKAGE_NAME "c00clupea"
@@ -527,19 +527,19 @@ configure: failed program was:
 |   ;
 |   return 0;
 | }
-configure:4388: result: no
-configure:4388: checking for vsnprintf
-configure:4388: gcc -o conftest -g -O2   conftest.c  >&5
+configure:4399: result: no
+configure:4399: checking for vsnprintf
+configure:4399: gcc -o conftest -g -O2   conftest.c  >&5
 conftest.c:62:6: warning: incompatible redeclaration of library function 'vsnprintf' [-Wincompatible-library-redeclaration]
 char vsnprintf ();
      ^
 conftest.c:62:6: note: 'vsnprintf' is a builtin with type 'int (char *, unsigned long, const char *, __va_list_tag *)'
 1 warning generated.
-configure:4388: $? = 0
-configure:4388: result: yes
-configure:4595: checking that generated files are newer than configure
-configure:4601: result: done
-configure:4624: creating ./config.status
+configure:4399: $? = 0
+configure:4399: result: yes
+configure:4606: checking that generated files are newer than configure
+configure:4612: result: done
+configure:4635: creating ./config.status
 
 ## ---------------------- ##
 ## Running config.status. ##
@@ -556,14 +556,14 @@ generated by GNU Autoconf 2.69.  Invocation command line was
 
 on Christophs-MacBook-Pro-2.local
 
-config.status:888: creating Makefile
-config.status:888: creating src/Makefile
-config.status:888: creating man/Makefile
-config.status:888: creating src/conf.h
-config.status:1117: executing depfiles commands
-configure:6144: checking that generated files are newer than configure
-configure:6150: result: done
-configure:6177: creating ./config.status
+config.status:891: creating Makefile
+config.status:891: creating src/Makefile
+config.status:891: creating man/Makefile
+config.status:891: creating src/conf.h
+config.status:1120: executing depfiles commands
+configure:6193: checking that generated files are newer than configure
+configure:6199: result: done
+configure:6226: creating ./config.status
 
 ## ---------------------- ##
 ## Running config.status. ##
@@ -580,11 +580,11 @@ generated by GNU Autoconf 2.69.  Invocation command line was
 
 on Christophs-MacBook-Pro-2.local
 
-config.status:895: creating Makefile
-config.status:895: creating src/Makefile
-config.status:895: creating man/Makefile
-config.status:895: creating src/conf.h
-config.status:1124: executing depfiles commands
+config.status:901: creating Makefile
+config.status:901: creating src/Makefile
+config.status:901: creating man/Makefile
+config.status:901: creating src/conf.h
+config.status:1130: executing depfiles commands
 
 ## ---------------- ##
 ## Cache variables. ##
@@ -601,10 +601,16 @@ ac_cv_env_CPPFLAGS_set=
 ac_cv_env_CPPFLAGS_value=
 ac_cv_env_CPP_set=
 ac_cv_env_CPP_value=
+ac_cv_env_INET_FAM_set=
+ac_cv_env_INET_FAM_value=
 ac_cv_env_LDFLAGS_set=
 ac_cv_env_LDFLAGS_value=
 ac_cv_env_LIBS_set=
 ac_cv_env_LIBS_value=
+ac_cv_env_LOG_MAIN_TEMPLATE_set=
+ac_cv_env_LOG_MAIN_TEMPLATE_value=
+ac_cv_env_MAINCONFIG_set=
+ac_cv_env_MAINCONFIG_value=
 ac_cv_env_MAIN_BUFFER_LEN_set=
 ac_cv_env_MAIN_BUFFER_LEN_value=
 ac_cv_env_STDERR_set=
@@ -703,6 +709,7 @@ ECHO_T=''
 EGREP='/usr/bin/grep -E'
 EXEEXT=''
 GREP='/usr/bin/grep'
+INET_FAM=''
 INSTALL_DATA='${INSTALL} -m 644'
 INSTALL_PROGRAM='${INSTALL}'
 INSTALL_SCRIPT='${INSTALL}'
@@ -710,7 +717,9 @@ INSTALL_STRIP_PROGRAM='$(install_sh) -c -s'
 LDFLAGS=''
 LIBOBJS=''
 LIBS=''
+LOG_MAIN_TEMPLATE=''
 LTLIBOBJS=''
+MAINCONFIG=''
 MAIN_BUFFER_LEN=''
 MAKEINFO='${SHELL} /Users/sec15334/repositories/dissertation/sources/c00clupea/missing makeinfo'
 MKDIR_P='./install-sh -c -d'
@@ -829,5 +838,8 @@ target_alias=''
 #define STD_LOG_LEN 1024
 #define STD_FLUSH_COUNT 1
 #define ALLOWED_OPTS "Vhp:b:c:s:"
+#define INET_FAM AF_INET
+#define MAINCONFIG "/etc/c00clupea/c00clupea.config"
+#define LOG_MAIN_TEMPLATE "/var/log/c00clupea/c00clupea_%d.log"
 
 configure: exit 0

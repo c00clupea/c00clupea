@@ -177,6 +177,7 @@ ECHO_T =
 EGREP = /usr/bin/grep -E
 EXEEXT = 
 GREP = /usr/bin/grep
+INET_FAM = 
 INSTALL = /usr/bin/install -c
 INSTALL_DATA = ${INSTALL} -m 644
 INSTALL_PROGRAM = ${INSTALL}
@@ -185,7 +186,9 @@ INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
 LDFLAGS = 
 LIBOBJS = 
 LIBS = 
+LOG_MAIN_TEMPLATE = 
 LTLIBOBJS = 
+MAINCONFIG = 
 MAIN_BUFFER_LEN = 
 MAKEINFO = ${SHELL} /Users/sec15334/repositories/dissertation/sources/c00clupea/missing makeinfo
 MKDIR_P = .././install-sh -c -d
@@ -254,7 +257,7 @@ top_build_prefix = ../
 top_builddir = ..
 top_srcdir = ..
 AM_CFLAGS = -std=c99 -Wall -Wextra -pedantic -pthread -D_THREAD_SAFE
-AM_CPPFLAGS = -DINET_FAM=AF_INET -DMAINCONFIG='"$(sysconfdir)/c00clupea/c00clupea.config"' -DLOG_MAIN_TEMPLATE='"$(localstatedir)/log/c00clupea/c00clupea_%d.log"'
+AM_CPPFLAGS = 
 c00clupea_SOURCES = global.h c00_convenience.h\
 			cooclupea.c cooclupea.h\
 			config.c config.h\
