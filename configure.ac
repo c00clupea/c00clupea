@@ -97,6 +97,15 @@ else
 	AC_DEFINE([STDERR],[x${STDERR}],[standard error output])
 fi
 
+#main stderr
+AC_ARG_VAR([STRAT_DEFAULT],[define the default strategy (default is 0)])
+
+if test "x${STRAT_DEFAULT}" = "x"; then
+	AC_DEFINE([STRAT_DEFAULT],[0],[default strategy])
+else
+	AC_DEFINE([STRAT_DEFAULT],[x${STDERR}],[default strategy])
+fi
+
 
 AC_OUTPUT
 
