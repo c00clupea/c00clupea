@@ -79,3 +79,13 @@ else
 fi
 AC_OUTPUT
 
+#main tcp backlog
+AC_ARG_VAR([TCP_BACKLOG],[define the tcp backlog len (default is 128)])
+
+if test "x${TCP_BACKLOG}" = "x"; then
+	AC_DEFINE([TCP_BACKLOG],[128],[tcp backlog len])
+else
+	AC_DEFINE([TCP_BACKLOG],[x${TCP_BACKLOG}],[tcp backlog len])
+fi
+AC_OUTPUT
+
