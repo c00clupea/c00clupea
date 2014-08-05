@@ -201,6 +201,10 @@ SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
 STDERR = @STDERR@
 STDLOG = @STDLOG@
+STD_FLUSH_COUNT = @STD_FLUSH_COUNT@
+STD_LOG_LEN = @STD_LOG_LEN@
+STD_LOG_LVL = @STD_LOG_LVL@
+STRAT_DEFAULT = @STRAT_DEFAULT@
 STRIP = @STRIP@
 SYSLOG = @SYSLOG@
 TCP_BACKLOG = @TCP_BACKLOG@
@@ -249,7 +253,7 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 AM_CFLAGS = -std=c99 -Wall -Wextra -pedantic -pthread -D_THREAD_SAFE
-AM_CPPFLAGS = -DALLOWED_OPTS='"Vhp:b:c:s:"' -DINET_FAM=AF_INET -DMAINCONFIG='"$(sysconfdir)/c00clupea/c00clupea.config"' -DSTRAT_DEFAULT=0 -DSTD_LOG_LVL=2 -DSTD_LOG_LEN=1024 -DSTD_FLUSH_COUNT=1 -DLOG_MAIN_TEMPLATE='"$(localstatedir)/log/c00clupea/c00clupea_%d.log"'
+AM_CPPFLAGS = -DALLOWED_OPTS='"Vhp:b:c:s:"' -DINET_FAM=AF_INET -DMAINCONFIG='"$(sysconfdir)/c00clupea/c00clupea.config"' -DLOG_MAIN_TEMPLATE='"$(localstatedir)/log/c00clupea/c00clupea_%d.log"'
 c00clupea_SOURCES = global.h c00_convenience.h\
 			cooclupea.c cooclupea.h\
 			config.c config.h\

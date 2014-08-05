@@ -103,11 +103,17 @@
 /* Define to 1 if you have the ANSI C header files. */
 #undef STDC_HEADERS
 
+/* standard error output */
+#undef STDERR
+
 /* syslog verific */
 #undef STDLOG
 
 /* syslog verific */
 #undef SYSLOG
+
+/* tcp backlog len */
+#undef TCP_BACKLOG
 
 /* build tests */
 #undef USEC00TESTS

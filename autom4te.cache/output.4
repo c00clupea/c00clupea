@@ -621,7 +621,11 @@ ac_includes_default="\
 # include <unistd.h>
 #endif"
 
-ac_subst_vars='STDERR
+ac_subst_vars='STD_FLUSH_COUNT
+STD_LOG_LEN
+STD_LOG_LVL
+STRAT_DEFAULT
+STDERR
 TCP_BACKLOG
 am__EXEEXT_FALSE
 am__EXEEXT_TRUE
@@ -738,7 +742,11 @@ STDLOG
 WORKER_POOL
 MAIN_BUFFER_LEN
 TCP_BACKLOG
-STDERR'
+STDERR
+STRAT_DEFAULT
+STD_LOG_LVL
+STD_LOG_LEN
+STD_FLUSH_COUNT'
 
 
 # Initialize some variables set by options.
@@ -1379,6 +1387,13 @@ Some influential environment variables:
               define the main buffer len (default is 1024)
   TCP_BACKLOG define the tcp backlog len (default is 128)
   STDERR      define the standard error output (default is stderr)
+  STRAT_DEFAULT 
+              define the default strategy (default is 0)
+  STD_LOG_LVL define the default log level (default is 2)
+  STD_LOG_LEN define the default log leN (default is 1024)
+  STD_FLUSH_COUNT 
+              define the default flush count (default is 1) flushes log after
+              n logs to file n<= 1 == immediate
 
 Use these variables to override the choices made by `configure' or to help
 it to find libraries and programs with nonstandard names/locations.
@@ -5944,6 +5959,58 @@ $as_echo "@%:@define STDERR stderr" >>confdefs.h
 else
 	
 $as_echo "@%:@define STDERR x\${STDERR}" >>confdefs.h
+
+fi
+
+#default strategy
+
+
+if test "x${STRAT_DEFAULT}" = "x"; then
+	
+$as_echo "@%:@define STRAT_DEFAULT 0" >>confdefs.h
+
+else
+	
+$as_echo "@%:@define STRAT_DEFAULT x\${STRAT_DEFAULT}" >>confdefs.h
+
+fi
+
+#standard log lvl
+
+
+if test "x${STD_LOG_LVL}" = "x"; then
+	
+$as_echo "@%:@define STD_LOG_LVL 2" >>confdefs.h
+
+else
+	
+$as_echo "@%:@define STD_LOG_LVL x\${STD_LOG_LVL}" >>confdefs.h
+
+fi
+
+#standard log len
+
+
+if test "x${STD_LOG_LEN}" = "x"; then
+	
+$as_echo "@%:@define STD_LOG_LEN 1024" >>confdefs.h
+
+else
+	
+$as_echo "@%:@define STD_LOG_LEN x\${STD_LOG_LEN}" >>confdefs.h
+
+fi
+
+#standard FLUSH COUNT
+
+
+if test "x${STD_FLUSH_COUNT}" = "x"; then
+	
+$as_echo "@%:@define STD_FLUSH_COUNT 1" >>confdefs.h
+
+else
+	
+$as_echo "@%:@define STD_FLUSH_COUNT x\${STD_FLUSH_COUNT}" >>confdefs.h
 
 fi
 

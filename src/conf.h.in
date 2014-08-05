@@ -109,6 +109,18 @@
 /* syslog verific */
 #undef STDLOG
 
+/* default flush count */
+#undef STD_FLUSH_COUNT
+
+/* default log LEN */
+#undef STD_LOG_LEN
+
+/* default log level */
+#undef STD_LOG_LVL
+
+/* default strategy */
+#undef STRAT_DEFAULT
+
 /* syslog verific */
 #undef SYSLOG
 
