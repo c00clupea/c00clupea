@@ -10,6 +10,7 @@ int _c00_hashmap_has_key_with_bucket(struct c00_hashmap *map, char *key, unsigne
 int _c00_hashmap_key_insertable(struct c00_hashmap *map, char *key, unsigned int len);
 int _c00_hashmap_create_bucket(struct c00_hashmap_bucket *bucket, char *key, unsigned int key_len, char *val);
 int _c00_hashmap_null_bucket(struct c00_hashmap_bucket *bucket);
+int _c00_hashmap_destroybucketchain(struct c00_hashmap_bucket *bucket);
 
 int _c00_hashmap_null_bucket(struct c00_hashmap_bucket *bucket){
 	bucket->next = NULL;
@@ -42,7 +43,30 @@ int c00_hashmap_init(struct c00_hashmap *map, int init_len, int resizable){
 	return TRUE;
 }
 
+int _c00_hashmap_destroybucketchain(struct c00_hashmap_bucket *bucket){
+	struct c00_hashmap_bucket *tmp;
+	struct c00_hashmap_bucket *actual;
+	
+	actual = bucket;
+
+	while(actual != NULL){
+
+		tmp = actual->next;
+		free(actual);
+		actual = tmp;
+	}
+	return TRUE;
+}
+
 int c00_hashmap_destroy(struct c00_hashmap *map){
+	
+	int i;
+
+	for(i = 0; i < map->max_len;i++){
+		//C00DEBUG("destroy bucket idx %d",i);
+		_c00_hashmap_destroybucketchain(map->buckets[i].next);
+	}	
+
 	free(map->buckets);
 	free(map);
 	return TRUE;	
@@ -61,7 +85,7 @@ int _c00_hashmap_key_insertable(struct c00_hashmap *map, char *key, unsigned int
 
 int _c00_hashmap_create_bucket(struct c00_hashmap_bucket *bucket, char *key, unsigned int key_len, char *val){
 	char *new_key = malloc((key_len + 1)*sizeof(char));
-	C00DEBUG("create bucket %s",key);
+	
 	strncpy(new_key,key,key_len +1);
 	bucket->key = new_key;
 	bucket->val = val;
@@ -90,8 +114,7 @@ int c00_hashmap_add_key_value(struct c00_hashmap *map, char *key, int key_len, c
 	}
 
 	unsigned int idx = _c00_hashmap_calculate_idx_from_char(key,key_len,map->max_len);
-
-	C00DEBUG("idx %d",idx);
+	
 	struct c00_hashmap_bucket *bucket;
 	bucket = malloc(sizeof(struct c00_hashmap_bucket));
 	if(_c00_hashmap_create_bucket(bucket, key, key_len, val) != TRUE){
@@ -123,7 +146,10 @@ int _c00_hashmap_bucket_has_key(struct c00_hashmap_bucket *bucket, char *key){
 
 int c00_hashmap_has_key(struct c00_hashmap *map, char *key, unsigned int key_len){
 	struct c00_hashmap_bucket **bucket = malloc(sizeof(struct c00_hashmap_bucket *));
-	return _c00_hashmap_has_key_with_bucket(map,key,key_len,bucket);
+	int result;
+	result = _c00_hashmap_has_key_with_bucket(map,key,key_len,bucket);
+	free(bucket);
+	return result;
 }
 
 int _c00_hashmap_has_key_with_bucket(struct c00_hashmap *map, char *key, unsigned int key_len, struct c00_hashmap_bucket **bucket){
@@ -150,7 +176,7 @@ int _c00_hashmap_has_key_with_bucket(struct c00_hashmap *map, char *key, unsigne
 		}
 	        the_next = the_next->next;
 	}
-	C00DEBUG("hashmap idx4 %d",idx);	
+
 	return FALSE;
 }
 int c00_hashmap_remove_key(struct c00_hashmap *map, char *key, int key_len){
@@ -163,9 +189,7 @@ int c00_hashmap_get_value(struct c00_hashmap *map, char *key, int key_len, char 
 	if(_c00_hashmap_has_key_with_bucket(map,key,key_len,&bucket) != TRUE){
 		return FALSE;
 	}
-	if(bucket == NULL){
-		C00DEBUG("problem, bucket is null %d",1);
-	}
+	
 	C00DEBUG("bucket for get found, set val for key %s with val %s",key,bucket->val);
 	
 	val = bucket->val;		
@@ -216,6 +240,19 @@ int _c00_hashmap_get_hash(char *val,unsigned int len){
 
 #ifdef USEC00TESTS
 
+int _write_and_read_value(struct c00_hashmap *map, char *key, unsigned int len){
+	ASSERT_TEST("test insert",TRUE,c00_hashmap_add_key_value(map,key,len,key))
+	char *result;
+	result = malloc(40 * sizeof(char));
+
+	ASSERT_TEST("test value",TRUE,c00_hashmap_get_value(map,key,len,result))
+	if(strcmp(result,"value") == 0){
+			ASSERT_TEST("cmp value",TRUE,TRUE)
+	}
+	free(result);
+	return TRUE;
+}
+
 int main(int argc, char *argv[]){
 	HEAD_TEST("Hashmap");
 
@@ -240,8 +277,25 @@ int main(int argc, char *argv[]){
 		if(strcmp(result,"value") == 0){
 			ASSERT_TEST("cmp value",TRUE,TRUE)
 		}
-		
+	
+	HEAD_TEST("set and get many values");
+	
+	_write_and_read_value(map,"key 1", 5);
+	_write_and_read_value(map,"key 2", 5);
+	_write_and_read_value(map,"key 3", 5);
+	_write_and_read_value(map,"key 4", 5);
+	_write_and_read_value(map,"key 5", 5);
+	_write_and_read_value(map,"key 6", 5);
+	_write_and_read_value(map,"key 7", 5);
+	_write_and_read_value(map,"key 8", 5);	
+
+	HEAD_TEST("destroy map");
+	ASSERT_TEST("destroy",TRUE,c00_hashmap_destroy(map));
+
+	free(result);
 	return 1;
 }
+
+
 
 #endif
