@@ -730,6 +730,7 @@ enable_option_checking
 enable_silent_rules
 enable_dependency_tracking
 enable_buildtest
+enable_writecrap
 enable_strict_atomic
 '
       ac_precious_vars='build_alias
@@ -1376,6 +1377,7 @@ Optional Features:
   --disable-dependency-tracking
                           speeds up one-time build
   --enable-buildtest      Enable tests
+  --enable-writecrap      Enable really verbose output
   --enable-strict-atomic  Enable strict atomic behaviour...It is safe but
                           slow....
 
@@ -4427,6 +4429,21 @@ $as_echo "#define USEC00TESTS /**/" >>confdefs.h
 
 
 fi
+
+# Check whether --enable-writecrap was given.
+if test "${enable_writecrap+set}" = set; then :
+  enableval=$enable_writecrap;
+fi
+
+
+if test "$enable_writecrap" = "yes"; then :
+
+
+$as_echo "#define WRITEC00CRAP /**/" >>confdefs.h
+
+
+fi
+
 
 #strict atomic
 # Check whether --enable-strict-atomic was given.

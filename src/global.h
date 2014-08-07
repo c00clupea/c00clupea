@@ -87,4 +87,38 @@
 #define FALSE 0
 #define TRUE 1
 
+#ifdef WRITEC00CRAP
+
+#define C00DEBUG(fmt,...)\
+	fprintf(stdout,"%s:%d ",__FILE__,__LINE__);\
+	fprintf(stdout,fmt,__VA_ARGS__);\
+	fprintf(stdout,"\n")
+#else
+#define C00DEBUG(fmt,...)
+
+#endif
+
+#ifdef USEC00TESTS
+
+#define HEAD_TEST(name)\
+	fprintf(stdout,"######Start TEST %s######\n",name)
+
+#define ASSERT_TEST(name,expect,result)		\
+	if(result != expect){\
+		fprintf(stdout,"TEST: %s failed\n",name);	\
+		exit(1);						\
+	}\
+	else{\
+		fprintf(stdout,"TEST: %s passed\n",name);	\
+	}\
+
+#define MSG_TEST(name)\
+	fprintf(stdout,"TEST:%s \n",name)
+
+#define RESULT_TEST(fmt,...)\
+	fprintf(stdout,fmt,__VA_ARGS__)
+
+#endif
+
+
 #endif

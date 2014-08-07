@@ -34,6 +34,14 @@ AS_IF([test "$enable_buildtest" = "yes"], [
 	AC_DEFINE([USEC00TESTS],[],[build tests])
 ])
 
+AC_ARG_ENABLE([writecrap],
+    AS_HELP_STRING([--enable-writecrap], [Enable really verbose output]))
+
+AS_IF([test "$enable_writecrap" = "yes"], [
+	AC_DEFINE([WRITEC00CRAP],[],[write really verbose stdouts])
+])
+
+
 #strict atomic 
 AC_ARG_ENABLE([strict-atomic],
     AS_HELP_STRING([--enable-strict-atomic], [Enable strict atomic behaviour...It is safe but slow....]))
