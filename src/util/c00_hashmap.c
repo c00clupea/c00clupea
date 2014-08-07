@@ -48,7 +48,6 @@ int _c00_hashmap_destroybucketchain(struct c00_hashmap_bucket *bucket){
 	struct c00_hashmap_bucket *actual;
 	
 	actual = bucket;
-
 	while(actual != NULL){
 
 		tmp = actual->next;
