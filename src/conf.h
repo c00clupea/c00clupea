@@ -149,6 +149,9 @@
 /* worker_pool size */
 #define WORKER_POOL 10
 
+/* write really verbose stdouts */
+/* #undef WRITEC00CRAP */
+
 /* Define to rpl_malloc if the replacement function should be used. */
 /* #undef malloc */
 

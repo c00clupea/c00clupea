@@ -6,7 +6,7 @@ int _c00_hashmap_get_hash(char *val,unsigned int len);
 int _c00_hashmap_calculate_idx_from_hash(int hash, int max_len);
 int _c00_hashmap_calculate_idx_from_char(char *val, unsigned int key_len, unsigned int max_len);
 int _c00_hashmap_bucket_has_key(struct c00_hashmap_bucket *bucket, char *key);
-int _c00_hashmap_has_key_with_bucket(struct c00_hashmap *map, char *key, unsigned int key_len, struct c00_hashmap_bucket *bucket);
+int _c00_hashmap_has_key_with_bucket(struct c00_hashmap *map, char *key, unsigned int key_len, struct c00_hashmap_bucket **bucket);
 int _c00_hashmap_key_insertable(struct c00_hashmap *map, char *key, unsigned int len);
 int _c00_hashmap_create_bucket(struct c00_hashmap_bucket *bucket, char *key, unsigned int key_len, char *val);
 int _c00_hashmap_null_bucket(struct c00_hashmap_bucket *bucket);
@@ -122,13 +122,11 @@ int _c00_hashmap_bucket_has_key(struct c00_hashmap_bucket *bucket, char *key){
 }
 
 int c00_hashmap_has_key(struct c00_hashmap *map, char *key, unsigned int key_len){
-	struct c00_hashmap_bucket *bucket;
-	bucket = NULL;
+	struct c00_hashmap_bucket **bucket = malloc(sizeof(struct c00_hashmap_bucket *));
 	return _c00_hashmap_has_key_with_bucket(map,key,key_len,bucket);
 }
 
-int _c00_hashmap_has_key_with_bucket(struct c00_hashmap *map, char *key, unsigned int key_len, struct c00_hashmap_bucket *bucket){
-	
+int _c00_hashmap_has_key_with_bucket(struct c00_hashmap *map, char *key, unsigned int key_len, struct c00_hashmap_bucket **bucket){
 	int idx;
 
 	idx = _c00_hashmap_calculate_idx_from_char(key,key_len,map->max_len);
@@ -146,7 +144,7 @@ int _c00_hashmap_has_key_with_bucket(struct c00_hashmap *map, char *key, unsigne
        	       	
 		if(_c00_hashmap_bucket_has_key(the_next, key) == TRUE){
 
-			bucket = the_next;
+			*bucket = the_next;
 			C00DEBUG("set bucket for return %d",idx);
 			return TRUE;
 		}
@@ -160,9 +158,9 @@ int c00_hashmap_remove_key(struct c00_hashmap *map, char *key, int key_len){
 }
 int c00_hashmap_get_value(struct c00_hashmap *map, char *key, int key_len, char *val){
 	
-	struct c00_hashmap_bucket *bucket = NULL;
+	struct c00_hashmap_bucket *bucket = malloc(sizeof(struct c00_hashmap_bucket *));
 	
-	if(_c00_hashmap_has_key_with_bucket(map,key,key_len,bucket) != TRUE){
+	if(_c00_hashmap_has_key_with_bucket(map,key,key_len,&bucket) != TRUE){
 		return FALSE;
 	}
 	if(bucket == NULL){
