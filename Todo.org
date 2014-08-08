@@ -3,7 +3,22 @@
    CLOSED: [2014-08-08 Fri 11:27]
 ** DONE len for pathes
    CLOSED: [2014-08-08 Fri 11:33]
+
 * feature/c00_01.04
 Path traversal through Whitelist 
-** TODO  read whitelist
+** DONE read whitelist
+   CLOSED: [2014-08-08 Fri 13:39]
+** TODO test whitelist generation
+** TODO Build whitelist
+** TODO Build simple html
+
+* feature/c00_01.04
+Generate different server fingerprints
+** TODO Build some fingerprints
+** TODO Test fingerprints
+
+
+
+
+
 

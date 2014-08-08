@@ -30,8 +30,8 @@ Kernel configured for up to 4 processors.
 Processor type: i486 (Intel 80486)
 Processors active: 0 1 2 3
 Primary memory available: 8.00 gigabytes
-Default processor set: 242 tasks, 1155 threads, 4 processors
-Load average: 1.72, Mach factor: 2.27
+Default processor set: 244 tasks, 1229 threads, 4 processors
+Load average: 1.44, Mach factor: 2.54
 /bin/machine           = unknown
 /usr/bin/oslevel       = unknown
 /bin/universe          = unknown
@@ -82,73 +82,76 @@ configure:2694: result: yes
 configure:2723: checking whether make supports nested variables
 configure:2740: result: yes
 configure:2914: checking for gcc
-configure:2941: result: /opt/checker-276/libexec/ccc-analyzer
+configure:2930: found /usr/bin/gcc
+configure:2941: result: gcc
 configure:3170: checking for C compiler version
-configure:3179: /opt/checker-276/libexec/ccc-analyzer --version >&5
+configure:3179: gcc --version >&5
+Apple LLVM version 5.1 (clang-503.0.40) (based on LLVM 3.4svn)
+Target: x86_64-apple-darwin13.3.0
+Thread model: posix
+Configured with: --prefix=/Applications/Xcode.app/Contents/Developer/usr --with-gxx-include-dir=/usr/include/c++/4.2.1
+configure:3190: $? = 0
+configure:3179: gcc -v >&5
+Configured with: --prefix=/Applications/Xcode.app/Contents/Developer/usr --with-gxx-include-dir=/usr/include/c++/4.2.1
 Apple LLVM version 5.1 (clang-503.0.40) (based on LLVM 3.4svn)
 Target: x86_64-apple-darwin13.3.0
 Thread model: posix
 configure:3190: $? = 0
-configure:3179: /opt/checker-276/libexec/ccc-analyzer -v >&5
-Apple LLVM version 5.1 (clang-503.0.40) (based on LLVM 3.4svn)
-Target: x86_64-apple-darwin13.3.0
-Thread model: posix
-configure:3190: $? = 0
-configure:3179: /opt/checker-276/libexec/ccc-analyzer -V >&5
+configure:3179: gcc -V >&5
 clang: error: argument to '-V' is missing (expected 1 value)
 clang: error: no input files
 configure:3190: $? = 1
-configure:3179: /opt/checker-276/libexec/ccc-analyzer -qversion >&5
+configure:3179: gcc -qversion >&5
 clang: error: unknown argument: '-qversion' [-Wunused-command-line-argument-hard-error-in-future]
 clang: note: this will be a hard error (cannot be downgraded to a warning) in the future
 clang: error: no input files
 configure:3190: $? = 1
 configure:3210: checking whether the C compiler works
-configure:3232: /opt/checker-276/libexec/ccc-analyzer    conftest.c  >&5
+configure:3232: gcc    conftest.c  >&5
 configure:3236: $? = 0
 configure:3284: result: yes
 configure:3287: checking for C compiler default output file name
 configure:3289: result: a.out
 configure:3295: checking for suffix of executables
-configure:3302: /opt/checker-276/libexec/ccc-analyzer -o conftest    conftest.c  >&5
+configure:3302: gcc -o conftest    conftest.c  >&5
 configure:3306: $? = 0
 configure:3328: result: 
 configure:3350: checking whether we are cross compiling
-configure:3358: /opt/checker-276/libexec/ccc-analyzer -o conftest    conftest.c  >&5
+configure:3358: gcc -o conftest    conftest.c  >&5
 configure:3362: $? = 0
 configure:3369: ./conftest
 configure:3373: $? = 0
 configure:3388: result: no
 configure:3393: checking for suffix of object files
-configure:3415: /opt/checker-276/libexec/ccc-analyzer -c   conftest.c >&5
+configure:3415: gcc -c   conftest.c >&5
 configure:3419: $? = 0
 configure:3440: result: o
 configure:3444: checking whether we are using the GNU C compiler
-configure:3463: /opt/checker-276/libexec/ccc-analyzer -c   conftest.c >&5
+configure:3463: gcc -c   conftest.c >&5
 configure:3463: $? = 0
 configure:3472: result: yes
-configure:3481: checking whether /opt/checker-276/libexec/ccc-analyzer accepts -g
-configure:3501: /opt/checker-276/libexec/ccc-analyzer -c -g  conftest.c >&5
+configure:3481: checking whether gcc accepts -g
+configure:3501: gcc -c -g  conftest.c >&5
 configure:3501: $? = 0
 configure:3542: result: yes
-configure:3559: checking for /opt/checker-276/libexec/ccc-analyzer option to accept ISO C89
-configure:3622: /opt/checker-276/libexec/ccc-analyzer  -c -g -O2  conftest.c >&5
+configure:3559: checking for gcc option to accept ISO C89
+configure:3622: gcc  -c -g -O2  conftest.c >&5
 configure:3622: $? = 0
 configure:3635: result: none needed
-configure:3660: checking whether /opt/checker-276/libexec/ccc-analyzer understands -c and -o together
-configure:3682: /opt/checker-276/libexec/ccc-analyzer -c conftest.c -o conftest2.o
+configure:3660: checking whether gcc understands -c and -o together
+configure:3682: gcc -c conftest.c -o conftest2.o
 configure:3685: $? = 0
-configure:3682: /opt/checker-276/libexec/ccc-analyzer -c conftest.c -o conftest2.o
+configure:3682: gcc -c conftest.c -o conftest2.o
 configure:3685: $? = 0
 configure:3697: result: yes
 configure:3725: checking for style of include used by make
 configure:3753: result: GNU
-configure:3779: checking dependency style of /opt/checker-276/libexec/ccc-analyzer
+configure:3779: checking dependency style of gcc
 configure:3890: result: gcc3
 configure:3915: checking how to run the C preprocessor
-configure:3946: /opt/checker-276/libexec/ccc-analyzer -E  conftest.c
+configure:3946: gcc -E  conftest.c
 configure:3946: $? = 0
-configure:3960: /opt/checker-276/libexec/ccc-analyzer -E  conftest.c
+configure:3960: gcc -E  conftest.c
 conftest.c:11:10: fatal error: 'ac_nonexistent.h' file not found
 #include <ac_nonexistent.h>
          ^
@@ -166,10 +169,10 @@ configure: failed program was:
 | #define VERSION "01"
 | /* end confdefs.h.  */
 | #include <ac_nonexistent.h>
-configure:3985: result: /opt/checker-276/libexec/ccc-analyzer -E
-configure:4005: /opt/checker-276/libexec/ccc-analyzer -E  conftest.c
+configure:3985: result: gcc -E
+configure:4005: gcc -E  conftest.c
 configure:4005: $? = 0
-configure:4019: /opt/checker-276/libexec/ccc-analyzer -E  conftest.c
+configure:4019: gcc -E  conftest.c
 conftest.c:11:10: fatal error: 'ac_nonexistent.h' file not found
 #include <ac_nonexistent.h>
          ^
@@ -192,75 +195,75 @@ configure:4106: result: /usr/bin/grep
 configure:4111: checking for egrep
 configure:4173: result: /usr/bin/grep -E
 configure:4178: checking for ANSI C header files
-configure:4198: /opt/checker-276/libexec/ccc-analyzer -c -g -O2  conftest.c >&5
+configure:4198: gcc -c -g -O2  conftest.c >&5
 configure:4198: $? = 0
-configure:4271: /opt/checker-276/libexec/ccc-analyzer -o conftest -g -O2   conftest.c  >&5
+configure:4271: gcc -o conftest -g -O2   conftest.c  >&5
 configure:4271: $? = 0
 configure:4271: ./conftest
 configure:4271: $? = 0
 configure:4282: result: yes
 configure:4295: checking for sys/types.h
-configure:4295: /opt/checker-276/libexec/ccc-analyzer -c -g -O2  conftest.c >&5
+configure:4295: gcc -c -g -O2  conftest.c >&5
 configure:4295: $? = 0
 configure:4295: result: yes
 configure:4295: checking for sys/stat.h
-configure:4295: /opt/checker-276/libexec/ccc-analyzer -c -g -O2  conftest.c >&5
+configure:4295: gcc -c -g -O2  conftest.c >&5
 configure:4295: $? = 0
 configure:4295: result: yes
 configure:4295: checking for stdlib.h
-configure:4295: /opt/checker-276/libexec/ccc-analyzer -c -g -O2  conftest.c >&5
+configure:4295: gcc -c -g -O2  conftest.c >&5
 configure:4295: $? = 0
 configure:4295: result: yes
 configure:4295: checking for string.h
-configure:4295: /opt/checker-276/libexec/ccc-analyzer -c -g -O2  conftest.c >&5
+configure:4295: gcc -c -g -O2  conftest.c >&5
 configure:4295: $? = 0
 configure:4295: result: yes
 configure:4295: checking for memory.h
-configure:4295: /opt/checker-276/libexec/ccc-analyzer -c -g -O2  conftest.c >&5
+configure:4295: gcc -c -g -O2  conftest.c >&5
 configure:4295: $? = 0
 configure:4295: result: yes
 configure:4295: checking for strings.h
-configure:4295: /opt/checker-276/libexec/ccc-analyzer -c -g -O2  conftest.c >&5
+configure:4295: gcc -c -g -O2  conftest.c >&5
 configure:4295: $? = 0
 configure:4295: result: yes
 configure:4295: checking for inttypes.h
-configure:4295: /opt/checker-276/libexec/ccc-analyzer -c -g -O2  conftest.c >&5
+configure:4295: gcc -c -g -O2  conftest.c >&5
 configure:4295: $? = 0
 configure:4295: result: yes
 configure:4295: checking for stdint.h
-configure:4295: /opt/checker-276/libexec/ccc-analyzer -c -g -O2  conftest.c >&5
+configure:4295: gcc -c -g -O2  conftest.c >&5
 configure:4295: $? = 0
 configure:4295: result: yes
 configure:4295: checking for unistd.h
-configure:4295: /opt/checker-276/libexec/ccc-analyzer -c -g -O2  conftest.c >&5
+configure:4295: gcc -c -g -O2  conftest.c >&5
 configure:4295: $? = 0
 configure:4295: result: yes
 configure:4310: checking arpa/inet.h usability
-configure:4310: /opt/checker-276/libexec/ccc-analyzer -c -g -O2  conftest.c >&5
+configure:4310: gcc -c -g -O2  conftest.c >&5
 configure:4310: $? = 0
 configure:4310: result: yes
 configure:4310: checking arpa/inet.h presence
-configure:4310: /opt/checker-276/libexec/ccc-analyzer -E  conftest.c
+configure:4310: gcc -E  conftest.c
 configure:4310: $? = 0
 configure:4310: result: yes
 configure:4310: checking for arpa/inet.h
 configure:4310: result: yes
 configure:4310: checking limits.h usability
-configure:4310: /opt/checker-276/libexec/ccc-analyzer -c -g -O2  conftest.c >&5
+configure:4310: gcc -c -g -O2  conftest.c >&5
 configure:4310: $? = 0
 configure:4310: result: yes
 configure:4310: checking limits.h presence
-configure:4310: /opt/checker-276/libexec/ccc-analyzer -E  conftest.c
+configure:4310: gcc -E  conftest.c
 configure:4310: $? = 0
 configure:4310: result: yes
 configure:4310: checking for limits.h
 configure:4310: result: yes
 configure:4310: checking netinet/in.h usability
-configure:4310: /opt/checker-276/libexec/ccc-analyzer -c -g -O2  conftest.c >&5
+configure:4310: gcc -c -g -O2  conftest.c >&5
 configure:4310: $? = 0
 configure:4310: result: yes
 configure:4310: checking netinet/in.h presence
-configure:4310: /opt/checker-276/libexec/ccc-analyzer -E  conftest.c
+configure:4310: gcc -E  conftest.c
 configure:4310: $? = 0
 configure:4310: result: yes
 configure:4310: checking for netinet/in.h
@@ -270,21 +273,21 @@ configure:4310: result: yes
 configure:4310: checking for string.h
 configure:4310: result: yes
 configure:4310: checking sys/socket.h usability
-configure:4310: /opt/checker-276/libexec/ccc-analyzer -c -g -O2  conftest.c >&5
+configure:4310: gcc -c -g -O2  conftest.c >&5
 configure:4310: $? = 0
 configure:4310: result: yes
 configure:4310: checking sys/socket.h presence
-configure:4310: /opt/checker-276/libexec/ccc-analyzer -E  conftest.c
+configure:4310: gcc -E  conftest.c
 configure:4310: $? = 0
 configure:4310: result: yes
 configure:4310: checking for sys/socket.h
 configure:4310: result: yes
 configure:4310: checking syslog.h usability
-configure:4310: /opt/checker-276/libexec/ccc-analyzer -c -g -O2  conftest.c >&5
+configure:4310: gcc -c -g -O2  conftest.c >&5
 configure:4310: $? = 0
 configure:4310: result: yes
 configure:4310: checking syslog.h presence
-configure:4310: /opt/checker-276/libexec/ccc-analyzer -E  conftest.c
+configure:4310: gcc -E  conftest.c
 configure:4310: $? = 0
 configure:4310: result: yes
 configure:4310: checking for syslog.h
@@ -292,11 +295,11 @@ configure:4310: result: yes
 configure:4310: checking for unistd.h
 configure:4310: result: yes
 configure:4310: checking stdarg.h usability
-configure:4310: /opt/checker-276/libexec/ccc-analyzer -c -g -O2  conftest.c >&5
+configure:4310: gcc -c -g -O2  conftest.c >&5
 configure:4310: $? = 0
 configure:4310: result: yes
 configure:4310: checking stdarg.h presence
-configure:4310: /opt/checker-276/libexec/ccc-analyzer -E  conftest.c
+configure:4310: gcc -E  conftest.c
 configure:4310: $? = 0
 configure:4310: result: yes
 configure:4310: checking for stdarg.h
@@ -304,19 +307,19 @@ configure:4310: result: yes
 configure:4310: checking for limits.h
 configure:4310: result: yes
 configure:4310: checking stdio.h usability
-configure:4310: /opt/checker-276/libexec/ccc-analyzer -c -g -O2  conftest.c >&5
+configure:4310: gcc -c -g -O2  conftest.c >&5
 configure:4310: $? = 0
 configure:4310: result: yes
 configure:4310: checking stdio.h presence
-configure:4310: /opt/checker-276/libexec/ccc-analyzer -E  conftest.c
+configure:4310: gcc -E  conftest.c
 configure:4310: $? = 0
 configure:4310: result: yes
 configure:4310: checking for stdio.h
 configure:4310: result: yes
 configure:4322: checking for size_t
-configure:4322: /opt/checker-276/libexec/ccc-analyzer -c -g -O2  conftest.c >&5
+configure:4322: gcc -c -g -O2  conftest.c >&5
 configure:4322: $? = 0
-configure:4322: /opt/checker-276/libexec/ccc-analyzer -c -g -O2  conftest.c >&5
+configure:4322: gcc -c -g -O2  conftest.c >&5
 conftest.c:68:21: error: expected expression
 if (sizeof ((size_t)))
                     ^
@@ -399,17 +402,13 @@ configure:4322: result: yes
 configure:4337: checking for stdlib.h
 configure:4337: result: yes
 configure:4347: checking for GNU libc compatible malloc
-configure:4371: /opt/checker-276/libexec/ccc-analyzer -o conftest -g -O2   conftest.c  >&5
-conftest.c:42:10: warning: Call to 'malloc' has an allocation size of 0 bytes
-return ! malloc (0);
-         ^~~~~~~~~~
-1 warning generated.
+configure:4371: gcc -o conftest -g -O2   conftest.c  >&5
 configure:4371: $? = 0
 configure:4371: ./conftest
 configure:4371: $? = 0
 configure:4381: result: yes
 configure:4405: checking for memset
-configure:4405: /opt/checker-276/libexec/ccc-analyzer -o conftest -g -O2   conftest.c  >&5
+configure:4405: gcc -o conftest -g -O2   conftest.c  >&5
 conftest.c:57:6: warning: incompatible redeclaration of library function 'memset' [-Wincompatible-library-redeclaration]
 char memset ();
      ^
@@ -418,11 +417,11 @@ conftest.c:57:6: note: 'memset' is a builtin with type 'void *(void *, int, unsi
 configure:4405: $? = 0
 configure:4405: result: yes
 configure:4405: checking for socket
-configure:4405: /opt/checker-276/libexec/ccc-analyzer -o conftest -g -O2   conftest.c  >&5
+configure:4405: gcc -o conftest -g -O2   conftest.c  >&5
 configure:4405: $? = 0
 configure:4405: result: yes
 configure:4405: checking for strstr
-configure:4405: /opt/checker-276/libexec/ccc-analyzer -o conftest -g -O2   conftest.c  >&5
+configure:4405: gcc -o conftest -g -O2   conftest.c  >&5
 conftest.c:59:6: warning: incompatible redeclaration of library function 'strstr' [-Wincompatible-library-redeclaration]
 char strstr ();
      ^
@@ -431,11 +430,11 @@ conftest.c:59:6: note: 'strstr' is a builtin with type 'char *(const char *, con
 configure:4405: $? = 0
 configure:4405: result: yes
 configure:4405: checking for pthread_mutex_lock
-configure:4405: /opt/checker-276/libexec/ccc-analyzer -o conftest -g -O2   conftest.c  >&5
+configure:4405: gcc -o conftest -g -O2   conftest.c  >&5
 configure:4405: $? = 0
 configure:4405: result: yes
 configure:4405: checking for snprintf
-configure:4405: /opt/checker-276/libexec/ccc-analyzer -o conftest -g -O2   conftest.c  >&5
+configure:4405: gcc -o conftest -g -O2   conftest.c  >&5
 conftest.c:61:6: warning: incompatible redeclaration of library function 'snprintf' [-Wincompatible-library-redeclaration]
 char snprintf ();
      ^
@@ -444,10 +443,10 @@ conftest.c:61:6: note: 'snprintf' is a builtin with type 'int (char *, unsigned 
 configure:4405: $? = 0
 configure:4405: result: yes
 configure:4405: checking for va_start
-configure:4405: /opt/checker-276/libexec/ccc-analyzer -o conftest -g -O2   conftest.c  >&5
+configure:4405: gcc -o conftest -g -O2   conftest.c  >&5
 Undefined symbols for architecture x86_64:
   "_va_start", referenced from:
-      _main in conftest-6d087d.o
+      _main in conftest-01e73d.o
 ld: symbol(s) not found for architecture x86_64
 clang: error: linker command failed with exit code 1 (use -v to see invocation)
 configure:4405: $? = 1
@@ -530,7 +529,7 @@ configure: failed program was:
 | }
 configure:4405: result: no
 configure:4405: checking for vsnprintf
-configure:4405: /opt/checker-276/libexec/ccc-analyzer -o conftest -g -O2   conftest.c  >&5
+configure:4405: gcc -o conftest -g -O2   conftest.c  >&5
 conftest.c:62:6: warning: incompatible redeclaration of library function 'vsnprintf' [-Wincompatible-library-redeclaration]
 char vsnprintf ();
      ^
@@ -594,8 +593,8 @@ config.status:1132: executing depfiles commands
 ac_cv_c_compiler_gnu=yes
 ac_cv_env_ALLOWED_OPTS_set=
 ac_cv_env_ALLOWED_OPTS_value=
-ac_cv_env_CC_set=set
-ac_cv_env_CC_value=/opt/checker-276/libexec/ccc-analyzer
+ac_cv_env_CC_set=
+ac_cv_env_CC_value=
 ac_cv_env_CFLAGS_set=
 ac_cv_env_CFLAGS_value=
 ac_cv_env_CPPFLAGS_set=
@@ -670,8 +669,8 @@ ac_cv_path_EGREP='/usr/bin/grep -E'
 ac_cv_path_GREP=/usr/bin/grep
 ac_cv_path_install='/usr/bin/install -c'
 ac_cv_prog_AWK=awk
-ac_cv_prog_CPP='/opt/checker-276/libexec/ccc-analyzer -E'
-ac_cv_prog_ac_ct_CC=/opt/checker-276/libexec/ccc-analyzer
+ac_cv_prog_CPP='gcc -E'
+ac_cv_prog_ac_ct_CC=gcc
 ac_cv_prog_cc_c89=
 ac_cv_prog_cc_g=yes
 ac_cv_prog_make_make_set=yes
@@ -698,10 +697,10 @@ AUTOCONF='${SHELL} /Users/sec15334/repositories/dissertation/sources/c00clupea/m
 AUTOHEADER='${SHELL} /Users/sec15334/repositories/dissertation/sources/c00clupea/missing autoheader'
 AUTOMAKE='${SHELL} /Users/sec15334/repositories/dissertation/sources/c00clupea/missing automake-1.14'
 AWK='awk'
-CC='/opt/checker-276/libexec/ccc-analyzer'
+CC='gcc'
 CCDEPMODE='depmode=gcc3'
 CFLAGS='-g -O2'
-CPP='/opt/checker-276/libexec/ccc-analyzer -E'
+CPP='gcc -E'
 CPPFLAGS=''
 CYGPATH_W='echo'
 DEFS='-DHAVE_CONFIG_H'
@@ -749,7 +748,7 @@ SYSLOG=''
 TCP_BACKLOG=''
 VERSION='01'
 WORKER_POOL=''
-ac_ct_CC='/opt/checker-276/libexec/ccc-analyzer'
+ac_ct_CC='gcc'
 am__EXEEXT_FALSE=''
 am__EXEEXT_TRUE='#'
 am__fastdepCC_FALSE='#'

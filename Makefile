@@ -228,7 +228,7 @@ AWK = awk
 CC = clang
 CCDEPMODE = depmode=gcc3
 CFLAGS = -g -O2
-CPP = /opt/checker-276/libexec/ccc-analyzer -E
+CPP = gcc -E
 CPPFLAGS = 
 CYGPATH_W = echo
 DEFS = -DHAVE_CONFIG_H
@@ -281,7 +281,7 @@ abs_builddir = /Users/sec15334/repositories/dissertation/sources/c00clupea
 abs_srcdir = /Users/sec15334/repositories/dissertation/sources/c00clupea
 abs_top_builddir = /Users/sec15334/repositories/dissertation/sources/c00clupea
 abs_top_srcdir = /Users/sec15334/repositories/dissertation/sources/c00clupea
-ac_ct_CC = /opt/checker-276/libexec/ccc-analyzer
+ac_ct_CC = gcc
 am__include = include
 am__leading_dot = .
 am__quote = 
@@ -321,11 +321,11 @@ top_builddir = .
 top_srcdir = .
 AUTOMAKE_OPTIONS = foreign
 
-#CC = /opt/checker-276/libexec/ccc-analyzer 
+#CC = gcc 
 SUBDIRS = src man
-EXTRA_DIST = autogen.sh conf/c00clupea.config man/c00clupea.man scan_files.sh
+EXTRA_DIST = autogen.sh conf/c00clupea.config conf/http_path_whitelist.config man/c00clupea.man scan_files.sh
 confdir = /etc/c00clupea
-conf_DATA = conf/c00clupea.config
+conf_DATA = conf/c00clupea.config conf/http_path_whitelist.config
 all: all-recursive
 
 .SUFFIXES:
