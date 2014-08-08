@@ -22,7 +22,8 @@ struct http_path_request{
 };
 
 struct c00_http_path_globals{
-	struct c00_hashmap *path_whitelist;
+	struct 	c00_hashmap 	*path_whitelist;
+	char			htdocs_root[PATH_MAX];
 };
 
 

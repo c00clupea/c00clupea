@@ -72,5 +72,5 @@ int c00_print_safe_single_log(struct safe_log *logger, int log_lvl,char *file, c
 int c00_create_unique_log_file(char *append,char *end, char *filename);
 int c00_get_current_time(char *t, char *fmt,int len_buf);
 int c00_get_hash_str(char *val,unsigned int len);
-
+int c00_util_create_config_path(char *rel_file, char *full_file);
 #endif

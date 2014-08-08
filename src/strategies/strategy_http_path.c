@@ -5,6 +5,7 @@ int receive_http_path(struct consumer_command *tmp_cmd,struct http_path_request 
 int send_http_path(struct consumer_command *tmp_cmd);
 
 int _c00_http_path_read_config(struct c00_hashmap *map);
+int _c00_http_path_fill_masterconfig();
 
 pthread_mutex_t mtx_http_path_write_lock = PTHREAD_MUTEX_INITIALIZER;
 
@@ -36,8 +37,11 @@ int _c00_http_path_read_config(struct c00_hashmap *map){
 	FILE *fp;
 
 	char path[PATH_MAX];
-	snprintf(path,PATH_MAX,"%s/http_path_whitelist.config",STRAT_CONFIG_PATH);
+	
+	c00_util_create_config_path(path,"/http_path_whitelist.config");
+
 	fp = fopen(path,"r");
+
 	if(!fp){
 		syslog(LOG_ERR,"Unable to open %s",path);
 		return FALSE;
@@ -57,6 +61,15 @@ int _c00_http_path_read_config(struct c00_hashmap *map){
 			
 	}
 	fclose(fp);
+	return TRUE;
+}
+
+int _c00_http_path_fill_masterconfig(){
+	FILE *fp;
+
+	char path[PATH_MAX];
+	
+	c00_util_create_config_path(path,"/http_path_master.config");	
 	return TRUE;
 }
 
@@ -102,6 +115,7 @@ int receive_http_path(struct consumer_command *tmp_cmd, struct http_path_request
 			
 			return 0;
 		}
+		
 		
 
 		fclose(fr);

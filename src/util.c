@@ -214,3 +214,15 @@ int c00_print_safe_log(struct safe_log *logger, int log_level, char *txt,...){
 	return 0;
 
 }
+
+
+int c00_util_create_config_path(char *full_file, char *rel_file){
+	char path[PATH_MAX];
+
+	snprintf(path,PATH_MAX,"%s/%s",STRAT_CONFIG_PATH,rel_file);
+
+	strlcpy(full_file,path,PATH_MAX);
+	C00DEBUG("create file path %s",full_file);
+	
+	return TRUE;
+}
