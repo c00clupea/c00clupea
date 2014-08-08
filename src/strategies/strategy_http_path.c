@@ -6,6 +6,8 @@ int send_http_path(struct consumer_command *tmp_cmd);
 
 int _c00_http_path_read_config(struct c00_hashmap *map);
 int _c00_http_path_fill_masterconfig();
+int _c00_http_path_fill_conf_htdocs(char * ident, char *val);
+
 
 pthread_mutex_t mtx_http_path_write_lock = PTHREAD_MUTEX_INITIALIZER;
 
@@ -64,12 +66,48 @@ int _c00_http_path_read_config(struct c00_hashmap *map){
 	return TRUE;
 }
 
+int _c00_http_path_fill_conf_htdocs(char * ident, char *val){
+	if(strcmp(ident, "htdocs") == 0){
+		C00DEBUG("found htdocs with %s",val);
+		strlcpy(c00_http_path_glob->htdocs_root,val,PATH_MAX);
+		return TRUE;
+	}
+	return FALSE;
+}
+
 int _c00_http_path_fill_masterconfig(){
 	FILE *fp;
 
 	char path[PATH_MAX];
+
+	char ident[PATH_MAX];
+	char val[PATH_MAX];
+
 	
-	c00_util_create_config_path(path,"/http_path_master.config");	
+	c00_util_create_config_path(path,"/http_path_master.config");
+
+	fp = fopen(path,"r");
+
+	if(!fp){
+		syslog(LOG_ERR,"unable to open %s",path);
+		return FALSE;
+	}
+	char line[(2 * PATH_MAX) + 1];
+
+	while(fgets(line,((2 * PATH_MAX) + 1),fp) != NULL){
+		if(sscanf(line, "%s %s",ident, val) != 2){
+			syslog(LOG_ERR,"[%s] not valid",line);
+			C00DEBUG("[%s] is problematic",line);
+		}
+		else{
+			if(_c00_http_path_fill_conf_htdocs(ident,val) == TRUE){
+				continue;
+			}
+		}
+	}
+
+
+	
 	return TRUE;
 }
 
@@ -81,6 +119,8 @@ int c00_strategy_http_path_init(){
 
 	c00_http_path_glob->path_whitelist = map;
 	_c00_http_path_read_config(map);	
+	_c00_http_path_fill_masterconfig();
+
 	return TRUE;
 }
 

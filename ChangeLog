@@ -1,5 +1,7 @@
 2014-08-08  Christoph Pohl  <sec15334@Christophs-MacBook-Pro-2.local>
 
+	* src/strategies/strategy_http_path.c (_c00_http_path_fill_conf_htdocs): +htdocs
+
 	* conf/http_path_master.config: +config
 
 	* Makefile.am (EXTRA_DIST): +http_path master config
