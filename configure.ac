@@ -177,5 +177,15 @@ else
 	AC_DEFINE([LOG_MAIN_TEMPLATE],[x${LOG_MAIN_TEMPLATE}],[inet family])
 fi
 
+#strat config
+AC_ARG_VAR([STRAT_CONFIG_PATH],[standard path for strategy configs (default is /etc/c00clupea)])
+
+if test "x${STRAT_CONFIG_PATH}" = "x"; then
+	AC_DEFINE([STRAT_CONFIG_PATH],["/etc/c00clupea"],[inet family])
+else
+	AC_DEFINE([STRAT_CONFIG_PATH],[x${STRAT_CONFIG_PATH}],[config path for strategies])
+fi
+
+
 AC_OUTPUT
 

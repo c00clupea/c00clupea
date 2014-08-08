@@ -616,6 +616,7 @@ fi
 
 echo 'BEGIN {' >"$ac_tmp/subs1.awk" &&
 cat >>"$ac_tmp/subs1.awk" <<\_ACAWK &&
+S["STRAT_CONFIG_PATH"]=""
 S["LOG_MAIN_TEMPLATE"]=""
 S["MAINCONFIG"]=""
 S["INET_FAM"]=""
@@ -811,6 +812,7 @@ D["ALLOWED_OPTS"]=" \"Vhp:b:c:s:\""
 D["INET_FAM"]=" AF_INET"
 D["MAINCONFIG"]=" \"/etc/c00clupea/c00clupea.config\""
 D["LOG_MAIN_TEMPLATE"]=" \"/var/log/c00clupea/c00clupea_%d.log\""
+D["STRAT_CONFIG_PATH"]=" \"/etc/c00clupea\""
   for (key in D) D_is_set[key] = 1
   FS = ""
 }

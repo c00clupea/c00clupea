@@ -10,6 +10,8 @@
 #define HTTP_PATH_LEN 1024
 #define HTTP_PATH_METHOD_LEN 10
 
+#define HTTP_PATH_MAX_PATH 128
+
 
 struct http_path_request{
 	char 	http_path	[PATH_MAX];

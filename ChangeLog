@@ -1,9 +1,13 @@
 2014-08-08  Christoph Pohl  <sec15334@Christophs-MacBook-Pro-2.local>
 
-	* src/strategy.c (init_strategies): +init http_path
-
 	* src/strategies/strategy_http_path.c
-	(c00_strategy_http_path_init): rewrite for global store
+	(_c00_http_path_read_config): +rename c00 +functionality
+	(c00_strategy_http_path_init): +read config + rewrite global store
+
+	* src/strategies/strategy_http_path.h (HTTP_PATH_MAX_PATH): +max
+	path len 
+
+	* src/strategy.c (init_strategies): +init http_path
 
 2014-08-07  Christoph Pohl  <sec15334@Christophs-MacBook-Pro-2.local>
 

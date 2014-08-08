@@ -130,6 +130,9 @@
 /* default log level */
 #undef STD_LOG_LVL
 
+/* config path for strategies */
+#undef STRAT_CONFIG_PATH
+
 /* default strategy */
 #undef STRAT_DEFAULT
 
@@ -147,6 +150,9 @@
 
 /* worker_pool size */
 #undef WORKER_POOL
+
+/* write really verbose stdouts */
+#undef WRITEC00CRAP
 
 /* Define to rpl_malloc if the replacement function should be used. */
 #undef malloc

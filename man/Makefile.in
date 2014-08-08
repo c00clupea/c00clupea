@@ -190,6 +190,7 @@ STDLOG = @STDLOG@
 STD_FLUSH_COUNT = @STD_FLUSH_COUNT@
 STD_LOG_LEN = @STD_LOG_LEN@
 STD_LOG_LVL = @STD_LOG_LVL@
+STRAT_CONFIG_PATH = @STRAT_CONFIG_PATH@
 STRAT_DEFAULT = @STRAT_DEFAULT@
 STRIP = @STRIP@
 SYSLOG = @SYSLOG@
@@ -251,9 +252,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign man/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu man/Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --foreign man/Makefile
+	  $(AUTOMAKE) --gnu man/Makefile
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \

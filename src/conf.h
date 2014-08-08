@@ -131,6 +131,9 @@
 /* default log level */
 #define STD_LOG_LVL 2
 
+/* config path for strategies */
+#define STRAT_CONFIG_PATH "/etc/c00clupea"
+
 /* default strategy */
 #define STRAT_DEFAULT 0
 

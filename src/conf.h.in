@@ -130,6 +130,9 @@
 /* default log level */
 #undef STD_LOG_LVL
 
+/* config path for strategies */
+#undef STRAT_CONFIG_PATH
+
 /* default strategy */
 #undef STRAT_DEFAULT
 

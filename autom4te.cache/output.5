@@ -621,7 +621,8 @@ ac_includes_default="\
 # include <unistd.h>
 #endif"
 
-ac_subst_vars='LOG_MAIN_TEMPLATE
+ac_subst_vars='STRAT_CONFIG_PATH
+LOG_MAIN_TEMPLATE
 MAINCONFIG
 INET_FAM
 ALLOWED_OPTS
@@ -730,6 +731,7 @@ enable_option_checking
 enable_silent_rules
 enable_dependency_tracking
 enable_buildtest
+enable_writecrap
 enable_strict_atomic
 '
       ac_precious_vars='build_alias
@@ -754,7 +756,8 @@ STD_FLUSH_COUNT
 ALLOWED_OPTS
 INET_FAM
 MAINCONFIG
-LOG_MAIN_TEMPLATE'
+LOG_MAIN_TEMPLATE
+STRAT_CONFIG_PATH'
 
 
 # Initialize some variables set by options.
@@ -1376,6 +1379,7 @@ Optional Features:
   --disable-dependency-tracking 
                           speeds up one-time build
   --enable-buildtest      Enable tests
+  --enable-writecrap      Enable really verbose output
   --enable-strict-atomic  Enable strict atomic behaviour...It is safe but
                           slow....
 
@@ -1409,6 +1413,8 @@ Some influential environment variables:
   LOG_MAIN_TEMPLATE 
               log template (default is
               (localstatedir)/log/c00clupea/c00clupea_%d.log)
+  STRAT_CONFIG_PATH 
+              standard path for strategy configs (default is /etc/c00clupea)
 
 Use these variables to override the choices made by `configure' or to help
 it to find libraries and programs with nonstandard names/locations.
@@ -4428,6 +4434,21 @@ $as_echo "@%:@define USEC00TESTS /**/" >>confdefs.h
 
 fi
 
+@%:@ Check whether --enable-writecrap was given.
+if test "${enable_writecrap+set}" = set; then :
+  enableval=$enable_writecrap; 
+fi
+
+
+if test "$enable_writecrap" = "yes"; then :
+  
+	
+$as_echo "@%:@define WRITEC00CRAP /**/" >>confdefs.h
+
+
+fi
+
+
 #strict atomic 
 @%:@ Check whether --enable-strict-atomic was given.
 if test "${enable_strict_atomic+set}" = set; then :
@@ -6080,6 +6101,20 @@ else
 $as_echo "@%:@define LOG_MAIN_TEMPLATE x\${LOG_MAIN_TEMPLATE}" >>confdefs.h
 
 fi
+
+#strat config
+
+
+if test "x${STRAT_CONFIG_PATH}" = "x"; then
+	
+$as_echo "@%:@define STRAT_CONFIG_PATH \"/etc/c00clupea\"" >>confdefs.h
+
+else
+	
+$as_echo "@%:@define STRAT_CONFIG_PATH x\${STRAT_CONFIG_PATH}" >>confdefs.h
+
+fi
+
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure

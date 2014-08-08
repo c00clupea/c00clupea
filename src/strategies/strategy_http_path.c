@@ -4,6 +4,7 @@ int destroy_http_path_request(struct http_path_request *pth_req);
 int receive_http_path(struct consumer_command *tmp_cmd,struct http_path_request *pth_req);
 int send_http_path(struct consumer_command *tmp_cmd);
 
+int _c00_http_path_read_config(struct c00_hashmap *map);
 
 pthread_mutex_t mtx_http_path_write_lock = PTHREAD_MUTEX_INITIALIZER;
 
@@ -31,14 +32,42 @@ int strategy_http_path(struct consumer_command *tmp_cmd){
 	return 0;
 }
 
+int _c00_http_path_read_config(struct c00_hashmap *map){
+	FILE *fp;
+
+	char path[PATH_MAX];
+	snprintf(path,PATH_MAX,"%s/http_path_whitelist.config",STRAT_CONFIG_PATH);
+	fp = fopen(path,"r");
+	if(!fp){
+		syslog(LOG_ERR,"Unable to open %s",path);
+		return FALSE;
+	}
+	char line[HTTP_PATH_LINE_LEN + PATH_MAX + 200];
+	char http_path[HTTP_PATH_LINE_LEN]; //will be copied
+	while(fgets(line,sizeof(line),fp) != NULL){
+		char *target_path = malloc(PATH_MAX * sizeof(char));
+		if(sscanf(line,"%s %s",http_path,target_path) != 2){
+			syslog(LOG_ERR,"[%s] not valid",line);
+			C00DEBUG("[%s] is problematic",line);
+		}
+		else{
+			c00_hashmap_add_key_value(map,http_path,sizeof(http_path),target_path);
+			C00DEBUG("add %s --> %s",http_path,target_path);
+		}
+			
+	}
+	fclose(fp);
+	return TRUE;
+}
+
 int c00_strategy_http_path_init(){
 	c00_http_path_glob = malloc(sizeof(struct c00_http_path_globals));
 	struct c00_hashmap *map;
 	map = malloc(sizeof(struct c00_hashmap));
-	c00_hashmap_init(map,1000,0);
+	c00_hashmap_init(map,HTTP_PATH_MAX_PATH,0);
 
 	c00_http_path_glob->path_whitelist = map;
-	
+	_c00_http_path_read_config(map);	
 	return TRUE;
 }
 
