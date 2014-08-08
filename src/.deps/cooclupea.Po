@@ -86,7 +86,7 @@ cooclupea.o: cooclupea.c cooclupea.h /usr/include/stdio.h \
   /usr/include/sys/syslimits.h c00_convenience.h config.h ringbuffer.h \
   strategy.h /usr/include/arpa/inet.h strategies/strategy_dev_null.h \
   strategies/strategy_http_simple.h strategies/strategy_http_path.h \
-  strategies/http_codes.h
+  strategies/http_codes.h strategies/../util/c00_hashmap.h
 
 cooclupea.h:
 
@@ -401,3 +401,5 @@ strategies/strategy_http_simple.h:
 strategies/strategy_http_path.h:
 
 strategies/http_codes.h:
+
+strategies/../util/c00_hashmap.h:

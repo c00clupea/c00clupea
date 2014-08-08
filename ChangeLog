@@ -1,4 +1,16 @@
+2014-08-08  Christoph Pohl  <sec15334@Christophs-MacBook-Pro-2.local>
+
+	* src/strategy.c (init_strategies): +init http_path
+
+	* src/strategies/strategy_http_path.c
+	(c00_strategy_http_path_init): rewrite for global store
+
 2014-08-07  Christoph Pohl  <sec15334@Christophs-MacBook-Pro-2.local>
 
+	* src/strategies/strategy_http_path.c
+	(c00_strategy_http_path_init): add init
+
 	*  (interrupt): init
+	*(BRANCH) feature/c00_01.04
+	-build strategy_helper
 

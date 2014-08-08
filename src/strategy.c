@@ -16,5 +16,6 @@ int init_strategies()
         strategy_ptr[0] = &strategy_dev_null;
 	strategy_ptr[1] = &strategy_http_simple;
 	strategy_ptr[2] = &strategy_http_path;
+	c00_strategy_http_path_init();
 	return 0;
 }

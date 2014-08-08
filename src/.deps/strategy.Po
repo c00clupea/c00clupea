@@ -85,7 +85,8 @@ strategy.o: strategy.c strategy.h /usr/include/syslog.h \
   /usr/include/i386/limits.h /usr/include/i386/_limits.h \
   /usr/include/sys/syslimits.h c00_convenience.h config.h ringbuffer.h \
   strategies/strategy_dev_null.h strategies/strategy_http_simple.h \
-  strategies/strategy_http_path.h strategies/http_codes.h
+  strategies/strategy_http_path.h strategies/http_codes.h \
+  strategies/../util/c00_hashmap.h
 
 strategy.h:
 
@@ -400,3 +401,5 @@ strategies/strategy_http_simple.h:
 strategies/strategy_http_path.h:
 
 strategies/http_codes.h:
+
+strategies/../util/c00_hashmap.h:

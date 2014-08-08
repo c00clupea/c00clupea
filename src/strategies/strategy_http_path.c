@@ -31,6 +31,17 @@ int strategy_http_path(struct consumer_command *tmp_cmd){
 	return 0;
 }
 
+int c00_strategy_http_path_init(){
+	c00_http_path_glob = malloc(sizeof(struct c00_http_path_globals));
+	struct c00_hashmap *map;
+	map = malloc(sizeof(struct c00_hashmap));
+	c00_hashmap_init(map,1000,0);
+
+	c00_http_path_glob->path_whitelist = map;
+	
+	return TRUE;
+}
+
 int destroy_http_path_request(struct http_path_request *pth_req){
 	free(pth_req);
 	return 0;
