@@ -50,13 +50,15 @@ int _c00_http_path_read_config(struct c00_hashmap *map){
 	}
 	char line[HTTP_PATH_LINE_LEN + PATH_MAX + 200];
 	char http_path[HTTP_PATH_LINE_LEN]; //will be copied
+	char read_path[PATH_MAX];
 	while(fgets(line,sizeof(line),fp) != NULL){
 		char *target_path = malloc(PATH_MAX * sizeof(char));
-		if(sscanf(line,"%s %s",http_path,target_path) != 2){
+		if(sscanf(line,"%s %s",http_path,read_path) != 2){
 			syslog(LOG_ERR,"[%s] not valid",line);
 			C00DEBUG("[%s] is problematic",line);
 		}
 		else{
+			snprintf(target_path,"%s%s",c00_http_path_glob->htdocs_root,read_path);
 			c00_hashmap_add_key_value(map,http_path,sizeof(http_path),target_path);
 			C00DEBUG("add %s --> %s",http_path,target_path);
 		}
@@ -105,8 +107,6 @@ int _c00_http_path_fill_masterconfig(){
 			}
 		}
 	}
-
-
 	
 	return TRUE;
 }
@@ -118,8 +118,9 @@ int c00_strategy_http_path_init(){
 	c00_hashmap_init(map,HTTP_PATH_MAX_PATH,0);
 
 	c00_http_path_glob->path_whitelist = map;
-	_c00_http_path_read_config(map);	
 	_c00_http_path_fill_masterconfig();
+	_c00_http_path_read_config(map);	
+
 
 	return TRUE;
 }
@@ -130,10 +131,12 @@ int destroy_http_path_request(struct http_path_request *pth_req){
 }
 
 int receive_http_path(struct consumer_command *tmp_cmd, struct http_path_request *pth_req){
+	FILE *fp;
 	FILE *fr;
-	fr = fdopen(dup(tmp_cmd->peer_socket),"r");
+	char path_to_get[PATH_MAX];
+	fp = fdopen(dup(tmp_cmd->peer_socket),"r");
 	char header_line[max_http_path_line_len];
-	if(fr){
+	if(fp){
 		
 		increment_count(tmp_cmd);
 		int count_lines = 0;
@@ -143,10 +146,10 @@ int receive_http_path(struct consumer_command *tmp_cmd, struct http_path_request
 		char log_all[STD_LOG_LEN];
 		snprintf(log_all,STD_LOG_LEN,"rcv from %s count %llu:\n",result,tmp_cmd->serverConfig->count->count);
 		/**read the first line**/
-		fgets(header_line,max_http_path_line_len,fr);
+		fgets(header_line,max_http_path_line_len,fp);
 
 		if(sscanf(header_line,"%s %s HTTP/%d.%d%*s",pth_req->http_method,pth_req->http_path,&pth_req->major_version,&pth_req->minor_version)!=4){
-			fclose(fr);
+			fclose(fp);
 			strlcpy(pth_req->http_method,"GET",3);
 			strlcpy(pth_req->http_path,"/500.html",9);
 			pth_req->major_version = 1;
@@ -155,10 +158,24 @@ int receive_http_path(struct consumer_command *tmp_cmd, struct http_path_request
 			
 			return 0;
 		}
+		fprintf(fp,"HTTP/1.1 200 OK\n");
+		int ch;
+		C00DEBUG("try to resolve %s",pth_req->http_path);
+		if(c00_hashmap_get_value(c00_http_path_glob->path_whitelist,pth_req->http_path,HTTP_PATH_LINE_LEN,path_to_get) == TRUE){
+			fr = fopen(path_to_get,"r");
+			C00DEBUG("try to read %s",path_to_get);
+			if(!fr){
+				syslog(LOG_ERR,"Sorry file %s not exists",path_to_get);
 		
-		
-
-		fclose(fr);
+			}
+			else{
+				while((ch=getc(fr))!=EOF){
+					fprintf(fp,"%c",ch);
+				}
+				fclose(fr);
+			}
+		}
+		fclose(fp);
 	}
 	else{
 		syslog(LOG_ERR,"I can not close fr in http_path");

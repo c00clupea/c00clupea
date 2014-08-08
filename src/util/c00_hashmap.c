@@ -182,10 +182,12 @@ int c00_hashmap_remove_key(struct c00_hashmap *map, char *key, int key_len){
 	return 0;
 }
 int c00_hashmap_get_value(struct c00_hashmap *map, char *key, int key_len, char *val){
+
 	
 	struct c00_hashmap_bucket *bucket = malloc(sizeof(struct c00_hashmap_bucket *));
 	
 	if(_c00_hashmap_has_key_with_bucket(map,key,key_len,&bucket) != TRUE){
+		C00DEBUG("sry %s not found in hashmap",key);
 		return FALSE;
 	}
 	

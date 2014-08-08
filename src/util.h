@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include <limits.h>
+#include <string.h>
 #include "global.h"
 
 #ifndef STD_LOG_LEN 

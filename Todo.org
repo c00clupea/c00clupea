@@ -10,8 +10,10 @@ Path traversal through Whitelist
    CLOSED: [2014-08-08 Fri 13:39]
 ** TODO test whitelist generation
 ** TODO Build whitelist
-** TODO Build simple html
-
+*** TODO Line 164 not working (hashmap?)
+** DONE Build simple html
+   CLOSED: [2014-08-08 Fri 16:38]
+** TODO some problems in scan_file
 * feature/c00_01.04
 Generate different server fingerprints
 ** TODO Build some fingerprints
