@@ -149,7 +149,7 @@ int receive_http_path(struct consumer_command *tmp_cmd, struct http_path_request
 		snprintf(log_all,STD_LOG_LEN,"rcv from %s count %llu:\n",result,tmp_cmd->serverConfig->count->count);
 		/**read the first line**/
 		fgets(header_line,max_http_path_line_len,fp);
-		C00REACH(1);
+		
 		if(sscanf(header_line,"%s %s HTTP/%d.%d%*s",pth_req->http_method,pth_req->http_path,&pth_req->major_version,&pth_req->minor_version)!=4){
 			C00DEBUG("line %s error",header_line); 
 			fclose(fp);
@@ -164,7 +164,7 @@ int receive_http_path(struct consumer_command *tmp_cmd, struct http_path_request
 		fprintf(fp,"HTTP/1.1 200 OK\n");
 		int ch;
 		C00DEBUG("try to resolve %s",pth_req->http_path);
-		C00REACH(2);
+		
 		if(c00_hashmap_get_value(c00_http_path_glob->path_whitelist,pth_req->http_path,HTTP_PATH_LINE_LEN,&path_to_get) == TRUE){
 			fr = fopen(path_to_get,"r");
 			C00DEBUG("try to read %s",path_to_get);

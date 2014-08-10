@@ -153,11 +153,11 @@ int c00_hashmap_has_key(struct c00_hashmap *map, char *key, unsigned int key_len
 int _c00_hashmap_has_key_with_bucket(struct c00_hashmap *map, char *key, unsigned int key_len, struct c00_hashmap_bucket **bucket){
 	int idx;
 
-	C00REACH(1);
+	
 
 	idx = _c00_hashmap_calculate_idx_from_char(key,key_len,map->max_len);
 
-	C00REACH(2);
+	
 	if(map->buckets[idx].next == NULL){
 		C00DEBUG("return %d",FALSE);
 		return FALSE; // shortcut
@@ -184,7 +184,7 @@ int c00_hashmap_remove_key(struct c00_hashmap *map, char *key, int key_len){
 }
 int c00_hashmap_get_value(struct c00_hashmap *map, char *key, int key_len, char **val){
 
-	C00REACH(1);	
+	
 	struct c00_hashmap_bucket *bucket;
 	
 	if(_c00_hashmap_has_key_with_bucket(map,key,key_len,&bucket) != TRUE){
@@ -211,11 +211,11 @@ int _c00_hashmap_calculate_idx_from_char(char *key, unsigned int key_len, unsign
 	int hash, idx;
 
 	C00DEBUG("IDX for %s,len %d, max_len %d",key, key_len, max_len);
-	C00REACH(1);
+
 
 	hash = _c00_hashmap_get_hash(key,key_len);
 	idx = _c00_hashmap_calculate_idx_from_hash(hash,max_len);
-	C00REACH(2);
+
 	return idx;
 
 }
