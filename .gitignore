@@ -24,3 +24,4 @@ man/Makefile
 src/Makefile
 src/conf.h
 src/stamp-h1
+*.dirstamp
