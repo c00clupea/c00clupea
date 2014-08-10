@@ -4,3 +4,4 @@ c00clupea-01.tar.gz
 *.o
 *.Po
 config.log
+*~

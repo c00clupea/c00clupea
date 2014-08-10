@@ -1,7 +1,0 @@
-AUTOMAKE_OPTIONS = foreign
-
-CC = @CC@ 
-
-SUBDIRS = src conf
-
-EXTRA_DIST = autogen.sh
