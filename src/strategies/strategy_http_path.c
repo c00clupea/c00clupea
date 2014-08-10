@@ -52,12 +52,13 @@ int _c00_http_path_read_config(struct c00_hashmap *map){
 	char http_path[HTTP_PATH_LINE_LEN]; //will be copied
 	char read_path[PATH_MAX];
 	while(fgets(line,sizeof(line),fp) != NULL){
-		char *target_path = malloc(PATH_MAX * sizeof(char));
+
 		if(sscanf(line,"%s %s",http_path,read_path) != 2){
 			syslog(LOG_ERR,"[%s] not valid",line);
 			C00DEBUG("[%s] is problematic",line);
 		}
 		else{
+			char *target_path = malloc(PATH_MAX * sizeof(char));
 			C00DEBUG("found read_path %s",read_path);
 			snprintf(target_path,PATH_MAX,"%s/%s",c00_http_path_glob->htdocs_root,read_path);
 			C00DEBUG("add %s --> %s",http_path,target_path);
@@ -139,7 +140,7 @@ int receive_http_path(struct consumer_command *tmp_cmd, struct http_path_request
 	if(fp){
 		
 		increment_count(tmp_cmd);
-		int count_lines = 0;
+
 		char buffer[INET_ADDRSTRLEN];
 
 		const char* result=inet_ntop(AF_INET,&(tmp_cmd->client.sin_addr),buffer,sizeof(buffer));
@@ -197,6 +198,7 @@ int send_http_path(struct consumer_command *tmp_cmd,struct http_path_request *pt
 				}
 				fclose(fr);
 				
+
 			}
 	 }
 
