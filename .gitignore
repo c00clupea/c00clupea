@@ -27,3 +27,5 @@ src/stamp-h1
 *.dirstamp
 *.plist
 *.core
+install-sh
+c00clupea
