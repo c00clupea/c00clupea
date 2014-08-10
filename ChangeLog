@@ -1,3 +1,8 @@
+2014-08-10  Christoph Pohl  <sec15334@Christophs-MacBook-Pro-2.local>
+
+	* src/util/c00_hashmap.c (_c00_hashmap_get_hash): fix error
+	(segmenatation fault)
+
 2014-08-08  Christoph Pohl  <sec15334@Christophs-MacBook-Pro-2.local>
 
 	* src/strategies/strategy_http_path.c (_c00_http_path_fill_conf_htdocs): +htdocs

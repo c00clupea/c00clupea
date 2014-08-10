@@ -93,8 +93,12 @@
 	fprintf(stdout,"%s:%d ",__FILE__,__LINE__);\
 	fprintf(stdout,fmt,__VA_ARGS__);\
 	fprintf(stdout,"\n")
+
+#define C00REACH(id)					\
+	fprintf(stdout,"reach: %d --> %s:%d\n",id,__FILE__,__LINE__)
 #else
 #define C00DEBUG(fmt,...)
+#define C00REACH(id)
 
 #endif
 

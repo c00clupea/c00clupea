@@ -144,19 +144,20 @@ int _c00_hashmap_bucket_has_key(struct c00_hashmap_bucket *bucket, char *key){
 }
 
 int c00_hashmap_has_key(struct c00_hashmap *map, char *key, unsigned int key_len){
-	struct c00_hashmap_bucket **bucket = malloc(sizeof(struct c00_hashmap_bucket *));
+	struct c00_hashmap_bucket *bucket;
 	int result;
-	result = _c00_hashmap_has_key_with_bucket(map,key,key_len,bucket);
-	free(bucket);
+	result = _c00_hashmap_has_key_with_bucket(map,key,key_len,&bucket);
 	return result;
 }
 
 int _c00_hashmap_has_key_with_bucket(struct c00_hashmap *map, char *key, unsigned int key_len, struct c00_hashmap_bucket **bucket){
 	int idx;
 
+	C00REACH(1);
+
 	idx = _c00_hashmap_calculate_idx_from_char(key,key_len,map->max_len);
 
-
+	C00REACH(2);
 	if(map->buckets[idx].next == NULL){
 		C00DEBUG("return %d",FALSE);
 		return FALSE; // shortcut
@@ -183,8 +184,8 @@ int c00_hashmap_remove_key(struct c00_hashmap *map, char *key, int key_len){
 }
 int c00_hashmap_get_value(struct c00_hashmap *map, char *key, int key_len, char *val){
 
-	
-	struct c00_hashmap_bucket *bucket = malloc(sizeof(struct c00_hashmap_bucket *));
+	C00REACH(1);	
+	struct c00_hashmap_bucket *bucket;
 	
 	if(_c00_hashmap_has_key_with_bucket(map,key,key_len,&bucket) != TRUE){
 		C00DEBUG("sry %s not found in hashmap",key);
@@ -192,8 +193,9 @@ int c00_hashmap_get_value(struct c00_hashmap *map, char *key, int key_len, char 
 	}
 	
 	C00DEBUG("bucket for get found, set val for key %s with val %s",key,bucket->val);
-	
-	val = bucket->val;		
+
+	val = bucket->val;
+
 	return TRUE;
 }
 
@@ -208,9 +210,12 @@ int _c00_hashmap_calculate_idx_from_hash(int hash, int max_len){
 int _c00_hashmap_calculate_idx_from_char(char *key, unsigned int key_len, unsigned int max_len){
 	int hash, idx;
 
+	C00DEBUG("IDX for %s,len %d, max_len %d",key, key_len, max_len);
+	C00REACH(1);
+
 	hash = _c00_hashmap_get_hash(key,key_len);
 	idx = _c00_hashmap_calculate_idx_from_hash(hash,max_len);
-
+	C00REACH(2);
 	return idx;
 
 }
@@ -223,7 +228,7 @@ int _c00_hashmap_get_hash(char *val,unsigned int len){
    	unsigned int i    = 0;
 	char *str      	  = val;
 	
-   	for(i = 0; i < len; str++, i++)
+   	for(i = 0; i < len && *str != '\0'; str++, i++)
    	{
       		hash = (hash << 4) + (*str);
       		if((x = hash & 0xF0000000L) != 0)

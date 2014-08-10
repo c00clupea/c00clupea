@@ -10,7 +10,8 @@ Path traversal through Whitelist
    CLOSED: [2014-08-08 Fri 13:39]
 ** TODO test whitelist generation
 ** TODO Build whitelist
-*** TODO Line 164 not working (hashmap?)
+*** DONE Line 164 not working (hashmap?)
+    CLOSED: [2014-08-10 Sun 11:47]
 ** DONE Build simple html
    CLOSED: [2014-08-08 Fri 16:38]
 ** TODO some problems in scan_file
