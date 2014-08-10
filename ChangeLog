@@ -1,5 +1,7 @@
 2014-08-10  Christoph Pohl  <sec15334@Christophs-MacBook-Pro-2.local>
 
+	*  (interrupt): build bugfix/c00_01-05 clean all compile errors
+
 	* src/util/c00_hashmap.c (_c00_hashmap_get_hash): fix error
 	(segmenatation fault)
 	(main): fix error pointer to pointer
