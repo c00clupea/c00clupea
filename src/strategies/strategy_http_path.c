@@ -2,7 +2,7 @@
 
 int destroy_http_path_request(struct http_path_request *pth_req);
 int receive_http_path(struct consumer_command *tmp_cmd,struct http_path_request *pth_req);
-int send_http_path(struct consumer_command *tmp_cmd);
+int send_http_path(struct consumer_command *tmp_cmd,struct http_path_request *pth_req);
 
 int _c00_http_path_read_config(struct c00_hashmap *map);
 int _c00_http_path_fill_masterconfig();
@@ -21,12 +21,12 @@ int strategy_http_path(struct consumer_command *tmp_cmd){
 
 	pth_req = malloc(sizeof(struct http_path_request));
 
-	if(receive_http_path(tmp_cmd,pth_req) != 0){
+	if(receive_http_path(tmp_cmd,pth_req) != TRUE){
 		syslog(LOG_ERR,"Error in recv http");
 		destroy_http_path_request(pth_req);
 		return 1;
 	}
-        if(send_http_path(tmp_cmd) != 0){
+        if(send_http_path(tmp_cmd,pth_req) != TRUE){
 		syslog(LOG_ERR,"Error in sending some http");
 		destroy_http_path_request(pth_req);
 		return 1;
@@ -134,8 +134,6 @@ int destroy_http_path_request(struct http_path_request *pth_req){
 
 int receive_http_path(struct consumer_command *tmp_cmd, struct http_path_request *pth_req){
 	FILE *fp;
-	FILE *fr;
-	char *path_to_get;
 	fp = fdopen(dup(tmp_cmd->peer_socket),"r");
 	char header_line[max_http_path_line_len];
 	if(fp){
@@ -151,6 +149,7 @@ int receive_http_path(struct consumer_command *tmp_cmd, struct http_path_request
 		fgets(header_line,max_http_path_line_len,fp);
 		
 		if(sscanf(header_line,"%s %s HTTP/%d.%d%*s",pth_req->http_method,pth_req->http_path,&pth_req->major_version,&pth_req->minor_version)!=4){
+
 			C00DEBUG("line %s error",header_line); 
 			fclose(fp);
 			strlcpy(pth_req->http_method,"GET",3);
@@ -159,36 +158,50 @@ int receive_http_path(struct consumer_command *tmp_cmd, struct http_path_request
 			pth_req->minor_version = 1;
 			pth_req->http_response = C00_HTTP_SERVER_ERROR;
 			
-			return 0;
-		}
-		fprintf(fp,"HTTP/1.1 200 OK\n");
-		int ch;
-		C00DEBUG("try to resolve %s",pth_req->http_path);
-		
-		if(c00_hashmap_get_value(c00_http_path_glob->path_whitelist,pth_req->http_path,HTTP_PATH_LINE_LEN,&path_to_get) == TRUE){
-			fr = fopen(path_to_get,"r");
-			C00DEBUG("try to read %s",path_to_get);
-			if(!fr){
-				syslog(LOG_ERR,"Sorry file %s not exists",path_to_get);
-		
-			}
-			else{
-				while((ch=getc(fr))!=EOF){
-					fprintf(fp,"%c",ch);
-				}
-				fclose(fr);
-			}
+			return FALSE;
 		}
 
+
+		//fprintf(fp,"HTTP/1.1 200 OK\r\n");
+		
 		fclose(fp);
 	}
 	else{
 		syslog(LOG_ERR,"I can not close fr in http_path");
-		return 1;
+		return FALSE;
 	}
 
-	return 0;
+	return TRUE;
 }
-int send_http_path(struct consumer_command *tmp_cmd){
-	return 0;
+int send_http_path(struct consumer_command *tmp_cmd,struct http_path_request *pth_req){
+	FILE *fr;
+	FILE *fp;
+	char ch;		
+	fp = fdopen(dup(tmp_cmd->peer_socket),"w");
+	char *path_to_get;
+	if(!fp){
+		return FALSE;
+	}
+	else{
+	if(c00_hashmap_get_value(c00_http_path_glob->path_whitelist,pth_req->http_path,HTTP_PATH_LINE_LEN,&path_to_get) == TRUE){
+			fr = fopen(path_to_get,"r");
+			C00DEBUG("try to read %s",path_to_get);
+			if(!fr){
+				syslog(LOG_ERR,"Sorry file %s not exists",path_to_get);
+						
+			}
+			else{
+				
+				while((ch=getc(fr))!=EOF){
+					fprintf(fp,"%c",ch);
+				}
+				fclose(fr);
+				
+			}
+	 }
+
+	 fclose(fp);	
+	}
+
+	return TRUE;
 }
