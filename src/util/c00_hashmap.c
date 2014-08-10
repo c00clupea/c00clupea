@@ -31,7 +31,7 @@ int _c00_hashmap_test_boundary(struct c00_hashmap *map, int idx){
 
 int c00_hashmap_init(struct c00_hashmap *map, int init_len, int resizable){
 	int i;
-	i = 0;
+	
 	map->max_len = init_len;
 	map->actual_fill = 0;
 	map->buckets = malloc(map->max_len * sizeof(struct c00_hashmap_bucket));
@@ -180,6 +180,8 @@ int _c00_hashmap_has_key_with_bucket(struct c00_hashmap *map, char *key, unsigne
 	return FALSE;
 }
 int c00_hashmap_remove_key(struct c00_hashmap *map, char *key, int key_len){
+	C00DEBUG("try to remove mal with %d %s, %d",map->actual_fill,key,key_len);
+	syslog(LOG_ERR,"try to remove mal with %d %s, %d --> NOT IMPLEMENTED",map->actual_fill,key,key_len);
 	return 0;
 }
 int c00_hashmap_get_value(struct c00_hashmap *map, char *key, int key_len, char **val){
@@ -215,6 +217,7 @@ int _c00_hashmap_calculate_idx_from_char(char *key, unsigned int key_len, unsign
 
 	hash = _c00_hashmap_get_hash(key,key_len);
 	idx = _c00_hashmap_calculate_idx_from_hash(hash,max_len);
+
 
 	return idx;
 

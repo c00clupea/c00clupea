@@ -60,22 +60,6 @@ void c00_flush_log(struct safe_log *logger){
 	}
 }
 
-int c00_print_safe_single_log(struct safe_log *logger, int log_level, char *file, char *txt,...){
-	
-	FILE *fp;
-	fp = fopen(file,"w");
-
-	if(fp){
-
-		fclose(fp);
-	}
-	else{
-		syslog(LOG_ERR,"not able to open %s to write",file);
-		return 1;
-	}
-
-	return 0;
-}
 
 int c00_get_current_time(char *t_buf, char *fmt,int len_buf){
 	time_t now = 0;
@@ -88,7 +72,7 @@ int c00_get_current_time(char *t_buf, char *fmt,int len_buf){
 }
 
 
-int c00_print_safe_single_log_fr(struct safe_log *logger, int log_lvl,char *file, char *txt, FILE *fr,...){
+int c00_print_safe_single_log_fr(char *file, char *txt, FILE *fr,...){
 	FILE *fp;
 	fp = fopen(file,"w");
 	int chr;
