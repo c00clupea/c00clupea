@@ -2,6 +2,8 @@
 
 	* src/util/c00_hashmap.c (_c00_hashmap_get_hash): fix error
 	(segmenatation fault)
+	(main): fix error pointer to pointer
+	(_c00_hashmap_has_key_with_bucket): +pointer to pointer
 
 2014-08-08  Christoph Pohl  <sec15334@Christophs-MacBook-Pro-2.local>
 

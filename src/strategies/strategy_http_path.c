@@ -40,7 +40,7 @@ int _c00_http_path_read_config(struct c00_hashmap *map){
 
 	char path[PATH_MAX];
 	
-	c00_util_create_config_path(path,"/http_path_whitelist.config");
+	c00_util_create_config_path(path,"http_path_whitelist.config");
 
 	fp = fopen(path,"r");
 
@@ -58,7 +58,9 @@ int _c00_http_path_read_config(struct c00_hashmap *map){
 			C00DEBUG("[%s] is problematic",line);
 		}
 		else{
-			snprintf(target_path,"%s%s",c00_http_path_glob->htdocs_root,read_path);
+			C00DEBUG("found read_path %s",read_path);
+			snprintf(target_path,PATH_MAX,"%s/%s",c00_http_path_glob->htdocs_root,read_path);
+			C00DEBUG("add %s --> %s",http_path,target_path);
 			c00_hashmap_add_key_value(map,http_path,sizeof(http_path),target_path);
 			C00DEBUG("add %s --> %s",http_path,target_path);
 		}
@@ -86,7 +88,7 @@ int _c00_http_path_fill_masterconfig(){
 	char val[PATH_MAX];
 
 	
-	c00_util_create_config_path(path,"/http_path_master.config");
+	c00_util_create_config_path(path,"http_path_master.config");
 
 	fp = fopen(path,"r");
 
@@ -133,7 +135,7 @@ int destroy_http_path_request(struct http_path_request *pth_req){
 int receive_http_path(struct consumer_command *tmp_cmd, struct http_path_request *pth_req){
 	FILE *fp;
 	FILE *fr;
-	char path_to_get[PATH_MAX];
+	char *path_to_get;
 	fp = fdopen(dup(tmp_cmd->peer_socket),"r");
 	char header_line[max_http_path_line_len];
 	if(fp){
@@ -163,7 +165,7 @@ int receive_http_path(struct consumer_command *tmp_cmd, struct http_path_request
 		int ch;
 		C00DEBUG("try to resolve %s",pth_req->http_path);
 		C00REACH(2);
-		if(c00_hashmap_get_value(c00_http_path_glob->path_whitelist,pth_req->http_path,HTTP_PATH_LINE_LEN,path_to_get) == TRUE){
+		if(c00_hashmap_get_value(c00_http_path_glob->path_whitelist,pth_req->http_path,HTTP_PATH_LINE_LEN,&path_to_get) == TRUE){
 			fr = fopen(path_to_get,"r");
 			C00DEBUG("try to read %s",path_to_get);
 			if(!fr){

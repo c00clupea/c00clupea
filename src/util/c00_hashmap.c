@@ -182,7 +182,7 @@ int _c00_hashmap_has_key_with_bucket(struct c00_hashmap *map, char *key, unsigne
 int c00_hashmap_remove_key(struct c00_hashmap *map, char *key, int key_len){
 	return 0;
 }
-int c00_hashmap_get_value(struct c00_hashmap *map, char *key, int key_len, char *val){
+int c00_hashmap_get_value(struct c00_hashmap *map, char *key, int key_len, char **val){
 
 	C00REACH(1);	
 	struct c00_hashmap_bucket *bucket;
@@ -194,7 +194,7 @@ int c00_hashmap_get_value(struct c00_hashmap *map, char *key, int key_len, char 
 	
 	C00DEBUG("bucket for get found, set val for key %s with val %s",key,bucket->val);
 
-	val = bucket->val;
+	*val = bucket->val;
 
 	return TRUE;
 }
@@ -249,13 +249,13 @@ int _c00_hashmap_get_hash(char *val,unsigned int len){
 int _write_and_read_value(struct c00_hashmap *map, char *key, unsigned int len){
 	ASSERT_TEST("test insert",TRUE,c00_hashmap_add_key_value(map,key,len,key))
 	char *result;
-	result = malloc(40 * sizeof(char));
+	
 
-	ASSERT_TEST("test value",TRUE,c00_hashmap_get_value(map,key,len,result))
+	ASSERT_TEST("test value",TRUE,c00_hashmap_get_value(map,key,len,&result))
 	if(strcmp(result,"value") == 0){
 			ASSERT_TEST("cmp value",TRUE,TRUE)
 	}
-	free(result);
+
 	return TRUE;
 }
 
@@ -276,9 +276,9 @@ int main(int argc, char *argv[]){
 
        	HEAD_TEST("get value");
 	char *result;
-	result = malloc(40 * sizeof(char));
 
-	ASSERT_TEST("test value",TRUE,c00_hashmap_get_value(map,"hallo welt",11,result))
+
+	ASSERT_TEST("test value",TRUE,c00_hashmap_get_value(map,"hallo welt",11,&result))
 
 		if(strcmp(result,"value") == 0){
 			ASSERT_TEST("cmp value",TRUE,TRUE)
@@ -298,7 +298,7 @@ int main(int argc, char *argv[]){
 	HEAD_TEST("destroy map");
 	ASSERT_TEST("destroy",TRUE,c00_hashmap_destroy(map));
 
-	free(result);
+
 	return 1;
 }
 
