@@ -5,3 +5,8 @@ c00clupea-01.tar.gz
 *.Po
 config.log
 *~
+backup/
+bin/
+build/
+.deps
+autom4te.cache/
