@@ -1,4 +1,0 @@
-#ifndef STRATEGY_DEV_NULL_H
-#define STRATEGY_DEV_NULL_H
-#include "strategy.h"
-#endif

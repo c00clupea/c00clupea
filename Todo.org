@@ -1,0 +1,27 @@
+* Tasks
+** DONE test todo
+   CLOSED: [2014-08-08 Fri 11:27]
+** DONE len for pathes
+   CLOSED: [2014-08-08 Fri 11:33]
+
+* feature/c00_01.04
+Path traversal through Whitelist 
+** DONE read whitelist
+   CLOSED: [2014-08-08 Fri 13:39]
+** TODO test whitelist generation
+** TODO Build whitelist
+*** DONE Line 164 not working (hashmap?)
+    CLOSED: [2014-08-10 Sun 11:47]
+** DONE Build simple html
+   CLOSED: [2014-08-08 Fri 16:38]
+** TODO some problems in scan_file
+* feature/c00_01.04
+Generate different server fingerprints
+** TODO Build some fingerprints
+** TODO Test fingerprints
+
+
+
+
+
+

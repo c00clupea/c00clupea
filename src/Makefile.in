@@ -79,20 +79,24 @@ POST_UNINSTALL = :
 bin_PROGRAMS = c00clupea$(EXEEXT)
 subdir = src
 DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/Makefile.am \
-	$(top_srcdir)/depcomp
+	$(srcdir)/conf.h.in $(top_srcdir)/depcomp
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 mkinstalldirs = $(install_sh) -d
+CONFIG_HEADER = conf.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
+am__dirstamp = $(am__leading_dot)dirstamp
 am_c00clupea_OBJECTS = cooclupea.$(OBJEXT) config.$(OBJEXT) \
 	ringbuffer.$(OBJEXT) strategy.$(OBJEXT) \
-	strategy_dev_null.$(OBJEXT) strategy_http_simple.$(OBJEXT) \
-	strategy_http_path.$(OBJEXT) util.$(OBJEXT)
+	strategies/strategy_dev_null.$(OBJEXT) \
+	strategies/strategy_http_simple.$(OBJEXT) \
+	strategies/strategy_http_path.$(OBJEXT) \
+	util/c00_hashmap.$(OBJEXT) util.$(OBJEXT)
 c00clupea_OBJECTS = $(am_c00clupea_OBJECTS)
 c00clupea_LDADD = $(LDADD)
 AM_V_P = $(am__v_P_@AM_V@)
@@ -111,10 +115,6 @@ DEFAULT_INCLUDES = -I.@am__isrc@
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
 am__mv = mv -f
-AM_V_lt = $(am__v_lt_@AM_V@)
-am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
-am__v_lt_0 = --silent
-am__v_lt_1 = 
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 AM_V_CC = $(am__v_CC_@AM_V@)
@@ -134,7 +134,8 @@ am__can_run_installinfo = \
     n|no|NO) false;; \
     *) (install-info --version) >/dev/null 2>&1;; \
   esac
-am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) $(LISP)
+am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) \
+	$(LISP)conf.h.in
 # Read a list of newline-separated strings from the standard input,
 # and print each of them once, without duplicates.  Input order is
 # *not* preserved.
@@ -155,6 +156,7 @@ ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 ACLOCAL = @ACLOCAL@
+ALLOWED_OPTS = @ALLOWED_OPTS@
 AMTAR = @AMTAR@
 AM_DEFAULT_VERBOSITY = @AM_DEFAULT_VERBOSITY@
 AUTOCONF = @AUTOCONF@
@@ -175,6 +177,7 @@ ECHO_T = @ECHO_T@
 EGREP = @EGREP@
 EXEEXT = @EXEEXT@
 GREP = @GREP@
+INET_FAM = @INET_FAM@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
@@ -183,7 +186,10 @@ INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 LDFLAGS = @LDFLAGS@
 LIBOBJS = @LIBOBJS@
 LIBS = @LIBS@
+LOG_MAIN_TEMPLATE = @LOG_MAIN_TEMPLATE@
 LTLIBOBJS = @LTLIBOBJS@
+MAINCONFIG = @MAINCONFIG@
+MAIN_BUFFER_LEN = @MAIN_BUFFER_LEN@
 MAKEINFO = @MAKEINFO@
 MKDIR_P = @MKDIR_P@
 OBJEXT = @OBJEXT@
@@ -197,8 +203,18 @@ PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
+STDERR = @STDERR@
+STDLOG = @STDLOG@
+STD_FLUSH_COUNT = @STD_FLUSH_COUNT@
+STD_LOG_LEN = @STD_LOG_LEN@
+STD_LOG_LVL = @STD_LOG_LVL@
+STRAT_CONFIG_PATH = @STRAT_CONFIG_PATH@
+STRAT_DEFAULT = @STRAT_DEFAULT@
 STRIP = @STRIP@
+SYSLOG = @SYSLOG@
+TCP_BACKLOG = @TCP_BACKLOG@
 VERSION = @VERSION@
+WORKER_POOL = @WORKER_POOL@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
@@ -242,8 +258,8 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 AM_CFLAGS = -std=c99 -Wall -Wextra -pedantic -pthread -D_THREAD_SAFE
-AM_CPPFLAGS = -DSYSLOG=LOG_DAEMON -DALLOWED_OPTS='"Vhp:b:c:s:"' -DSTDERR=stderr -DSTDLOG=LOG_NOTICE -DINET_FAM=AF_INET -DTCP_BACKLOG=128 -DWORKER_POOL=10 -DMAIN_BUFFER_LEN=1024  -DMAINCONFIG='"$(sysconfdir)/c00clupea/c00clupea.config"' -DSTRAT_DEFAULT=0 -DSTD_LOG_LVL=2 -DSTD_LOG_LEN=1024 -DSTD_FLUSH_COUNT=1 -DLOG_MAIN_TEMPLATE='"$(localstatedir)/log/c00clupea/c00clupea_%d.log"'
-c00clupea_SOURCES = global.h\
+AM_CPPFLAGS = 
+c00clupea_SOURCES = global.h c00_convenience.h\
 			cooclupea.c cooclupea.h\
 			config.c config.h\
 			ringbuffer.c ringbuffer.h\
@@ -251,10 +267,12 @@ c00clupea_SOURCES = global.h\
 			strategies/strategy_dev_null.c strategies/strategy_dev_null.h\
 			strategies/strategy_http_simple.c strategies/strategy_http_simple.h\
 			strategies/strategy_http_path.c strategies/strategy_http_path.h\
-			http_codes.h\
+			util/c00_hashmap.c util/c00_hashmap.h\
+			strategies/http_codes.h\
 			util.c util.h
 
-all: all-am
+all: conf.h
+	$(MAKE) $(AM_MAKEFLAGS) all-am
 
 .SUFFIXES:
 .SUFFIXES: .c .o .obj
@@ -288,6 +306,21 @@ $(top_srcdir)/configure:  $(am__configure_deps)
 $(ACLOCAL_M4):  $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 $(am__aclocal_m4_deps):
+
+conf.h: stamp-h1
+	@test -f $@ || rm -f stamp-h1
+	@test -f $@ || $(MAKE) $(AM_MAKEFLAGS) stamp-h1
+
+stamp-h1: $(srcdir)/conf.h.in $(top_builddir)/config.status
+	@rm -f stamp-h1
+	cd $(top_builddir) && $(SHELL) ./config.status src/conf.h
+$(srcdir)/conf.h.in:  $(am__configure_deps) 
+	($(am__cd) $(top_srcdir) && $(AUTOHEADER))
+	rm -f stamp-h1
+	touch $@
+
+distclean-hdr:
+	-rm -f conf.h stamp-h1
 install-binPROGRAMS: $(bin_PROGRAMS)
 	@$(NORMAL_INSTALL)
 	@list='$(bin_PROGRAMS)'; test -n "$(bindir)" || list=; \
@@ -330,6 +363,26 @@ uninstall-binPROGRAMS:
 
 clean-binPROGRAMS:
 	-test -z "$(bin_PROGRAMS)" || rm -f $(bin_PROGRAMS)
+strategies/$(am__dirstamp):
+	@$(MKDIR_P) strategies
+	@: > strategies/$(am__dirstamp)
+strategies/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) strategies/$(DEPDIR)
+	@: > strategies/$(DEPDIR)/$(am__dirstamp)
+strategies/strategy_dev_null.$(OBJEXT): strategies/$(am__dirstamp) \
+	strategies/$(DEPDIR)/$(am__dirstamp)
+strategies/strategy_http_simple.$(OBJEXT): strategies/$(am__dirstamp) \
+	strategies/$(DEPDIR)/$(am__dirstamp)
+strategies/strategy_http_path.$(OBJEXT): strategies/$(am__dirstamp) \
+	strategies/$(DEPDIR)/$(am__dirstamp)
+util/$(am__dirstamp):
+	@$(MKDIR_P) util
+	@: > util/$(am__dirstamp)
+util/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) util/$(DEPDIR)
+	@: > util/$(DEPDIR)/$(am__dirstamp)
+util/c00_hashmap.$(OBJEXT): util/$(am__dirstamp) \
+	util/$(DEPDIR)/$(am__dirstamp)
 
 c00clupea$(EXEEXT): $(c00clupea_OBJECTS) $(c00clupea_DEPENDENCIES) $(EXTRA_c00clupea_DEPENDENCIES) 
 	@rm -f c00clupea$(EXEEXT)
@@ -337,6 +390,8 @@ c00clupea$(EXEEXT): $(c00clupea_OBJECTS) $(c00clupea_DEPENDENCIES) $(EXTRA_c00cl
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
+	-rm -f strategies/*.$(OBJEXT)
+	-rm -f util/*.$(OBJEXT)
 
 distclean-compile:
 	-rm -f *.tab.c
@@ -345,66 +400,27 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cooclupea.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ringbuffer.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/strategy.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/strategy_dev_null.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/strategy_http_path.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/strategy_http_simple.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/util.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@strategies/$(DEPDIR)/strategy_dev_null.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@strategies/$(DEPDIR)/strategy_http_path.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@strategies/$(DEPDIR)/strategy_http_simple.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@util/$(DEPDIR)/c00_hashmap.Po@am__quote@
 
 .c.o:
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
+@am__fastdepCC_TRUE@	$(AM_V_CC)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
+@am__fastdepCC_TRUE@	$(COMPILE) -MT $@ -MD -MP -MF $$depbase.Tpo -c -o $@ $< &&\
+@am__fastdepCC_TRUE@	$(am__mv) $$depbase.Tpo $$depbase.Po
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(COMPILE) -c -o $@ $<
 
 .c.obj:
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ `$(CYGPATH_W) '$<'`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
+@am__fastdepCC_TRUE@	$(AM_V_CC)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.obj$$||'`;\
+@am__fastdepCC_TRUE@	$(COMPILE) -MT $@ -MD -MP -MF $$depbase.Tpo -c -o $@ `$(CYGPATH_W) '$<'` &&\
+@am__fastdepCC_TRUE@	$(am__mv) $$depbase.Tpo $$depbase.Po
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(COMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
-
-strategy_dev_null.o: strategies/strategy_dev_null.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT strategy_dev_null.o -MD -MP -MF $(DEPDIR)/strategy_dev_null.Tpo -c -o strategy_dev_null.o `test -f 'strategies/strategy_dev_null.c' || echo '$(srcdir)/'`strategies/strategy_dev_null.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/strategy_dev_null.Tpo $(DEPDIR)/strategy_dev_null.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='strategies/strategy_dev_null.c' object='strategy_dev_null.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o strategy_dev_null.o `test -f 'strategies/strategy_dev_null.c' || echo '$(srcdir)/'`strategies/strategy_dev_null.c
-
-strategy_dev_null.obj: strategies/strategy_dev_null.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT strategy_dev_null.obj -MD -MP -MF $(DEPDIR)/strategy_dev_null.Tpo -c -o strategy_dev_null.obj `if test -f 'strategies/strategy_dev_null.c'; then $(CYGPATH_W) 'strategies/strategy_dev_null.c'; else $(CYGPATH_W) '$(srcdir)/strategies/strategy_dev_null.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/strategy_dev_null.Tpo $(DEPDIR)/strategy_dev_null.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='strategies/strategy_dev_null.c' object='strategy_dev_null.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o strategy_dev_null.obj `if test -f 'strategies/strategy_dev_null.c'; then $(CYGPATH_W) 'strategies/strategy_dev_null.c'; else $(CYGPATH_W) '$(srcdir)/strategies/strategy_dev_null.c'; fi`
-
-strategy_http_simple.o: strategies/strategy_http_simple.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT strategy_http_simple.o -MD -MP -MF $(DEPDIR)/strategy_http_simple.Tpo -c -o strategy_http_simple.o `test -f 'strategies/strategy_http_simple.c' || echo '$(srcdir)/'`strategies/strategy_http_simple.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/strategy_http_simple.Tpo $(DEPDIR)/strategy_http_simple.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='strategies/strategy_http_simple.c' object='strategy_http_simple.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o strategy_http_simple.o `test -f 'strategies/strategy_http_simple.c' || echo '$(srcdir)/'`strategies/strategy_http_simple.c
-
-strategy_http_simple.obj: strategies/strategy_http_simple.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT strategy_http_simple.obj -MD -MP -MF $(DEPDIR)/strategy_http_simple.Tpo -c -o strategy_http_simple.obj `if test -f 'strategies/strategy_http_simple.c'; then $(CYGPATH_W) 'strategies/strategy_http_simple.c'; else $(CYGPATH_W) '$(srcdir)/strategies/strategy_http_simple.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/strategy_http_simple.Tpo $(DEPDIR)/strategy_http_simple.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='strategies/strategy_http_simple.c' object='strategy_http_simple.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o strategy_http_simple.obj `if test -f 'strategies/strategy_http_simple.c'; then $(CYGPATH_W) 'strategies/strategy_http_simple.c'; else $(CYGPATH_W) '$(srcdir)/strategies/strategy_http_simple.c'; fi`
-
-strategy_http_path.o: strategies/strategy_http_path.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT strategy_http_path.o -MD -MP -MF $(DEPDIR)/strategy_http_path.Tpo -c -o strategy_http_path.o `test -f 'strategies/strategy_http_path.c' || echo '$(srcdir)/'`strategies/strategy_http_path.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/strategy_http_path.Tpo $(DEPDIR)/strategy_http_path.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='strategies/strategy_http_path.c' object='strategy_http_path.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o strategy_http_path.o `test -f 'strategies/strategy_http_path.c' || echo '$(srcdir)/'`strategies/strategy_http_path.c
-
-strategy_http_path.obj: strategies/strategy_http_path.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT strategy_http_path.obj -MD -MP -MF $(DEPDIR)/strategy_http_path.Tpo -c -o strategy_http_path.obj `if test -f 'strategies/strategy_http_path.c'; then $(CYGPATH_W) 'strategies/strategy_http_path.c'; else $(CYGPATH_W) '$(srcdir)/strategies/strategy_http_path.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/strategy_http_path.Tpo $(DEPDIR)/strategy_http_path.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='strategies/strategy_http_path.c' object='strategy_http_path.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o strategy_http_path.obj `if test -f 'strategies/strategy_http_path.c'; then $(CYGPATH_W) 'strategies/strategy_http_path.c'; else $(CYGPATH_W) '$(srcdir)/strategies/strategy_http_path.c'; fi`
 
 ID: $(am__tagged_files)
 	$(am__define_uniq_tagged_files); mkid -fID $$unique
@@ -490,7 +506,7 @@ distdir: $(DISTFILES)
 	done
 check-am: all-am
 check: check-am
-all-am: Makefile $(PROGRAMS)
+all-am: Makefile $(PROGRAMS) conf.h
 installdirs:
 	for dir in "$(DESTDIR)$(bindir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
@@ -521,6 +537,10 @@ clean-generic:
 distclean-generic:
 	-test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
 	-test . = "$(srcdir)" || test -z "$(CONFIG_CLEAN_VPATH_FILES)" || rm -f $(CONFIG_CLEAN_VPATH_FILES)
+	-rm -f strategies/$(DEPDIR)/$(am__dirstamp)
+	-rm -f strategies/$(am__dirstamp)
+	-rm -f util/$(DEPDIR)/$(am__dirstamp)
+	-rm -f util/$(am__dirstamp)
 
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
@@ -530,10 +550,10 @@ clean: clean-am
 clean-am: clean-binPROGRAMS clean-generic mostlyclean-am
 
 distclean: distclean-am
-	-rm -rf ./$(DEPDIR)
+	-rm -rf ./$(DEPDIR) strategies/$(DEPDIR) util/$(DEPDIR)
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
-	distclean-tags
+	distclean-hdr distclean-tags
 
 dvi: dvi-am
 
@@ -576,7 +596,7 @@ install-ps-am:
 installcheck-am:
 
 maintainer-clean: maintainer-clean-am
-	-rm -rf ./$(DEPDIR)
+	-rm -rf ./$(DEPDIR) strategies/$(DEPDIR) util/$(DEPDIR)
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 
@@ -594,21 +614,21 @@ ps-am:
 
 uninstall-am: uninstall-binPROGRAMS
 
-.MAKE: install-am install-strip
+.MAKE: all install-am install-strip
 
 .PHONY: CTAGS GTAGS TAGS all all-am check check-am clean \
 	clean-binPROGRAMS clean-generic cscopelist-am ctags ctags-am \
-	distclean distclean-compile distclean-generic distclean-tags \
-	distdir dvi dvi-am html html-am info info-am install \
-	install-am install-binPROGRAMS install-data install-data-am \
-	install-dvi install-dvi-am install-exec install-exec-am \
-	install-html install-html-am install-info install-info-am \
-	install-man install-pdf install-pdf-am install-ps \
-	install-ps-am install-strip installcheck installcheck-am \
-	installdirs maintainer-clean maintainer-clean-generic \
-	mostlyclean mostlyclean-compile mostlyclean-generic pdf pdf-am \
-	ps ps-am tags tags-am uninstall uninstall-am \
-	uninstall-binPROGRAMS
+	distclean distclean-compile distclean-generic distclean-hdr \
+	distclean-tags distdir dvi dvi-am html html-am info info-am \
+	install install-am install-binPROGRAMS install-data \
+	install-data-am install-dvi install-dvi-am install-exec \
+	install-exec-am install-html install-html-am install-info \
+	install-info-am install-man install-pdf install-pdf-am \
+	install-ps install-ps-am install-strip installcheck \
+	installcheck-am installdirs maintainer-clean \
+	maintainer-clean-generic mostlyclean mostlyclean-compile \
+	mostlyclean-generic pdf pdf-am ps ps-am tags tags-am uninstall \
+	uninstall-am uninstall-binPROGRAMS
 
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.

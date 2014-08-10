@@ -78,8 +78,8 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 subdir = .
 DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/Makefile.am \
-	$(top_srcdir)/configure $(am__configure_deps) AUTHORS INSTALL \
-	README compile depcomp install-sh missing
+	$(top_srcdir)/configure $(am__configure_deps) AUTHORS \
+	ChangeLog INSTALL README compile depcomp install-sh missing
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
@@ -87,6 +87,7 @@ am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
  configure.lineno config.status.lineno
 mkinstalldirs = $(install_sh) -d
+CONFIG_HEADER = $(top_builddir)/src/conf.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 AM_V_P = $(am__v_P_@AM_V@)
@@ -217,6 +218,7 @@ am__distuninstallcheck_listfiles = $(distuninstallcheck_listfiles) \
   | sed 's|^\./|$(prefix)/|' | grep -v '$(infodir)/dir$$'
 distcleancheck_listfiles = find . -type f -print
 ACLOCAL = @ACLOCAL@
+ALLOWED_OPTS = @ALLOWED_OPTS@
 AMTAR = @AMTAR@
 AM_DEFAULT_VERBOSITY = @AM_DEFAULT_VERBOSITY@
 AUTOCONF = @AUTOCONF@
@@ -237,6 +239,7 @@ ECHO_T = @ECHO_T@
 EGREP = @EGREP@
 EXEEXT = @EXEEXT@
 GREP = @GREP@
+INET_FAM = @INET_FAM@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
@@ -245,7 +248,10 @@ INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 LDFLAGS = @LDFLAGS@
 LIBOBJS = @LIBOBJS@
 LIBS = @LIBS@
+LOG_MAIN_TEMPLATE = @LOG_MAIN_TEMPLATE@
 LTLIBOBJS = @LTLIBOBJS@
+MAINCONFIG = @MAINCONFIG@
+MAIN_BUFFER_LEN = @MAIN_BUFFER_LEN@
 MAKEINFO = @MAKEINFO@
 MKDIR_P = @MKDIR_P@
 OBJEXT = @OBJEXT@
@@ -259,8 +265,18 @@ PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
+STDERR = @STDERR@
+STDLOG = @STDLOG@
+STD_FLUSH_COUNT = @STD_FLUSH_COUNT@
+STD_LOG_LEN = @STD_LOG_LEN@
+STD_LOG_LVL = @STD_LOG_LVL@
+STRAT_CONFIG_PATH = @STRAT_CONFIG_PATH@
+STRAT_DEFAULT = @STRAT_DEFAULT@
 STRIP = @STRIP@
+SYSLOG = @SYSLOG@
+TCP_BACKLOG = @TCP_BACKLOG@
 VERSION = @VERSION@
+WORKER_POOL = @WORKER_POOL@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
@@ -307,9 +323,9 @@ AUTOMAKE_OPTIONS = foreign
 
 #CC = @CC@ 
 SUBDIRS = src man
-EXTRA_DIST = autogen.sh conf/c00clupea.config man/c00clupea.man scan_files.sh
-confdir = $(sysconfdir)/c00clupea
-conf_DATA = conf/c00clupea.config
+EXTRA_DIST = autogen.sh conf/c00clupea.config conf/http_path_whitelist.config man/c00clupea.man scan_files.sh conf/http_path_master.config
+confdir = /etc/c00clupea
+conf_DATA = conf/c00clupea.config conf/http_path_whitelist.config conf/http_path_master.config
 all: all-recursive
 
 .SUFFIXES:
