@@ -53,19 +53,23 @@ int _c00_http_path_read_config(struct c00_hashmap *map){
 	char line[HTTP_PATH_LINE_LEN + PATH_MAX + 200];
 	char http_path[HTTP_PATH_LINE_LEN]; //will be copied
 	char read_path[PATH_MAX];
+	int header_strat = 0;
 	while(fgets(line,sizeof(line),fp) != NULL){
 
-		if(sscanf(line,"%s %s",http_path,read_path) != 2){
+		if(sscanf(line,"%s %s %d",http_path,read_path, &header_strat) != 3){
 			syslog(LOG_ERR,"[%s] not valid",line);
 			C00DEBUG("[%s] is problematic",line);
 		}
 		else{
-			char *target_path = malloc(PATH_MAX * sizeof(char));
+//			char *target_path = malloc(PATH_MAX * sizeof(char));
+			struct c00_http_path_single_path *ptr_spath = malloc(sizeof(struct c00_http_path_single_path));
 			C00DEBUG("found read_path %s",read_path);
-			snprintf(target_path,PATH_MAX,"%s/%s",c00_http_path_glob->htdocs_root,read_path);
-			C00DEBUG("add %s --> %s",http_path,target_path);
-			c00_hashmap_add_key_value(map,http_path,sizeof(http_path),target_path);
-			C00DEBUG("add %s --> %s",http_path,target_path);
+			snprintf(ptr_spath->path,PATH_MAX,"%s/%s",c00_http_path_glob->htdocs_root,read_path);
+			C00DEBUG("add %s --> %s",http_path,ptr_spath->path);
+			ptr_spath->header_strategy = header_strat;
+			C00DEBUG("add %s --> strat %d",http_path,ptr_spath->header_strategy);
+			c00_hashmap_add_key_value(map,http_path,sizeof(http_path),ptr_spath);
+			C00DEBUG("add %s --> %s",http_path,ptr_spath->path);
 		}
 			
 	}
@@ -193,17 +197,17 @@ int send_http_path(struct consumer_command *tmp_cmd,struct http_path_request *pt
 	FILE *fp;
 	char ch;		
 	fp = fdopen(dup(tmp_cmd->peer_socket),"w");
-	char *path_to_get;
+	struct c00_http_path_single_path *path_to_get;
 
 	if(!fp){
 		return FALSE;
 	}
 	else{
 		if(c00_hashmap_get_value(c00_http_path_glob->path_whitelist,pth_req->http_path,HTTP_PATH_LINE_LEN,(void *)&path_to_get) == TRUE){
-			fr = fopen(path_to_get,"r");
-			C00DEBUG("try to read %s",path_to_get);
+			fr = fopen(path_to_get->path,"r");
+			C00DEBUG("try to read %s",path_to_get->path);
 			if(!fr){
-				syslog(LOG_ERR,"Sorry file %s not exists",path_to_get);
+				syslog(LOG_ERR,"Sorry file %s not exists",path_to_get->path);
 						
 			}
 			else{

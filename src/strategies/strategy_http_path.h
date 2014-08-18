@@ -20,6 +20,11 @@ struct http_path_request{
 	int	http_response;      
 };
 
+struct c00_http_path_single_path{
+	char	path		[PATH_MAX];
+	int	header_strategy;
+};
+
 struct c00_http_path_globals{
 	struct 	c00_hashmap 	*path_whitelist;
 	char			htdocs_root[PATH_MAX];
