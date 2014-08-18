@@ -8,7 +8,7 @@ int _c00_hashmap_calculate_idx_from_char(char *val, unsigned int key_len, unsign
 int _c00_hashmap_bucket_has_key(struct c00_hashmap_bucket *bucket, char *key);
 int _c00_hashmap_has_key_with_bucket(struct c00_hashmap *map, char *key, unsigned int key_len, struct c00_hashmap_bucket **bucket);
 int _c00_hashmap_key_insertable(struct c00_hashmap *map, char *key, unsigned int len);
-int _c00_hashmap_create_bucket(struct c00_hashmap_bucket *bucket, char *key, unsigned int key_len, char *val);
+int _c00_hashmap_create_bucket(struct c00_hashmap_bucket *bucket, char *key, unsigned int key_len, void *val);
 int _c00_hashmap_null_bucket(struct c00_hashmap_bucket *bucket);
 int _c00_hashmap_destroybucketchain(struct c00_hashmap_bucket *bucket);
 
@@ -82,14 +82,14 @@ int _c00_hashmap_key_insertable(struct c00_hashmap *map, char *key, unsigned int
 	return TRUE;
 }
 
-int _c00_hashmap_create_bucket(struct c00_hashmap_bucket *bucket, char *key, unsigned int key_len, char *val){
+int _c00_hashmap_create_bucket(struct c00_hashmap_bucket *bucket, char *key, unsigned int key_len, void *val){
 	char *new_key = malloc((key_len + 1)*sizeof(char));
 	
 	strncpy(new_key,key,key_len +1);
 	bucket->key = new_key;
 	bucket->val = val;
 	bucket->next = NULL;
-	C00DEBUG("bucket %s:%s",bucket->key,bucket->val);
+	C00DEBUG("bucket %s",bucket->key);
 	return TRUE;
 }
 
@@ -107,7 +107,7 @@ int _c00_hashmap_add_bucket_to_idx(struct c00_hashmap *map, struct c00_hashmap_b
 	return TRUE;
 }
 
-int c00_hashmap_add_key_value(struct c00_hashmap *map, char *key, int key_len, char *val){
+int c00_hashmap_add_key_value(struct c00_hashmap *map, char *key, int key_len, void *val){
 	if(_c00_hashmap_key_insertable(map,key,key_len) != TRUE){
 		return FALSE;
 	}
@@ -184,7 +184,7 @@ int c00_hashmap_remove_key(struct c00_hashmap *map, char *key, int key_len){
 	syslog(LOG_ERR,"try to remove mal with %d %s, %d --> NOT IMPLEMENTED",map->actual_fill,key,key_len);
 	return 0;
 }
-int c00_hashmap_get_value(struct c00_hashmap *map, char *key, int key_len, char **val){
+int c00_hashmap_get_value(struct c00_hashmap *map, char *key, int key_len, void **val){
 
 	
 	struct c00_hashmap_bucket *bucket;
@@ -254,7 +254,7 @@ int _write_and_read_value(struct c00_hashmap *map, char *key, unsigned int len){
 	char *result;
 	
 
-	ASSERT_TEST("test value",TRUE,c00_hashmap_get_value(map,key,len,&result))
+	ASSERT_TEST("test value",TRUE,c00_hashmap_get_value(map,key,len,(void *)&result))
 	if(strcmp(result,"value") == 0){
 			ASSERT_TEST("cmp value",TRUE,TRUE)
 	}
@@ -281,7 +281,7 @@ int main(int argc, char *argv[]){
 	char *result;
 
 
-	ASSERT_TEST("test value",TRUE,c00_hashmap_get_value(map,"hallo welt",11,&result))
+	ASSERT_TEST("test value",TRUE,c00_hashmap_get_value(map,"hallo welt",11,(void *)&result))
 
 		if(strcmp(result,"value") == 0){
 			ASSERT_TEST("cmp value",TRUE,TRUE)

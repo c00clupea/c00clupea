@@ -194,11 +194,12 @@ int send_http_path(struct consumer_command *tmp_cmd,struct http_path_request *pt
 	char ch;		
 	fp = fdopen(dup(tmp_cmd->peer_socket),"w");
 	char *path_to_get;
+
 	if(!fp){
 		return FALSE;
 	}
 	else{
-	if(c00_hashmap_get_value(c00_http_path_glob->path_whitelist,pth_req->http_path,HTTP_PATH_LINE_LEN,&path_to_get) == TRUE){
+		if(c00_hashmap_get_value(c00_http_path_glob->path_whitelist,pth_req->http_path,HTTP_PATH_LINE_LEN,(void *)&path_to_get) == TRUE){
 			fr = fopen(path_to_get,"r");
 			C00DEBUG("try to read %s",path_to_get);
 			if(!fr){
