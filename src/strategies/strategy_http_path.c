@@ -8,6 +8,8 @@ int _c00_http_path_read_config(struct c00_hashmap *map);
 int _c00_http_path_fill_masterconfig();
 int _c00_http_path_fill_conf_htdocs(char * ident, char *val);
 
+const int _c00_http_path_header_max_len = HTTP_PATH_HEADER_LINE;
+const int _c00_http_path_header_max_line_len = HTTP_PATH_LINE_LEN;
 
 pthread_mutex_t mtx_http_path_write_lock = PTHREAD_MUTEX_INITIALIZER;
 
@@ -21,18 +23,18 @@ int strategy_http_path(struct consumer_command *tmp_cmd){
 
 	pth_req = malloc(sizeof(struct http_path_request));
 
+	int result = 0;
+
 	if(receive_http_path(tmp_cmd,pth_req) != TRUE){
 		syslog(LOG_ERR,"Error in recv http");
-		destroy_http_path_request(pth_req);
-		return 1;
+		result = 1;
 	}
         if(send_http_path(tmp_cmd,pth_req) != TRUE){
 		syslog(LOG_ERR,"Error in sending some http");
-		destroy_http_path_request(pth_req);
-		return 1;
+		result = 1;
 	}
      	destroy_http_path_request(pth_req);
-	return 0;
+	return result;
 }
 
 int _c00_http_path_read_config(struct c00_hashmap *map){
@@ -124,7 +126,6 @@ int c00_strategy_http_path_init(){
 	_c00_http_path_fill_masterconfig();
 	_c00_http_path_read_config(map);	
 
-
 	return TRUE;
 }
 
@@ -142,13 +143,16 @@ int receive_http_path(struct consumer_command *tmp_cmd, struct http_path_request
 		increment_count(tmp_cmd);
 
 		char buffer[INET_ADDRSTRLEN];
-
 		const char* result=inet_ntop(AF_INET,&(tmp_cmd->client.sin_addr),buffer,sizeof(buffer));
 		char log_all[STD_LOG_LEN];
 		snprintf(log_all,STD_LOG_LEN,"rcv from %s count %llu:\n",result,tmp_cmd->serverConfig->count->count);
 		/**read the first line**/
 		fgets(header_line,max_http_path_line_len,fp);
 		
+		strlcat(log_all,header_line,sizeof(log_all));
+
+		int count_all = 0;
+
 		if(sscanf(header_line,"%s %s HTTP/%d.%d%*s",pth_req->http_method,pth_req->http_path,&pth_req->major_version,&pth_req->minor_version)!=4){
 
 			C00DEBUG("line %s error",header_line); 
@@ -162,9 +166,19 @@ int receive_http_path(struct consumer_command *tmp_cmd, struct http_path_request
 			return FALSE;
 		}
 
+		while(count_all < _c00_http_path_header_max_len){
+       			fgets(header_line,_c00_http_path_header_max_line_len,fp);
+			if(strstr(header_line,":")){
+				strlcat(log_all,header_line,sizeof(log_all));
+				count_all ++;
+			}
+			else{
+				break;
+			}
+		}
 
 		//fprintf(fp,"HTTP/1.1 200 OK\r\n");
-		
+		LOGGER_INFO(tmp_cmd->serverConfig->logger,"%s",log_all);
 		fclose(fp);
 	}
 	else{

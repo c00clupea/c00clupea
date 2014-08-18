@@ -1,6 +1,12 @@
+2014-08-11  Christoph Pohl  <sec15334@localhost>
+
+	* src/strategies/strategy_http_path.c (strategy_http_path): -exit
+	at error
+
 2014-08-10  Christoph Pohl  <sec15334@Christophs-MacBook-Pro-2.local>
 
-	*  (interrupt): build bugfix/c00_01-05 clean all compile errors
+	*  (interrupt): build bugfix/c00_01.05 clean all compile errors
+	(error): build bugfix/c00_01.06 logging in http_path
 
 	* src/util/c00_hashmap.c (_c00_hashmap_get_hash): fix error
 	(segmenatation fault)
