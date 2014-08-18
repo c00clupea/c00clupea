@@ -1,2 +1,5 @@
-feature/c00_01.07
+feature/c00_01.07 [closed]
 	REbuild Hashmap for pointer usage
+feature/c00_01.08
+	rebuild startegy path to struct config
+	rebuild strategy path with autoheader or included header
