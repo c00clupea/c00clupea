@@ -12,7 +12,7 @@
 #include "strategies/strategy_http_simple.h"
 #include "strategies/strategy_http_path.h"
 
-int init_strategies();
-int(*read_strategy_from_idx(int idx))(struct c00_consumer_command *);
+int c00_strategy_init();
+int(*c00_strategy_get_by_idx(int idx))(struct c00_consumer_command *);
 
 #endif

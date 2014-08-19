@@ -202,7 +202,7 @@ void* _c00_worker_operation(){
 			syslog(LOG_ERR,"problem with unlock in consumer");
 		}
 		//Here we can do sth --> dispatch to type
-		int (*tmp_strat)(struct c00_consumer_command *) = read_strategy_from_idx(tmp_cmd->serverConfig->strategy_idx);
+		int (*tmp_strat)(struct c00_consumer_command *) = c00_strategy_get_by_idx(tmp_cmd->serverConfig->strategy_idx);
 		tmp_strat(tmp_cmd);		
 
 		close(tmp_cmd->peer_socket);
@@ -441,7 +441,7 @@ int main(int argc, char *argv[]) {
 
 	/**int *socket_handle;**/
 
-	if(init_strategies() != 0){
+	if(c00_strategy_init() != 0){
 	    syslog(LOG_ERR,"Sorry but strategies init made some problems");
 	    exit(1);	
 	}

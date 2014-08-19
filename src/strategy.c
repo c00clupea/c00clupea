@@ -2,7 +2,7 @@
 
 static int 		(*strategy_ptr[STRAT_LEN])(struct c00_consumer_command *) 	= {NULL};
 
-int(*read_strategy_from_idx(int idx))(struct c00_consumer_command *){
+int(*c00_strategy_get_by_idx(int idx))(struct c00_consumer_command *){
 	if(idx < 0 && idx > (STRAT_LEN -1)){
     		syslog(LOG_ERR,"You tried strategy %d which is out of bound",idx);
     		return strategy_ptr[STRAT_DEFAULT];
@@ -11,7 +11,7 @@ int(*read_strategy_from_idx(int idx))(struct c00_consumer_command *){
 }
 
 
-int init_strategies()
+int c00_strategy_init()
 {
         strategy_ptr[0] = &strategy_dev_null;
 	strategy_ptr[1] = &strategy_http_simple;
