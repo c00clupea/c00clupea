@@ -4,8 +4,5 @@ feature/c00_01.08
 	rebuild startegy path to struct config
 	rebuild strategy path with autoheader or included header
 feature/c00_01.09
-	implemente autoheader or fileheader
-		TODO missing Content Len
-		header read from file
-		generate autofill for header (date, len...)
-		header read from external file
+	implement simple header functionality
+	Generate simple c00clupea header

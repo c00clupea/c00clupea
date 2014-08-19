@@ -7,7 +7,7 @@ int send_http_path(struct consumer_command *tmp_cmd,struct http_path_request *pt
 int _c00_http_path_read_config(struct c00_hashmap *map);
 int _c00_http_path_fill_masterconfig();
 int _c00_http_path_fill_conf_htdocs(char * ident, char *val);
-int _c00_http_path_write_header(FILE *fp, struct http_path_request *pth_req, struct c00_http_path_single_path *pth_srq_ptr);
+int _c00_http_path_write_header(FILE *fp, struct http_path_request *pth_req, struct c00_http_path_single_path *pth_srq_ptr, int clen);
 
 const int _c00_http_path_header_max_len = HTTP_PATH_HEADER_LINE;
 const int _c00_http_path_header_max_line_len = HTTP_PATH_LINE_LEN;
@@ -197,7 +197,7 @@ int receive_http_path(struct consumer_command *tmp_cmd, struct http_path_request
 	return TRUE;
 }
 
-int _c00_http_path_write_header(FILE *fp, struct http_path_request *pth_req, struct c00_http_path_single_path *pth_srq_ptr){
+int _c00_http_path_write_header(FILE *fp, struct http_path_request *pth_req, struct c00_http_path_single_path *pth_srq_ptr, int flen){
 	if(pth_srq_ptr->header_strategy == HTTP_PATH_STRATEGY_PLAIN){
 		C00DEBUG("file header strat %d",pth_srq_ptr->header_strategy);
 		return TRUE;
@@ -214,7 +214,10 @@ int _c00_http_path_write_header(FILE *fp, struct http_path_request *pth_req, str
 		fprintf(fp,"%s:%s\r\n","DATE",timebuffer);
 		fprintf(fp,"%s:%s\r\n","SERVER","c00clupea");
 		fprintf(fp,"%s:%s\r\n","Content-Type",pth_srq_ptr->mime);
-		//TODO Content Len
+		fprintf(fp,"%s: %d\r\n","Content-Length",flen);
+//		C00DEBUG("Content-Length:%d\r\n",flen);
+				//TODO Content Len
+		fprintf(fp,"\n");
 		return TRUE;
 	}
 	C00DEBUG("no header strategy found for %d",pth_srq_ptr->header_strategy);
@@ -228,7 +231,7 @@ int send_http_path(struct consumer_command *tmp_cmd,struct http_path_request *pt
 	char ch;		
 	fp = fdopen(dup(tmp_cmd->peer_socket),"w");
 	struct c00_http_path_single_path *path_to_get;
-
+	int flen = 0;
 	if(!fp){
 		return FALSE;
 	}
@@ -236,13 +239,14 @@ int send_http_path(struct consumer_command *tmp_cmd,struct http_path_request *pt
 		if(c00_hashmap_get_value(c00_http_path_glob->path_whitelist,pth_req->http_path,HTTP_PATH_LINE_LEN,(void *)&path_to_get) == TRUE){
 			fr = fopen(path_to_get->path,"r");
 			
+			flen = c00_util_file_size(path_to_get->path);				
 			C00DEBUG("try to read %s",path_to_get->path);
 			if(!fr){
 				syslog(LOG_ERR,"Sorry file %s not exists",path_to_get->path);
 						
 			}
 			else{
-				_c00_http_path_write_header(fp, pth_req, path_to_get);		
+				_c00_http_path_write_header(fp, pth_req, path_to_get,flen);		
 				while((ch=getc(fr))!=EOF){
 					fprintf(fp,"%c",ch);
 				}

@@ -7,6 +7,7 @@
 #include <stdarg.h>
 #include <limits.h>
 #include <string.h>
+#include <sys/stat.h>
 #include "global.h"
 
 #ifndef STD_LOG_LEN 
@@ -73,4 +74,6 @@ int c00_create_unique_log_file(char *append,char *end, char *filename);
 int c00_get_current_time(char *t, char *fmt,int len_buf);
 int c00_get_hash_str(char *val,unsigned int len);
 int c00_util_create_config_path(char *rel_file, char *full_file);
+int c00_util_file_size(const char *fpath);
+int c00_util_file_exist(const char *fpath);
 #endif

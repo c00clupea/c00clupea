@@ -4,6 +4,27 @@ int c00_seek_file(FILE *fp,int offset);
 void c00_flush_log(struct safe_log *logger);
 
 
+
+int c00_util_file_size(const char *fpath){
+	if(c00_util_file_exist(fpath) == FALSE){
+		return -1;
+	}	
+	struct stat st_f;
+	stat(fpath,&st_f);
+	return st_f.st_size;
+}
+
+int c00_util_file_exist(const char *fpath){
+	FILE *fp;
+	fp = fopen(fpath,"r");
+	if(fp){
+		fclose(fp);
+		return TRUE;
+	}
+	return FALSE;
+	
+}
+
 int c00_seek_file(FILE *fp,int offset){
 	if(fseek(fp,offset,SEEK_SET) == -1){
 		return 1;
