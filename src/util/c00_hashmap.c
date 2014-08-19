@@ -1,16 +1,16 @@
 #include "c00_hashmap.h"
 
 
-int _c00_hashmap_test_boundary(struct c00_hashmap *map, int idx);
-int _c00_hashmap_get_hash(char *val,unsigned int len);
-int _c00_hashmap_calculate_idx_from_hash(int hash, int max_len);
-int _c00_hashmap_calculate_idx_from_char(char *val, unsigned int key_len, unsigned int max_len);
-int _c00_hashmap_bucket_has_key(struct c00_hashmap_bucket *bucket, char *key);
-int _c00_hashmap_has_key_with_bucket(struct c00_hashmap *map, char *key, unsigned int key_len, struct c00_hashmap_bucket **bucket);
-int _c00_hashmap_key_insertable(struct c00_hashmap *map, char *key, unsigned int len);
-int _c00_hashmap_create_bucket(struct c00_hashmap_bucket *bucket, char *key, unsigned int key_len, void *val);
-int _c00_hashmap_null_bucket(struct c00_hashmap_bucket *bucket);
-int _c00_hashmap_destroybucketchain(struct c00_hashmap_bucket *bucket);
+static int _c00_hashmap_test_boundary(struct c00_hashmap *map, int idx);
+static int _c00_hashmap_get_hash(char *val,unsigned int len);
+static int _c00_hashmap_calculate_idx_from_hash(int hash, int max_len);
+static int _c00_hashmap_calculate_idx_from_char(char *val, unsigned int key_len, unsigned int max_len);
+static int _c00_hashmap_bucket_has_key(struct c00_hashmap_bucket *bucket, char *key);
+static int _c00_hashmap_has_key_with_bucket(struct c00_hashmap *map, char *key, unsigned int key_len, struct c00_hashmap_bucket **bucket);
+static int _c00_hashmap_key_insertable(struct c00_hashmap *map, char *key, unsigned int len);
+static int _c00_hashmap_create_bucket(struct c00_hashmap_bucket *bucket, char *key, unsigned int key_len, void *val);
+static int _c00_hashmap_null_bucket(struct c00_hashmap_bucket *bucket);
+static int _c00_hashmap_destroybucketchain(struct c00_hashmap_bucket *bucket);
 
 int _c00_hashmap_null_bucket(struct c00_hashmap_bucket *bucket){
 	bucket->next = NULL;

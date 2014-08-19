@@ -26,7 +26,7 @@ typedef struct _server {
 	int strategy_idx;
 	char cServerName[CONFIG_LEN];
 	int log_lvl;
-	struct safe_log *logger;
+	struct c00_safe_log *logger;
 }server;
 
 typedef struct _serverList{
@@ -34,6 +34,5 @@ typedef struct _serverList{
 	server* rgServer;
 }serverList;
 
-int check_config(serverList *SServerList);
-int read_config(char *cConfigPath, serverList *SServerList);
+int c00_config_read(char *cConfigPath, serverList *SServerList);
 #endif

@@ -426,7 +426,7 @@ int main(int argc, char *argv[]) {
 
  	SServerList->rgServer = SSingleServer;
 
-	if(read_config(main_config,SServerList) != 0){
+	if(c00_config_read(main_config,SServerList) != 0){
 		syslog(LOG_ERR,"error while reading config");
 		exit(1);
 	}

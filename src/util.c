@@ -1,9 +1,7 @@
 #include "util.h"
 
-int c00_seek_file(FILE *fp,int offset);
-void c00_flush_log(struct safe_log *logger);
-
-
+static int 	_c00_seek_file(FILE *fp,int offset);
+static void 	_c00_flush_log(struct c00_safe_log *logger);
 
 int c00_util_file_size(const char *fpath){
 	if(c00_util_file_exist(fpath) == FALSE){
@@ -25,15 +23,15 @@ int c00_util_file_exist(const char *fpath){
 	
 }
 
-int c00_seek_file(FILE *fp,int offset){
+int _c00_seek_file(FILE *fp,int offset){
 	if(fseek(fp,offset,SEEK_SET) == -1){
 		return 1;
 	}
 	return 0;
 }
 	
-struct safe_log *c00_init_safe_log( char *file_name){
-	struct safe_log *logger = malloc(sizeof(struct safe_log));
+struct c00_safe_log *c00_init_safe_log( char *file_name){
+	struct c00_safe_log *logger = malloc(sizeof(struct c00_safe_log));
 	logger->mtx = malloc(sizeof(pthread_mutex_t));
 	pthread_mutex_init(logger->mtx,NULL);
 	logger->fp = fopen(file_name,"a");
@@ -45,7 +43,7 @@ struct safe_log *c00_init_safe_log( char *file_name){
 	return logger;
 }
 
-int c00_change_safe_log_file(struct safe_log *logger, char *filename){
+int c00_change_safe_log_file(struct c00_safe_log *logger, char *filename){
 	if(pthread_mutex_lock(logger->mtx) != 0){
 		syslog(LOG_ERR,"logwriter is not able to lock");
 		return 1;
@@ -65,7 +63,7 @@ int c00_change_safe_log_file(struct safe_log *logger, char *filename){
 
 
 
-int c00_close_safe_log(struct safe_log *logger){
+int c00_close_safe_log(struct c00_safe_log *logger){
 	fclose(logger->fp);
 	free(logger->file_name);
 	free(logger->mtx);
@@ -73,7 +71,7 @@ int c00_close_safe_log(struct safe_log *logger){
 	return 0;
 }
 
-void c00_flush_log(struct safe_log *logger){
+void _c00_flush_log(struct c00_safe_log *logger){
 	logger->flush_count++;
 	if(logger->flush_count >= STD_FLUSH_COUNT){
 		fflush(logger->fp);
@@ -112,7 +110,7 @@ int c00_print_safe_single_log_fr(char *file, char *txt, FILE *fr,...){
 		va_end(args);
 		fprintf(fp,"\n[PAYLOAD]\n");
 
-		if(c00_seek_file(fr,0) != 0){
+		if(_c00_seek_file(fr,0) != 0){
 			syslog(LOG_ERR,"CRitical, can not set lseek in fr");
 			fclose(fp);
 			return 1;
@@ -124,7 +122,7 @@ int c00_print_safe_single_log_fr(char *file, char *txt, FILE *fr,...){
 			count_len ++;
 		}
 
-		if(c00_seek_file(fr,0) != 0){
+		if(_c00_seek_file(fr,0) != 0){
 			syslog(LOG_ERR,"CRitical, can not set lseek in fr");
 			fclose(fp);
 			return 1;
@@ -186,7 +184,7 @@ int c00_create_unique_log_file(char *append,char *end, char *filename){
 	return 0;
 }
 
-int c00_print_safe_log(struct safe_log *logger, int log_level, char *txt,...){
+int c00_print_safe_log(struct c00_safe_log *logger, int log_level, char *txt,...){
 	if(log_level >= logger->log_level){
 
 		if(pthread_mutex_lock(logger->mtx) != 0){
@@ -207,7 +205,7 @@ int c00_print_safe_log(struct safe_log *logger, int log_level, char *txt,...){
 			vsnprintf(the_log,STD_LOG_LEN,txt,args);
 			fprintf(logger->fp,"%s %s\n",tbuf,the_log);
 			va_end(args);
-     			c00_flush_log(logger);
+     			_c00_flush_log(logger);
 
 		}
 

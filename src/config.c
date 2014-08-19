@@ -1,6 +1,21 @@
 #include "config.h"
 
-void read_server_name(char *line,char* cServerName){
+static int 	_c00_config_check(serverList *SServerList);
+static void 	_c00_read_server_name(char *line,char* cServerName);
+static void 	_c00_read_server_strategy(char *line, int *strategy);
+static void 	_c00_read_server_log_lvl(char *line,int *loglvl);
+static void 	_c00_read_server_port(char *line,int *port);
+static targetCode _c00_read_result_target_code(commandTargetCode command_target_code,char *line);
+static commandTargetCode _c00_read_target(commandCode command_code,char *line);
+static commandCode _c00_read_command(char *line);
+static server* 	_c00_find_server_by_name(char *cServerName, serverList *SServerList);
+static void 	_c00_write_log_to_server_in_struct(serverList *SServerList, char *line);
+static void 	_c00_write_strategy_to_server_in_struct(serverList *SServerList, char *line);
+static void 	_c00_write_port_to_server_in_struct(serverList *SServerList,char* line);
+static void 	_c00_write_init_config_to_Server(server *single_server);
+static void 	_c00_write_server_to_struct(serverList *SServerList,char* line);
+
+void _c00_read_server_name(char *line,char* cServerName){
 	char n1[CONFIG_LEN];
 	char n2[CONFIG_LEN];
 	char server_name_hold[CONFIG_LEN];
@@ -12,7 +27,7 @@ void read_server_name(char *line,char* cServerName){
 	strlcpy(cServerName,server_name_hold,(CONFIG_LEN*sizeof(char)));
 }
 
-void read_server_strategy(char *line, int *strategy){
+void _c00_read_server_strategy(char *line, int *strategy){
 	char n1[CONFIG_LEN];
 	char n2[CONFIG_LEN];
 	char n3[CONFIG_LEN];
@@ -23,7 +38,7 @@ void read_server_strategy(char *line, int *strategy){
 	}
 }
 
-void read_server_log_lvl(char *line,int *loglvl){
+void _c00_read_server_log_lvl(char *line,int *loglvl){
 	char n1[CONFIG_LEN];
 	char n2[CONFIG_LEN];
 	char n3[CONFIG_LEN];
@@ -34,7 +49,7 @@ void read_server_log_lvl(char *line,int *loglvl){
 	}
 	
 }
-void read_server_port(char *line,int *port){
+void _c00_read_server_port(char *line,int *port){
 	char n1[CONFIG_LEN];
 	char n2[CONFIG_LEN];
 	char n3[CONFIG_LEN];
@@ -46,7 +61,7 @@ void read_server_port(char *line,int *port){
 	
 }
 
-targetCode read_result_target_code(commandTargetCode command_target_code,char *line){
+targetCode _c00_read_result_target_code(commandTargetCode command_target_code,char *line){
 	char n1[CONFIG_LEN];
 	char n2[CONFIG_LEN];
 	char n3[CONFIG_LEN];
@@ -80,7 +95,7 @@ targetCode read_result_target_code(commandTargetCode command_target_code,char *l
 	return target_code;
 }
 
-commandTargetCode read_target(commandCode command_code,char *line){
+commandTargetCode _c00_read_target(commandCode command_code,char *line){
 	char n1[CONFIG_LEN];
 	commandTargetCode target_code = COMM_TARG_ILL;
 	char target[CONFIG_LEN];
@@ -101,7 +116,7 @@ commandTargetCode read_target(commandCode command_code,char *line){
 	return target_code;
 }
 
-commandCode read_command(char *line){
+commandCode _c00_read_command(char *line){
 	commandCode command_code = COMM_ILL;
 	char command[CONFIG_LEN];
 	if(sscanf(line,"%s %*s",command)==1){
@@ -123,7 +138,7 @@ commandCode read_command(char *line){
 	return command_code;
 }
 
-server* find_server_by_name(char *cServerName, serverList *SServerList){
+server* _c00_find_server_by_name(char *cServerName, serverList *SServerList){
 	for(int i = 0;i < SServerList->iCountServer;i++){
 		if(strcmp(SServerList->rgServer[i].cServerName,cServerName) == 0){
 			return &SServerList->rgServer[i];
@@ -133,51 +148,51 @@ server* find_server_by_name(char *cServerName, serverList *SServerList){
 }
 
 
-void write_log_to_server_in_struct(serverList *SServerList, char *line){
+void _c00_write_log_to_server_in_struct(serverList *SServerList, char *line){
 	char rgServerName[CONFIG_LEN];
-	read_server_name(line,rgServerName);
-	server* SSingleServer = find_server_by_name(rgServerName,SServerList);
+	_c00_read_server_name(line,rgServerName);
+	server* SSingleServer = _c00_find_server_by_name(rgServerName,SServerList);
 	if(SSingleServer == NULL){
 		syslog(LOG_ERR,"Sorry but Server %s is not defined, but you tried to configure a port on it",rgServerName);
 		exit(1);
 	}
 	int *loglvl = malloc(sizeof(int));
-	read_server_log_lvl(line,loglvl);
+	_c00_read_server_log_lvl(line,loglvl);
 	SSingleServer->log_lvl = *loglvl;
 	free(loglvl);
 }
 
-void write_strategy_to_server_in_struct(serverList *SServerList, char *line){
+void _c00_write_strategy_to_server_in_struct(serverList *SServerList, char *line){
 	char rgServerName[CONFIG_LEN];
-	read_server_name(line,rgServerName);
-	server* SSingleServer = find_server_by_name(rgServerName,SServerList);
+	_c00_read_server_name(line,rgServerName);
+	server* SSingleServer = _c00_find_server_by_name(rgServerName,SServerList);
 	if(SSingleServer == NULL){
 		syslog(LOG_ERR,"Sorry but Server %s is not defined, but you tried to configure a port on it",rgServerName);
 		exit(1);
 	}
 	int *strategy = malloc(sizeof(int));
-	read_server_strategy(line,strategy);
+	_c00_read_server_strategy(line,strategy);
 	SSingleServer->strategy_idx = *strategy;
 	free(strategy);
 }
 
-void write_port_to_server_in_struct(serverList *SServerList,char* line){
+void _c00_write_port_to_server_in_struct(serverList *SServerList,char* line){
 	//init server
 	char rgServerName[CONFIG_LEN];
-	read_server_name(line,rgServerName);
-	server* SSingleServer = find_server_by_name(rgServerName,SServerList);
+	_c00_read_server_name(line,rgServerName);
+	server* SSingleServer = _c00_find_server_by_name(rgServerName,SServerList);
 	if(SSingleServer == NULL){
 		syslog(LOG_ERR,"Sorry but Server %s is not defined, but you tried to configure a port on it",rgServerName);
 		exit(1);
 	}
 	int *port = malloc(sizeof(int));
-	read_server_port(line,port);
+	_c00_read_server_port(line,port);
 	SSingleServer->iPort = *port;
 	free(port);
 
 }
 
-void write_init_config_to_Server(server *single_server){
+void _c00_write_init_config_to_Server(server *single_server){
 	single_server->iPort = 0;
 	single_server->socket_handler = -1;
 	single_server->strategy_idx = -1;
@@ -186,15 +201,15 @@ void write_init_config_to_Server(server *single_server){
 	single_server->count = 0;
 }
 
-void write_server_to_struct(serverList *SServerList,char* line){
+void _c00_write_server_to_struct(serverList *SServerList,char* line){
 	//init server
 	char rgServerName[CONFIG_LEN];
-	read_server_name(line,rgServerName);
+	_c00_read_server_name(line,rgServerName);
 
-	if(find_server_by_name(rgServerName,SServerList) == NULL){
+	if(_c00_find_server_by_name(rgServerName,SServerList) == NULL){
 		SServerList->iCountServer++;
 		strlcpy(SServerList->rgServer[SServerList->iCountServer-1].cServerName,rgServerName,sizeof(rgServerName));		
-		write_init_config_to_Server(&SServerList->rgServer[SServerList->iCountServer-1]);
+		_c00_write_init_config_to_Server(&SServerList->rgServer[SServerList->iCountServer-1]);
 	}
 	else{
 		syslog(LOG_ERR,"Sorry but Server %s is already initialized",rgServerName);
@@ -203,7 +218,7 @@ void write_server_to_struct(serverList *SServerList,char* line){
 	
 }
 
-int check_config(serverList *SServerList){
+int _c00_config_check(serverList *SServerList){
 	int result = 0;
 	
 	if(SServerList->iCountServer == 0){
@@ -224,7 +239,7 @@ int check_config(serverList *SServerList){
 	return result;
 }
 
-int read_config(char *cConfigPath, serverList *SServerList) {
+int c00_config_read(char *cConfigPath, serverList *SServerList) {
 
 	SServerList->iCountServer = 0;
 	
@@ -240,28 +255,28 @@ int read_config(char *cConfigPath, serverList *SServerList) {
 	char line[CONFIG_LEN];
 
 	while (fgets(line,sizeof(line),config_file) != NULL){
-		commandCode command_code = read_command(line);
+		commandCode command_code = _c00_read_command(line);
 		if(command_code != COMM_ILL){
-			commandTargetCode target_code = read_target(command_code,line);
+			commandTargetCode target_code = _c00_read_target(command_code,line);
 			if(command_code == COMM_INIT && target_code == COMM_TARG_SERVER){
-				write_server_to_struct(SServerList,line);
+				_c00_write_server_to_struct(SServerList,line);
 			}
 			else if(command_code == COMM_SET && target_code == COMM_TARG_SERVER){
-				targetCode result_target_code = read_result_target_code(target_code,line);
+				targetCode result_target_code = _c00_read_result_target_code(target_code,line);
 				if(result_target_code == TARG_PORT){
-					write_port_to_server_in_struct(SServerList,line);					
+					_c00_write_port_to_server_in_struct(SServerList,line);					
 				}
 				if(result_target_code == TARG_STRATEGY){
-					write_strategy_to_server_in_struct(SServerList,line);
+					_c00_write_strategy_to_server_in_struct(SServerList,line);
 				}
 				if(result_target_code == TARG_LOG){
-					write_log_to_server_in_struct(SServerList,line);
+					_c00_write_log_to_server_in_struct(SServerList,line);
 				}
 			}	
 		}
 	}
 	fclose(config_file);
-	return check_config(SServerList);
+	return _c00_config_check(SServerList);
 }
 
 
