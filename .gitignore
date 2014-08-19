@@ -5,6 +5,7 @@ c00clupea-01.tar.gz
 *.Po
 config.log
 *~
+*.gch
 backup/
 bin/
 build/
