@@ -15,8 +15,8 @@
 #include <pthread.h>
 #include <sys/types.h>
 #include "global.h"
-#include "config.h"
-#include "ringbuffer.h"
+#include "util/config.h"
+#include "util/ringbuffer.h"
 
 struct c00_consumer_command{
 	int peer_socket;

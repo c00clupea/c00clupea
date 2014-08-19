@@ -7,16 +7,15 @@ AM_CPPFLAGS =
 
 bin_PROGRAMS = c00clupea
 
-c00clupea_SOURCES = 	global.h c00_convenience.h\
+c00clupea_SOURCES = 	global.h\
+			c00_convenience.h\
 			cooclupea.c cooclupea.h\
-			config.c config.h\
-			ringbuffer.c ringbuffer.h\
 			strategy.c strategy.h\
+			util/config.c util/config.h\
+			util/ringbuffer.c util/ringbuffer.h\
+			util/util.c util/util.h\
+			util/c00_hashmap.c util/c00_hashmap.h\
 			strategies/strategy_dev_null.c strategies/strategy_dev_null.h\
 			strategies/strategy_http_simple.c strategies/strategy_http_simple.h\
 			strategies/strategy_http_path.c strategies/strategy_http_path.h\
-			util/c00_hashmap.c util/c00_hashmap.h\
-			strategies/http_codes.h\
-			util.c util.h
-
-
+			strategies/http_codes.h
