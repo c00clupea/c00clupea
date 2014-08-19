@@ -11,6 +11,13 @@
 #define HTTP_PATH_METHOD_LEN 10
 #define HTTP_PATH_MAX_PATH 128
 
+#define HTTP_PATH_STRATEGY_PLAIN 0
+#define HTTP_PATH_STRATEGY_OK 1
+#define HTTP_PATH_STRATEGY_FILE 2
+
+#define HTTP_PATH_MIME_LEN 30
+
+
 
 struct http_path_request{
 	char 	http_path	[PATH_MAX];
@@ -20,9 +27,15 @@ struct http_path_request{
 	int	http_response;      
 };
 
+//strategy 0 == plain file will be called with header
+//strategy 1 == standard 200 header with file
+//strategy 2 == header from similar file *.header
+//strategy 200 -900 == standard header with error code
+
 struct c00_http_path_single_path{
 	char	path		[PATH_MAX];
 	int	header_strategy;
+	char	mime		[HTTP_PATH_MIME_LEN];
 };
 
 struct c00_http_path_globals{

@@ -7,6 +7,7 @@ int send_http_path(struct consumer_command *tmp_cmd,struct http_path_request *pt
 int _c00_http_path_read_config(struct c00_hashmap *map);
 int _c00_http_path_fill_masterconfig();
 int _c00_http_path_fill_conf_htdocs(char * ident, char *val);
+int _c00_http_path_write_header(FILE *fp, struct http_path_request *pth_req, struct c00_http_path_single_path *pth_srq_ptr);
 
 const int _c00_http_path_header_max_len = HTTP_PATH_HEADER_LINE;
 const int _c00_http_path_header_max_line_len = HTTP_PATH_LINE_LEN;
@@ -53,10 +54,11 @@ int _c00_http_path_read_config(struct c00_hashmap *map){
 	char line[HTTP_PATH_LINE_LEN + PATH_MAX + 200];
 	char http_path[HTTP_PATH_LINE_LEN]; //will be copied
 	char read_path[PATH_MAX];
+	char mime [HTTP_PATH_MIME_LEN];
 	int header_strat = 0;
 	while(fgets(line,sizeof(line),fp) != NULL){
 
-		if(sscanf(line,"%s %s %d",http_path,read_path, &header_strat) != 3){
+		if(sscanf(line,"%s %s %d %s",http_path,read_path, &header_strat, mime) != 4){
 			syslog(LOG_ERR,"[%s] not valid",line);
 			C00DEBUG("[%s] is problematic",line);
 		}
@@ -68,6 +70,8 @@ int _c00_http_path_read_config(struct c00_hashmap *map){
 			C00DEBUG("add %s --> %s",http_path,ptr_spath->path);
 			ptr_spath->header_strategy = header_strat;
 			C00DEBUG("add %s --> strat %d",http_path,ptr_spath->header_strategy);
+			strlcpy(ptr_spath->mime,mime,HTTP_PATH_MIME_LEN);
+			C00DEBUG("Found mime %s",ptr_spath->mime);
 			c00_hashmap_add_key_value(map,http_path,sizeof(http_path),ptr_spath);
 			C00DEBUG("add %s --> %s",http_path,ptr_spath->path);
 		}
@@ -192,6 +196,32 @@ int receive_http_path(struct consumer_command *tmp_cmd, struct http_path_request
 
 	return TRUE;
 }
+
+int _c00_http_path_write_header(FILE *fp, struct http_path_request *pth_req, struct c00_http_path_single_path *pth_srq_ptr){
+	if(pth_srq_ptr->header_strategy == HTTP_PATH_STRATEGY_PLAIN){
+		C00DEBUG("file header strat %d",pth_srq_ptr->header_strategy);
+		return TRUE;
+	}
+	if(pth_srq_ptr->header_strategy == HTTP_PATH_STRATEGY_OK){
+		C00DEBUG("file header strat %d",pth_srq_ptr->header_strategy);
+		fprintf(fp,"%s","HTTP/1.1 200 OK\r\n");
+		char timebuffer[30];
+		time_t now = 0;
+		struct tm *t;
+		now = time(NULL);
+		t = gmtime(&now);
+		strftime(timebuffer,30,"%a, %d %b %Y %H:%M:%S %Z",t);
+		fprintf(fp,"%s:%s\r\n","DATE",timebuffer);
+		fprintf(fp,"%s:%s\r\n","SERVER","c00clupea");
+		fprintf(fp,"%s:%s\r\n","Content-Type",pth_srq_ptr->mime);
+		//TODO Content Len
+		return TRUE;
+	}
+	C00DEBUG("no header strategy found for %d",pth_srq_ptr->header_strategy);
+	return FALSE;	
+}
+
+
 int send_http_path(struct consumer_command *tmp_cmd,struct http_path_request *pth_req){
 	FILE *fr;
 	FILE *fp;
@@ -205,13 +235,14 @@ int send_http_path(struct consumer_command *tmp_cmd,struct http_path_request *pt
 	else{
 		if(c00_hashmap_get_value(c00_http_path_glob->path_whitelist,pth_req->http_path,HTTP_PATH_LINE_LEN,(void *)&path_to_get) == TRUE){
 			fr = fopen(path_to_get->path,"r");
+			
 			C00DEBUG("try to read %s",path_to_get->path);
 			if(!fr){
 				syslog(LOG_ERR,"Sorry file %s not exists",path_to_get->path);
 						
 			}
 			else{
-				
+				_c00_http_path_write_header(fp, pth_req, path_to_get);		
 				while((ch=getc(fr))!=EOF){
 					fprintf(fp,"%c",ch);
 				}
