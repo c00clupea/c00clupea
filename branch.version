@@ -10,4 +10,4 @@ refactor/c00_01.10
 	rename to code style
 		rename all fx in cooclupea.h
 refactor/c00_01.11
-	refactor some pathes
+	implement simple path traversal
