@@ -215,8 +215,6 @@ int _c00_http_path_write_header(FILE *fp, struct http_path_request *pth_req, str
 		fprintf(fp,"%s:%s\r\n","SERVER","c00clupea");
 		fprintf(fp,"%s:%s\r\n","Content-Type",pth_srq_ptr->mime);
 		fprintf(fp,"%s: %d\r\n","Content-Length",flen);
-//		C00DEBUG("Content-Length:%d\r\n",flen);
-				//TODO Content Len
 		fprintf(fp,"\n");
 		return TRUE;
 	}
