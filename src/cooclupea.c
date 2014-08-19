@@ -122,7 +122,7 @@ void _c00_init_syslog(void) {
 	options = LOG_PID|LOG_CONS;
 #endif
 
-	openlog ("pandora", options, SYSLOG);
+	openlog ("c00clupea", options, SYSLOG);
 }
 
 void _c00_end_syslog(void) {
@@ -418,7 +418,7 @@ int main(int argc, char *argv[]) {
 
 	_c00_init_syslog();
 	
-	syslog(STDLOG,"Pandora started at %s with pid %d and configfile %s",_c00_return_actual_time(),getpid(),main_config);
+	syslog(STDLOG,"c00clupea started at %s with pid %d and configfile %s",_c00_return_actual_time(),getpid(),main_config);
 
 //	serverList *SServerList;
 	SServerList = malloc(sizeof(serverList));
@@ -491,6 +491,6 @@ int main(int argc, char *argv[]) {
 	free(consumer_threads);
 	c00_destroy_ringbuffer(buf_main_consumer_command);
 
-	syslog(STDLOG,"Pandora ended at %s",_c00_return_actual_time());	
+	syslog(STDLOG,"c00clupea ended at %s",_c00_return_actual_time());	
 	_c00_end_syslog();
 }

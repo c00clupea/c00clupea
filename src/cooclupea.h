@@ -1,5 +1,5 @@
-#ifndef PANDORA_H
-#define PANDORA_H
+#ifndef C00CLUPEA_H
+#define C00CLUPEA_H
 
 #include <stdio.h>
 #include <syslog.h>
