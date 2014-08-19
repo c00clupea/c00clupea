@@ -40,7 +40,7 @@ int destroy_request_counter(struct req_count *tmp){
 	return 0;
 }
 
-int increment_count(struct consumer_command *cmd){
+int increment_count(struct c00_consumer_command *cmd){
 #ifdef ATOMIC
 	if(pthread_mutex_lock(cmd->serverConfig->count->mtx) != 0){
 		syslog(LOG_ERR,"logwriter is not able to lock");
@@ -61,14 +61,14 @@ int increment_count(struct consumer_command *cmd){
 }
 
 
-int destroy_consumer_command(struct consumer_command *tmp_cmd){
+int destroy_consumer_command(struct c00_consumer_command *tmp_cmd){
   //Never ever free serverConfig here....you will need it
 	free(tmp_cmd);
 	return 0;
 }
 
-struct consumer_command* create_new_consumer_command(server* srv){
-  	struct consumer_command *c_cmd = malloc(sizeof(struct consumer_command));
+struct c00_consumer_command* create_new_consumer_command(server* srv){
+  	struct c00_consumer_command *c_cmd = malloc(sizeof(struct c00_consumer_command));
 	c_cmd->serverConfig = srv;
 	c_cmd->peer_socket = -1;  
 	return c_cmd;
@@ -177,7 +177,7 @@ static void* worker_operation(){
 				syslog(LOG_ERR,"sorry but buffer not empty makes some error in consumer");	      
 			}
 		}
-		struct consumer_command *tmp_cmd = (struct consumer_command*)ringbuffer_get(buf_main_consumer_command);
+		struct c00_consumer_command *tmp_cmd = (struct c00_consumer_command*)ringbuffer_get(buf_main_consumer_command);
 		if(tmp_cmd->peer_socket < 0){
 			syslog(LOG_ERR,"We have a socket smaller 0 in consumer");
 			destroy_consumer_command(tmp_cmd);
@@ -190,7 +190,7 @@ static void* worker_operation(){
 			syslog(LOG_ERR,"problem with unlock in consumer");
 		}
 		//Here we can do sth --> dispatch to type
-		int (*tmp_strat)(struct consumer_command *) = read_strategy_from_idx(tmp_cmd->serverConfig->strategy_idx);
+		int (*tmp_strat)(struct c00_consumer_command *) = read_strategy_from_idx(tmp_cmd->serverConfig->strategy_idx);
 		tmp_strat(tmp_cmd);		
 
 		close(tmp_cmd->peer_socket);
@@ -211,7 +211,7 @@ static void *single_producer(void *srv){
 
 	while(is_running){
 	  //int p_socket; 
-		struct consumer_command *new_consumer_command = create_new_consumer_command(srv);
+		struct c00_consumer_command *new_consumer_command = create_new_consumer_command(srv);
 		new_consumer_command->client_len = sizeof(new_consumer_command->client);
 		new_consumer_command->peer_socket = accept(tmp_srv->socket_handler,(struct sockaddr*)&(new_consumer_command->client),&(new_consumer_command->client_len));
 		

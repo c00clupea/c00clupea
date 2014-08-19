@@ -1,8 +1,8 @@
 #include "strategy_http_path.h"
 
 int destroy_http_path_request(struct http_path_request *pth_req);
-int receive_http_path(struct consumer_command *tmp_cmd,struct http_path_request *pth_req);
-int send_http_path(struct consumer_command *tmp_cmd,struct http_path_request *pth_req);
+int receive_http_path(struct c00_consumer_command *tmp_cmd,struct http_path_request *pth_req);
+int send_http_path(struct c00_consumer_command *tmp_cmd,struct http_path_request *pth_req);
 
 int _c00_http_path_read_config(struct c00_hashmap *map);
 int _c00_http_path_fill_masterconfig();
@@ -18,7 +18,7 @@ const int max_http_path_line_len = HTTP_PATH_LINE_LEN;
 
 const int max_http_path_header_len = HTTP_PATH_HEADER_LINE;
 
-int strategy_http_path(struct consumer_command *tmp_cmd){
+int strategy_http_path(struct c00_consumer_command *tmp_cmd){
 	
 	struct http_path_request *pth_req;
 
@@ -142,7 +142,7 @@ int destroy_http_path_request(struct http_path_request *pth_req){
 	return 0;
 }
 
-int receive_http_path(struct consumer_command *tmp_cmd, struct http_path_request *pth_req){
+int receive_http_path(struct c00_consumer_command *tmp_cmd, struct http_path_request *pth_req){
 	FILE *fp;
 	fp = fdopen(dup(tmp_cmd->peer_socket),"r");
 	char header_line[max_http_path_line_len];
@@ -223,7 +223,7 @@ int _c00_http_path_write_header(FILE *fp, struct http_path_request *pth_req, str
 }
 
 
-int send_http_path(struct consumer_command *tmp_cmd,struct http_path_request *pth_req){
+int send_http_path(struct c00_consumer_command *tmp_cmd,struct http_path_request *pth_req){
 	FILE *fr;
 	FILE *fp;
 	char ch;		

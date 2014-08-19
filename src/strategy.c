@@ -1,8 +1,8 @@
 #include "strategy.h"
 
-static int 		(*strategy_ptr[STRAT_LEN])(struct consumer_command *) 	= {NULL};
+static int 		(*strategy_ptr[STRAT_LEN])(struct c00_consumer_command *) 	= {NULL};
 
-int(*read_strategy_from_idx(int idx))(struct consumer_command *){
+int(*read_strategy_from_idx(int idx))(struct c00_consumer_command *){
 	if(idx < 0 && idx > (STRAT_LEN -1)){
     		syslog(LOG_ERR,"You tried strategy %d which is out of bound",idx);
     		return strategy_ptr[STRAT_DEFAULT];

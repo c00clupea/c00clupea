@@ -20,19 +20,19 @@
 
 
 
-struct consumer_command{
+struct c00_consumer_command{
 	int peer_socket;
 	struct sockaddr_in client;
   	unsigned int client_len;
   	server *serverConfig;	
 };
 
-struct consumer_command* create_new_consumer_command(server* srv);
+struct c00_consumer_command* create_new_consumer_command(server* srv);
 
 int init_server(server *srv);
-int destroy_consumer_command(struct consumer_command *tmp_cmd);
+int destroy_consumer_command(struct c00_consumer_command *tmp_cmd);
 
-int increment_count(struct consumer_command *cmd);
+int increment_count(struct c00_consumer_command *cmd);
 struct req_count *init_request_counter();
 int destroy_request_counter(struct req_count *tmp);
 
