@@ -27,7 +27,7 @@ int receive_simple_http(struct c00_consumer_command *tmp_cmd){
 	
 	if(fr){
 
-		increment_count(tmp_cmd);
+		c00_increment_count(tmp_cmd);
 
 		int count_all = 0;
 		//fgets(header_line,max_line_length,fr);

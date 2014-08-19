@@ -27,14 +27,14 @@ struct c00_consumer_command{
   	server *serverConfig;	
 };
 
-struct c00_consumer_command* create_new_consumer_command(server* srv);
+struct c00_consumer_command* c00_create_new_consumer_command(server* srv);
 
-int init_server(server *srv);
-int destroy_consumer_command(struct c00_consumer_command *tmp_cmd);
+int c00_init_server(server *srv);
+int c00_destroy_consumer_command(struct c00_consumer_command *tmp_cmd);
 
-int increment_count(struct c00_consumer_command *cmd);
-struct req_count *init_request_counter();
-int destroy_request_counter(struct req_count *tmp);
+int c00_increment_count(struct c00_consumer_command *cmd);
+struct req_count *c00_init_request_counter();
+int c00_destroy_request_counter(struct req_count *tmp);
 
 
 

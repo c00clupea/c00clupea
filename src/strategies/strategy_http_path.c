@@ -148,7 +148,7 @@ int receive_http_path(struct c00_consumer_command *tmp_cmd, struct http_path_req
 	char header_line[max_http_path_line_len];
 	if(fp){
 		
-		increment_count(tmp_cmd);
+		c00_increment_count(tmp_cmd);
 
 		char buffer[INET_ADDRSTRLEN];
 		const char* result=inet_ntop(AF_INET,&(tmp_cmd->client.sin_addr),buffer,sizeof(buffer));

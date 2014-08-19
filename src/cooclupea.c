@@ -21,7 +21,7 @@ static char 		*main_config;
 static ringbuffer_t 	*buf_main_consumer_command;
 
 
-struct req_count *init_request_counter(){
+struct req_count *c00_init_request_counter(){
 	struct req_count *tmp;
 	tmp = malloc(sizeof(struct req_count));
 	tmp->count = 0;
@@ -32,7 +32,7 @@ struct req_count *init_request_counter(){
 	return tmp;
 }
 
-int destroy_request_counter(struct req_count *tmp){
+int c00_destroy_request_counter(struct req_count *tmp){
 #ifdef ATOMIC
 	free(tmp->mtx);
 #endif
@@ -40,7 +40,7 @@ int destroy_request_counter(struct req_count *tmp){
 	return 0;
 }
 
-int increment_count(struct c00_consumer_command *cmd){
+int c00_increment_count(struct c00_consumer_command *cmd){
 #ifdef ATOMIC
 	if(pthread_mutex_lock(cmd->serverConfig->count->mtx) != 0){
 		syslog(LOG_ERR,"logwriter is not able to lock");
@@ -61,13 +61,13 @@ int increment_count(struct c00_consumer_command *cmd){
 }
 
 
-int destroy_consumer_command(struct c00_consumer_command *tmp_cmd){
+int c00_destroy_consumer_command(struct c00_consumer_command *tmp_cmd){
   //Never ever free serverConfig here....you will need it
 	free(tmp_cmd);
 	return 0;
 }
 
-struct c00_consumer_command* create_new_consumer_command(server* srv){
+struct c00_consumer_command* c00_create_new_consumer_command(server* srv){
   	struct c00_consumer_command *c_cmd = malloc(sizeof(struct c00_consumer_command));
 	c_cmd->serverConfig = srv;
 	c_cmd->peer_socket = -1;  
@@ -180,7 +180,7 @@ static void* worker_operation(){
 		struct c00_consumer_command *tmp_cmd = (struct c00_consumer_command*)ringbuffer_get(buf_main_consumer_command);
 		if(tmp_cmd->peer_socket < 0){
 			syslog(LOG_ERR,"We have a socket smaller 0 in consumer");
-			destroy_consumer_command(tmp_cmd);
+			c00_destroy_consumer_command(tmp_cmd);
 			continue;
 		}
 		if(pthread_cond_broadcast(&buf_main_consumer_full_cond)!=0){
@@ -194,7 +194,7 @@ static void* worker_operation(){
 		tmp_strat(tmp_cmd);		
 
 		close(tmp_cmd->peer_socket);
-		destroy_consumer_command(tmp_cmd);
+		c00_destroy_consumer_command(tmp_cmd);
 	 }
        	syslog(STDLOG,"Exit worker");
 	pthread_exit((void *) 0);
@@ -211,7 +211,7 @@ static void *single_producer(void *srv){
 
 	while(is_running){
 	  //int p_socket; 
-		struct c00_consumer_command *new_consumer_command = create_new_consumer_command(srv);
+		struct c00_consumer_command *new_consumer_command = c00_create_new_consumer_command(srv);
 		new_consumer_command->client_len = sizeof(new_consumer_command->client);
 		new_consumer_command->peer_socket = accept(tmp_srv->socket_handler,(struct sockaddr*)&(new_consumer_command->client),&(new_consumer_command->client_len));
 		
@@ -253,7 +253,7 @@ static pthread_t* init_producer(serverList *srv_list){
 
 	for(int i = 0; i < srv_list->iCountServer; i++){
 		syslog(STDLOG,"Create socket at port %d",srv_list->rgServer[i].iPort);
-		init_server(&srv_list->rgServer[i]);
+		c00_init_server(&srv_list->rgServer[i]);
 	}
 
 	for(int i = 0; i < srv_list->iCountServer; i++){
@@ -265,7 +265,7 @@ static pthread_t* init_producer(serverList *srv_list){
 	return threadpool;
 }
 
-int init_server(server *srv) {
+int c00_init_server(server *srv) {
 
 	struct sockaddr_in address;
 
@@ -320,7 +320,7 @@ int init_server(server *srv) {
 	srv->logger = c00_init_safe_log(log_full);
 	srv->logger->log_level = srv->log_lvl;
 	
-	srv->count = init_request_counter();
+	srv->count = c00_init_request_counter();
 	return 0;
 }
 
@@ -468,7 +468,7 @@ int main(int argc, char *argv[]) {
 
 	for(int i = 0; i < SServerList->iCountServer;i++){
 		c00_close_safe_log(SServerList->rgServer[i].logger);
-		destroy_request_counter(SServerList->rgServer[i].count);
+		c00_destroy_request_counter(SServerList->rgServer[i].count);
 	}
 
 	//free the mallocs....

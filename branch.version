@@ -8,3 +8,4 @@ feature/c00_01.09
 	Generate simple c00clupea header
 refactor/c00_01.10
 	rename to code style
+		rename all fx in cooclupea.h
