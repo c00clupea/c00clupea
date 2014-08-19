@@ -3,8 +3,8 @@
 static char* 		_c00_return_actual_time(void);
 static struct c00_consumer_command* _c00_create_new_consumer_command(server* srv);
 static int		_c00_destroy_consumer_command(struct c00_consumer_command *tmp_cmd);
-static struct req_count* _c00_init_request_counter();
-static int		_c00_destroy_request_counter(struct req_count *tmp);
+static struct c00_req_count* _c00_init_request_counter();
+static int		_c00_destroy_request_counter(struct c00_req_count *tmp);
 static int		_c00_init_server(server *srv);
 static void		_c00_print_version(void);
 static void 		_c00_set_signal_mask();
@@ -33,9 +33,9 @@ static char 		*main_config;
 static ringbuffer_t 	*buf_main_consumer_command;
 
 
-struct req_count *_c00_init_request_counter(){
-	struct req_count *tmp;
-	tmp = malloc(sizeof(struct req_count));
+struct c00_req_count *_c00_init_request_counter(){
+	struct c00_req_count *tmp;
+	tmp = malloc(sizeof(struct c00_req_count));
 	tmp->count = 0;
 #ifdef ATOMIC
 	tmp->mtx = malloc(sizeof(pthreadmutex_t));
@@ -44,7 +44,7 @@ struct req_count *_c00_init_request_counter(){
 	return tmp;
 }
 
-int _c00_destroy_request_counter(struct req_count *tmp){
+int _c00_destroy_request_counter(struct c00_req_count *tmp){
 #ifdef ATOMIC
 	free(tmp->mtx);
 #endif
