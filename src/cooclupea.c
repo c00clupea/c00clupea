@@ -30,7 +30,7 @@ pthread_mutex_t 	mtx_work_buffer	= PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t  	buf_main_consumer_full_cond = PTHREAD_COND_INITIALIZER;
 pthread_cond_t  	buf_main_consumer_not_empty_cond = PTHREAD_COND_INITIALIZER;
 static char 		*main_config;
-static ringbuffer_t 	*buf_main_consumer_command;
+static struct c00_ringbuffer *buf_main_consumer_command;
 
 
 struct c00_req_count *_c00_init_request_counter(){
@@ -184,12 +184,12 @@ void* _c00_worker_operation(){
 	  	if(pthread_mutex_lock(&mtx_work_buffer) != 0){
 		  syslog(LOG_ERR,"consumer is not able to lock");
 	  	}
-		while(ringbuffer_is_empty(buf_main_consumer_command)){
+		while(c00_ringbuffer_is_empty(buf_main_consumer_command)){
 	      		if(pthread_cond_wait(&buf_main_consumer_not_empty_cond,&mtx_work_buffer)!=0){
 				syslog(LOG_ERR,"sorry but buffer not empty makes some error in consumer");	      
 			}
 		}
-		struct c00_consumer_command *tmp_cmd = (struct c00_consumer_command*)ringbuffer_get(buf_main_consumer_command);
+		struct c00_consumer_command *tmp_cmd = (struct c00_consumer_command*)c00_ringbuffer_get(buf_main_consumer_command);
 		if(tmp_cmd->peer_socket < 0){
 			syslog(LOG_ERR,"We have a socket smaller 0 in consumer");
 			_c00_destroy_consumer_command(tmp_cmd);
@@ -233,12 +233,12 @@ void *_c00_single_producer(void *srv){
 		if(pthread_mutex_lock(&mtx_work_buffer) != 0){
 			syslog(LOG_ERR,"producer is not able to lock");
 		}
-		while(ringbuffer_is_full(buf_main_consumer_command)){
+		while(c00_ringbuffer_is_full(buf_main_consumer_command)){
 			if(pthread_cond_wait(&buf_main_consumer_full_cond,&mtx_work_buffer) != 0){
 				syslog(LOG_ERR,"producer is not able to wait for buffer full condition");
 			}
 		}
-		if(ringbuffer_add(buf_main_consumer_command,new_consumer_command) != 0){
+		if(c00_ringbuffer_add(buf_main_consumer_command,new_consumer_command) != 0){
 			syslog(LOG_ERR,"sorry but we can not add sth to ringbuffer");
 		}
 		if(pthread_cond_broadcast(&buf_main_consumer_not_empty_cond) != 0){
@@ -446,7 +446,7 @@ int main(int argc, char *argv[]) {
 	    exit(1);	
 	}
 
-	buf_main_consumer_command = init_buffer(MAIN_BUFFER_LEN,sizeof(void*));
+	buf_main_consumer_command = c00_ringbuffer_init(MAIN_BUFFER_LEN,sizeof(void*));
 
 	pthread_t* consumer_threads;
 	consumer_threads = malloc(worker_pool * sizeof(pthread_t));
@@ -489,7 +489,7 @@ int main(int argc, char *argv[]) {
 	free(SSingleServer);
 	free(SServerList);
 	free(consumer_threads);
-	destroy_ringbuffer(buf_main_consumer_command);
+	c00_destroy_ringbuffer(buf_main_consumer_command);
 
 	syslog(STDLOG,"Pandora ended at %s",_c00_return_actual_time());	
 	_c00_end_syslog();

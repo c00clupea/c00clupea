@@ -5,20 +5,20 @@
 #include <syslog.h>
 #include <stdlib.h>
 #include <limits.h>
-typedef struct _ringbuffer{
+struct c00_ringbuffer{
 	void **buffer;
 	size_t element_size;
 	int buffer_in;
 	int buffer_out;
 	int buffer_max;
-}ringbuffer_t;
+};
 
 
-ringbuffer_t* init_buffer(int bufferSize, size_t element_size);
-int ringbuffer_add(ringbuffer_t* buffer, void* value);
-void* ringbuffer_get(ringbuffer_t* buffer);
-int ringbuffer_is_full(ringbuffer_t* buffer);
-int ringbuffer_is_empty(ringbuffer_t* buffer);
-int destroy_ringbuffer(ringbuffer_t* buffer);
+struct c00_ringbuffer* 	c00_ringbuffer_init(int bufferSize, size_t element_size);
+int 		c00_ringbuffer_add(struct c00_ringbuffer* buffer, void* value);
+void* 		c00_ringbuffer_get(struct c00_ringbuffer* buffer);
+int 		c00_ringbuffer_is_full(struct c00_ringbuffer* buffer);
+int 		c00_ringbuffer_is_empty(struct c00_ringbuffer* buffer);
+int 		c00_destroy_ringbuffer(struct c00_ringbuffer* buffer);
 
 #endif
