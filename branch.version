@@ -5,3 +5,7 @@ feature/c00_01.08
 	rebuild strategy path with autoheader or included header
 feature/c00_01.09
 	implemente autoheader or fileheader
+		TODO missing Content Len
+		header read from file
+		generate autofill for header (date, len...)
+		header read from external file
