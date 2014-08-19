@@ -1,13 +1,12 @@
 #include "strategy_http_path.h"
 
-int destroy_http_path_request(struct http_path_request *pth_req);
-int receive_http_path(struct c00_consumer_command *tmp_cmd,struct http_path_request *pth_req);
-int send_http_path(struct c00_consumer_command *tmp_cmd,struct http_path_request *pth_req);
-
-int _c00_http_path_read_config(struct c00_hashmap *map);
-int _c00_http_path_fill_masterconfig();
-int _c00_http_path_fill_conf_htdocs(char * ident, char *val);
-int _c00_http_path_write_header(FILE *fp, struct http_path_request *pth_req, struct c00_http_path_single_path *pth_srq_ptr, int clen);
+static int _c00_destroy_http_path_request(struct http_path_request *pth_req);
+static int _c00_receive_http_path(struct c00_consumer_command *tmp_cmd,struct http_path_request *pth_req);
+static int _c00_send_http_path(struct c00_consumer_command *tmp_cmd,struct http_path_request *pth_req);
+static int _c00_http_path_read_config(struct c00_hashmap *map);
+static int _c00_http_path_fill_masterconfig();
+static int _c00_http_path_fill_conf_htdocs(char * ident, char *val);
+static int _c00_http_path_write_header(FILE *fp, struct http_path_request *pth_req, struct c00_http_path_single_path *pth_srq_ptr, int clen);
 
 const int _c00_http_path_header_max_len = HTTP_PATH_HEADER_LINE;
 const int _c00_http_path_header_max_line_len = HTTP_PATH_LINE_LEN;
@@ -18,7 +17,7 @@ const int max_http_path_line_len = HTTP_PATH_LINE_LEN;
 
 const int max_http_path_header_len = HTTP_PATH_HEADER_LINE;
 
-int strategy_http_path(struct c00_consumer_command *tmp_cmd){
+int c00_strategy_http_path(struct c00_consumer_command *tmp_cmd){
 	
 	struct http_path_request *pth_req;
 
@@ -26,15 +25,15 @@ int strategy_http_path(struct c00_consumer_command *tmp_cmd){
 
 	int result = 0;
 
-	if(receive_http_path(tmp_cmd,pth_req) != TRUE){
+	if(_c00_receive_http_path(tmp_cmd,pth_req) != TRUE){
 		syslog(LOG_ERR,"Error in recv http");
 		result = 1;
 	}
-        if(send_http_path(tmp_cmd,pth_req) != TRUE){
+        if(_c00_send_http_path(tmp_cmd,pth_req) != TRUE){
 		syslog(LOG_ERR,"Error in sending some http");
 		result = 1;
 	}
-     	destroy_http_path_request(pth_req);
+     	_c00_destroy_http_path_request(pth_req);
 	return result;
 }
 
@@ -137,12 +136,12 @@ int c00_strategy_http_path_init(){
 	return TRUE;
 }
 
-int destroy_http_path_request(struct http_path_request *pth_req){
+int _c00_destroy_http_path_request(struct http_path_request *pth_req){
 	free(pth_req);
 	return 0;
 }
 
-int receive_http_path(struct c00_consumer_command *tmp_cmd, struct http_path_request *pth_req){
+int _c00_receive_http_path(struct c00_consumer_command *tmp_cmd, struct http_path_request *pth_req){
 	FILE *fp;
 	fp = fdopen(dup(tmp_cmd->peer_socket),"r");
 	char header_line[max_http_path_line_len];
@@ -223,7 +222,7 @@ int _c00_http_path_write_header(FILE *fp, struct http_path_request *pth_req, str
 }
 
 
-int send_http_path(struct c00_consumer_command *tmp_cmd,struct http_path_request *pth_req){
+int _c00_send_http_path(struct c00_consumer_command *tmp_cmd,struct http_path_request *pth_req){
 	FILE *fr;
 	FILE *fp;
 	char ch;		

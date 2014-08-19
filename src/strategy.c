@@ -13,9 +13,9 @@ int(*c00_strategy_get_by_idx(int idx))(struct c00_consumer_command *){
 
 int c00_strategy_init()
 {
-        strategy_ptr[0] = &strategy_dev_null;
-	strategy_ptr[1] = &strategy_http_simple;
-	strategy_ptr[2] = &strategy_http_path;
+        strategy_ptr[0] = &c00_strategy_dev_null;
+	strategy_ptr[1] = &c00_strategy_http_simple;
+	strategy_ptr[2] = &c00_strategy_http_path;
 	c00_strategy_http_path_init();
 	return 0;
 }

@@ -1,6 +1,6 @@
 #include "strategy_dev_null.h"
 
-int strategy_dev_null(struct c00_consumer_command *tmp_cmd){
+int c00_strategy_dev_null(struct c00_consumer_command *tmp_cmd){
 
 	char buffer[INET_ADDRSTRLEN];
 	const char* result=inet_ntop(AF_INET,&(tmp_cmd->client.sin_addr),buffer,sizeof(buffer));

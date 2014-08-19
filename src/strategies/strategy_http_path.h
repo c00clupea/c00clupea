@@ -44,7 +44,7 @@ struct c00_http_path_globals{
 };
 
 
-int strategy_http_path(struct c00_consumer_command *tmp_cmd);
+int c00_strategy_http_path(struct c00_consumer_command *tmp_cmd);
 int c00_strategy_http_path_init();
 
 struct c00_http_path_globals *c00_http_path_glob;

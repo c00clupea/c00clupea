@@ -1,24 +1,27 @@
 #include "strategy_http_simple.h"
 
+static int _c00_send_simple_http(struct c00_consumer_command *tmp_cmd);
+static int _c00_receive_simple_http(struct c00_consumer_command *tmp_cmd);
+
 pthread_mutex_t mtx_http_simple_write_lock = PTHREAD_MUTEX_INITIALIZER;
 
 const int max_line_length =  HTTP_SIMPLE_LINE_LEN;
 
 int header_max_length = HTTP_SIMPLE_HEADER_LINE;
 
-int strategy_http_simple(struct c00_consumer_command *tmp_cmd){
-	if(receive_simple_http(tmp_cmd) != 0){
+int c00_strategy_http_simple(struct c00_consumer_command *tmp_cmd){
+	if(_c00_receive_simple_http(tmp_cmd) != 0){
 		syslog(LOG_ERR,"Error in recv http");
 		return 1;
 	}
-        if(send_simple_http(tmp_cmd) != 0){
+        if(_c00_send_simple_http(tmp_cmd) != 0){
 		syslog(LOG_ERR,"Error in sending some http");
 		return 1;
 	}
 	return 0;
 }
 
-int receive_simple_http(struct c00_consumer_command *tmp_cmd){
+int _c00_receive_simple_http(struct c00_consumer_command *tmp_cmd){
 
 	
 	FILE *fr;
@@ -59,7 +62,7 @@ int receive_simple_http(struct c00_consumer_command *tmp_cmd){
 	return 0;
 }
 
-int send_simple_http(struct c00_consumer_command *tmp_cmd){
+int _c00_send_simple_http(struct c00_consumer_command *tmp_cmd){
 	FILE   *fp = fdopen(dup(tmp_cmd->peer_socket),"w");
 	FILE 	*fr = fopen("index.html","r");
 	fprintf(fp,"HTTP/1.1 200 OK\n");

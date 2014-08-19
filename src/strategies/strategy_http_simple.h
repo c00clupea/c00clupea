@@ -5,9 +5,6 @@
 #define HTTP_SIMPLE_HEADER_LINE 128
 #define HTTP_SIMPLE_LINE_LEN 8192
 
+int c00_strategy_http_simple(struct c00_consumer_command *tmp_cmd);
 
-int strategy_http_simple(struct c00_consumer_command *tmp_cmd);
-
-int receive_simple_http(struct c00_consumer_command *tmp_cmd);
-int send_simple_http(struct c00_consumer_command *tmp_cmd);
 #endif
