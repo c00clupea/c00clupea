@@ -10,4 +10,4 @@ refactor/c00_01.10
 	rename to code style
 		rename all fx in cooclupea.h
 feature/c00_01.11
-	implement simple path traversal
+	regex pathes
