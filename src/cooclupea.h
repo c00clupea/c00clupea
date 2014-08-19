@@ -18,8 +18,6 @@
 #include "config.h"
 #include "ringbuffer.h"
 
-
-
 struct c00_consumer_command{
 	int peer_socket;
 	struct sockaddr_in client;
@@ -27,16 +25,8 @@ struct c00_consumer_command{
   	server *serverConfig;	
 };
 
-struct c00_consumer_command* c00_create_new_consumer_command(server* srv);
-
-int c00_init_server(server *srv);
-int c00_destroy_consumer_command(struct c00_consumer_command *tmp_cmd);
-
-int c00_increment_count(struct c00_consumer_command *cmd);
-struct req_count *c00_init_request_counter();
-int c00_destroy_request_counter(struct req_count *tmp);
-
-
+int	main(int argc, char *argv[]);
+int 	c00_increment_count(struct c00_consumer_command *cmd);
 
 #include "strategy.h"
 

@@ -1,27 +1,39 @@
 #include "cooclupea.h"
 
+static char* 		_c00_return_actual_time(void);
+static struct c00_consumer_command* _c00_create_new_consumer_command(server* srv);
+static int		_c00_destroy_consumer_command(struct c00_consumer_command *tmp_cmd);
+static struct req_count* _c00_init_request_counter();
+static int		_c00_destroy_request_counter(struct req_count *tmp);
+static int		_c00_init_server(server *srv);
+static void		_c00_print_version(void);
+static void 		_c00_set_signal_mask();
+static void 		_c00_init_syslog(void);
+static void 		_c00_end_syslog(void);
+static void		_c00_shutdown_normal(int sig);
+static void 		_c00_show_status(int sig);
+static void 		_c00_show_info(int sig);
+static void		_c00_handle_signal(void);
+static void* 		_c00_worker_operation();
+static void*		_c00_single_producer(void *srv);
+static pthread_t* 	_c00_init_producer(serverList *srv_list);
+static int 		_c00_init_manyserver(pthread_t *threadpool);
+static void 		_c00_print_help(void);
 
-static int port_number = STANDARD_PORT;
-
-static int default_strategy = STRAT_DEFAULT;
-
-static sig_atomic_t is_running = 0;
-static int tcp_backlog = TCP_BACKLOG;
-static int worker_pool = WORKER_POOL;
-
-static 	serverList *SServerList;
-
-int main(int argc, char *argv[]);
-pthread_mutex_t 	mtx_work_buffer						= PTHREAD_MUTEX_INITIALIZER;
-pthread_cond_t  	buf_main_consumer_full_cond    				= PTHREAD_COND_INITIALIZER;
-pthread_cond_t  	buf_main_consumer_not_empty_cond			= PTHREAD_COND_INITIALIZER;
-
+static int 		port_number = STANDARD_PORT;
+static int 		default_strategy = STRAT_DEFAULT;
+static sig_atomic_t 	is_running = 0;
+static int 		tcp_backlog = TCP_BACKLOG;
+static int 		worker_pool = WORKER_POOL;
+static serverList	*SServerList;
+pthread_mutex_t 	mtx_work_buffer	= PTHREAD_MUTEX_INITIALIZER;
+pthread_cond_t  	buf_main_consumer_full_cond = PTHREAD_COND_INITIALIZER;
+pthread_cond_t  	buf_main_consumer_not_empty_cond = PTHREAD_COND_INITIALIZER;
 static char 		*main_config;
-
 static ringbuffer_t 	*buf_main_consumer_command;
 
 
-struct req_count *c00_init_request_counter(){
+struct req_count *_c00_init_request_counter(){
 	struct req_count *tmp;
 	tmp = malloc(sizeof(struct req_count));
 	tmp->count = 0;
@@ -32,7 +44,7 @@ struct req_count *c00_init_request_counter(){
 	return tmp;
 }
 
-int c00_destroy_request_counter(struct req_count *tmp){
+int _c00_destroy_request_counter(struct req_count *tmp){
 #ifdef ATOMIC
 	free(tmp->mtx);
 #endif
@@ -61,13 +73,13 @@ int c00_increment_count(struct c00_consumer_command *cmd){
 }
 
 
-int c00_destroy_consumer_command(struct c00_consumer_command *tmp_cmd){
+int _c00_destroy_consumer_command(struct c00_consumer_command *tmp_cmd){
   //Never ever free serverConfig here....you will need it
 	free(tmp_cmd);
 	return 0;
 }
 
-struct c00_consumer_command* c00_create_new_consumer_command(server* srv){
+struct c00_consumer_command* _c00_create_new_consumer_command(server* srv){
   	struct c00_consumer_command *c_cmd = malloc(sizeof(struct c00_consumer_command));
 	c_cmd->serverConfig = srv;
 	c_cmd->peer_socket = -1;  
@@ -75,7 +87,7 @@ struct c00_consumer_command* c00_create_new_consumer_command(server* srv){
 }
 
 
-char* return_actual_time(void) {
+char* _c00_return_actual_time(void) {
 	time_t current_time;
       	char* c_time_string;
 	current_time = time(NULL);
@@ -83,13 +95,13 @@ char* return_actual_time(void) {
 	return c_time_string;
 }
 
-void print_version(void) {
+void _c00_print_version(void) {
 	fprintf(STDERR,"%s (%s) by %s\n",HONEYPOT_NAME,VERSION,AUTHOR);
 	fprintf(STDERR,"<*)))><\n");
   	fprintf(STDERR,"c00 == red, Clupea == lat.:herring\n");
 }
 
-static void set_signal_mask()
+void _c00_set_signal_mask()
 {
 	static sigset_t   signal_mask;
 	//pthread_t  sig_thr_id;      
@@ -101,7 +113,7 @@ static void set_signal_mask()
 	pthread_sigmask (SIG_BLOCK, &signal_mask, NULL);
 }
 
-void init_syslog(void) {
+void _c00_init_syslog(void) {
 	int options;
 
 #ifdef LOG_PERROR
@@ -113,22 +125,22 @@ void init_syslog(void) {
 	openlog ("pandora", options, SYSLOG);
 }
 
-void end_syslog(void) {
+void _c00_end_syslog(void) {
 	closelog();
 }
 
-void shutdown_normal(int sig) {
+void _c00_shutdown_normal(int sig) {
 	is_running = 0;
 	syslog(STDLOG,"Received signal %d......Terminating",sig);
 }
 
-void show_status(int sig) {
-	print_version();
+void _c00_show_status(int sig) {
+	_c00_print_version();
 	fprintf(STDERR,"Hallo Welt %d\n",sig);
 }
 
-void show_info(int sig){
-	print_version();
+void _c00_show_info(int sig){
+	_c00_print_version();
 	fprintf(STDERR,"Rcv sig %d",sig);
 	fprintf(STDERR,"\n###########################################\n");
 	fprintf(STDERR,"Stats\n");
@@ -142,31 +154,31 @@ void show_info(int sig){
 
 }
 
-void handle_signal(void) {
+void _c00_handle_signal(void) {
 	struct sigaction sa;
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = 0;
 	//shutdown
-	sa.sa_handler = shutdown_normal;
+	sa.sa_handler = _c00_shutdown_normal;
 	if (sigaction(SIGTERM, &sa, NULL) == -1){
 		exit(0);
 	}
 	if(sigaction(SIGINT, &sa,NULL) == -1){
 		exit(0);
 	}
-	sa.sa_handler = show_status;
+	sa.sa_handler = _c00_show_status;
 	if(sigaction(SIGUSR1, &sa, NULL) == -1){
 		exit(0);
 	}
-	sa.sa_handler = show_info;
+	sa.sa_handler = _c00_show_info;
 	if(sigaction(SIGUSR2, &sa, NULL) == -1){
 		exit(0);
 	}
 
 }
 
-static void* worker_operation(){
-	set_signal_mask();
+void* _c00_worker_operation(){
+	_c00_set_signal_mask();
 	
 	while(is_running){
 	  	if(pthread_mutex_lock(&mtx_work_buffer) != 0){
@@ -180,7 +192,7 @@ static void* worker_operation(){
 		struct c00_consumer_command *tmp_cmd = (struct c00_consumer_command*)ringbuffer_get(buf_main_consumer_command);
 		if(tmp_cmd->peer_socket < 0){
 			syslog(LOG_ERR,"We have a socket smaller 0 in consumer");
-			c00_destroy_consumer_command(tmp_cmd);
+			_c00_destroy_consumer_command(tmp_cmd);
 			continue;
 		}
 		if(pthread_cond_broadcast(&buf_main_consumer_full_cond)!=0){
@@ -194,7 +206,7 @@ static void* worker_operation(){
 		tmp_strat(tmp_cmd);		
 
 		close(tmp_cmd->peer_socket);
-		c00_destroy_consumer_command(tmp_cmd);
+		_c00_destroy_consumer_command(tmp_cmd);
 	 }
        	syslog(STDLOG,"Exit worker");
 	pthread_exit((void *) 0);
@@ -202,8 +214,8 @@ static void* worker_operation(){
 }
 
 
-static void *single_producer(void *srv){
-	set_signal_mask();
+void *_c00_single_producer(void *srv){
+	_c00_set_signal_mask();
 
 	server *tmp_srv = (server*)srv;
 
@@ -211,7 +223,7 @@ static void *single_producer(void *srv){
 
 	while(is_running){
 	  //int p_socket; 
-		struct c00_consumer_command *new_consumer_command = c00_create_new_consumer_command(srv);
+		struct c00_consumer_command *new_consumer_command = _c00_create_new_consumer_command(srv);
 		new_consumer_command->client_len = sizeof(new_consumer_command->client);
 		new_consumer_command->peer_socket = accept(tmp_srv->socket_handler,(struct sockaddr*)&(new_consumer_command->client),&(new_consumer_command->client_len));
 		
@@ -245,7 +257,7 @@ static void *single_producer(void *srv){
 }
 
 
-static pthread_t* init_producer(serverList *srv_list){
+pthread_t* _c00_init_producer(serverList *srv_list){
 	
 	pthread_t* threadpool = (pthread_t*)malloc(srv_list->iCountServer * sizeof(pthread_t));
 
@@ -253,19 +265,19 @@ static pthread_t* init_producer(serverList *srv_list){
 
 	for(int i = 0; i < srv_list->iCountServer; i++){
 		syslog(STDLOG,"Create socket at port %d",srv_list->rgServer[i].iPort);
-		c00_init_server(&srv_list->rgServer[i]);
+		_c00_init_server(&srv_list->rgServer[i]);
 	}
 
 	for(int i = 0; i < srv_list->iCountServer; i++){
 		srv_list->rgServer[i].idx = i;
-		pthread_create(&threadpool[i],NULL,single_producer,&srv_list->rgServer[i]);
+		pthread_create(&threadpool[i],NULL,_c00_single_producer,&srv_list->rgServer[i]);
 		//pthread_detach(threadpool[i]);
 	}	
 	
 	return threadpool;
 }
 
-int c00_init_server(server *srv) {
+int _c00_init_server(server *srv) {
 
 	struct sockaddr_in address;
 
@@ -320,28 +332,28 @@ int c00_init_server(server *srv) {
 	srv->logger = c00_init_safe_log(log_full);
 	srv->logger->log_level = srv->log_lvl;
 	
-	srv->count = c00_init_request_counter();
+	srv->count = _c00_init_request_counter();
 	return 0;
 }
 
-int init_manyserver(pthread_t *threadpool){
+int _c00_init_manyserver(pthread_t *threadpool){
 	is_running = 1;
 	
 //	threadpool = malloc(worker_pool * sizeof(pthread_t));
 
-	handle_signal();
+	_c00_handle_signal();
 	  //current worker pool
         int worker_id = 0;
          //create worker pool threads
         for(worker_id = 0; worker_id < worker_pool; worker_id++){
-		pthread_create(&threadpool[worker_id],NULL,worker_operation,NULL);
+		pthread_create(&threadpool[worker_id],NULL,_c00_worker_operation,NULL);
         }
 
 	return 0;	
 }
 
-void print_help(void) {
-	print_version();
+void _c00_print_help(void) {
+	_c00_print_version();
 	fprintf(STDERR,"USAGE: Cooclupea [OPTIONS]\n\n");
 	fprintf(STDERR,"[OPTIONS] can be:\n");
 	fprintf(STDERR,"-h		show some help\n");	
@@ -371,11 +383,11 @@ int main(int argc, char *argv[]) {
 	switch(c)
 		{
 		case 'V':
-			print_version();
+			_c00_print_version();
 			break_command = 1;
 			break;
 		case 'h':
-			print_help();
+			_c00_print_help();
 			break_command = 1;
 			break;	
 		case 'p':
@@ -404,9 +416,9 @@ int main(int argc, char *argv[]) {
 		main_config = MAINCONFIG;
 	}
 
-	init_syslog();
+	_c00_init_syslog();
 	
-	syslog(STDLOG,"Pandora started at %s with pid %d and configfile %s",return_actual_time(),getpid(),main_config);
+	syslog(STDLOG,"Pandora started at %s with pid %d and configfile %s",_c00_return_actual_time(),getpid(),main_config);
 
 //	serverList *SServerList;
 	SServerList = malloc(sizeof(serverList));
@@ -439,14 +451,14 @@ int main(int argc, char *argv[]) {
 	pthread_t* consumer_threads;
 	consumer_threads = malloc(worker_pool * sizeof(pthread_t));
 
-	if(init_manyserver(consumer_threads) != 0){
+	if(_c00_init_manyserver(consumer_threads) != 0){
 	  syslog(LOG_ERR,"Sorry worker threads caused a problem during creation");
 	  exit(1);
 	}
 
 	pthread_t* serverthreads;
 
-	serverthreads = init_producer(SServerList); 
+	serverthreads = _c00_init_producer(SServerList); 
 
 	//while (is_running) {
 //		fprintf(STDERR,"Read once");
@@ -468,7 +480,7 @@ int main(int argc, char *argv[]) {
 
 	for(int i = 0; i < SServerList->iCountServer;i++){
 		c00_close_safe_log(SServerList->rgServer[i].logger);
-		c00_destroy_request_counter(SServerList->rgServer[i].count);
+		_c00_destroy_request_counter(SServerList->rgServer[i].count);
 	}
 
 	//free the mallocs....
@@ -479,6 +491,6 @@ int main(int argc, char *argv[]) {
 	free(consumer_threads);
 	destroy_ringbuffer(buf_main_consumer_command);
 
-	syslog(STDLOG,"Pandora ended at %s",return_actual_time());	
-	end_syslog();
+	syslog(STDLOG,"Pandora ended at %s",_c00_return_actual_time());	
+	_c00_end_syslog();
 }
