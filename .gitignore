@@ -35,3 +35,4 @@ c00_hashmap_test
 val
 compile
 test/testrun.log
+test/*_test
