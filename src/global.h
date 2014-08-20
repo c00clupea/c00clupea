@@ -85,6 +85,7 @@
 
 
 #define FALSE 0
+#define ERROR -1
 #define TRUE 1
 
 #ifdef WRITEC00CRAP
@@ -96,6 +97,7 @@
 
 #define C00REACH(id)					\
 	fprintf(stdout,"reach: %d --> %s:%d\n",id,__FILE__,__LINE__)
+
 #else
 #define C00DEBUG(fmt,...)
 #define C00REACH(id)
@@ -123,6 +125,11 @@
 	fprintf(stdout,fmt,__VA_ARGS__)
 
 #endif
+
+//Some ideas from http://c.learncodethehardway.org/book/ex20.html
+#define check(A, M, ...) if(!(A)) { C00DEBUG(M, __VA_ARGS__); goto error; }
+
+#define mem_check(A) check((A), "%d Out of memory.",-1)
 
 
 #endif

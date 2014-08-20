@@ -19,13 +19,15 @@
 
 
 
-struct http_path_request{
+struct c00_http_path_request{
 	char 	http_path	[PATH_MAX];
 	char 	http_method	[HTTP_PATH_METHOD_LEN];
 	int 	minor_version;
 	int 	major_version;
 	int	http_response;      
 };
+
+
 
 //strategy 0 == plain file will be called with header
 //strategy 1 == standard 200 header with file

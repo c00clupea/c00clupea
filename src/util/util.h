@@ -8,7 +8,7 @@
 #include <limits.h>
 #include <string.h>
 #include <sys/stat.h>
-#include "global.h"
+#include "../global.h"
 
 #ifndef STD_LOG_LEN 
 #define STD_LOG_LEN 1024

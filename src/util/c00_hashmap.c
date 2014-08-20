@@ -249,7 +249,7 @@ int _c00_hashmap_get_hash(char *val,unsigned int len){
 
 #ifdef USEC00TESTS
 
-int _write_and_read_value(struct c00_hashmap *map, char *key, unsigned int len){
+static int _write_and_read_value(struct c00_hashmap *map, char *key, unsigned int len){
 	ASSERT_TEST("test insert",TRUE,c00_hashmap_add_key_value(map,key,len,key))
 	char *result;
 	
