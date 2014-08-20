@@ -268,16 +268,12 @@ int main(int argc, char *argv[]){
 	struct c00_hashmap *map;
 	map = malloc(sizeof(struct c00_hashmap));
 
-	HEAD_TEST("init");
+
 	ASSERT_TEST("init",TRUE,c00_hashmap_init(map,1000,0))
-	HEAD_TEST("empyt get");
 	ASSERT_TEST("test empty get",FALSE,c00_hashmap_has_key(map,"hallo welt",11))
-	HEAD_TEST("insert test");
 	ASSERT_TEST("test insert",TRUE,c00_hashmap_add_key_value(map,"hallo welt",11,"value"))	
-	HEAD_TEST("get");
 	ASSERT_TEST("test existing get",TRUE,c00_hashmap_has_key(map,"hallo welt",11))
 
-       	HEAD_TEST("get value");
 	char *result;
 
 
@@ -287,7 +283,6 @@ int main(int argc, char *argv[]){
 			ASSERT_TEST("cmp value",TRUE,TRUE)
 		}
 	
-	HEAD_TEST("set and get many values");
 	
 	_write_and_read_value(map,"key 1", 5);
 	_write_and_read_value(map,"key 2", 5);
@@ -298,7 +293,6 @@ int main(int argc, char *argv[]){
 	_write_and_read_value(map,"key 7", 5);
 	_write_and_read_value(map,"key 8", 5);	
 
-	HEAD_TEST("destroy map");
 	ASSERT_TEST("destroy",TRUE,c00_hashmap_destroy(map));
 
 
