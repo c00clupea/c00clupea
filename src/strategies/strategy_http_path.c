@@ -1,25 +1,22 @@
 #include "strategy_http_path.h"
 
-static int	  _c00_destroy_http_path_request(struct c00_http_path_request *pth_req);
-static int 	  _c00_receive_http_path(struct c00_consumer_command *tmp_cmd,struct c00_http_path_request *pth_req, char *log_all);
-static int 	  _c00_send_http_path(struct c00_consumer_command *tmp_cmd,struct c00_http_path_request *pth_req,char *log_all);
-static int 	  _c00_http_path_read_config(struct c00_hashmap *map);
-static int 	  _c00_http_path_fill_masterconfig();
-static int 	  _c00_http_path_fill_conf_htdocs(char * ident, char *val);
-static int 	  _c00_http_path_write_header(FILE *fp, struct c00_http_path_request *pth_req, struct c00_http_path_single_path *pth_srq_ptr, int clen);
-static int 	  _c00_write_file_to_stream(FILE *fr, FILE *fp);
-static inline int _c00_read_header(char *lheader, struct c00_http_path_request *pth_req);
-static inline int _c00_write_addr_to_str(char *log_all, struct c00_consumer_command *tmp_cmd);
+static inline int _c00_receive_http_path(struct c00_consumer_command *tmp_cmd,struct c00_http_path_request *pth_req, char *log_all);
+static inline int _c00_send_http_path(struct c00_consumer_command *tmp_cmd,struct c00_http_path_request *pth_req,char *log_all);
+static inline int _c00_http_path_read_config(struct c00_hashmap *map);
+static inline int _c00_http_path_fill_masterconfig();
+static inline int _c00_http_path_write_header(FILE *fp, struct c00_http_path_request *pth_req, struct c00_http_path_single_path *pth_srq_ptr, int clen);
+static inline int _c00_write_file_to_stream(FILE *fr, FILE *fp);
+static inline int _c00_destroy_http_path_request(struct c00_http_path_request *pth_req);
+static inline int _c00_http_path_fill_conf_htdocs(char * ident, char *val);
+static inline int _c00_read_header(char *lheader, struct c00_http_path_request *pth_req, FILE *fp);
+static inline int _c00_read_addr(struct c00_consumer_command *tmp_cmd, struct c00_http_path_request *pth_req);
 static inline int _c00_read_header_line(char *lheader, struct c00_http_path_request *pth_req, int next_idx);
 static inline int _c00_iterate_header(char *lheader,struct c00_http_path_request *pth_req, FILE *fp);
 
 const int _c00_http_path_header_max_len = HTTP_PATH_HEADER_LINE;
 const int _c00_http_path_header_max_line_len = HTTP_PATH_LINE_LEN;
-
 pthread_mutex_t mtx_http_path_write_lock = PTHREAD_MUTEX_INITIALIZER;
-
 const int max_http_path_line_len = HTTP_PATH_LINE_LEN;
-
 const int max_http_path_header_len = HTTP_PATH_HEADER_LINE;
 
 
@@ -152,7 +149,8 @@ int _c00_destroy_http_path_request(struct c00_http_path_request *pth_req){
 	return 0;
 }
 
-int _c00_read_header(char *lheader, struct c00_http_path_request *pth_req){
+int _c00_read_header(char *lheader, struct c00_http_path_request *pth_req, FILE *fp){
+       	fgets(lheader,max_http_path_line_len,fp);
 	if(sscanf(lheader,"%s %s HTTP/%d.%d%*s",pth_req->http_method,pth_req->http_path,&pth_req->major_version,&pth_req->minor_version)!=4){
 		C00DEBUG("line %s error",lheader); 
 
@@ -161,11 +159,8 @@ int _c00_read_header(char *lheader, struct c00_http_path_request *pth_req){
 	return TRUE;
 }
 
-int _c00_write_addr_to_str(char *log_all, struct c00_consumer_command *tmp_cmd){
-	char 	buffer[INET_ADDRSTRLEN];
-	const char* result=inet_ntop(AF_INET,&(tmp_cmd->client.sin_addr),buffer,sizeof(buffer));
-	
-	snprintf(log_all,STD_LOG_LEN,"rcv from %s count %llu:\n",result,tmp_cmd->serverConfig->count->count);
+int _c00_read_addr(struct c00_consumer_command *tmp_cmd, struct c00_http_path_request *pth_req){
+	inet_ntop(AF_INET,&(tmp_cmd->client.sin_addr),pth_req->addr,sizeof(pth_req->addr));
 	return TRUE;
 }
 
@@ -204,31 +199,26 @@ int _c00_receive_http_path(struct c00_consumer_command *tmp_cmd, struct c00_http
 	/**open socket**/
 	fp = fdopen(dup(tmp_cmd->peer_socket),"r");	
 
+	/**test socket or jump to error**/
 	check(fp,"Unable to open socket %s %d",__FILE__,__LINE__);
 		
 	/**increment count**/
 	c00_increment_count(tmp_cmd);
 
-	/**write addr to logstring**/
-	_c00_write_addr_to_str(log_all,tmp_cmd);
+	/**read addr**/
+	_c00_read_addr(tmp_cmd,pth_req);
 
-	/**read the first line**/
-	fgets(header_line,max_http_path_line_len,fp);
-
-	/**write first line to log**/
-	strlcat(log_all,header_line,sizeof(log_all));
-
-	/**read first line header**/
-	if(_c00_read_header(header_line,pth_req) != TRUE){
+	/**read first line header and sets seek to second line**/
+	if(_c00_read_header(header_line,pth_req,fp) != TRUE){
+	       	strlcat(log_all,header_line,sizeof(log_all));
 		fclose(fp);
-		return FALSE;
+		return FALSE;/**No error can be an attack or sth else...**/
 	}
 
-	/**iterate header until end or invalid**/
+	/**iterate header until end or invalid and write data to struct**/
 	_c00_iterate_header(header_line, pth_req, fp);
 
 	fclose(fp);
-	
 
 	return TRUE;
 error:

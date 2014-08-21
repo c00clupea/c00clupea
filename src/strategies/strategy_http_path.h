@@ -30,6 +30,7 @@ struct c00_http_path_request{
 	int 	major_version;
 	int	http_response;    
 	struct c00_array_list *header;  
+	char	addr[INET_ADDRSTRLEN];
 };
 
 
