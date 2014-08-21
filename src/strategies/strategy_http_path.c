@@ -131,12 +131,13 @@ int _c00_http_path_fill_masterconfig(){
 }
 
 int c00_strategy_http_path_init(){
-	c00_http_path_glob = malloc(sizeof(struct c00_http_path_globals));
 	struct c00_hashmap *map;
+
+	c00_http_path_glob = malloc(sizeof(struct c00_http_path_globals));
 	map = malloc(sizeof(struct c00_hashmap));
 	c00_hashmap_init(map,HTTP_PATH_MAX_PATH,0);
-
 	c00_http_path_glob->path_whitelist = map;
+	
 	_c00_http_path_fill_masterconfig();
 	_c00_http_path_read_config(map);	
 
@@ -146,7 +147,7 @@ int c00_strategy_http_path_init(){
 int _c00_destroy_http_path_request(struct c00_http_path_request *pth_req){
 	c00_array_list_destroy_free(pth_req->header);
 	free(pth_req);
-	return 0;
+	return TRUE;
 }
 
 int _c00_read_header(char *lheader, struct c00_http_path_request *pth_req, FILE *fp){
