@@ -1,15 +1,17 @@
 #include "strategy_http_path.h"
 
-static int _c00_destroy_http_path_request(struct c00_http_path_request *pth_req);
-static int _c00_receive_http_path(struct c00_consumer_command *tmp_cmd,struct c00_http_path_request *pth_req, char *log_all);
-static int _c00_send_http_path(struct c00_consumer_command *tmp_cmd,struct c00_http_path_request *pth_req,char *log_all);
-static int _c00_http_path_read_config(struct c00_hashmap *map);
-static int _c00_http_path_fill_masterconfig();
-static int _c00_http_path_fill_conf_htdocs(char * ident, char *val);
-static int _c00_http_path_write_header(FILE *fp, struct c00_http_path_request *pth_req, struct c00_http_path_single_path *pth_srq_ptr, int clen);
-static int _c00_write_file_to_stream(FILE *fr, FILE *fp);
-static int _c00_read_header(char *lheader, struct c00_http_path_request *pth_req);
-static int _c00_write_addr_to_str(char *log_all, struct c00_consumer_command *tmp_cmd);
+static int	  _c00_destroy_http_path_request(struct c00_http_path_request *pth_req);
+static int 	  _c00_receive_http_path(struct c00_consumer_command *tmp_cmd,struct c00_http_path_request *pth_req, char *log_all);
+static int 	  _c00_send_http_path(struct c00_consumer_command *tmp_cmd,struct c00_http_path_request *pth_req,char *log_all);
+static int 	  _c00_http_path_read_config(struct c00_hashmap *map);
+static int 	  _c00_http_path_fill_masterconfig();
+static int 	  _c00_http_path_fill_conf_htdocs(char * ident, char *val);
+static int 	  _c00_http_path_write_header(FILE *fp, struct c00_http_path_request *pth_req, struct c00_http_path_single_path *pth_srq_ptr, int clen);
+static int 	  _c00_write_file_to_stream(FILE *fr, FILE *fp);
+static inline int _c00_read_header(char *lheader, struct c00_http_path_request *pth_req);
+static inline int _c00_write_addr_to_str(char *log_all, struct c00_consumer_command *tmp_cmd);
+static inline int _c00_read_header_line(char *lheader, struct c00_http_path_request *pth_req, int next_idx);
+static inline int _c00_iterate_header(char *lheader,struct c00_http_path_request *pth_req, FILE *fp);
 
 const int _c00_http_path_header_max_len = HTTP_PATH_HEADER_LINE;
 const int _c00_http_path_header_max_line_len = HTTP_PATH_LINE_LEN;
@@ -27,6 +29,9 @@ int c00_strategy_http_path(struct c00_consumer_command *tmp_cmd){
 	struct c00_http_path_request *pth_req;
 	char log_all[STD_LOG_LEN];
 	pth_req = malloc(sizeof(struct c00_http_path_request));
+
+	pth_req->header = malloc(sizeof(struct c00_array_list));
+	c00_array_list_init(pth_req->header,HTTP_PATH_HEADER_LINE);
 
 	int result = 0;
 
@@ -142,6 +147,7 @@ int c00_strategy_http_path_init(){
 }
 
 int _c00_destroy_http_path_request(struct c00_http_path_request *pth_req){
+	c00_array_list_destroy_free(pth_req->header);
 	free(pth_req);
 	return 0;
 }
@@ -163,50 +169,70 @@ int _c00_write_addr_to_str(char *log_all, struct c00_consumer_command *tmp_cmd){
 	return TRUE;
 }
 
+int _c00_read_header_line(char *lheader, struct c00_http_path_request *pth_req, int next_idx){
+	mem_check(lheader);
+	if(strstr(lheader,":")){
+		struct c00_http_path_header_cmd *head_tmp = malloc(sizeof(struct c00_http_path_header_cmd));
+		if(sscanf(lheader,"%s:%s",head_tmp->key,head_tmp->val) == 2){
+		       	c00_array_list_set(pth_req->header,next_idx,head_tmp);
+		      	return TRUE;
+		}
+	}
+	return FALSE;
+error:
+	return ERROR;
+}
+
+int _c00_iterate_header(char *lheader,struct c00_http_path_request *pth_req, FILE *fp){
+	int count_all;
+	count_all = 0;
+	while(count_all < _c00_http_path_header_max_len){
+		fgets(lheader,_c00_http_path_header_max_line_len,fp);
+		if(_c00_read_header_line(lheader,pth_req,count_all) == FALSE){
+				break;
+		}
+	       	count_all ++;
+	}
+	return TRUE;
+}
+
+
 int _c00_receive_http_path(struct c00_consumer_command *tmp_cmd, struct c00_http_path_request *pth_req, char *log_all){
 	FILE 	*fp;
 	char 	header_line[max_http_path_line_len];
 
-	int 	count_all;
-
-	count_all = 0;
-
+	/**open socket**/
 	fp = fdopen(dup(tmp_cmd->peer_socket),"r");	
 
-	if(!fp){
-		syslog(LOG_ERR,"Unable to open socket");
-		return ERROR;
-	}
+	check(fp,"Unable to open socket %s %d",__FILE__,__LINE__);
 		
+	/**increment count**/
 	c00_increment_count(tmp_cmd);
 
+	/**write addr to logstring**/
 	_c00_write_addr_to_str(log_all,tmp_cmd);
 
 	/**read the first line**/
 	fgets(header_line,max_http_path_line_len,fp);
 
+	/**write first line to log**/
 	strlcat(log_all,header_line,sizeof(log_all));
 
+	/**read first line header**/
 	if(_c00_read_header(header_line,pth_req) != TRUE){
 		fclose(fp);
 		return FALSE;
 	}
 
-	while(count_all < _c00_http_path_header_max_len){
-		fgets(header_line,_c00_http_path_header_max_line_len,fp);
-		if(strstr(header_line,":")){
-			strlcat(log_all,header_line,sizeof(log_all));
-			count_all ++;
-		}
-		else{
-			break;
-		}
-	}
+	/**iterate header until end or invalid**/
+	_c00_iterate_header(header_line, pth_req, fp);
 
 	fclose(fp);
 	
 
 	return TRUE;
+error:
+	return ERROR;
 }
 
 int _c00_http_path_write_header(FILE *fp, struct c00_http_path_request *pth_req, struct c00_http_path_single_path *pth_srq_ptr, int flen){

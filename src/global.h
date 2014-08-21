@@ -127,7 +127,7 @@
 #endif
 
 //Some ideas from http://c.learncodethehardway.org/book/ex20.html
-#define check(A, M, ...) if(!(A)) { C00DEBUG(M, __VA_ARGS__); goto error; }
+#define check(A, M, ...) if(!(A)) { C00DEBUG(M, __VA_ARGS__); syslog(LOG_ERR,M,__VA_ARGS__);goto error; }
 
 #define mem_check(A) check((A), "%d Out of memory.",-1)
 
