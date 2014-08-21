@@ -68,7 +68,6 @@ int _c00_http_path_read_config(struct c00_hashmap *map){
 			C00DEBUG("[%s] is problematic",line);
 		}
 		else{
-//			char *target_path = malloc(PATH_MAX * sizeof(char));
 			struct c00_http_path_single_path *ptr_spath = malloc(sizeof(struct c00_http_path_single_path));
 			C00DEBUG("found read_path %s",read_path);
 			snprintf(ptr_spath->path,PATH_MAX,"%s/%s",c00_http_path_glob->htdocs_root,read_path);

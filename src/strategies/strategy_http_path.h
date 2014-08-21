@@ -4,6 +4,7 @@
 #include <limits.h>
 #include "http_codes.h"
 #include "../util/c00_hashmap.h"
+#include "../util/c00_array_list.h"
 
 #define HTTP_PATH_HEADER_LINE 128
 #define HTTP_PATH_LINE_LEN 8192

@@ -18,7 +18,6 @@ int c00_array_list_destroy_free(struct c00_array_list *ptr){
 
 	for(int i = 0; i < ptr->size; i ++){
 		if(ptr->buckets[i] != NULL){
-			C00REACH(i);
 			free(ptr->buckets[i]);
 		}
 	}	
@@ -121,7 +120,32 @@ int main(int argc, char *argv[]){
 
 	free(insert);
 
+	for(int i = 0; i < 50; i ++){
+		char *insert2 = malloc(20 * sizeof(char));
+		char test[20];
+		snprintf(test,20,"hallo %d",i);
+		strcpy(insert2,test);
+		c00_array_list_set(list,i,insert2);
+	}
+	int res = 0;
 
+	for(int i = 0; i < 50; i ++){
+		char *result2;
+		c00_array_list_get(list,i,(void *)&result2);
+		char test2[20];
+		snprintf(test2,20,"hallo %d",i);
+		if(strcmp(result2,test2) == 0){
+			res ++;
+		}
+
+	}
+
+	char *result3;
+	char insert4[] = "hello world";
+
+	ASSERT_TEST("idx out of bound",ERROR,c00_array_list_get(list,51,(void *)&result3));
+	ASSERT_TEST("idx out of bound",ERROR,c00_array_list_set(list,51,insert4));
+	ASSERT_TEST("many insert and get",50,res);
 	ASSERT_TEST("destroy",TRUE,c00_array_list_destroy_free(list));
 
 }
