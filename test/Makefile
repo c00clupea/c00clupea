@@ -6,6 +6,7 @@ alltest:
 	make create_test
 	make c00_hashmap_test
 	make c00_array_list_test
+	make c00_linked_list_test
 
 clean:
 	rm -f c00_hashmap_test
@@ -24,6 +25,7 @@ create_test:
 	chmod +x run_test.sh
 	echo "./c00_hashmap_test" >> run_test.sh
 	echo "./c00_array_list_test" >> run_test.sh
+	echo "./c00_linked_list_test" >> run_test.sh
 
 c00_hashmap_test:../src/util/c00_hashmap.c
 	gcc ${test_addon} -c ../src/util/c00_hashmap.c
@@ -34,3 +36,6 @@ c00_array_list_test:../src/util/c00_array_list.c
 	gcc ${test_addon} -c ../src/util/c00_array_list.c
 	gcc ${test_addon} -o c00_array_list_test c00_array_list.o
 
+c00_linked_list_test: ../src/util/c00_linked_list.c
+	gcc ${test_addon} -c ../src/util/c00_linked_list.c
+	gcc ${test_addon} -o c00_linked_list_test c00_linked_list.o

@@ -4,8 +4,20 @@
 #include <stdio.h>
 #include <string.h>
 
+static inline int	_c00_set_bucket(struct c00_linked_list *ptr, struct c00_linked_list_bucket *ptr_buc);
+
 struct c00_linked_list{
 	int size;
+	struct c00_linked_list_bucket *first;
+       	struct c00_linked_list_bucket *last;
+       	struct c00_linked_list_bucket *actual;
+	int idx;
+};
+
+struct c00_linked_list_bucket{
+	struct c00_linked_list_bucket *left;
+	struct c00_linked_list_bucket *right;
+	void *val;
 };
 
 int c00_linked_list_init(struct c00_linked_list *ptr);
