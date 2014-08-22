@@ -9,11 +9,12 @@ static inline int _c00_send_http_from_file(struct c00_http_path_single_path *ptr
 static inline int _c00_write_file_to_stream(FILE *fr, FILE *fp);
 static inline int _c00_destroy_http_path_request(struct c00_http_path_request *pth_req);
 static inline int _c00_http_path_fill_conf_htdocs(char * ident, char *val);
-static inline int _c00_find_http_path(struct c00_consumer_command *tmp_cmd, struct c00_http_path_request *pth_req, struct c00_http_path_single_path *ptr_spath);
+static inline int _c00_find_http_path(struct c00_consumer_command *tmp_cmd, struct c00_http_path_request *pth_req, struct c00_http_path_single_path **ptr_spath);
 static inline int _c00_read_header(char *lheader, struct c00_http_path_request *pth_req, FILE *fp);
 static inline int _c00_read_addr(struct c00_consumer_command *tmp_cmd, struct c00_http_path_request *pth_req);
 static inline int _c00_read_header_line(char *lheader, struct c00_http_path_request *pth_req, int next_idx);
 static inline int _c00_iterate_header(char *lheader,struct c00_http_path_request *pth_req, FILE *fp);
+static inline int _c00_generate_error(int code, char *msg, char *head_msg, FILE *fp);
 
 const int _c00_http_path_header_max_len = HTTP_PATH_HEADER_LINE;
 const int _c00_http_path_header_max_line_len = HTTP_PATH_LINE_LEN;
@@ -266,7 +267,7 @@ int _c00_send_http_from_file(struct c00_http_path_single_path *ptr_spath, struct
 	int flen = 0;
 	fr = fopen(ptr_spath->path,"r");
 	check(fr,"Unable to open %s", ptr_spath->path);
-	flen = c00_util_file_size(path_to_get->path);
+	flen = c00_util_file_size(ptr_spath->path);
        	_c00_http_path_write_header(fp, pth_req, ptr_spath,flen);		
        	_c00_write_file_to_stream(fr,fp);
 
@@ -276,13 +277,33 @@ error:
 	return ERROR;
 }
 
-int _c00_find_http_path(struct c00_consumer_command *tmp_cmd, struct c00_http_path_request *pth_req, struct c00_http_path_single_path *ptr_spath){
+int _c00_find_http_path(struct c00_consumer_command *tmp_cmd, struct c00_http_path_request *pth_req, struct c00_http_path_single_path **ptr_spath){
 	/**try to find direct match**/
-	if(c00_hashmap_get_value(c00_http_path_glob->path_whitelist,pth_req->http_path,HTTP_PATH_LINE_LEN,(void *)&ptr_spath) == TRUE)
+	if(c00_hashmap_get_value(c00_http_path_glob->path_whitelist,pth_req->http_path,HTTP_PATH_LINE_LEN,(void *)ptr_spath) == TRUE)
 	{
 		return TRUE;	
 	}
+	
 	return FALSE;
+}
+
+int _c00_generate_error(int code, char *msg, char *head_msg, FILE *fp){
+	check(fp,"Unable to to open socket %s %d",__FILE__,__LINE__);
+	fprintf(fp,"HTTP/1.1 %d %s\r\n",code,msg);
+       	char timebuffer[30];
+	time_t now = 0;
+	struct tm *t;
+	now = time(NULL);
+	t = gmtime(&now);
+	strftime(timebuffer,30,"%a, %d %b %Y %H:%M:%S %Z",t);
+	fprintf(fp,"%s:%s\r\n","DATE",timebuffer);
+	fprintf(fp,"%s:%s\r\n","SERVER","c00clupea");
+	fprintf(fp,"%s:%s\r\n","Content-Type","text/html");
+	fprintf(fp,"\n");
+	fprintf(fp,"<html><head></head><body><h1>%s</h1></body></html>",head_msg);
+
+error:
+	return ERROR;
 }
 
 int _c00_send_http_path(struct c00_consumer_command *tmp_cmd,struct c00_http_path_request *pth_req,char *log_all){
@@ -292,8 +313,11 @@ int _c00_send_http_path(struct c00_consumer_command *tmp_cmd,struct c00_http_pat
 	fp = fdopen(dup(tmp_cmd->peer_socket),"w");
 	check(fp,"socket not writable %s %d",__FILE__,__LINE__);
 	
-	if(_c00_find_http_path(tmp_cmd,pth_req,ptr_spath) == TRUE){
+	if(_c00_find_http_path(tmp_cmd,pth_req,&ptr_spath) == TRUE){
 		_c00_send_http_from_file(ptr_spath, pth_req, fp);
+	}
+	else{
+		_c00_generate_error(404,"Not found","Not found",fp);
 	}
 
         fclose(fp);	
