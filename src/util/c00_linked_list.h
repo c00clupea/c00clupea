@@ -35,5 +35,6 @@ int c00_linked_list_imove(struct c00_linked_list *ptr, signed int range);
 int c00_linked_list_iget(struct c00_linked_list *ptr, void **val);
 int c00_linked_list_iset(struct c00_linked_list *ptr, void *val);
 int c00_linked_list_iremove(struct c00_linked_list *ptr, void **val);
+int c00_linked_list_destroy_dlg_free(struct c00_linked_list *ptr,int (*dtor)(void *));
 
 #endif

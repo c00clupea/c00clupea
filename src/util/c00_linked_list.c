@@ -58,6 +58,19 @@ int c00_linked_list_destroy_free(struct c00_linked_list *ptr){
 	free(ptr);
 	return TRUE;
 }
+
+int c00_linked_list_destroy_dlg_free(struct c00_linked_list *ptr,int (*dtor)(void *)){
+	_c00_move_to_start(ptr);
+
+	while(ptr->size != 0){
+		void *val;
+		c00_linked_list_iremove(ptr,&val);
+//		C00DEBUG("remove %s",val);		
+		//(*dtor)(val);
+	}
+	free(ptr);
+	return TRUE;
+}
 int c00_linked_list_push_end(struct c00_linked_list *ptr, void *val){
  	struct c00_linked_list_bucket *tmp_buc = _c00_create_bucket(val);
 	return _c00_set_bucket_se(ptr,tmp_buc,0);	
@@ -218,6 +231,7 @@ int c00_linked_list_iremove(struct c00_linked_list *ptr, void **val){
 		ptr->first = ptr->actual;
 	}
 	val = tmp_buc->val;
+	C00DEBUG("delete %s",(char *)val);
 	free(tmp_buc);
 	
 	return TRUE;
@@ -226,6 +240,16 @@ error:
 }
 
 #ifdef USEC00TESTS
+
+
+int test_destroy(void *val){
+	char *test = (char*)val;
+	C00DEBUG("free %s",test);
+	free(test);
+	return TRUE;
+}
+
+
 int main(int argc, char *argv[]){
 	HEAD_TEST("Linked List");
 	struct c00_linked_list *list;
@@ -286,6 +310,6 @@ int main(int argc, char *argv[]){
 
 	ASSERT_TEST("size",2,list->size);
 //	ASSERT_TEST("idx",1,list->idx);
-	ASSERT_TEST("destroy",TRUE,c00_linked_list_destroy_free(list));
+	ASSERT_TEST("destroy",TRUE,c00_linked_list_destroy_dlg_free(list,&test_destroy));
 }
 #endif
