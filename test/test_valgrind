@@ -1,0 +1,2 @@
+#!/bin/sh
+valgrind --tool=memcheck --leak-check=yes --show-reachable=yes --num-callers=20 --track-fds=yes --track-origins=yes --dsymutil=yes ~/test/c00clupea/test/c00_linked_list_test
