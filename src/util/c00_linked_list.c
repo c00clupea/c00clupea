@@ -64,9 +64,9 @@ int c00_linked_list_destroy_dlg_free(struct c00_linked_list *ptr,int (*dtor)(voi
 
 	while(ptr->size != 0){
 		void *val;
-		c00_linked_list_iremove(ptr,&val);
+		c00_linked_list_iremove(ptr,(void *)&val);
 //		C00DEBUG("remove %s",val);		
-		//(*dtor)(val);
+		(*dtor)(val);
 	}
 	free(ptr);
 	return TRUE;
@@ -230,8 +230,8 @@ int c00_linked_list_iremove(struct c00_linked_list *ptr, void **val){
 	if(ptr->actual && ptr->actual->left == NULL){
 		ptr->first = ptr->actual;
 	}
-	val = tmp_buc->val;
-	C00DEBUG("delete %s",(char *)val);
+	*val = tmp_buc->val;
+	C00DEBUG("delete %s",(char *)*val);
 	free(tmp_buc);
 	
 	return TRUE;
