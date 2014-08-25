@@ -224,7 +224,7 @@ int c00_util_create_config_path(char *full_file, char *rel_file){
 
 	snprintf(path,PATH_MAX,"%s/%s",STRAT_CONFIG_PATH,rel_file);
 
-	strlcpy(full_file,path,PATH_MAX);
+	strncpy(full_file,path,PATH_MAX);
 	C00DEBUG("create file path %s",full_file);
 	
 	return TRUE;

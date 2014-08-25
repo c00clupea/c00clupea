@@ -24,7 +24,7 @@ void _c00_read_server_name(char *line,char* cServerName){
 		syslog(LOG_ERR,"wrong params for init");
 		exit(1);
 	}
-	strlcpy(cServerName,server_name_hold,(CONFIG_LEN*sizeof(char)));
+	strncpy(cServerName,server_name_hold,(CONFIG_LEN*sizeof(char)));
 }
 
 void _c00_read_server_strategy(char *line, int *strategy){
@@ -208,7 +208,7 @@ void _c00_write_server_to_struct(serverList *SServerList,char* line){
 
 	if(_c00_find_server_by_name(rgServerName,SServerList) == NULL){
 		SServerList->iCountServer++;
-		strlcpy(SServerList->rgServer[SServerList->iCountServer-1].cServerName,rgServerName,sizeof(rgServerName));		
+		strncpy(SServerList->rgServer[SServerList->iCountServer-1].cServerName,rgServerName,sizeof(rgServerName));		
 		_c00_write_init_config_to_Server(&SServerList->rgServer[SServerList->iCountServer-1]);
 	}
 	else{
