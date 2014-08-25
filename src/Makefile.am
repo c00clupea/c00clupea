@@ -1,4 +1,4 @@
-AM_CFLAGS =  -std=c99 -Wall -Wextra -pedantic -pthread -D_THREAD_SAFE
+AM_CFLAGS =  -std=gnu99 -Wall -Wextra -pedantic -pthread -D_THREAD_SAFE
 
 AM_CPPFLAGS = 
 

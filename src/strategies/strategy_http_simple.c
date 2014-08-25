@@ -45,7 +45,7 @@ int _c00_receive_simple_http(struct c00_consumer_command *tmp_cmd){
 			fgets(header_line,max_line_length,fr);
 			if(strstr(header_line,":")){
 				//syslog(STDLOG,header_line);
-				strlcat(log_all,header_line,sizeof(log_all));
+				strncat(log_all,header_line,sizeof(log_all));
 				count_all++;
 			}
 			else{

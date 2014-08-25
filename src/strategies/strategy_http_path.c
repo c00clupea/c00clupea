@@ -79,7 +79,7 @@ int _c00_http_path_read_config(struct c00_hashmap *map){
 			C00DEBUG("add %s --> %s",http_path,ptr_spath->path);
 			ptr_spath->header_strategy = header_strat;
 			C00DEBUG("add %s --> strat %d",http_path,ptr_spath->header_strategy);
-			strlcpy(ptr_spath->mime,mime,HTTP_PATH_MIME_LEN);
+			strncpy(ptr_spath->mime,mime,HTTP_PATH_MIME_LEN);
 			C00DEBUG("Found mime %s",ptr_spath->mime);
 			c00_hashmap_add_key_value(map,http_path,sizeof(http_path),ptr_spath);
 			C00DEBUG("add %s --> %s",http_path,ptr_spath->path);
@@ -93,7 +93,7 @@ int _c00_http_path_read_config(struct c00_hashmap *map){
 int _c00_http_path_fill_conf_htdocs(char * ident, char *val){
 	if(strcmp(ident, "htdocs") == 0){
 		C00DEBUG("found htdocs with %s",val);
-		strlcpy(c00_http_path_glob->htdocs_root,val,PATH_MAX);
+		strncpy(c00_http_path_glob->htdocs_root,val,PATH_MAX);
 		return TRUE;
 	}
 	return FALSE;
@@ -214,7 +214,7 @@ int _c00_receive_http_path(struct c00_consumer_command *tmp_cmd, struct c00_http
 
 	/**read first line header and sets seek to second line**/
 	if(_c00_read_header(header_line,pth_req,fp) != TRUE){
-	       	strlcat(log_all,header_line,sizeof(log_all));
+	       	strncat(log_all,header_line,sizeof(log_all));
 		fclose(fp);
 		return FALSE;/**No error can be an attack or sth else...**/
 	}
