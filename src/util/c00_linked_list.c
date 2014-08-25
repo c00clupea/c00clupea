@@ -3,6 +3,10 @@
 /**mode 0 = actual idx, mode 1 begin, mode 2 end**/
 static inline int _c00_set_bucket(struct c00_linked_list *ptr, struct c00_linked_list_bucket *ptr_buc);
 static inline int _c00_move_to_start(struct c00_linked_list *ptr);
+static inline int _c00_set_bucket_se(struct c00_linked_list *ptr, struct c00_linked_list_bucket *ptr_buc, int soe);
+static inline int _c00_set_bucket_empty(struct c00_linked_list *ptr, struct c00_linked_list_bucket *ptr_buc);
+static inline int _c00_move_to_end(struct c00_linked_list *ptr);
+static inline struct c00_linked_list_bucket *_c00_create_bucket(void *val);
 
 
 int c00_linked_list_init(struct c00_linked_list *ptr){
@@ -18,10 +22,18 @@ error:
 	return ERROR;
 }
 
-static inline int _c00_move_to_start(struct c00_linked_list *ptr){
+int _c00_move_to_start(struct c00_linked_list *ptr){
 	if(ptr->size > 0){
 		ptr->idx = 0;
 		ptr->actual = ptr->first;
+	}
+	return TRUE;
+}
+
+int _c00_move_to_end(struct c00_linked_list *ptr){
+	if(ptr->size > 0){
+		ptr->idx = ptr->size - 1;
+		ptr->actual = ptr->last;
 	}
 	return TRUE;
 }
@@ -47,18 +59,25 @@ int c00_linked_list_destroy_free(struct c00_linked_list *ptr){
 	return TRUE;
 }
 int c00_linked_list_push_end(struct c00_linked_list *ptr, void *val){
-	return ERROR;
+ 	struct c00_linked_list_bucket *tmp_buc = _c00_create_bucket(val);
+	return _c00_set_bucket_se(ptr,tmp_buc,0);	
 }
 int c00_linked_list_push_start(struct c00_linked_list *ptr, void *val){
-	return ERROR;
+ 	struct c00_linked_list_bucket *tmp_buc = _c00_create_bucket(val);
+	return _c00_set_bucket_se(ptr,tmp_buc,0);	
+
 }
 int c00_linked_list_pop_end(struct c00_linked_list *ptr, void **val){
-	return ERROR;
+	_c00_move_to_end(ptr);
+	return c00_linked_list_iremove(ptr,val);
+
 }
 int c00_linked_list_pop_start(struct c00_linked_list *ptr, void **val){
-	return ERROR;
+	_c00_move_to_start(ptr);
+	return c00_linked_list_iremove(ptr,val);
 }
 int c00_linked_list_set(struct c00_linked_list *ptr,int idx, void *val){
+	
 	return ERROR;
 }
 int c00_linked_list_get(struct c00_linked_list *ptr,int idx, void **val){
@@ -94,13 +113,39 @@ error:
 	return ERROR;
 }
 
+int _c00_set_bucket_se(struct c00_linked_list *ptr, struct c00_linked_list_bucket *ptr_buc, int soe){
+	if(soe == 0){
+		_c00_move_to_start(ptr);
+		return _c00_set_bucket(ptr,ptr_buc);
+	}	
+	if(ptr->size == 0){
+		return _c00_set_bucket_empty(ptr,ptr_buc);
+	}
+	
+	_c00_move_to_end(ptr);
+	ptr->idx ++;
+	ptr->size ++;
+	struct c00_linked_list_bucket *oldlast;
+	oldlast = ptr->last;
+	oldlast->right = ptr_buc;
+	ptr_buc->left = oldlast;
+	ptr->actual = ptr_buc;
+	ptr->last = ptr_buc;
+	return TRUE;
+}
+
+int _c00_set_bucket_empty(struct c00_linked_list *ptr, struct c00_linked_list_bucket *ptr_buc){
+	ptr->first = ptr_buc;
+	ptr->last = ptr_buc;
+	ptr->actual = ptr_buc;
+	ptr->idx = 0;
+	ptr->size ++;
+	return TRUE;
+}
+
 int _c00_set_bucket(struct c00_linked_list *ptr, struct c00_linked_list_bucket *ptr_buc){
 	if(ptr->size == 0){
-		ptr->first = ptr_buc;
-		ptr->last = ptr_buc;
-		ptr->actual = ptr_buc;
-		ptr->idx = 0;
-		ptr->size ++;
+		_c00_set_bucket_empty(ptr,ptr_buc);
 		return TRUE;
 	}
 	struct c00_linked_list_bucket *old_act;
@@ -124,12 +169,18 @@ error:
 	
 }
 
-int c00_linked_list_iset(struct c00_linked_list *ptr, void *val){
 
+struct c00_linked_list_bucket *_c00_create_bucket(void *val){
 	struct c00_linked_list_bucket *tmp_buc = malloc(sizeof(struct c00_linked_list_bucket));
 	tmp_buc->val = val;
 	tmp_buc->left = NULL;
   	tmp_buc->right = NULL;
+	return tmp_buc;
+}
+
+int c00_linked_list_iset(struct c00_linked_list *ptr, void *val){
+
+	struct c00_linked_list_bucket *tmp_buc = _c00_create_bucket(val);
 	if(_c00_set_bucket(ptr,tmp_buc) == TRUE){
      		return TRUE;
       	}
