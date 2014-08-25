@@ -15,3 +15,5 @@ refactor/c00_01.12
 	simplify http_path
 feature/c00_01.13
 	linked list
+bugfix/c00_01.14
+	linux compatibility
