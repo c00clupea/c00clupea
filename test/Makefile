@@ -11,6 +11,7 @@ alltest:
 clean:
 	rm -f c00_hashmap_test
 	rm -f c00_array_list_test
+	rm -f c00_linked_list_test
 	rm -f *.o
 
 run_test:

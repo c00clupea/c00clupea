@@ -137,6 +137,6 @@
 //end ideas
 
 #define check_idx(I,L)\
-	check(0 >= I && I < L && L != 0,"idx %d out of bound %s %d",I,FLP)
+	check(0 <= I && I < L && L != 0,"idx %d out of bound %s %d",I,FLP)
 
 #endif

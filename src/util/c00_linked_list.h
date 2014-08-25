@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 
-static inline int	_c00_set_bucket(struct c00_linked_list *ptr, struct c00_linked_list_bucket *ptr_buc);
+
 
 struct c00_linked_list{
 	int size;
@@ -34,6 +34,6 @@ int c00_linked_list_imove(struct c00_linked_list *ptr, signed int range);
 /**i... means index on the current index (move with imove) this action will be done**/
 int c00_linked_list_iget(struct c00_linked_list *ptr, void **val);
 int c00_linked_list_iset(struct c00_linked_list *ptr, void *val);
-int c00_linked_list_iremove(struct c00_linked_list *ptr);
+int c00_linked_list_iremove(struct c00_linked_list *ptr, void **val);
 
 #endif
