@@ -36,3 +36,4 @@ val
 compile
 test/testrun.log
 test/*_test
+*.emacs.desktop
