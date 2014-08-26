@@ -63,7 +63,7 @@ int c00_linked_list_destroy_dlg_free(struct c00_linked_list *ptr,int (*dtor)(voi
 	_c00_move_to_start(ptr);
 
 	while(ptr->size != 0){
-		void *val;
+		void *val = NULL;
 		c00_linked_list_iremove(ptr,(void *)&val);
 //		C00DEBUG("remove %s",val);		
 		(*dtor)(val);
@@ -89,7 +89,7 @@ int c00_linked_list_pop_start(struct c00_linked_list *ptr, void **val){
 	_c00_move_to_start(ptr);
 	return c00_linked_list_iremove(ptr,val);
 }
-int c00_linked_list_set(struct c00_linked_list *ptr,int idx, void *val){
+/**int c00_linked_list_set(struct c00_linked_list *ptr,int idx, void *val){
 	
 	return ERROR;
 }
@@ -98,7 +98,7 @@ int c00_linked_list_get(struct c00_linked_list *ptr,int idx, void **val){
 }
 int c00_linked_list_remove(struct c00_linked_list *ptr, int idx){
 	return ERROR;
-}
+	}**/
 int c00_linked_list_imove(struct c00_linked_list *ptr, int range){
 	C00DEBUG("act size %d",ptr->size);
 	check_idx(ptr->idx + range,ptr->size);
@@ -157,6 +157,8 @@ int _c00_set_bucket_empty(struct c00_linked_list *ptr, struct c00_linked_list_bu
 }
 
 int _c00_set_bucket(struct c00_linked_list *ptr, struct c00_linked_list_bucket *ptr_buc){
+	mem_check(ptr);
+	mem_check(ptr_buc);
 	if(ptr->size == 0){
 		_c00_set_bucket_empty(ptr,ptr_buc);
 		return TRUE;
@@ -197,10 +199,12 @@ int c00_linked_list_iset(struct c00_linked_list *ptr, void *val){
 	if(_c00_set_bucket(ptr,tmp_buc) == TRUE){
      		return TRUE;
       	}
+	free(tmp_buc);
 	return ERROR;
 }
 int c00_linked_list_iremove(struct c00_linked_list *ptr, void **val){
 	check(ptr->size > 0,"size is %d",ptr->size);	
+	mem_check(ptr->actual); //double to first check, but makes it compilersafe
 	C00DEBUG("remove idx %d",ptr->idx);
 	struct c00_linked_list_bucket *tmp_buc;
 	tmp_buc = ptr->actual;

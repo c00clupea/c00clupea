@@ -1,7 +1,7 @@
 #include "c00_hashmap.h"
 
 
-static int _c00_hashmap_test_boundary(struct c00_hashmap *map, int idx);
+/**static int _c00_hashmap_test_boundary(struct c00_hashmap *map, int idx);**/
 static int _c00_hashmap_get_hash(char *val,unsigned int len);
 static int _c00_hashmap_calculate_idx_from_hash(int hash, int max_len);
 static int _c00_hashmap_calculate_idx_from_char(char *val, unsigned int key_len, unsigned int max_len);
@@ -19,17 +19,17 @@ int _c00_hashmap_null_bucket(struct c00_hashmap_bucket *bucket){
 	return TRUE;
 }
 
-int _c00_hashmap_test_boundary(struct c00_hashmap *map, int idx){
+/**int _c00_hashmap_test_boundary(struct c00_hashmap *map, int idx){
 	
 	if(idx > map->max_len - 1){
 		return FALSE;
 	}
 
 	return TRUE;
-}
+	}**/
 
 
-int c00_hashmap_init(struct c00_hashmap *map, int init_len, int resizable){
+int c00_hashmap_init(struct c00_hashmap *map, int init_len){
 	int i;
 	
 	map->max_len = init_len;
@@ -269,7 +269,7 @@ int main(int argc, char *argv[]){
 	map = malloc(sizeof(struct c00_hashmap));
 
 
-	ASSERT_TEST("init",TRUE,c00_hashmap_init(map,1000,0))
+	ASSERT_TEST("init",TRUE,c00_hashmap_init(map,1000))
 	ASSERT_TEST("test empty get",FALSE,c00_hashmap_has_key(map,"hallo welt",11))
 	ASSERT_TEST("test insert",TRUE,c00_hashmap_add_key_value(map,"hallo welt",11,"value"))	
 	ASSERT_TEST("test existing get",TRUE,c00_hashmap_has_key(map,"hallo welt",11))

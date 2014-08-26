@@ -26,7 +26,7 @@ int _c00_receive_simple_http(struct c00_consumer_command *tmp_cmd){
 	
 	FILE *fr;
 	fr = fdopen(dup(tmp_cmd->peer_socket),"r");
-	char header_line[max_line_length];
+	char header_line[HTTP_SIMPLE_LINE_LEN];
 	
 	if(fr){
 
@@ -38,14 +38,14 @@ int _c00_receive_simple_http(struct c00_consumer_command *tmp_cmd){
 		const char* result=inet_ntop(AF_INET,&(tmp_cmd->client.sin_addr),buffer,sizeof(buffer));
 		char log_all[STD_LOG_LEN];
 		snprintf(log_all,STD_LOG_LEN,"rcv from %s count %llu:\n",result,tmp_cmd->serverConfig->count->count);
-		fgets(header_line,max_line_length,fr);
+		fgets(header_line,HTTP_SIMPLE_LINE_LEN,fr);
 
 		while(count_all <  header_max_length){
 			
-			fgets(header_line,max_line_length,fr);
+			fgets(header_line,HTTP_SIMPLE_LINE_LEN,fr);
 			if(strstr(header_line,":")){
 				//syslog(STDLOG,header_line);
-				strncat(log_all,header_line,sizeof(log_all));
+				strncat(log_all,header_line,sizeof(log_all) - 1);
 				count_all++;
 			}
 			else{
