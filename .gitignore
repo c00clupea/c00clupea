@@ -31,6 +31,7 @@ src/stamp-h1
 *.core
 install-sh
 c00clupea
+c00clupea_sim
 c00_hashmap_test
 val
 compile
