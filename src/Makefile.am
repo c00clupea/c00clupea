@@ -2,10 +2,7 @@ AM_CFLAGS =  -std=gnu99 -Wall -Wextra -pedantic -pthread -D_THREAD_SAFE
 
 AM_CPPFLAGS = 
 
-
-
-
-bin_PROGRAMS = c00clupea
+bin_PROGRAMS = c00clupea c00clupea_sim
 
 c00clupea_SOURCES = 	global.h\
 			c00_convenience.h\
@@ -21,3 +18,5 @@ c00clupea_SOURCES = 	global.h\
 			strategies/strategy_http_simple.c strategies/strategy_http_simple.h\
 			strategies/strategy_http_path.c strategies/strategy_http_path.h\
 			strategies/http_codes.h
+
+c00clupea_sim_SOURCES = c00clupea_sim.c
