@@ -19,4 +19,6 @@ c00clupea_SOURCES = 	global.h\
 			strategies/strategy_http_path.c strategies/strategy_http_path.h\
 			strategies/http_codes.h
 
-c00clupea_sim_SOURCES = c00clupea_sim.c
+c00clupea_sim_SOURCES = c00clupea_sim.c c00clupea_sim.h\
+			global.h\
+			util/util.c util/util.h
