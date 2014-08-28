@@ -187,5 +187,17 @@ else
 fi
 
 
+
+AC_ARG_ENABLE([c00suname],
+[  --disable-c00suname    disable uname],
+[case "${enableval}" in
+  yes) c00suname=true ;;
+  no)  c00suname=false ;;
+  *) AC_MSG_ERROR([bad value ${enableval} for --enable-c00suname]) ;;
+esac],[c00suname=true])
+AM_CONDITIONAL([C00SUNAME], [test "x$c00suname" = xtrue])
+#AM_CONDITIONAL([C00SUNAME], )
+AS_IF([test "x$c00suname" = xtrue],[AC_DEFINE([C00SUNAME],[],[has uname])])
+
 AC_OUTPUT
 
