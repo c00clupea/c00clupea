@@ -1,3 +1,16 @@
+/**
+ *
+ * Some sourcecode in this file is shamelessly copied from another open source software
+ * See the original license and developers below this header
+ * However other parts in this sourcefile are adopted for the c00clupea Honeypot
+ *
+ * cooclupea Honeypot 
+ * <*))><
+ *
+ * (C) 2014 by Christoph Pohl (c00clupea@googlemail.com)
+ * released under the GPLv.2
+ *
+ **/
 /* vi: set sw=4 ts=4: */
 /*
  * universal getopt32 implementation for busybox
@@ -11,290 +24,141 @@
 # include <getopt.h>
 /*#endif*/
 #include <stdio.h>
+#include <stdlib.h>
 #include "../global.h"
+#define type long long
 
 #define FAST_FUNC
 /*#include "libbb.h"*/
+typedef signed char smallint;
+typedef struct llist_t {
+	struct llist_t *link;
+	char *data;
+} llist_t;
+void llist_add_to(llist_t **old_head, void *data) FAST_FUNC;
+void llist_add_to_end(llist_t **list_head, void *data) FAST_FUNC;
+void *llist_pop(llist_t **elm) FAST_FUNC;
+void llist_unlink(llist_t **head, llist_t *elm) FAST_FUNC;
+void llist_free(llist_t *elm, void (*freeit)(void *data)) FAST_FUNC;
+llist_t *llist_rev(llist_t *list) FAST_FUNC;
+llist_t *llist_find_str(llist_t *first, const char *str) FAST_FUNC;
+void * xzalloc(size_t size);
+
+
+void* FAST_FUNC xzalloc(size_t size)
+{
+	void *ptr = malloc(size);
+	memset(ptr, 0, size);
+	return ptr;
+}
+
+/* Add data to the start of the linked list.  */
+void FAST_FUNC llist_add_to(llist_t **old_head, void *data)
+{
+	llist_t *new_head = malloc(sizeof(llist_t));
+
+	new_head->data = data;
+	new_head->link = *old_head;
+	*old_head = new_head;
+}
+
+/* Add data to the end of the linked list.  */
+void FAST_FUNC llist_add_to_end(llist_t **list_head, void *data)
+{
+	while (*list_head)
+		list_head = &(*list_head)->link;
+	*list_head = xzalloc(sizeof(llist_t));
+	(*list_head)->data = data;
+	/*(*list_head)->link = NULL;*/
+}
+
+/* Remove first element from the list and return it */
+void* FAST_FUNC llist_pop(llist_t **head)
+{
+	void *data = NULL;
+	llist_t *temp = *head;
+
+	if (temp) {
+		data = temp->data;
+		*head = temp->link;
+		free(temp);
+	}
+	return data;
+}
+
+/* Unlink arbitrary given element from the list */
+void FAST_FUNC llist_unlink(llist_t **head, llist_t *elm)
+{
+	if (!elm)
+		return;
+	while (*head) {
+		if (*head == elm) {
+			*head = (*head)->link;
+			break;
+		}
+		head = &(*head)->link;
+	}
+}
+
+/* Recursively free all elements in the linked list.  If freeit != NULL
+ * call it on each datum in the list */
+void FAST_FUNC llist_free(llist_t *elm, void (*freeit)(void *data))
+{
+	while (elm) {
+		void *data = llist_pop(&elm);
+
+		if (freeit)
+			freeit(data);
+	}
+}
+
+/* Reverse list order. */
+llist_t* FAST_FUNC llist_rev(llist_t *list)
+{
+	llist_t *rev = NULL;
+
+	while (list) {
+		llist_t *next = list->link;
+
+		list->link = rev;
+		rev = list;
+		list = next;
+	}
+	return rev;
+}
+
+llist_t* FAST_FUNC llist_find_str(llist_t *list, const char *str)
+{
+	while (list) {
+		if (strcmp(list->data, str) == 0)
+			break;
+		list = list->link;
+	}
+	return list;
+}
+
+
+
+
+
+/**#####################
+ * This is a bloody Hack
+ **#####################
+ *  This inline blah is the excerpt of a few hundred lines in busybox....
+ *  However the busybox is really "nice" it is written to solve hundreds of problems...
+ *  But is is some pain to read it...
+ * <*))><
+ */
+static unsigned type xatoi_positive(const char *cstr){
+	unsigned type r;
+	char *e;
+	r = strtoull(cstr,&e,10);
+	if(r <= INT_MAX){
+		return r;
+	}
+	exit(0);//Simulates the real behavior
+}
 
-/*      Documentation
-
-uint32_t
-getopt32(char **argv, const char *applet_opts, ...)
-
-        The command line options must be declared in const char
-        *applet_opts as a string of chars, for example:
-
-        flags = getopt32(argv, "rnug");
-
-        If one of the given options is found, a flag value is added to
-        the return value (an unsigned long).
-
-        The flag value is determined by the position of the char in
-        applet_opts string.  For example, in the above case:
-
-        flags = getopt32(argv, "rnug");
-
-        "r" will add 1    (bit 0)
-        "n" will add 2    (bit 1)
-        "u" will add 4    (bit 2)
-        "g" will add 8    (bit 3)
-
-        and so on.  You can also look at the return value as a bit
-        field and each option sets one bit.
-
-        On exit, global variable optind is set so that if you
-        will do argc -= optind; argv += optind; then
-        argc will be equal to number of remaining non-option
-        arguments, first one would be in argv[0], next in argv[1] and so on
-        (options and their parameters will be moved into argv[]
-        positions prior to argv[optind]).
-
- ":"    If one of the options requires an argument, then add a ":"
-        after the char in applet_opts and provide a pointer to store
-        the argument.  For example:
-
-        char *pointer_to_arg_for_a;
-        char *pointer_to_arg_for_b;
-        char *pointer_to_arg_for_c;
-        char *pointer_to_arg_for_d;
-
-        flags = getopt32(argv, "a:b:c:d:",
-                        &pointer_to_arg_for_a, &pointer_to_arg_for_b,
-                        &pointer_to_arg_for_c, &pointer_to_arg_for_d);
-
-        The type of the pointer (char* or llist_t*) may be controlled
-        by the "::" special separator that is set in the external string
-        opt_complementary (see below for more info).
-
- "::"   If option can have an *optional* argument, then add a "::"
-        after its char in applet_opts and provide a pointer to store
-        the argument.  Note that optional arguments _must_
-        immediately follow the option: -oparam, not -o param.
-
- "+"    If the first character in the applet_opts string is a plus,
-        then option processing will stop as soon as a non-option is
-        encountered in the argv array.  Useful for applets like env
-        which should not process arguments to subprograms:
-        env -i ls -d /
-        Here we want env to process just the '-i', not the '-d'.
-
- "!"    Report bad option, missing required options,
-        inconsistent options with all-ones return value (instead of abort).
-
-const char *applet_long_options
-
-        This struct allows you to define long options:
-
-        static const char applet_longopts[] ALIGN1 =
-                //"name\0" has_arg val
-                "verbose\0" No_argument "v"
-                ;
-        applet_long_options = applet_longopts;
-
-        The last member of struct option (val) typically is set to
-        matching short option from applet_opts. If there is no matching
-        char in applet_opts, then:
-        - return bit have next position after short options
-        - if has_arg is not "No_argument", use ptr for arg also
-        - opt_complementary affects it too
-
-        Note: a good applet will make long options configurable via the
-        config process and not a required feature.  The current standard
-        is to name the config option CONFIG_FEATURE_<applet>_LONG_OPTIONS.
-
-const char *opt_complementary
-
- ":"    The colon (":") is used to separate groups of two or more chars
-        and/or groups of chars and special characters (stating some
-        conditions to be checked).
-
- "abc"  If groups of two or more chars are specified, the first char
-        is the main option and the other chars are secondary options.
-        Their flags will be turned on if the main option is found even
-        if they are not specifed on the command line.  For example:
-
-        opt_complementary = "abc";
-        flags = getopt32(argv, "abcd")
-
-        If getopt() finds "-a" on the command line, then
-        getopt32's return value will be as if "-a -b -c" were
-        found.
-
- "ww"   Adjacent double options have a counter associated which indicates
-        the number of occurrences of the option.
-        For example the ps applet needs:
-        if w is given once, GNU ps sets the width to 132,
-        if w is given more than once, it is "unlimited"
-
-        int w_counter = 0; // must be initialized!
-        opt_complementary = "ww";
-        getopt32(argv, "w", &w_counter);
-        if (w_counter)
-                width = (w_counter == 1) ? 132 : INT_MAX;
-        else
-                get_terminal_width(...&width...);
-
-        w_counter is a pointer to an integer. It has to be passed to
-        getopt32() after all other option argument sinks.
-
-        For example: accept multiple -v to indicate the level of verbosity
-        and for each -b optarg, add optarg to my_b. Finally, if b is given,
-        turn off c and vice versa:
-
-        llist_t *my_b = NULL;
-        int verbose_level = 0;
-        opt_complementary = "vv:b::b-c:c-b";
-        f = getopt32(argv, "vb:c", &my_b, &verbose_level);
-        if (f & 2)       // -c after -b unsets -b flag
-                while (my_b) dosomething_with(llist_pop(&my_b));
-        if (my_b)        // but llist is stored if -b is specified
-                free_llist(my_b);
-        if (verbose_level) printf("verbose level is %d\n", verbose_level);
-
-Special characters:
-
- "-"    A group consisting of just a dash forces all arguments
-        to be treated as options, even if they have no leading dashes.
-        Next char in this case can't be a digit (0-9), use ':' or end of line.
-        Example:
-
-        opt_complementary = "-:w-x:x-w"; // "-w-x:x-w" would also work,
-        getopt32(argv, "wx");            // but is less readable
-
-        This makes it possible to use options without a dash (./program w x)
-        as well as with a dash (./program -x).
-
-        NB: getopt32() will leak a small amount of memory if you use
-        this option! Do not use it if there is a possibility of recursive
-        getopt32() calls.
-
- "--"   A double dash at the beginning of opt_complementary means the
-        argv[1] string should always be treated as options, even if it isn't
-        prefixed with a "-".  This is useful for special syntax in applets
-        such as "ar" and "tar":
-        tar xvf foo.tar
-
-        NB: getopt32() will leak a small amount of memory if you use
-        this option! Do not use it if there is a possibility of recursive
-        getopt32() calls.
-
- "-N"   A dash as the first char in a opt_complementary group followed
-        by a single digit (0-9) means that at least N non-option
-        arguments must be present on the command line
-
- "=N"   An equal sign as the first char in a opt_complementary group followed
-        by a single digit (0-9) means that exactly N non-option
-        arguments must be present on the command line
-
- "?N"   A "?" as the first char in a opt_complementary group followed
-        by a single digit (0-9) means that at most N arguments must be present
-        on the command line.
-
- "V-"   An option with dash before colon or end-of-line results in
-        bb_show_usage() being called if this option is encountered.
-        This is typically used to implement "print verbose usage message
-        and exit" option.
-
- "a-b"  A dash between two options causes the second of the two
-        to be unset (and ignored) if it is given on the command line.
-
-        [FIXME: what if they are the same? like "x-x"? Is it ever useful?]
-
-        For example:
-        The du applet has the options "-s" and "-d depth".  If
-        getopt32 finds -s, then -d is unset or if it finds -d
-        then -s is unset.  (Note:  busybox implements the GNU
-        "--max-depth" option as "-d".)  To obtain this behavior, you
-        set opt_complementary = "s-d:d-s".  Only one flag value is
-        added to getopt32's return value depending on the
-        position of the options on the command line.  If one of the
-        two options requires an argument pointer (":" in applet_opts
-        as in "d:") optarg is set accordingly.
-
-        char *smax_print_depth;
-
-        opt_complementary = "s-d:d-s:x-x";
-        opt = getopt32(argv, "sd:x", &smax_print_depth);
-
-        if (opt & 2)
-                max_print_depth = atoi(smax_print_depth);
-        if (opt & 4)
-                printf("Detected odd -x usage\n");
-
- "a--b" A double dash between two options, or between an option and a group
-        of options, means that they are mutually exclusive.  Unlike
-        the "-" case above, an error will be forced if the options
-        are used together.
-
-        For example:
-        The cut applet must have only one type of list specified, so
-        -b, -c and -f are mutually exclusive and should raise an error
-        if specified together.  In this case you must set
-        opt_complementary = "b--cf:c--bf:f--bc".  If two of the
-        mutually exclusive options are found, getopt32 will call
-        bb_show_usage() and die.
-
- "x--x" Variation of the above, it means that -x option should occur
-        at most once.
-
- "a+"   A plus after a char in opt_complementary means that the parameter
-        for this option is a nonnegative integer. It will be processed
-        with xatoi_positive() - allowed range is 0..INT_MAX.
-
-        int param;  // "unsigned param;" will also work
-        opt_complementary = "p+";
-        getopt32(argv, "p:", &param);
-
- "a::"  A double colon after a char in opt_complementary means that the
-        option can occur multiple times. Each occurrence will be saved as
-        a llist_t element instead of char*.
-
-        For example:
-        The grep applet can have one or more "-e pattern" arguments.
-        In this case you should use getopt32() as follows:
-
-        llist_t *patterns = NULL;
-
-        (this pointer must be initializated to NULL if the list is empty
-        as required by llist_add_to_end(llist_t **old_head, char *new_item).)
-
-        opt_complementary = "e::";
-
-        getopt32(argv, "e:", &patterns);
-        $ grep -e user -e root /etc/passwd
-        root:x:0:0:root:/root:/bin/bash
-        user:x:500:500::/home/user:/bin/bash
-
- "a?b"  A "?" between an option and a group of options means that
-        at least one of them is required to occur if the first option
-        occurs in preceding command line arguments.
-
-        For example from "id" applet:
-
-        // Don't allow -n -r -rn -ug -rug -nug -rnug
-        opt_complementary = "r?ug:n?ug:u--g:g--u";
-        flags = getopt32(argv, "rnug");
-
-        This example allowed only:
-        $ id; id -u; id -g; id -ru; id -nu; id -rg; id -ng; id -rnu; id -rng
-
- "X"    A opt_complementary group with just a single letter means
-        that this option is required. If more than one such group exists,
-        at least one option is required to occur (not all of them).
-        For example from "start-stop-daemon" applet:
-
-        // Don't allow -KS -SK, but -S or -K is required
-        opt_complementary = "K:S:K--S:S--K";
-        flags = getopt32(argv, "KS...);
-
-
-        Don't forget to use ':'. For example, "?322-22-23X-x-a"
-        is interpreted as "?3:22:-2:2-2:2-3Xa:2--x" -
-        max 3 args; count uses of '-2'; min 2 args; if there is
-        a '-2' option then unset '-3', '-X' and '-a'; if there is
-        a '-2' and after it a '-x' then error out.
-        But it's far too obfuscated. Use ':' to separate groups.
-*/
 
 /* Code here assumes that 'unsigned' is at least 32 bits wide */
 
@@ -588,6 +452,15 @@ getopt32(char **argv, const char *applet_opts, ...)
 			if (on_off->param_type == PARAM_LIST) {
 				llist_add_to_end((llist_t **)(on_off->optarg), optarg);
 			} else if (on_off->param_type == PARAM_INT) {
+/**#####################
+ * This is a bloody Hack
+ **#####################
+ *  xatoi_positive is built in the xatonum_template.c from busybox
+ *  However this xatonum is really bad
+ *  Hence we do not want to rebuild busybox, just to check wether a integer is positive or not....
+ *  This xatoi blah is rebuilt with a simple inline method....
+ * <*))><
+ */
 //TODO: xatoi_positive indirectly pulls in printf machinery
 				*(unsigned*)(on_off->optarg) = xatoi_positive(optarg);
 			} else if (on_off->optarg) {
@@ -616,6 +489,7 @@ getopt32(char **argv, const char *applet_opts, ...)
 
  error:
 	if (first_char != '!')
-		bb_show_usage();
+		//bb_show_usage();
+		printf("No help available!\n");
 	return (int32_t)-1;
 }

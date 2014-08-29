@@ -1,3 +1,5 @@
+
+
 #ifndef C00_HASHMAP_H
 #define C00_HASHMAP_H
 #include "../global.h"
