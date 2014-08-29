@@ -7,8 +7,8 @@ CC = clang
 
 SUBDIRS = src man
 
-EXTRA_DIST = autogen.sh conf/c00clupea.config conf/http_path_whitelist.config man/c00clupea.man scan_files.sh conf/http_path_master.config
+EXTRA_DIST = autogen.sh conf/c00clupea.config conf/http_path_whitelist.config man/c00clupea.man scan_files.sh conf/http_path_master.config conf/c00s_uname
 
 confdir = /etc/c00clupea
 
-conf_DATA = conf/c00clupea.config conf/http_path_whitelist.config conf/http_path_master.config
+conf_DATA = conf/c00clupea.config conf/http_path_whitelist.config conf/http_path_master.config conf/c00s_uname
