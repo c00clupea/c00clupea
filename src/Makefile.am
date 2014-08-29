@@ -1,4 +1,8 @@
-AM_CFLAGS =  -std=gnu99 -Wall -Wextra -pedantic -pthread -D_THREAD_SAFE -Wno-extended-offsetof
+AM_CFLAGS =  -std=gnu99 -Wall -Wextra -pedantic -pthread -D_THREAD_SAFE
+
+if CLANG
+AM_CFLAGS += -Wno-extended-offsetof
+endif
 
 AM_CPPFLAGS = 
 

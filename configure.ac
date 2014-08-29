@@ -7,7 +7,9 @@ AC_INIT([c00clupea], [01], [christoph.pohl0@hm.edu])
 #AC_CONFIG_HEADERS([config.h])
 AM_INIT_AUTOMAKE([subdir-objects])
 # Checks for programs.
-AC_PROG_CC
+
+AC_PROG_CC(clang gcc)
+
 
 # Checks for libraries.
 
@@ -24,6 +26,23 @@ AC_CHECK_FUNCS([memset socket strstr pthread_mutex_lock snprintf va_start vsnpri
 AC_CONFIG_HEADERS([src/conf.h])
 
 AC_CONFIG_FILES([Makefile src/Makefile man/Makefile])
+
+AC_COMPILE_IFELSE(
+[AC_LANG_PROGRAM([], [[
+#ifndef __clang__
+       not clang
+#endif
+]])],
+[CLANG=yes], [CLANG=no])
+
+AC_MSG_RESULT([$CLANG])
+
+if test "x$CLANG" = xyes; then
+AM_CONDITIONAL([CLANG],true)
+else
+AM_CONDITIONAL([CLANG],false)
+fi
+
 
 #build tests
 
