@@ -1,16 +1,29 @@
-/*
- *Copyright (C) 2014-2014 Christoph Pohl
+/**
  *
- *Licensed under GPLv2 or later see file LICENSE in this source tree
+ * Some sourcecode in this file is shamelessly copied from another open source software
+ * See the original license and developers below this header
+ * However other parts in this sourcefile are adopted for the c00clupea Honeypot
  *
- *This source file is part of the c00clupea honeypot system
- *However most of the code is copied from busybox, also under GPLv2
- *Just the relevant parts for honeypots are changed...
+ * cooclupea Honeypot 
+ * <*))><
+ *
+ * (C) 2014 by Christoph Pohl (c00clupea@googlemail.com)
+ * released under the GPLv.2
+ *
  */
+/* vi: set sw=4 ts=4: */
+/* uname -- print system information
+ * Copyright (C) 1989-1999 Free Software Foundation, Inc.
+ *
+ * Licensed under GPLv2 or later, see file LICENSE in this source tree.
+ */
+
+/* BB_AUDIT SUSv3 compliant */
+/* http://www.opengroup.org/onlinepubs/007904975/utilities/uname.html */
 
 #ifndef C00S_UNAME_H
 #define C00S_UNAME_H
-#include "../global.h"
+#include "../util/busybox_cccc.h"
 #include <stddef.h>
 #include <sys/utsname.h>
 
