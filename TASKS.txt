@@ -2,6 +2,6 @@
 --------TASK
 Fri Aug 29 20:53:16 2014
 TASK:	fix \n in uname
-DUE: 	soon
-State:	open
+DUE: 	Sat Aug 30 10:29:54 2014
+State:	closed
 --------
