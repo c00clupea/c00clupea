@@ -22,4 +22,6 @@ bugfix/c00_01.14
 bugfix/c00_01.15
 	bugfix linux compat
 feature/c00_01.16
-	basic simulation
+	basic simulation and uname
+feature/c00_01.17
+	implement whoami
