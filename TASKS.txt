@@ -1,9 +1,15 @@
 
 --------TASK
-Sat Aug 30 10:32:30 2014
-TASK:	Implement whoami
+Sat Aug 30 16:26:41 2014
+TASK:	Implement id
 DUE: 	soon
 State:	open
+--------
+--------TASK
+Sat Aug 30 10:32:30 2014
+TASK:	Implement whoami
+DUE: 	Sat Aug 30 16:26:22 2014
+State:	closed
 --------
 
 --------TASK
