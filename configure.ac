@@ -259,7 +259,7 @@ AC_ARG_ENABLE([c00suptime],
   yes) c00suptime=true ;;
   no)  c00suptime=false ;;
   *) AC_MSG_ERROR([bad value ${enableval} for --enable-c00suptime]) ;;
-esac],[c00swhoami=true])
+esac],[c00suptime=true])
 AM_CONDITIONAL([C00SUPTIME], [test "x$c00suptime" = xtrue])
 AS_IF([test "x$c00suptime" = xtrue],[AC_DEFINE([C00SUPTIME],[],[has uptime])])
 

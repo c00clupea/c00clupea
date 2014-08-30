@@ -621,7 +621,9 @@ ac_includes_default="\
 # include <unistd.h>
 #endif"
 
-ac_subst_vars='C00SWHOAMI_FALSE
+ac_subst_vars='C00SUPTIME_FALSE
+C00SUPTIME_TRUE
+C00SWHOAMI_FALSE
 C00SWHOAMI_TRUE
 C00SUNAME_FALSE
 C00SUNAME_TRUE
@@ -751,6 +753,7 @@ enable_writecrap
 enable_strict_atomic
 enable_c00suname
 enable_c00swhoami
+enable_c00suptime
 '
       ac_precious_vars='build_alias
 host_alias
@@ -1406,6 +1409,7 @@ Optional Features:
                           slow....
   --disable-c00suname    disable uname
   --disable-c00swhoami    disable whoami (simple version)
+  --disable-c00uptime    disable uptime (simple version)
 
 Some influential environment variables:
   CC          C compiler command
@@ -6195,6 +6199,30 @@ $as_echo "#define C00SWHOAMI /**/" >>confdefs.h
 
 fi
 
+# Check whether --enable-c00suptime was given.
+if test "${enable_c00suptime+set}" = set; then :
+  enableval=$enable_c00suptime; case "${enableval}" in
+  yes) c00suptime=true ;;
+  no)  c00suptime=false ;;
+  *) as_fn_error $? "bad value ${enableval} for --enable-c00suptime" "$LINENO" 5 ;;
+esac
+else
+  c00suptime=true
+fi
+
+ if test "x$c00suptime" = xtrue; then
+  C00SUPTIME_TRUE=
+  C00SUPTIME_FALSE='#'
+else
+  C00SUPTIME_TRUE='#'
+  C00SUPTIME_FALSE=
+fi
+
+if test "x$c00suptime" = xtrue; then :
+
+$as_echo "#define C00SUPTIME /**/" >>confdefs.h
+
+fi
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -6363,6 +6391,10 @@ Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${C00SWHOAMI_TRUE}" && test -z "${C00SWHOAMI_FALSE}"; then
   as_fn_error $? "conditional \"C00SWHOAMI\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${C00SUPTIME_TRUE}" && test -z "${C00SUPTIME_FALSE}"; then
+  as_fn_error $? "conditional \"C00SUPTIME\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 

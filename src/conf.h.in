@@ -9,6 +9,9 @@
 /* has uname */
 #undef C00SUNAME
 
+/* has uptime */
+#undef C00SUPTIME
+
 /* has whoami */
 #undef C00SWHOAMI
 

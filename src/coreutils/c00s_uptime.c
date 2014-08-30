@@ -12,7 +12,7 @@
  */
 #include "c00s_uptime.h"
 
-int uptime_main(int argc, char *argv[]){
+int uptime_main(int UNUSED(argc), char UNUSED(*argv[])){
 	printf("uptime dummy");
 	return TRUE;
 }
