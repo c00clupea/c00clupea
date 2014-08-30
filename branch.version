@@ -25,3 +25,5 @@ feature/c00_01.16
 	basic simulation and uname
 feature/c00_01.17
 	implement whoami
+feature/c00_01.18
+	implement uptime
