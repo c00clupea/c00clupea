@@ -51,7 +51,7 @@ int uname_main(int UNUSED(argc), char *argv[]){
 	check(fp,"File %s not exists",path);
 
 	char line[1025];
-	char linec[1024];
+
 
 	strcpy(uname_info.processor, unknown_str);
 	strcpy(uname_info.platform, unknown_str);
@@ -59,8 +59,12 @@ int uname_main(int UNUSED(argc), char *argv[]){
 	delta = utsname_offset;
 
 	int i = 0;
+	int len;
 	while(fgets(line,sizeof(line),fp) != NULL && i < 5){
-		snprintf(linec,1024,"%s",line);
+		len = strlen(line);
+		if(line[len - 1] == '\n'){
+			line[len-1] = '\0';
+		}
 		char *p = (char *)(&uname_info)+delta[i];
 		/**###########################
 		 * This is real mess...solve it
@@ -68,7 +72,7 @@ int uname_main(int UNUSED(argc), char *argv[]){
 		 *  buffer problems when config too long
 		 * <*))><
 		 */
-		strcpy(p,linec);
+		strcpy(p,line);
 		i++;
 	}
 
