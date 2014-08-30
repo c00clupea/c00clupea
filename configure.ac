@@ -14,7 +14,7 @@ AC_PROG_CC(clang gcc)
 # Checks for libraries.
 
 # Checks for header files.
-AC_CHECK_HEADERS([arpa/inet.h limits.h netinet/in.h stdlib.h string.h sys/socket.h syslog.h unistd.h stdarg.h limits.h stdio.h])
+AC_CHECK_HEADERS([arpa/inet.h limits.h netinet/in.h stdlib.h string.h sys/socket.h syslog.h unistd.h stdarg.h limits.h stdio.h sys/types.h sys/utsname.h getopt.h pwd.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_TYPE_SIZE_T
@@ -36,6 +36,31 @@ AC_COMPILE_IFELSE(
 [CLANG=yes], [CLANG=no])
 
 AC_MSG_RESULT([$CLANG])
+
+AC_CANONICAL_HOST
+
+case $host_os in
+  darwin* )
+        AM_CONDITIONAL([NEEDPTHREAD],false)
+        ;;
+  linux*)
+        AM_CONDITIONAL([NEEDPTHREAD],false)
+        ;;
+   *BSD*)
+        AM_CONDITIONAL([NEEDPTHREAD],true)
+        ;;
+   *bsd*)
+        AM_CONDITIONAL([NEEDPTHREAD],true)
+        ;;
+    *)
+
+        AC_MSG_ERROR([Your platform is not currently supported])
+        ;;
+esac
+
+
+
+
 
 if test "x$CLANG" = xyes; then
 AM_CONDITIONAL([CLANG],true)
@@ -217,6 +242,17 @@ esac],[c00suname=true])
 AM_CONDITIONAL([C00SUNAME], [test "x$c00suname" = xtrue])
 #AM_CONDITIONAL([C00SUNAME], )
 AS_IF([test "x$c00suname" = xtrue],[AC_DEFINE([C00SUNAME],[],[has uname])])
+
+AC_ARG_ENABLE([c00swhoami],
+[  --disable-c00swhoami    disable whoami (simple version)],
+[case "${enableval}" in
+  yes) c00swhoami=true ;;
+  no)  c00swhoami=false ;;
+  *) AC_MSG_ERROR([bad value ${enableval} for --enable-c00swhoami]) ;;
+esac],[c00swhoami=true])
+AM_CONDITIONAL([C00SWHOAMI], [test "x$c00swhoami" = xtrue])
+AS_IF([test "x$c00swhoami" = xtrue],[AC_DEFINE([C00SWHOAMI],[],[has whoami])])
+
 
 AC_OUTPUT
 

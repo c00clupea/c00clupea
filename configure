@@ -621,7 +621,9 @@ ac_includes_default="\
 # include <unistd.h>
 #endif"
 
-ac_subst_vars='C00SUNAME_FALSE
+ac_subst_vars='C00SWHOAMI_FALSE
+C00SWHOAMI_TRUE
+C00SUNAME_FALSE
 C00SUNAME_TRUE
 STRAT_CONFIG_PATH
 LOG_MAIN_TEMPLATE
@@ -643,6 +645,16 @@ STDLOG
 SYSLOG
 CLANG_FALSE
 CLANG_TRUE
+NEEDPTHREAD_FALSE
+NEEDPTHREAD_TRUE
+host_os
+host_vendor
+host_cpu
+host
+build_os
+build_vendor
+build_cpu
+build
 LIBOBJS
 EGREP
 GREP
@@ -738,6 +750,7 @@ enable_buildtest
 enable_writecrap
 enable_strict_atomic
 enable_c00suname
+enable_c00swhoami
 '
       ac_precious_vars='build_alias
 host_alias
@@ -1364,6 +1377,10 @@ Program names:
   --program-prefix=PREFIX            prepend PREFIX to installed program names
   --program-suffix=SUFFIX            append SUFFIX to installed program names
   --program-transform-name=PROGRAM   run sed PROGRAM on installed program names
+
+System types:
+  --build=BUILD     configure for building on BUILD [guessed]
+  --host=HOST       cross-compile to build programs to run on HOST [BUILD]
 _ACEOF
 fi
 
@@ -1388,6 +1405,7 @@ Optional Features:
   --enable-strict-atomic  Enable strict atomic behaviour...It is safe but
                           slow....
   --disable-c00suname    disable uname
+  --disable-c00swhoami    disable whoami (simple version)
 
 Some influential environment variables:
   CC          C compiler command
@@ -4120,7 +4138,7 @@ fi
 done
 
 
-for ac_header in arpa/inet.h limits.h netinet/in.h stdlib.h string.h sys/socket.h syslog.h unistd.h stdarg.h limits.h stdio.h
+for ac_header in arpa/inet.h limits.h netinet/in.h stdlib.h string.h sys/socket.h syslog.h unistd.h stdarg.h limits.h stdio.h sys/types.h sys/utsname.h getopt.h pwd.h
 do :
   as_ac_Header=`$as_echo "ac_cv_header_$ac_header" | $as_tr_sh`
 ac_fn_c_check_header_mongrel "$LINENO" "$ac_header" "$as_ac_Header" "$ac_includes_default"
@@ -4258,6 +4276,129 @@ rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
 
 { $as_echo "$as_me:${as_lineno-$LINENO}: result: $CLANG" >&5
 $as_echo "$CLANG" >&6; }
+
+# Make sure we can run config.sub.
+$SHELL "$ac_aux_dir/config.sub" sun4 >/dev/null 2>&1 ||
+  as_fn_error $? "cannot run $SHELL $ac_aux_dir/config.sub" "$LINENO" 5
+
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking build system type" >&5
+$as_echo_n "checking build system type... " >&6; }
+if ${ac_cv_build+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  ac_build_alias=$build_alias
+test "x$ac_build_alias" = x &&
+  ac_build_alias=`$SHELL "$ac_aux_dir/config.guess"`
+test "x$ac_build_alias" = x &&
+  as_fn_error $? "cannot guess build type; you must specify one" "$LINENO" 5
+ac_cv_build=`$SHELL "$ac_aux_dir/config.sub" $ac_build_alias` ||
+  as_fn_error $? "$SHELL $ac_aux_dir/config.sub $ac_build_alias failed" "$LINENO" 5
+
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_build" >&5
+$as_echo "$ac_cv_build" >&6; }
+case $ac_cv_build in
+*-*-*) ;;
+*) as_fn_error $? "invalid value of canonical build" "$LINENO" 5;;
+esac
+build=$ac_cv_build
+ac_save_IFS=$IFS; IFS='-'
+set x $ac_cv_build
+shift
+build_cpu=$1
+build_vendor=$2
+shift; shift
+# Remember, the first character of IFS is used to create $*,
+# except with old shells:
+build_os=$*
+IFS=$ac_save_IFS
+case $build_os in *\ *) build_os=`echo "$build_os" | sed 's/ /-/g'`;; esac
+
+
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking host system type" >&5
+$as_echo_n "checking host system type... " >&6; }
+if ${ac_cv_host+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  if test "x$host_alias" = x; then
+  ac_cv_host=$ac_cv_build
+else
+  ac_cv_host=`$SHELL "$ac_aux_dir/config.sub" $host_alias` ||
+    as_fn_error $? "$SHELL $ac_aux_dir/config.sub $host_alias failed" "$LINENO" 5
+fi
+
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_host" >&5
+$as_echo "$ac_cv_host" >&6; }
+case $ac_cv_host in
+*-*-*) ;;
+*) as_fn_error $? "invalid value of canonical host" "$LINENO" 5;;
+esac
+host=$ac_cv_host
+ac_save_IFS=$IFS; IFS='-'
+set x $ac_cv_host
+shift
+host_cpu=$1
+host_vendor=$2
+shift; shift
+# Remember, the first character of IFS is used to create $*,
+# except with old shells:
+host_os=$*
+IFS=$ac_save_IFS
+case $host_os in *\ *) host_os=`echo "$host_os" | sed 's/ /-/g'`;; esac
+
+
+
+case $host_os in
+  darwin* )
+         if false; then
+  NEEDPTHREAD_TRUE=
+  NEEDPTHREAD_FALSE='#'
+else
+  NEEDPTHREAD_TRUE='#'
+  NEEDPTHREAD_FALSE=
+fi
+
+        ;;
+  linux*)
+         if false; then
+  NEEDPTHREAD_TRUE=
+  NEEDPTHREAD_FALSE='#'
+else
+  NEEDPTHREAD_TRUE='#'
+  NEEDPTHREAD_FALSE=
+fi
+
+        ;;
+   *BSD*)
+         if true; then
+  NEEDPTHREAD_TRUE=
+  NEEDPTHREAD_FALSE='#'
+else
+  NEEDPTHREAD_TRUE='#'
+  NEEDPTHREAD_FALSE=
+fi
+
+        ;;
+   *bsd*)
+         if true; then
+  NEEDPTHREAD_TRUE=
+  NEEDPTHREAD_FALSE='#'
+else
+  NEEDPTHREAD_TRUE='#'
+  NEEDPTHREAD_FALSE=
+fi
+
+        ;;
+    *)
+
+        as_fn_error $? "Your platform is not currently supported" "$LINENO" 5
+        ;;
+esac
+
+
+
+
 
 if test "x$CLANG" = xyes; then
  if true; then
@@ -4508,6 +4649,22 @@ Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${am__fastdepCC_TRUE}" && test -z "${am__fastdepCC_FALSE}"; then
   as_fn_error $? "conditional \"am__fastdepCC\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${NEEDPTHREAD_TRUE}" && test -z "${NEEDPTHREAD_FALSE}"; then
+  as_fn_error $? "conditional \"NEEDPTHREAD\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${NEEDPTHREAD_TRUE}" && test -z "${NEEDPTHREAD_FALSE}"; then
+  as_fn_error $? "conditional \"NEEDPTHREAD\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${NEEDPTHREAD_TRUE}" && test -z "${NEEDPTHREAD_FALSE}"; then
+  as_fn_error $? "conditional \"NEEDPTHREAD\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${NEEDPTHREAD_TRUE}" && test -z "${NEEDPTHREAD_FALSE}"; then
+  as_fn_error $? "conditional \"NEEDPTHREAD\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${CLANG_TRUE}" && test -z "${CLANG_FALSE}"; then
@@ -6013,6 +6170,32 @@ $as_echo "#define C00SUNAME /**/" >>confdefs.h
 
 fi
 
+# Check whether --enable-c00swhoami was given.
+if test "${enable_c00swhoami+set}" = set; then :
+  enableval=$enable_c00swhoami; case "${enableval}" in
+  yes) c00swhoami=true ;;
+  no)  c00swhoami=false ;;
+  *) as_fn_error $? "bad value ${enableval} for --enable-c00swhoami" "$LINENO" 5 ;;
+esac
+else
+  c00swhoami=true
+fi
+
+ if test "x$c00swhoami" = xtrue; then
+  C00SWHOAMI_TRUE=
+  C00SWHOAMI_FALSE='#'
+else
+  C00SWHOAMI_TRUE='#'
+  C00SWHOAMI_FALSE=
+fi
+
+if test "x$c00swhoami" = xtrue; then :
+
+$as_echo "#define C00SWHOAMI /**/" >>confdefs.h
+
+fi
+
+
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
 # tests run on this system so they can be shared between configure
@@ -6146,6 +6329,22 @@ if test -z "${am__fastdepCC_TRUE}" && test -z "${am__fastdepCC_FALSE}"; then
   as_fn_error $? "conditional \"am__fastdepCC\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
+if test -z "${NEEDPTHREAD_TRUE}" && test -z "${NEEDPTHREAD_FALSE}"; then
+  as_fn_error $? "conditional \"NEEDPTHREAD\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${NEEDPTHREAD_TRUE}" && test -z "${NEEDPTHREAD_FALSE}"; then
+  as_fn_error $? "conditional \"NEEDPTHREAD\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${NEEDPTHREAD_TRUE}" && test -z "${NEEDPTHREAD_FALSE}"; then
+  as_fn_error $? "conditional \"NEEDPTHREAD\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${NEEDPTHREAD_TRUE}" && test -z "${NEEDPTHREAD_FALSE}"; then
+  as_fn_error $? "conditional \"NEEDPTHREAD\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
 if test -z "${CLANG_TRUE}" && test -z "${CLANG_FALSE}"; then
   as_fn_error $? "conditional \"CLANG\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
@@ -6160,6 +6359,10 @@ Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${C00SUNAME_TRUE}" && test -z "${C00SUNAME_FALSE}"; then
   as_fn_error $? "conditional \"C00SUNAME\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${C00SWHOAMI_TRUE}" && test -z "${C00SWHOAMI_FALSE}"; then
+  as_fn_error $? "conditional \"C00SWHOAMI\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 

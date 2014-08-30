@@ -4,9 +4,13 @@
 #include "global.h"
 
 
-#include "coreutils/c00s_uname.h"
+
 #ifdef C00SUNAME
 #include "coreutils/c00s_uname.h"
+#endif
+
+#ifdef C00SWHOAMI
+#include "coreutils/c00s_whoami.h"
 #endif
 
 #endif

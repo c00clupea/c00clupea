@@ -130,6 +130,26 @@
 
 #define UNUSED __attribute__((unused))
 
+#define DEVELOP
+
+#ifdef DEVELOP
+#define D_LN "c00_"
+#else
+#define D_LN
+#endif
+
+#define check_box(N,V)				\
+	C00DEBUG("check %s",V);			\
+	if(strcmp(argv[0],V) == 0){		\
+C00DEBUG("found %s",V);\
+	return N##_main(argc,argv);		\
+	}\
+
+
+
+	
+	
+
 
 //Some ideas from http://c.learncodethehardway.org/book/ex20.html
 #define check(A, M, ...) if(!(A)) { C00DEBUG(M, __VA_ARGS__); syslog(LOG_ERR,M,__VA_ARGS__);goto error; }

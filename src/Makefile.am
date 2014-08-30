@@ -1,4 +1,8 @@
-AM_CFLAGS =  -std=gnu99 -Wall -Wextra -pedantic -pthread -D_THREAD_SAFE
+AM_CFLAGS =  -std=gnu99 -Wall -Wextra -pedantic -D_THREAD_SAFE
+
+if NEEDPTHREAD
+AM_CFLAGS += -pthread
+endif
 
 if CLANG
 AM_CFLAGS += -Wno-extended-offsetof
@@ -34,3 +38,8 @@ c00clupeabox_SOURCES = c00clupea_sim.c c00clupea_sim.h\
 if C00SUNAME
 c00clupeabox_SOURCES += coreutils/c00s_uname.c coreutils/c00s_uname.h
 endif
+
+if C00SWHOAMI
+c00clupeabox_SOURCES += coreutils/c00s_whoami.c coreutils/c00s_whoami.h
+endif
+
