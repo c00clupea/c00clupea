@@ -1,5 +1,11 @@
 
 --------TASK
+Sat Aug 30 18:24:41 2014
+TASK:	implement uptime
+DUE: 	soon
+State:	open
+--------
+--------TASK
 Sat Aug 30 16:26:41 2014
 TASK:	Implement id
 DUE: 	soon

@@ -15,6 +15,9 @@ int call_coreutil(int argc, char *argv[]){
 	#ifdef C00SWHOAMI
 	check_box(whoami,"c00_whoami");
 	#endif
+	#ifdef C00SUPTIME
+	check_box(uptime,"c00_uptime");
+	#endif
 
 	return ERROR;
 	

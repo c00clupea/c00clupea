@@ -13,4 +13,8 @@
 #include "coreutils/c00s_whoami.h"
 #endif
 
+#ifdef C00SUPTIME
+#include "coreutils/c00s_uptime.h"
+#endif
+
 #endif

@@ -43,3 +43,6 @@ if C00SWHOAMI
 c00clupeabox_SOURCES += coreutils/c00s_whoami.c coreutils/c00s_whoami.h
 endif
 
+if C00SUPTIME
+c00clupeabox_SOURCES += coreutils/c00s_uptime.c coreutils/c00s_uptime.h
+endif

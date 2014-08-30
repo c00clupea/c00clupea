@@ -253,6 +253,15 @@ esac],[c00swhoami=true])
 AM_CONDITIONAL([C00SWHOAMI], [test "x$c00swhoami" = xtrue])
 AS_IF([test "x$c00swhoami" = xtrue],[AC_DEFINE([C00SWHOAMI],[],[has whoami])])
 
+AC_ARG_ENABLE([c00suptime],
+[  --disable-c00uptime    disable uptime (simple version)],
+[case "${enableval}" in
+  yes) c00suptime=true ;;
+  no)  c00suptime=false ;;
+  *) AC_MSG_ERROR([bad value ${enableval} for --enable-c00suptime]) ;;
+esac],[c00swhoami=true])
+AM_CONDITIONAL([C00SUPTIME], [test "x$c00suptime" = xtrue])
+AS_IF([test "x$c00suptime" = xtrue],[AC_DEFINE([C00SUPTIME],[],[has uptime])])
 
 AC_OUTPUT
 
