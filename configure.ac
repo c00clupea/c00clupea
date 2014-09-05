@@ -44,7 +44,7 @@ case $host_os in
         AM_CONDITIONAL([NEEDPTHREAD],false)
         ;;
   linux*)
-        AM_CONDITIONAL([NEEDPTHREAD],false)
+        AM_CONDITIONAL([NEEDPTHREAD],true)
         ;;
    *BSD*)
         AM_CONDITIONAL([NEEDPTHREAD],true)

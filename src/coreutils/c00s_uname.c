@@ -1,15 +1,14 @@
 /**
  *
- * Some sourcecode in this file is shamelessly copied from another open source software
- * See the original license and developers below this header
- * However other parts in this sourcefile are adopted for the c00clupea Honeypot
- *
  * cooclupea Honeypot 
  * <*))><
  *
  * (C) 2014 by Christoph Pohl (c00clupea@googlemail.com)
  * released under the GPLv.2
  *
+ * File:	c00s_uname.c
+ * created: 	Sun Aug 31 18:35:56 2014
+ * author:  	Christoph Pohl <c00clupea@gmail.com>
  */
 /* vi: set sw=4 ts=4: */
 /* uname -- print system information
