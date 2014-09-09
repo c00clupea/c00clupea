@@ -14,6 +14,7 @@
 /*#endif*/
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include "../global.h"
 #define type long long
 
