@@ -27,3 +27,5 @@ feature/c00_01.17
 	implement whoami
 feature/c00_01.18
 	implement uptime
+feature/c00_01.19
+	implement logger
