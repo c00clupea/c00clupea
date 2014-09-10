@@ -10,7 +10,15 @@ endif
 
 AM_CPPFLAGS = 
 
-bin_PROGRAMS = c00clupea c00clupeabox
+bin_PROGRAMS =
+
+if C00CLUPEA
+bin_PROGRAMS += c00clupea
+endif
+
+if C00CLUPEABOX
+bin_PROGRAMS += c00clupeabox
+endif
 
 ##never ever use tabs here...the += commands would not work
 

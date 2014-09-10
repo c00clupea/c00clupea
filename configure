@@ -627,6 +627,10 @@ C00SWHOAMI_FALSE
 C00SWHOAMI_TRUE
 C00SUNAME_FALSE
 C00SUNAME_TRUE
+C00CLUPEA_FALSE
+C00CLUPEA_TRUE
+C00CLUPEABOX_FALSE
+C00CLUPEABOX_TRUE
 STRAT_CONFIG_PATH
 LOG_MAIN_TEMPLATE
 MAINCONFIG
@@ -751,6 +755,8 @@ enable_dependency_tracking
 enable_buildtest
 enable_writecrap
 enable_strict_atomic
+enable_c00clupeabox
+enable_c00clupea
 enable_c00suname
 enable_c00swhoami
 enable_c00suptime
@@ -1407,6 +1413,8 @@ Optional Features:
   --enable-writecrap      Enable really verbose output
   --enable-strict-atomic  Enable strict atomic behaviour...It is safe but
                           slow....
+  --disable-c00clupeabox    disable box compile
+  --disable-c00clupea    disable honeypot compile
   --disable-c00suname    disable uname
   --disable-c00swhoami    disable whoami (simple version)
   --disable-c00uptime    disable uptime (simple version)
@@ -4365,7 +4373,7 @@ fi
 
         ;;
   linux*)
-         if false; then
+         if true; then
   NEEDPTHREAD_TRUE=
   NEEDPTHREAD_FALSE='#'
 else
@@ -6147,6 +6155,59 @@ $as_echo "#define STRAT_CONFIG_PATH x\${STRAT_CONFIG_PATH}" >>confdefs.h
 fi
 
 
+# Check whether --enable-c00clupeabox was given.
+if test "${enable_c00clupeabox+set}" = set; then :
+  enableval=$enable_c00clupeabox; case "${enableval}" in
+  yes) c00clupeabox=true ;;
+  no)  c00clupeabox=false ;;
+  *) as_fn_error $? "bad value ${enableval} for --enable-c00clupeabox" "$LINENO" 5 ;;
+esac
+else
+  c00clupeabox=true
+fi
+
+ if test "x$c00clupeabox" = xtrue; then
+  C00CLUPEABOX_TRUE=
+  C00CLUPEABOX_FALSE='#'
+else
+  C00CLUPEABOX_TRUE='#'
+  C00CLUPEABOX_FALSE=
+fi
+
+#AM_CONDITIONAL([C00SUNAME], )
+if test "x$c00clupeabox" = xtrue; then :
+
+$as_echo "#define C00CLUPEABOX /**/" >>confdefs.h
+
+fi
+
+# Check whether --enable-c00clupea was given.
+if test "${enable_c00clupea+set}" = set; then :
+  enableval=$enable_c00clupea; case "${enableval}" in
+  yes) c00clupea=true ;;
+  no)  c00clupea=false ;;
+  *) as_fn_error $? "bad value ${enableval} for --enable-c00clupea" "$LINENO" 5 ;;
+esac
+else
+  c00clupea=true
+fi
+
+ if test "x$c00clupea" = xtrue; then
+  C00CLUPEA_TRUE=
+  C00CLUPEA_FALSE='#'
+else
+  C00CLUPEA_TRUE='#'
+  C00CLUPEA_FALSE=
+fi
+
+#AM_CONDITIONAL([C00SUNAME], )
+if test "x$c00clupea" = xtrue; then :
+
+$as_echo "#define C00CLUPEA /**/" >>confdefs.h
+
+fi
+
+
 
 # Check whether --enable-c00suname was given.
 if test "${enable_c00suname+set}" = set; then :
@@ -6383,6 +6444,14 @@ Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${am__EXEEXT_TRUE}" && test -z "${am__EXEEXT_FALSE}"; then
   as_fn_error $? "conditional \"am__EXEEXT\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${C00CLUPEABOX_TRUE}" && test -z "${C00CLUPEABOX_FALSE}"; then
+  as_fn_error $? "conditional \"C00CLUPEABOX\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${C00CLUPEA_TRUE}" && test -z "${C00CLUPEA_FALSE}"; then
+  as_fn_error $? "conditional \"C00CLUPEA\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${C00SUNAME_TRUE}" && test -z "${C00SUNAME_FALSE}"; then

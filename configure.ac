@@ -231,6 +231,29 @@ else
 fi
 
 
+AC_ARG_ENABLE([c00clupeabox],
+[  --disable-c00clupeabox    disable box compile],
+[case "${enableval}" in
+  yes) c00clupeabox=true ;;
+  no)  c00clupeabox=false ;;
+  *) AC_MSG_ERROR([bad value ${enableval} for --enable-c00clupeabox]) ;;
+esac],[c00clupeabox=true])
+AM_CONDITIONAL([C00CLUPEABOX], [test "x$c00clupeabox" = xtrue])
+#AM_CONDITIONAL([C00SUNAME], )
+AS_IF([test "x$c00clupeabox" = xtrue],[AC_DEFINE([C00CLUPEABOX],[],[compile c00clupeabox])])
+
+AC_ARG_ENABLE([c00clupea],
+[  --disable-c00clupea    disable honeypot compile],
+[case "${enableval}" in
+  yes) c00clupea=true ;;
+  no)  c00clupea=false ;;
+  *) AC_MSG_ERROR([bad value ${enableval} for --enable-c00clupea]) ;;
+esac],[c00clupea=true])
+AM_CONDITIONAL([C00CLUPEA], [test "x$c00clupea" = xtrue])
+#AM_CONDITIONAL([C00SUNAME], )
+AS_IF([test "x$c00clupea" = xtrue],[AC_DEFINE([C00CLUPEA],[],[compile c00clupea])])
+
+
 
 AC_ARG_ENABLE([c00suname],
 [  --disable-c00suname    disable uname],

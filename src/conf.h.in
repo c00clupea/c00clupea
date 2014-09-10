@@ -6,6 +6,12 @@
 /* strict atomic build */
 #undef ATOMIC
 
+/* compile c00clupea */
+#undef C00CLUPEA
+
+/* compile c00clupeabox */
+#undef C00CLUPEABOX
+
 /* has uname */
 #undef C00SUNAME
 
