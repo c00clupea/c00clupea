@@ -1,3 +1,16 @@
+/**
+ *
+ * cooclupea Honeypot 
+ * <*))><
+ *
+ * (C) 2014 by Christoph Pohl (c00clupea@googlemail.com)
+ * released under the GPLv.2
+ * 
+ * File:	c00_array_list.h
+ * created: 	Thu Sep 11 08:29:24 2014
+ * author:  	Christoph Pohl <c00clupea@gmail.com>
+ */
+
 #ifndef C00_ARRAYLIST_H
 #define C00_ARRAYLIST_H
 #include "../global.h"

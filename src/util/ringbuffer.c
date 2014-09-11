@@ -1,3 +1,16 @@
+/**
+ *
+ * cooclupea Honeypot 
+ * <*))><
+ *
+ * (C) 2014 by Christoph Pohl (c00clupea@googlemail.com)
+ * released under the GPLv.2
+ * 
+ * File:	ringbuffer.c
+ * created: 	Thu Sep 11 08:30:56 2014
+ * author:  	Christoph Pohl <c00clupea@gmail.com>
+ */
+
 #include "ringbuffer.h"
 
 struct c00_ringbuffer* c00_ringbuffer_init(int bufferSize, size_t element_size){

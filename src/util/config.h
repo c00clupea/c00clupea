@@ -1,3 +1,16 @@
+/**
+ *
+ * cooclupea Honeypot 
+ * <*))><
+ *
+ * (C) 2014 by Christoph Pohl (c00clupea@googlemail.com)
+ * released under the GPLv.2
+ * 
+ * File:	config.h
+ * created: 	Thu Sep 11 08:30:28 2014
+ * author:  	Christoph Pohl <c00clupea@gmail.com>
+ */
+
 #ifndef CONFIG_H
 #define CONFIG_H
 #include <stdio.h>

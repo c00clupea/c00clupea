@@ -1,3 +1,16 @@
+/**
+ *
+ * cooclupea Honeypot 
+ * <*))><
+ *
+ * (C) 2014 by Christoph Pohl (c00clupea@googlemail.com)
+ * released under the GPLv.2
+ * 
+ * File:	strategy_http_path.c
+ * created: 	Thu Sep 11 08:35:10 2014
+ * author:  	Christoph Pohl <c00clupea@gmail.com>
+ */
+
 #include "strategy_http_path.h"
 
 static inline int _c00_receive_http_path(struct c00_consumer_command *tmp_cmd,struct c00_http_path_request *pth_req, char *log_all);

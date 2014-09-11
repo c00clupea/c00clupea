@@ -1,3 +1,16 @@
+/**
+ *
+ * cooclupea Honeypot 
+ * <*))><
+ *
+ * (C) 2014 by Christoph Pohl (c00clupea@googlemail.com)
+ * released under the GPLv.2
+ * 
+ * File:	c00_linked_list.c
+ * created: 	Thu Sep 11 08:32:30 2014
+ * author:  	Christoph Pohl <c00clupea@gmail.com>
+ */
+
 #include "c00_linked_list.h"
 
 /**mode 0 = actual idx, mode 1 begin, mode 2 end**/

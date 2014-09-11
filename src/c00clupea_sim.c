@@ -1,3 +1,16 @@
+/**
+ *
+ * cooclupea Honeypot 
+ * <*))><
+ *
+ * (C) 2014 by Christoph Pohl (c00clupea@googlemail.com)
+ * released under the GPLv.2
+ *
+ * File:	c00clupea_sim.c
+ * created: 	Wed Sep 10 23:10:29 2014
+ * author:  	Christoph Pohl <c00clupea@gmail.com>
+ */
+
 #include "c00clupea_sim.h"
 
 static inline int call_coreutil(int argc, char *argv[]);

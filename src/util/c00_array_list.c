@@ -1,3 +1,16 @@
+/**
+ *
+ * cooclupea Honeypot 
+ * <*))><
+ *
+ * (C) 2014 by Christoph Pohl (c00clupea@googlemail.com)
+ * released under the GPLv.2
+ * 
+ * File:	c00_array_list.c
+ * created: 	Thu Sep 11 08:29:53 2014
+ * author:  	Christoph Pohl <c00clupea@gmail.com>
+ */
+
 #include "c00_array_list.h"
 
 int c00_array_list_init(struct c00_array_list *ptr, int max_size){

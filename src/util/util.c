@@ -1,3 +1,16 @@
+/**
+ *
+ * cooclupea Honeypot 
+ * <*))><
+ *
+ * (C) 2014 by Christoph Pohl (c00clupea@googlemail.com)
+ * released under the GPLv.2
+ * 
+ * File:	util.c
+ * created: 	Thu Sep 11 08:33:50 2014
+ * author:  	Christoph Pohl <c00clupea@gmail.com>
+ */
+
 #include "util.h"
 
 static int 	_c00_seek_file(FILE *fp,int offset);

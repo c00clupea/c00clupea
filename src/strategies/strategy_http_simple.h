@@ -1,3 +1,16 @@
+/**
+ *
+ * cooclupea Honeypot 
+ * <*))><
+ *
+ * (C) 2014 by Christoph Pohl (c00clupea@googlemail.com)
+ * released under the GPLv.2
+ * 
+ * File:	strategy_http_simple.h
+ * created: 	Thu Sep 11 08:35:48 2014
+ * author:  	Christoph Pohl <c00clupea@gmail.com>
+ */
+
 #ifndef STRATEG_HTTP_SIMPLE_H
 #define STRATEG_HTTP_SIMPLE_H
 #include "../strategy.h"

@@ -1,3 +1,16 @@
+/**
+ *
+ * cooclupea Honeypot 
+ * <*))><
+ *
+ * (C) 2014 by Christoph Pohl (c00clupea@googlemail.com)
+ * released under the GPLv.2
+ * 
+ * File:	strategy.c
+ * created: 	Wed Sep 10 23:18:37 2014
+ * author:  	Christoph Pohl <c00clupea@gmail.com>
+ */
+
 #include "strategy.h"
 
 static int 		(*strategy_ptr[STRAT_LEN])(struct c00_consumer_command *) 	= {NULL};

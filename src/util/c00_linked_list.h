@@ -1,3 +1,16 @@
+/**
+ *
+ * cooclupea Honeypot 
+ * <*))><
+ *
+ * (C) 2014 by Christoph Pohl (c00clupea@googlemail.com)
+ * released under the GPLv.2
+ * 
+ * File:	c00_linked_list.h
+ * created: 	Thu Sep 11 08:32:11 2014
+ * author:  	Christoph Pohl <c00clupea@gmail.com>
+ */
+
 #ifndef C00_LINKED_LIST_H
 #define C00_LINKED_LIST_H
 #include "../global.h"

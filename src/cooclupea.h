@@ -1,3 +1,16 @@
+/**
+ *
+ * cooclupea Honeypot 
+ * <*))><
+ *
+ * (C) 2014 by Christoph Pohl (c00clupea@googlemail.com)
+ * released under the GPLv.2
+ *
+ * File:	cooclupea.h
+ * created: 	Wed Sep 10 23:09:29 2014
+ * author:  	Christoph Pohl <c00clupea@gmail.com>
+ */
+
 #ifndef C00CLUPEA_H
 #define C00CLUPEA_H
 

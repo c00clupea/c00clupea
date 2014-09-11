@@ -1,3 +1,16 @@
+/**
+ *
+ * cooclupea Honeypot 
+ * <*))><
+ *
+ * (C) 2014 by Christoph Pohl (c00clupea@googlemail.com)
+ * released under the GPLv.2
+ *
+ * File:	cooclupea.c
+ * created: 	Wed Sep 10 23:07:54 2014
+ * author:  	Christoph Pohl <c00clupea@gmail.com>
+ */
+
 #include "cooclupea.h"
 
 static char* 		_c00_return_actual_time(void);

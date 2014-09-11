@@ -1,3 +1,15 @@
+/**
+ *
+ * cooclupea Honeypot 
+ * <*))><
+ *
+ * (C) 2014 by Christoph Pohl (c00clupea@googlemail.com)
+ * released under the GPLv.2
+ * 
+ * File:	c00_hashmap.h
+ * created: 	Thu Sep 11 08:31:51 2014
+ * author:  	Christoph Pohl <c00clupea@gmail.com>
+ */
 
 
 #ifndef C00_HASHMAP_H
