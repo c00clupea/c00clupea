@@ -1,10 +1,18 @@
 
-
 In all cases you will need to create a directory for the logfiles.
 
 The c00clupea-user will need access to this folder.
 
 However, c00clupea needs write access to this folder (including create a new file)
+
+You will find many options with ./configure --help
+
+Take care what you are doing....
+e.g. atomic means that c00clupea is threadsafe...
+to disable this feature means that the core is already threadsafe, but the stats can have threading issues...
+So why? without mutexing everything c00clupea will be faster....
+
+
 
 OPENBSD
 
