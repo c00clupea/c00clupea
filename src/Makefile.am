@@ -38,10 +38,10 @@ c00clupea_SOURCES = global.h\
 		    strategies/http_codes.h
 
 c00clupeabox_SOURCES = c00clupea_sim.c c00clupea_sim.h\
-                        global.h\
-                        util/util.c util/util.h\
-                        util/busybox_cccc.h\
-                        util/getopt32.c 
+                       global.h\
+                       util/util.c util/util.h\
+                       util/busybox_cccc.h\
+                       util/getopt32.c 
 
 if C00SUNAME
 c00clupeabox_SOURCES += coreutils/c00s_uname.c coreutils/c00s_uname.h
