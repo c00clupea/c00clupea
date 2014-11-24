@@ -41,7 +41,8 @@ c00clupeabox_SOURCES = c00clupea_sim.c c00clupea_sim.h\
                        global.h\
                        util/util.c util/util.h\
                        util/busybox_cccc.h\
-                       util/getopt32.c 
+                       util/getopt32.c\
+                       util/c00b_sysinfo.h util/c00b_sysinfo.c
 
 if C00SUNAME
 c00clupeabox_SOURCES += coreutils/c00s_uname.c coreutils/c00s_uname.h

@@ -28,7 +28,8 @@ struct c00b_sysinfo{
 	unsigned long totalhigh;	/* Total high memory size */
 	unsigned long freehigh;		/* Available high memory size */
 	unsigned int mem_unit;		/* Memory unit size in bytes */
-	char _f[20-2*sizeof(long)-sizeof(int)];	/* Padding: libc5 uses this.. */
-}
+};
+
+int c00b_sysinfo (struct c00b_sysinfo *__info);
 
 #endif /*C00B_SYSINFO*/

@@ -15,9 +15,9 @@
 
 #include "../util/busybox_cccc.h"
 #include <time.h>
-#ifdef __linux__
-#include <sys/sysinfo.h>
-#endif
+
+#include "../util/c00b_sysinfo.h"
+
 
 int uptime_main(int argc, char *argv[]);
 
