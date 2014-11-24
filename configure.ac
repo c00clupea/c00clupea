@@ -288,5 +288,26 @@ esac],[c00suptime=true])
 AM_CONDITIONAL([C00SUPTIME], [test "x$c00suptime" = xtrue])
 AS_IF([test "x$c00suptime" = xtrue],[AC_DEFINE([C00SUPTIME],[],[has uptime])])
 
+AC_ARG_ENABLE([c00swithlink],
+[  --enable-c00swithlink    enable linked c00clupeabox (simple version)],
+[case "${enableval}" in
+  yes) c00swithlink=true ;;
+  no)  c00swithlink=false ;;
+  *) AC_MSG_ERROR([bad value ${enableval} for --enable-c00swithlink]) ;;
+esac],[c00swithlink=false])
+AM_CONDITIONAL([C00SWITHLINK], [test "x$c00swithlink" = xtrue])
+AS_IF([test "x$c00swithlink" = xtrue],[AC_DEFINE([C00SWITHLINK],[],[has linked box])])
+
+AC_ARG_ENABLE([c00swithprefix],
+[  --disable-c00swithprefix    disable prefix for coreutils],
+[case "${enableval}" in
+  yes) c00swithprefix=true ;;
+  no)  c00swithprefix=false ;;
+  *) AC_MSG_ERROR([bad value ${enableval} for --enable-c00swithprefix]) ;;
+esac],[c00swithprefix=true])
+AM_CONDITIONAL([C00SWITHPREFIX], [test "x$c00swithprefix" = xtrue])
+AS_IF([test "x$c00swithprefix" = xtrue],[AC_DEFINE([C00SWITHPREFIX],[],[has prefix])])
+
+
 AC_OUTPUT
 

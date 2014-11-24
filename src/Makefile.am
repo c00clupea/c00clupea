@@ -17,7 +17,9 @@ bin_PROGRAMS += c00clupea
 endif
 
 if C00CLUPEABOX
+if C00SWITHLINK
 bin_PROGRAMS += c00clupeabox
+endif
 endif
 
 ##never ever use tabs here...the += commands would not work
@@ -44,14 +46,39 @@ c00clupeabox_SOURCES = c00clupea_sim.c c00clupea_sim.h\
                        util/getopt32.c\
                        util/c00b_sysinfo.h util/c00b_sysinfo.c
 
+if C00SWITHPREFIX
+c00spref=c00nb-
+else
+c00spref=
+endif
+
+if !C00SWITHLINK
+add_sources = global.h util/util.c util/util.h util/busybox_cccc.h util/getopt32.c
+endif
+
 if C00SUNAME
+if C00SWITHLINK
 c00clupeabox_SOURCES += coreutils/c00s_uname.c coreutils/c00s_uname.h
+else
+bin_PROGRAMS += ${c00spref}uname
+__c00spref_uname_SOURCES = ${add_sources} coreutils/c00s_uname.c coreutils/c00s_uname.h
+endif
 endif
 
 if C00SWHOAMI
+if C00SWITHLINK
 c00clupeabox_SOURCES += coreutils/c00s_whoami.c coreutils/c00s_whoami.h
+else
+bin_PROGRAMS += ${c00spref}whoami
+__c00spref_whoami_SOURCES = ${add_sources} coreutils/c00s_whoami.c coreutils/c00s_whoami.h
+endif
 endif
 
 if C00SUPTIME
+if C00SWITHLINK
 c00clupeabox_SOURCES += coreutils/c00s_uptime.c coreutils/c00s_uptime.h
+else
+bin_PROGRAMS += ${c00spref}uptime
+__c00spref_uptime_SOURCES = ${add_sources} util/c00b_sysinfo.h util/c00b_sysinfo.c coreutils/c00s_uptime.c coreutils/c00s_uptime.h
+endif
 endif

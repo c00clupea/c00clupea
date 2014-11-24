@@ -18,8 +18,12 @@
 
 #include "../util/c00b_sysinfo.h"
 
+#ifdef C00SWITHLINK
+#define UPTIME_MAIN uptime_main
+#else
+#define UPTIME_MAIN main
+#endif
 
-int uptime_main(int argc, char *argv[]);
-
+int UPTIME_MAIN(int argc, char *argv[]);
 
 #endif /* C00S_UPTIME_H */

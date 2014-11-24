@@ -39,3 +39,9 @@ compile
 test/testrun.log
 test/*_test
 *.emacs.desktop
+src/c00nb-uname
+src/c00nb-uptime
+src/c00nb-whoami
+src/c00nbuname
+src/c00nbuptime
+src/c00nbwhoami

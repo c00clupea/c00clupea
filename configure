@@ -621,7 +621,11 @@ ac_includes_default="\
 # include <unistd.h>
 #endif"
 
-ac_subst_vars='C00SUPTIME_FALSE
+ac_subst_vars='C00SWITHPREFIX_FALSE
+C00SWITHPREFIX_TRUE
+C00SWITHLINK_FALSE
+C00SWITHLINK_TRUE
+C00SUPTIME_FALSE
 C00SUPTIME_TRUE
 C00SWHOAMI_FALSE
 C00SWHOAMI_TRUE
@@ -760,6 +764,8 @@ enable_c00clupea
 enable_c00suname
 enable_c00swhoami
 enable_c00suptime
+enable_c00swithlink
+enable_c00swithprefix
 '
       ac_precious_vars='build_alias
 host_alias
@@ -1418,6 +1424,8 @@ Optional Features:
   --disable-c00suname    disable uname
   --disable-c00swhoami    disable whoami (simple version)
   --disable-c00uptime    disable uptime (simple version)
+  --enable-c00swithlink    enable linked c00clupeabox (simple version)
+  --disable-c00swithprefix    disable prefix for coreutils
 
 Some influential environment variables:
   CC          C compiler command
@@ -6287,6 +6295,57 @@ $as_echo "#define C00SUPTIME /**/" >>confdefs.h
 
 fi
 
+# Check whether --enable-c00swithlink was given.
+if test "${enable_c00swithlink+set}" = set; then :
+  enableval=$enable_c00swithlink; case "${enableval}" in
+  yes) c00swithlink=true ;;
+  no)  c00swithlink=false ;;
+  *) as_fn_error $? "bad value ${enableval} for --enable-c00swithlink" "$LINENO" 5 ;;
+esac
+else
+  c00swithlink=false
+fi
+
+ if test "x$c00swithlink" = xtrue; then
+  C00SWITHLINK_TRUE=
+  C00SWITHLINK_FALSE='#'
+else
+  C00SWITHLINK_TRUE='#'
+  C00SWITHLINK_FALSE=
+fi
+
+if test "x$c00swithlink" = xtrue; then :
+
+$as_echo "#define C00SWITHLINK /**/" >>confdefs.h
+
+fi
+
+# Check whether --enable-c00swithprefix was given.
+if test "${enable_c00swithprefix+set}" = set; then :
+  enableval=$enable_c00swithprefix; case "${enableval}" in
+  yes) c00swithprefix=true ;;
+  no)  c00swithprefix=false ;;
+  *) as_fn_error $? "bad value ${enableval} for --enable-c00swithprefix" "$LINENO" 5 ;;
+esac
+else
+  c00swithprefix=true
+fi
+
+ if test "x$c00swithprefix" = xtrue; then
+  C00SWITHPREFIX_TRUE=
+  C00SWITHPREFIX_FALSE='#'
+else
+  C00SWITHPREFIX_TRUE='#'
+  C00SWITHPREFIX_FALSE=
+fi
+
+if test "x$c00swithprefix" = xtrue; then :
+
+$as_echo "#define C00SWITHPREFIX /**/" >>confdefs.h
+
+fi
+
+
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
 # tests run on this system so they can be shared between configure
@@ -6466,6 +6525,14 @@ Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${C00SUPTIME_TRUE}" && test -z "${C00SUPTIME_FALSE}"; then
   as_fn_error $? "conditional \"C00SUPTIME\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${C00SWITHLINK_TRUE}" && test -z "${C00SWITHLINK_FALSE}"; then
+  as_fn_error $? "conditional \"C00SWITHLINK\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${C00SWITHPREFIX_TRUE}" && test -z "${C00SWITHPREFIX_FALSE}"; then
+  as_fn_error $? "conditional \"C00SWITHPREFIX\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 

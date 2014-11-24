@@ -18,8 +18,13 @@
 #include <unistd.h>
 #include "../global.h"
 
+#ifdef C00SWITHLINK
+#define WHOAMI_MAIN whoami_main
+#else
+#define WHOAMI_MAIN main
+#endif
 
-int whoami_main(int argc, char *argv[]);
+int WHOAMI_MAIN(int argc, char *argv[]);
 
 
 #endif /* C00S_WHOAMI_H */

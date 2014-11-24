@@ -9,7 +9,7 @@
  */
 #include "c00s_whoami.h"
 
-int whoami_main(int UNUSED(argc), char UNUSED(*argv[])){
+int WHOAMI_MAIN(int UNUSED(argc), char UNUSED(*argv[])){
 	uid_t uid = geteuid();
 	struct passwd *pw = getpwuid(uid);
 	if(argv[1]){

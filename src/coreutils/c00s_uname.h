@@ -47,6 +47,12 @@ static const unsigned short utsname_offset[] = {
 	offsetof(uname_info_t, os), /* -o */
 };
 
-int uname_main(int argc, char *argv[]);
+#ifdef C00SWITHLINK
+#define UNAME_MAIN uname_main
+#else
+#define UNAME_MAIN main
+#endif
+
+int UNAME_MAIN(int argc, char *argv[]);
 
 #endif

@@ -12,10 +12,10 @@
  */
 #include "c00s_uptime.h"
 
-int uptime_main(int UNUSED(argc), char UNUSED(*argv[])){
+int UPTIME_MAIN(int UNUSED(argc), char UNUSED(*argv[])){
 	struct tm *current_time;
 	time_t current_secs;
-	time(&current_secs);
+        time(&current_secs);
 	struct c00b_sysinfo info;
 	c00b_sysinfo(&info);
 	current_time = localtime(&current_secs);

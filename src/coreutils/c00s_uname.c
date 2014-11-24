@@ -23,7 +23,7 @@
 
 #include "c00s_uname.h"
 
-int uname_main(int UNUSED(argc), char *argv[]){
+int UNAME_MAIN(int UNUSED(argc), char *argv[]){
 	uname_info_t uname_info;
 	const char *unknown_str = "unknown";
 	const char *fmt;
