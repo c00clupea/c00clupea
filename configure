@@ -3748,6 +3748,8 @@ fi
 
 
 
+# this is for automakes beyond 1.14
+
 
 # Checks for libraries.
 

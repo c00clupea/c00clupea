@@ -10,6 +10,8 @@ AM_INIT_AUTOMAKE([subdir-objects])
 
 AC_PROG_CC(clang gcc)
 
+# this is for automakes beyond 1.14
+AM_PROG_CC_C_O
 
 # Checks for libraries.
 
