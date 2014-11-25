@@ -138,6 +138,15 @@
 #define D_LN
 #endif
 
+
+#ifndef FSHIFT
+# define FSHIFT 16              /* nr of bits of precision */
+#endif
+#define FIXED_1      (1 << FSHIFT)     /* 1.0 as fixed-point */
+#define LOAD_INT(x)  (unsigned)((x) >> FSHIFT)
+#define LOAD_FRAC(x) LOAD_INT(((x) & (FIXED_1 - 1)) * 100)
+
+
 #define check_box(N,V)				\
 	C00DEBUG("check %s",V);			\
 	if(strcmp(argv[0],V) == 0){		\

@@ -13,6 +13,8 @@
  * author:  	Christoph Pohl <c00clupea@gmail.com>
  */
 
+#include <stdlib.h>
+
 struct c00b_sysinfo{
 	/*Borrowed from uclibc*/
 	long uptime;			/* Seconds since boot */
