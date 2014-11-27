@@ -178,6 +178,15 @@ else
 	AC_DEFINE([STD_LOG_LEN],[x${STD_LOG_LEN}],[default log LEN])
 fi
 
+#standard log len
+AC_ARG_VAR([C00_COPY_BUF_KB],[define the default copy buffer (default is 64)])
+
+if test "x${C00_COPY_BUF_KB}" = "x"; then
+	AC_DEFINE([C00_COPY_BUF_KB],[4],[default copy buffer kb])
+else
+	AC_DEFINE([C00_COPY_BUF_KB],[x${C00_COPY_BUF_KB}],[default copy buffer])
+fi
+
 #standard FLUSH COUNT
 AC_ARG_VAR([STD_FLUSH_COUNT],[define the default flush count (default is 1) flushes log after n logs to file n<= 1 == immediate])
 

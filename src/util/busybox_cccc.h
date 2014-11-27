@@ -19,6 +19,8 @@
 #include <fcntl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/mman.h>
+#include <errno.h>
 
 
 #include "../global.h"
@@ -48,6 +50,10 @@ typedef unsigned smalluint;
 # include <stdbool.h>
 #endif
 
+
+#define bb_msg_read_error "read error"
+#define bb_msg_write_error "write error"
+
 typedef struct llist_t {
 	struct llist_t *link;
 	char *data;
@@ -75,6 +81,8 @@ int open3_or_warn(const char *pathname, int flags, int mode);
 
 off_t bb_copyfd_eof(int fd1, int fd2);
 off_t bb_full_fd_action(int src_fd, int dst_fd, off_t size);
-
+ssize_t safe_read(int fd, void *buf, size_t count);
+ssize_t full_write(int fd, const void *buf, size_t len);
+ssize_t safe_write(int fd, const void *buf, size_t count);
 
 #endif

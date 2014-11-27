@@ -33,6 +33,9 @@
 /* has prefix */
 #undef C00SWITHPREFIX
 
+/* default copy buffer */
+#undef C00_COPY_BUF_KB
+
 /* Define to 1 if you have the <arpa/inet.h> header file. */
 #undef HAVE_ARPA_INET_H
 

@@ -20,17 +20,29 @@ int c00_cat(char **argv){
 	if(!*argv){
 		argv = (char**) &bb_argv_dash;
 	}
+
+
 	do {
 		fd = open_or_warn_stdin(*argv);
 		if (fd >= 0){
 			off_t r = bb_copyfd_eof(fd, STDOUT_FILENO);
+			if (fd != STDIN_FILENO){
+				close(fd);
+			}
+			if (r >= 0){
+				continue;
+			}
 		}
+		retval = ERROR;
 	} while (*++argv);
-	return TRUE;
+	return retval;
 }
 
 int CAT_MAIN(int UNUSED(argc), char *argv[]){
+
 	getopt32(argv,"u");
+//	printf("reach 2");
 	argv += optind;
 	return c00_cat(argv);
+//	return TRUE;
 }

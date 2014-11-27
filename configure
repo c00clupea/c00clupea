@@ -645,6 +645,7 @@ MAINCONFIG
 INET_FAM
 ALLOWED_OPTS
 STD_FLUSH_COUNT
+C00_COPY_BUF_KB
 STD_LOG_LEN
 STD_LOG_LVL
 STRAT_DEFAULT
@@ -791,6 +792,7 @@ STDERR
 STRAT_DEFAULT
 STD_LOG_LVL
 STD_LOG_LEN
+C00_COPY_BUF_KB
 STD_FLUSH_COUNT
 ALLOWED_OPTS
 INET_FAM
@@ -1455,6 +1457,8 @@ Some influential environment variables:
               define the default strategy (default is 0)
   STD_LOG_LVL define the default log level (default is 2)
   STD_LOG_LEN define the default log leN (default is 1024)
+  C00_COPY_BUF_KB
+              define the default copy buffer (default is 64)
   STD_FLUSH_COUNT
               define the default flush count (default is 1) flushes log after
               n logs to file n<= 1 == immediate
@@ -6091,6 +6095,19 @@ $as_echo "#define STD_LOG_LEN 1024" >>confdefs.h
 else
 
 $as_echo "#define STD_LOG_LEN x\${STD_LOG_LEN}" >>confdefs.h
+
+fi
+
+#standard log len
+
+
+if test "x${C00_COPY_BUF_KB}" = "x"; then
+
+$as_echo "#define C00_COPY_BUF_KB 4" >>confdefs.h
+
+else
+
+$as_echo "#define C00_COPY_BUF_KB x\${C00_COPY_BUF_KB}" >>confdefs.h
 
 fi
 
