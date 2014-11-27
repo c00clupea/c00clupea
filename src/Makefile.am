@@ -39,12 +39,9 @@ c00clupea_SOURCES = global.h\
 		    strategies/strategy_http_path.c strategies/strategy_http_path.h\
 		    strategies/http_codes.h
 
-c00clupeabox_SOURCES = c00clupea_sim.c c00clupea_sim.h\
-                       global.h\
-                       util/util.c util/util.h\
-                       util/busybox_cccc.h\
-                       util/getopt32.c\
-                       util/c00b_sysinfo.h util/c00b_sysinfo.c
+add_sources = global.h util/util.c util/util.h util/busybox_cccc.h util/getopt32.c util/c00s_xatonum.h util/c00s_xatonum.c util/bb_iobridge.c util/c00b_sysinfo.h util/c00b_sysinfo.c
+
+c00clupeabox_SOURCES = c00clupea_sim.c c00clupea_sim.h ${add_sources}
 
 if C00SWITHPREFIX
 c00spref=c00nb-
@@ -52,9 +49,6 @@ else
 c00spref=
 endif
 
-if !C00SWITHLINK
-add_sources = global.h util/util.c util/util.h util/busybox_cccc.h util/getopt32.c util/c00s_xatonum.h util/c00s_xatonum.c
-endif
 
 if C00SUNAME
 if C00SWITHLINK
@@ -79,7 +73,7 @@ if C00SWITHLINK
 c00clupeabox_SOURCES += coreutils/c00s_uptime.c coreutils/c00s_uptime.h
 else
 bin_PROGRAMS += ${c00spref}uptime
-__c00spref_uptime_SOURCES = ${add_sources} util/c00b_sysinfo.h util/c00b_sysinfo.c coreutils/c00s_uptime.c coreutils/c00s_uptime.h
+__c00spref_uptime_SOURCES = ${add_sources} coreutils/c00s_uptime.c coreutils/c00s_uptime.h
 endif
 endif
 
@@ -89,5 +83,14 @@ c00clupeabox_SOURCES += coreutils/c00s_usleep.c coreutils/c00s_usleep.h
 else
 bin_PROGRAMS += ${c00spref}usleep
 __c00spref_usleep_SOURCES = ${add_sources} coreutils/c00s_usleep.c coreutils/c00s_usleep.h
+endif
+endif
+
+if C00SCAT
+if C00SWITHLINK
+c00clupeabox_SOURCES += coreutils/c00s_cat.c coreutils/c00s_cat.h
+else
+bin_PROGRAMS += ${c00spref}cat
+__c00spref_cat_SOURCES = ${add_sources} coreutils/c00s_cat.c coreutils/c00s_cat.h
 endif
 endif

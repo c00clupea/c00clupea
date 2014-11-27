@@ -299,6 +299,17 @@ AM_CONDITIONAL([C00SUSLEEP], [test "x$c00susleep" = xtrue])
 AS_IF([test "x$c00susleep" = xtrue],[AC_DEFINE([C00SUSLEEP],[],[has usleep])])
 
 
+AC_ARG_ENABLE([c00scat],
+[  --disable-c00scat    disable upsleep (simple version)],
+[case "${enableval}" in
+  yes) c00scat=true ;;
+  no)  c00scat=false ;;
+  *) AC_MSG_ERROR([bad value ${enableval} for --enable-c00scat]) ;;
+esac],[c00scat=true])
+AM_CONDITIONAL([C00SCAT], [test "x$c00scat" = xtrue])
+AS_IF([test "x$c00scat" = xtrue],[AC_DEFINE([C00SCAT],[],[has cat])])
+
+
 AC_ARG_ENABLE([c00swithlink],
 [  --enable-c00swithlink    enable linked c00clupeabox (simple version)],
 [case "${enableval}" in

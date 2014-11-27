@@ -45,3 +45,5 @@ src/c00nb-whoami
 src/c00nbuname
 src/c00nbuptime
 src/c00nbwhoami
+src/c00nb-cat
+src/c00nb-usleep

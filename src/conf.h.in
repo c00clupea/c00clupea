@@ -12,6 +12,9 @@
 /* compile c00clupeabox */
 #undef C00CLUPEABOX
 
+/* has cat */
+#undef C00SCAT
+
 /* has uname */
 #undef C00SUNAME
 

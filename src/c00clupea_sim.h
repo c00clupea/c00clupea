@@ -34,4 +34,8 @@
 #include "coreutils/c00s_usleep.h"
 #endif
 
+#ifdef C00SCAT
+#include "coreutils/c00s_cat.h"
+#endif
+
 #endif
