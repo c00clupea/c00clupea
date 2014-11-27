@@ -53,7 +53,7 @@ c00spref=
 endif
 
 if !C00SWITHLINK
-add_sources = global.h util/util.c util/util.h util/busybox_cccc.h util/getopt32.c
+add_sources = global.h util/util.c util/util.h util/busybox_cccc.h util/getopt32.c util/c00s_xatonum.h util/c00s_xatonum.c
 endif
 
 if C00SUNAME

@@ -18,6 +18,9 @@
 /* has uptime */
 #undef C00SUPTIME
 
+/* has usleep */
+#undef C00SUSLEEP
+
 /* has whoami */
 #undef C00SWHOAMI
 

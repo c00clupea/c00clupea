@@ -13,7 +13,10 @@
 
 #ifndef C00S_USLEEP_H
 #define C00S_USLEEP_H
-#include "../util/busybox_ccc.h"
+#include "../util/busybox_cccc.h"
+#include "../util/c00s_xatonum.h"
+#include <unistd.h>
+
 
 #ifdef C00SWITHLINK
 #define USLEEP_MAIN usleep_main
