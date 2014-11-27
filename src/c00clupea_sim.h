@@ -30,4 +30,8 @@
 #include "coreutils/c00s_uptime.h"
 #endif
 
+#ifdef C00SUSLEEP
+#include "coreutils/c00s_usleep.h"
+#endif
+
 #endif
