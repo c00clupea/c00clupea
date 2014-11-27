@@ -53,7 +53,7 @@ c00spref=
 endif
 
 if !C00SWITHLINK
-add_sources = global.h util/util.c util/util.h util/busybox_cccc.h util/getopt32.c
+add_sources = global.h util/util.c util/util.h util/busybox_cccc.h util/getopt32.c util/c00s_xatonum.h util/c00s_xatonum.c
 endif
 
 if C00SUNAME
@@ -80,5 +80,14 @@ c00clupeabox_SOURCES += coreutils/c00s_uptime.c coreutils/c00s_uptime.h
 else
 bin_PROGRAMS += ${c00spref}uptime
 __c00spref_uptime_SOURCES = ${add_sources} util/c00b_sysinfo.h util/c00b_sysinfo.c coreutils/c00s_uptime.c coreutils/c00s_uptime.h
+endif
+endif
+
+if C00SUSLEEP
+if C00SWITHLINK
+c00clupeabox_SOURCES += coreutils/c00s_usleep.c coreutils/c00s_usleep.h
+else
+bin_PROGRAMS += ${c00spref}usleep
+__c00spref_usleep_SOURCES = ${add_sources} coreutils/c00s_usleep.c coreutils/c00s_usleep.h
 endif
 endif

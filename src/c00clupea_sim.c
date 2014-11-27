@@ -32,6 +32,10 @@ int call_coreutil(int argc, char *argv[]){
 	check_box(uptime,"c00_uptime");
 	#endif
 
+	#ifdef C00SUSLEEP
+	check_box(usleep,"c00_usleep");
+	#endif
+
 	return ERROR;
 	
 }

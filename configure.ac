@@ -288,6 +288,17 @@ esac],[c00suptime=true])
 AM_CONDITIONAL([C00SUPTIME], [test "x$c00suptime" = xtrue])
 AS_IF([test "x$c00suptime" = xtrue],[AC_DEFINE([C00SUPTIME],[],[has uptime])])
 
+AC_ARG_ENABLE([c00susleep],
+[  --disable-c00susleep    disable upsleep (simple version)],
+[case "${enableval}" in
+  yes) c00susleep=true ;;
+  no)  c00susleep=false ;;
+  *) AC_MSG_ERROR([bad value ${enableval} for --enable-c00susleep]) ;;
+esac],[c00susleep=true])
+AM_CONDITIONAL([C00SUSLEEP], [test "x$c00susleep" = xtrue])
+AS_IF([test "x$c00susleep" = xtrue],[AC_DEFINE([C00SUSLEEP],[],[has usleep])])
+
+
 AC_ARG_ENABLE([c00swithlink],
 [  --enable-c00swithlink    enable linked c00clupeabox (simple version)],
 [case "${enableval}" in

@@ -625,6 +625,8 @@ ac_subst_vars='C00SWITHPREFIX_FALSE
 C00SWITHPREFIX_TRUE
 C00SWITHLINK_FALSE
 C00SWITHLINK_TRUE
+C00SUSLEEP_FALSE
+C00SUSLEEP_TRUE
 C00SUPTIME_FALSE
 C00SUPTIME_TRUE
 C00SWHOAMI_FALSE
@@ -764,6 +766,7 @@ enable_c00clupea
 enable_c00suname
 enable_c00swhoami
 enable_c00suptime
+enable_c00susleep
 enable_c00swithlink
 enable_c00swithprefix
 '
@@ -1424,6 +1427,7 @@ Optional Features:
   --disable-c00suname    disable uname
   --disable-c00swhoami    disable whoami (simple version)
   --disable-c00uptime    disable uptime (simple version)
+  --disable-c00susleep    disable upsleep (simple version)
   --enable-c00swithlink    enable linked c00clupeabox (simple version)
   --disable-c00swithprefix    disable prefix for coreutils
 
@@ -6295,6 +6299,32 @@ $as_echo "#define C00SUPTIME /**/" >>confdefs.h
 
 fi
 
+# Check whether --enable-c00susleep was given.
+if test "${enable_c00susleep+set}" = set; then :
+  enableval=$enable_c00susleep; case "${enableval}" in
+  yes) c00susleep=true ;;
+  no)  c00susleep=false ;;
+  *) as_fn_error $? "bad value ${enableval} for --enable-c00susleep" "$LINENO" 5 ;;
+esac
+else
+  c00susleep=true
+fi
+
+ if test "x$c00susleep" = xtrue; then
+  C00SUSLEEP_TRUE=
+  C00SUSLEEP_FALSE='#'
+else
+  C00SUSLEEP_TRUE='#'
+  C00SUSLEEP_FALSE=
+fi
+
+if test "x$c00susleep" = xtrue; then :
+
+$as_echo "#define C00SUSLEEP /**/" >>confdefs.h
+
+fi
+
+
 # Check whether --enable-c00swithlink was given.
 if test "${enable_c00swithlink+set}" = set; then :
   enableval=$enable_c00swithlink; case "${enableval}" in
@@ -6525,6 +6555,10 @@ Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${C00SUPTIME_TRUE}" && test -z "${C00SUPTIME_FALSE}"; then
   as_fn_error $? "conditional \"C00SUPTIME\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${C00SUSLEEP_TRUE}" && test -z "${C00SUSLEEP_FALSE}"; then
+  as_fn_error $? "conditional \"C00SUSLEEP\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${C00SWITHLINK_TRUE}" && test -z "${C00SWITHLINK_FALSE}"; then
