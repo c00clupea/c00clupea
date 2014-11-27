@@ -35,3 +35,5 @@ refactor/c00_01.21
 	change c00clupeabox to one file per util
 feature/c00_01.23
 	implement usleep
+feature/c00_01.24
+	implement cat
