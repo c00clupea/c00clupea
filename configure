@@ -625,6 +625,8 @@ ac_subst_vars='C00SWITHPREFIX_FALSE
 C00SWITHPREFIX_TRUE
 C00SWITHLINK_FALSE
 C00SWITHLINK_TRUE
+C00SYES_FALSE
+C00SYES_TRUE
 C00SFALSE_FALSE
 C00SFALSE_TRUE
 C00STRUE_FALSE
@@ -777,6 +779,7 @@ enable_c00susleep
 enable_c00scat
 enable_c00strue
 enable_c00sfalse
+enable_c00syes
 enable_c00swithlink
 enable_c00swithprefix
 '
@@ -1442,6 +1445,7 @@ Optional Features:
   --disable-c00scat    disable upsleep (simple version)
   --disable-c00strue    disable true (simple version)
   --disable-c00sfalse    disable false (simple version)
+  --disable-c00syes    disable yes (simple version)
   --enable-c00swithlink    enable linked c00clupeabox (simple version)
   --disable-c00swithprefix    disable prefix for coreutils
 
@@ -6430,6 +6434,31 @@ $as_echo "#define C00SFALSE /**/" >>confdefs.h
 
 fi
 
+# Check whether --enable-c00syes was given.
+if test "${enable_c00syes+set}" = set; then :
+  enableval=$enable_c00syes; case "${enableval}" in
+  yes) c00syes=true ;;
+  no)  c00syes=false ;;
+  *) as_fn_error $? "bad value ${enableval} for --enable-c00syes" "$LINENO" 5 ;;
+esac
+else
+  c00syes=true
+fi
+
+ if test "x$c00syes" = xtrue; then
+  C00SYES_TRUE=
+  C00SYES_FALSE='#'
+else
+  C00SYES_TRUE='#'
+  C00SYES_FALSE=
+fi
+
+if test "x$c00syes" = xtrue; then :
+
+$as_echo "#define C00SYES /**/" >>confdefs.h
+
+fi
+
 # Check whether --enable-c00swithlink was given.
 if test "${enable_c00swithlink+set}" = set; then :
   enableval=$enable_c00swithlink; case "${enableval}" in
@@ -6676,6 +6705,10 @@ Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${C00SFALSE_TRUE}" && test -z "${C00SFALSE_FALSE}"; then
   as_fn_error $? "conditional \"C00SFALSE\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${C00SYES_TRUE}" && test -z "${C00SYES_FALSE}"; then
+  as_fn_error $? "conditional \"C00SYES\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${C00SWITHLINK_TRUE}" && test -z "${C00SWITHLINK_FALSE}"; then

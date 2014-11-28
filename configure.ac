@@ -339,6 +339,16 @@ esac],[c00sfalse=true])
 AM_CONDITIONAL([C00SFALSE], [test "x$c00sfalse" = xtrue])
 AS_IF([test "x$c00sfalse" = xtrue],[AC_DEFINE([C00SFALSE],[],[has false])])
 
+AC_ARG_ENABLE([c00syes],
+[  --disable-c00syes    disable yes (simple version)],
+[case "${enableval}" in
+  yes) c00syes=true ;;
+  no)  c00syes=false ;;
+  *) AC_MSG_ERROR([bad value ${enableval} for --enable-c00syes]) ;;
+esac],[c00syes=true])
+AM_CONDITIONAL([C00SYES], [test "x$c00syes" = xtrue])
+AS_IF([test "x$c00syes" = xtrue],[AC_DEFINE([C00SYES],[],[has yes])])
+
 AC_ARG_ENABLE([c00swithlink],
 [  --enable-c00swithlink    enable linked c00clupeabox (simple version)],
 [case "${enableval}" in

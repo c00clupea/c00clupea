@@ -39,6 +39,9 @@
 /* has prefix */
 #undef C00SWITHPREFIX
 
+/* has yes */
+#undef C00SYES
+
 /* default copy buffer */
 #undef C00_COPY_BUF_KB
 

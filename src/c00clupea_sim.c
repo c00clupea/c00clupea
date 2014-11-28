@@ -44,6 +44,11 @@ int call_coreutil(int argc, char *argv[]){
 	check_box(cat,"c00_false");
 	#endif
 
+	#ifdef C00SYES
+	check_box(yes,"c00_yes");
+	#endif
+
+
 	return ERROR;
 	
 }

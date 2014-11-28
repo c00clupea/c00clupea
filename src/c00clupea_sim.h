@@ -46,4 +46,8 @@
 #include "coreutils/c00s_false.h"
 #endif
 
+#ifdef C00SYES
+#include "coreutils/c00s_yes.h"
+#endif
+
 #endif
