@@ -41,3 +41,5 @@ feature/c00_01.25
 	implement true / false
 feature/c00_01.26
 	implement yes
+feature/c00_01.27
+	implement strings
