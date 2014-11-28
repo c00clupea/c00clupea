@@ -37,3 +37,5 @@ feature/c00_01.23
 	implement usleep
 feature/c00_01.24
 	implement cat
+feature/c00_01.25
+	implement cp
