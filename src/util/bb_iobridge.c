@@ -110,7 +110,7 @@ off_t bb_full_fd_action(int src_fd, int dst_fd, off_t size){
 	
 	while (1) {
 		ssize_t rd;
-		rd = safe_read(src_fd, buffer, size > buffer_size ? buffer_size : size);	
+		rd = safe_read(src_fd, buffer, size > buffer_size ? buffer_size : size);
 		//rd = 0;
 		if (!rd){
 			status = 0;
@@ -153,7 +153,6 @@ out:
 int open3_or_warn(const char *pathname, int flags, int mode)
 {
 	int ret;
-
 	ret = open(pathname, flags, mode);
 	if (ret < 0) {
 		printf("can't open '%s'", pathname);
@@ -170,7 +169,7 @@ int open_or_warn(const char *pathname, int flags)
 int open_or_warn_stdin(const char *filename){
 	int fd = STDIN_FILENO;
 	if(filename != bb_msg_standard_input && NOT_LONE_DASH(filename)){
-		open_or_warn(filename, O_RDONLY);
+		fd = open_or_warn(filename, O_RDONLY);
 	}
 	return fd;
 

@@ -98,9 +98,21 @@
 #define C00REACH(id)					\
 	fprintf(stdout,"reach: %d --> %s:%d\n",id,__FILE__,__LINE__)
 
+#define C00RKILL()\
+	fprintf(stdout,"reached kill code");exit(1)
+
+#define C00FKILL(fmt,...)\
+	fprintf(stdout,"%s:%d ",__FILE__,__LINE__);\
+	fprintf(stdout,fmt,__VA_ARGS__);\
+	fprintf(stdout,"\n");\
+	exit(1)
+
+
 #else
 #define C00DEBUG(fmt,...)
 #define C00REACH(id)
+#define C00RKILL()
+#define C00FKILL(fmt,...)
 
 #endif
 
