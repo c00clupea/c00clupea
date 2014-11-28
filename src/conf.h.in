@@ -15,6 +15,12 @@
 /* has cat */
 #undef C00SCAT
 
+/* has false */
+#undef C00SFALSE
+
+/* has true */
+#undef C00STRUE
+
 /* has uname */
 #undef C00SUNAME
 

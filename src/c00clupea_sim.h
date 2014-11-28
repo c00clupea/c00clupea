@@ -38,4 +38,12 @@
 #include "coreutils/c00s_cat.h"
 #endif
 
+#ifdef C00STRUE
+#include "coreutils/c00s_true.h"
+#endif
+
+#ifdef C00SFALSE
+#include "coreutils/c00s_false.h"
+#endif
+
 #endif

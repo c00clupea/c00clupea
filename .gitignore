@@ -47,4 +47,6 @@ src/c00nbuptime
 src/c00nbwhoami
 src/c00nb-cat
 src/c00nb-usleep
+src/c00nb-false
+src/c00nb-true
 clang_output_*

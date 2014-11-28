@@ -625,6 +625,10 @@ ac_subst_vars='C00SWITHPREFIX_FALSE
 C00SWITHPREFIX_TRUE
 C00SWITHLINK_FALSE
 C00SWITHLINK_TRUE
+C00SFALSE_FALSE
+C00SFALSE_TRUE
+C00STRUE_FALSE
+C00STRUE_TRUE
 C00SCAT_FALSE
 C00SCAT_TRUE
 C00SUSLEEP_FALSE
@@ -771,6 +775,8 @@ enable_c00swhoami
 enable_c00suptime
 enable_c00susleep
 enable_c00scat
+enable_c00strue
+enable_c00sfalse
 enable_c00swithlink
 enable_c00swithprefix
 '
@@ -1434,6 +1440,8 @@ Optional Features:
   --disable-c00uptime    disable uptime (simple version)
   --disable-c00susleep    disable upsleep (simple version)
   --disable-c00scat    disable upsleep (simple version)
+  --disable-c00strue    disable true (simple version)
+  --disable-c00sfalse    disable false (simple version)
   --enable-c00swithlink    enable linked c00clupeabox (simple version)
   --disable-c00swithprefix    disable prefix for coreutils
 
@@ -6371,6 +6379,56 @@ $as_echo "#define C00SCAT /**/" >>confdefs.h
 
 fi
 
+# Check whether --enable-c00strue was given.
+if test "${enable_c00strue+set}" = set; then :
+  enableval=$enable_c00strue; case "${enableval}" in
+  yes) c00strue=true ;;
+  no)  c00strue=false ;;
+  *) as_fn_error $? "bad value ${enableval} for --enable-c00strue" "$LINENO" 5 ;;
+esac
+else
+  c00strue=true
+fi
+
+ if test "x$c00strue" = xtrue; then
+  C00STRUE_TRUE=
+  C00STRUE_FALSE='#'
+else
+  C00STRUE_TRUE='#'
+  C00STRUE_FALSE=
+fi
+
+if test "x$c00strue" = xtrue; then :
+
+$as_echo "#define C00STRUE /**/" >>confdefs.h
+
+fi
+
+
+# Check whether --enable-c00sfalse was given.
+if test "${enable_c00sfalse+set}" = set; then :
+  enableval=$enable_c00sfalse; case "${enableval}" in
+  yes) c00sfalse=true ;;
+  no)  c00sfalse=false ;;
+  *) as_fn_error $? "bad value ${enableval} for --enable-c00sfalse" "$LINENO" 5 ;;
+esac
+else
+  c00sfalse=true
+fi
+
+ if test "x$c00sfalse" = xtrue; then
+  C00SFALSE_TRUE=
+  C00SFALSE_FALSE='#'
+else
+  C00SFALSE_TRUE='#'
+  C00SFALSE_FALSE=
+fi
+
+if test "x$c00sfalse" = xtrue; then :
+
+$as_echo "#define C00SFALSE /**/" >>confdefs.h
+
+fi
 
 # Check whether --enable-c00swithlink was given.
 if test "${enable_c00swithlink+set}" = set; then :
@@ -6610,6 +6668,14 @@ Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${C00SCAT_TRUE}" && test -z "${C00SCAT_FALSE}"; then
   as_fn_error $? "conditional \"C00SCAT\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${C00STRUE_TRUE}" && test -z "${C00STRUE_FALSE}"; then
+  as_fn_error $? "conditional \"C00STRUE\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${C00SFALSE_TRUE}" && test -z "${C00SFALSE_FALSE}"; then
+  as_fn_error $? "conditional \"C00SFALSE\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${C00SWITHLINK_TRUE}" && test -z "${C00SWITHLINK_FALSE}"; then

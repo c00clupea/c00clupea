@@ -38,4 +38,4 @@ feature/c00_01.23
 feature/c00_01.24
 	implement cat
 feature/c00_01.25
-	implement cp
+	implement true / false

@@ -94,3 +94,22 @@ bin_PROGRAMS += ${c00spref}cat
 __c00spref_cat_SOURCES = ${add_sources} coreutils/c00s_cat.c coreutils/c00s_cat.h
 endif
 endif
+
+
+if C00STRUE
+if C00SWITHLINK
+c00clupeabox_SOURCES += coreutils/c00s_true.c coreutils/c00s_true.h
+else
+bin_PROGRAMS += ${c00spref}true
+__c00spref_true_SOURCES = ${add_sources} coreutils/c00s_true.c coreutils/c00s_true.h
+endif
+endif
+
+if C00STRUE
+if C00SWITHLINK
+c00clupeabox_SOURCES += coreutils/c00s_false.c coreutils/c00s_false.h
+else
+bin_PROGRAMS += ${c00spref}false
+__c00spref_false_SOURCES = ${add_sources} coreutils/c00s_false.c coreutils/c00s_false.h
+endif
+endif

@@ -36,8 +36,12 @@ int call_coreutil(int argc, char *argv[]){
 	check_box(usleep,"c00_usleep");
 	#endif
 
-	#ifdef C00SCAT
-	check_box(cat,"c00_cat");
+	#ifdef C00STRUE
+	check_box(cat,"c00_true");
+	#endif
+
+	#ifdef C00SFALSE
+	check_box(cat,"c00_false");
 	#endif
 
 	return ERROR;

@@ -318,6 +318,26 @@ esac],[c00scat=true])
 AM_CONDITIONAL([C00SCAT], [test "x$c00scat" = xtrue])
 AS_IF([test "x$c00scat" = xtrue],[AC_DEFINE([C00SCAT],[],[has cat])])
 
+AC_ARG_ENABLE([c00strue],
+[  --disable-c00strue    disable true (simple version)],
+[case "${enableval}" in
+  yes) c00strue=true ;;
+  no)  c00strue=false ;;
+  *) AC_MSG_ERROR([bad value ${enableval} for --enable-c00strue]) ;;
+esac],[c00strue=true])
+AM_CONDITIONAL([C00STRUE], [test "x$c00strue" = xtrue])
+AS_IF([test "x$c00strue" = xtrue],[AC_DEFINE([C00STRUE],[],[has true])])
+
+
+AC_ARG_ENABLE([c00sfalse],
+[  --disable-c00sfalse    disable false (simple version)],
+[case "${enableval}" in
+  yes) c00sfalse=true ;;
+  no)  c00sfalse=false ;;
+  *) AC_MSG_ERROR([bad value ${enableval} for --enable-c00sfalse]) ;;
+esac],[c00sfalse=true])
+AM_CONDITIONAL([C00SFALSE], [test "x$c00sfalse" = xtrue])
+AS_IF([test "x$c00sfalse" = xtrue],[AC_DEFINE([C00SFALSE],[],[has false])])
 
 AC_ARG_ENABLE([c00swithlink],
 [  --enable-c00swithlink    enable linked c00clupeabox (simple version)],
