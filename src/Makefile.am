@@ -105,14 +105,15 @@ __c00spref_true_SOURCES = ${add_sources} coreutils/c00s_true.c coreutils/c00s_tr
 endif
 endif
 
-#if C00SFALSE
-#if C00SWITHLINK
-#c00clupeabox_SOURCES += coreutils/c00s_false.c coreutils/c00s_false.h
-#else
-#bin_PROGRAMS += ${c00spref}false
-#__c00spref_false_SOURCES = ${add_sources} coreutils/c00s_false.c coreutils/c00s_false.h
-#endif
-#endif
+#be careful with the name but using FALSE is really mess cause makeconf does not like it so we use FalSE
+if C00SFalSE
+if C00SWITHLINK
+c00clupeabox_SOURCES += coreutils/c00s_false.c coreutils/c00s_false.h
+else
+bin_PROGRAMS += ${c00spref}false
+__c00spref_false_SOURCES = ${add_sources} coreutils/c00s_false.c coreutils/c00s_false.h
+endif
+endif
 
 if C00SYES
 if C00SWITHLINK
@@ -120,5 +121,14 @@ c00clupeabox_SOURCES += coreutils/c00s_yes.c coreutils/c00s_yes.h
 else
 bin_PROGRAMS += ${c00spref}yes
 __c00spref_yes_SOURCES = ${add_sources} coreutils/c00s_yes.c coreutils/c00s_yes.h
+endif
+endif
+
+if C00SSTRINGS
+if C00SWITHLINK
+c00clupeabox_SOURCES += coreutils/c00s_strings.c coreutils/c00s_strings.h
+else
+bin_PROGRAMS += ${c00spref}strings
+__c00spref_strings_SOURCES = ${add_sources} coreutils/c00s_strings.c coreutils/c00s_strings.h
 endif
 endif

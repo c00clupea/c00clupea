@@ -16,7 +16,10 @@
 #undef C00SCAT
 
 /* has false */
-#undef C00SFALSE
+#undef C00SFalSE
+
+/* has strings */
+#undef C00SSTRINGS
 
 /* has true */
 #undef C00STRUE

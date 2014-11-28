@@ -40,7 +40,7 @@ int call_coreutil(int argc, char *argv[]){
 	check_box(cat,"c00_true");
 	#endif
 
-	#ifdef C00SFALSE
+	#ifdef C00SFalSE
 	check_box(cat,"c00_false");
 	#endif
 
@@ -48,6 +48,9 @@ int call_coreutil(int argc, char *argv[]){
 	check_box(yes,"c00_yes");
 	#endif
 
+	#ifdef C00SSTRINGS
+	check_box(yes,"c00_strings");
+	#endif
 
 	return ERROR;
 	

@@ -42,12 +42,16 @@
 #include "coreutils/c00s_true.h"
 #endif
 
-#ifdef C00SFALSE
+#ifdef C00SFalSE
 #include "coreutils/c00s_false.h"
 #endif
 
 #ifdef C00SYES
 #include "coreutils/c00s_yes.h"
+#endif
+
+#ifdef C00SSTRINGS
+#include "coreutils/c00s_strings.h"
 #endif
 
 #endif

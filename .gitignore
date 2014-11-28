@@ -50,4 +50,5 @@ src/c00nb-usleep
 src/c00nb-false
 src/c00nb-true
 src/c00nb-yes
+src/c00nb-strings
 clang_output_*

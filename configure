@@ -625,10 +625,12 @@ ac_subst_vars='C00SWITHPREFIX_FALSE
 C00SWITHPREFIX_TRUE
 C00SWITHLINK_FALSE
 C00SWITHLINK_TRUE
+C00SSTRINGS_FALSE
+C00SSTRINGS_TRUE
 C00SYES_FALSE
 C00SYES_TRUE
-C00SFALSE_FALSE
-C00SFALSE_TRUE
+C00SFalSE_FALSE
+C00SFalSE_TRUE
 C00STRUE_FALSE
 C00STRUE_TRUE
 C00SCAT_FALSE
@@ -780,6 +782,7 @@ enable_c00scat
 enable_c00strue
 enable_c00sfalse
 enable_c00syes
+enable_c00sstrings
 enable_c00swithlink
 enable_c00swithprefix
 '
@@ -1446,6 +1449,7 @@ Optional Features:
   --disable-c00strue    disable true (simple version)
   --disable-c00sfalse    disable false (simple version)
   --disable-c00syes    disable yes (simple version)
+  --disable-c00sstrings    disable strings (simple version)
   --enable-c00swithlink    enable linked c00clupeabox (simple version)
   --disable-c00swithprefix    disable prefix for coreutils
 
@@ -6421,16 +6425,16 @@ else
 fi
 
  if test "x$c00sfalse" = xtrue; then
-  C00SFALSE_TRUE=
-  C00SFALSE_FALSE='#'
+  C00SFalSE_TRUE=
+  C00SFalSE_FALSE='#'
 else
-  C00SFALSE_TRUE='#'
-  C00SFALSE_FALSE=
+  C00SFalSE_TRUE='#'
+  C00SFalSE_FALSE=
 fi
 
 if test "x$c00sfalse" = xtrue; then :
 
-$as_echo "#define C00SFALSE /**/" >>confdefs.h
+$as_echo "#define C00SFalSE /**/" >>confdefs.h
 
 fi
 
@@ -6456,6 +6460,31 @@ fi
 if test "x$c00syes" = xtrue; then :
 
 $as_echo "#define C00SYES /**/" >>confdefs.h
+
+fi
+
+# Check whether --enable-c00sstrings was given.
+if test "${enable_c00sstrings+set}" = set; then :
+  enableval=$enable_c00sstrings; case "${enableval}" in
+  yes) c00sstrings=true ;;
+  no)  c00sstrings=false ;;
+  *) as_fn_error $? "bad value ${enableval} for --enable-c00sstrings" "$LINENO" 5 ;;
+esac
+else
+  c00sstrings=true
+fi
+
+ if test "x$c00sstrings" = xtrue; then
+  C00SSTRINGS_TRUE=
+  C00SSTRINGS_FALSE='#'
+else
+  C00SSTRINGS_TRUE='#'
+  C00SSTRINGS_FALSE=
+fi
+
+if test "x$c00sstrings" = xtrue; then :
+
+$as_echo "#define C00SSTRINGS /**/" >>confdefs.h
 
 fi
 
@@ -6703,12 +6732,16 @@ if test -z "${C00STRUE_TRUE}" && test -z "${C00STRUE_FALSE}"; then
   as_fn_error $? "conditional \"C00STRUE\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
-if test -z "${C00SFALSE_TRUE}" && test -z "${C00SFALSE_FALSE}"; then
-  as_fn_error $? "conditional \"C00SFALSE\" was never defined.
+if test -z "${C00SFalSE_TRUE}" && test -z "${C00SFalSE_FALSE}"; then
+  as_fn_error $? "conditional \"C00SFalSE\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${C00SYES_TRUE}" && test -z "${C00SYES_FALSE}"; then
   as_fn_error $? "conditional \"C00SYES\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${C00SSTRINGS_TRUE}" && test -z "${C00SSTRINGS_FALSE}"; then
+  as_fn_error $? "conditional \"C00SSTRINGS\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${C00SWITHLINK_TRUE}" && test -z "${C00SWITHLINK_FALSE}"; then
