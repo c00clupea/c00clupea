@@ -43,3 +43,5 @@ feature/c00_01.26
 	implement yes
 feature/c00_01.27
 	implement strings
+feature/c00_01.28
+	implement honeypotserver
