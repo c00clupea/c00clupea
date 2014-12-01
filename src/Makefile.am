@@ -17,6 +17,7 @@ bin_PROGRAMS += c00clupea
 endif
 
 if C00CLUPEABOX
+bin_PROGRAMS += c00clupea_honeymaster
 if C00SWITHLINK
 bin_PROGRAMS += c00clupeabox
 endif
@@ -42,6 +43,8 @@ c00clupea_SOURCES = global.h\
 add_sources = global.h util/util.c util/util.h util/busybox_cccc.h util/getopt32.c util/c00s_xatonum.h util/c00s_xatonum.c util/bb_iobridge.c util/c00b_sysinfo.h util/c00b_sysinfo.c util/bb_util.c
 
 c00clupeabox_SOURCES = c00clupea_sim.c c00clupea_sim.h ${add_sources}
+
+c00clupea_honeymaster_SOURCES = global.h c00clupea_honeymaster.h c00clupea_honeymaster.c
 
 if C00SWITHPREFIX
 c00spref=c00nb-

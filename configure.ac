@@ -25,6 +25,8 @@ AC_TYPE_SIZE_T
 AC_FUNC_MALLOC
 AC_CHECK_FUNCS([memset socket strstr pthread_mutex_lock snprintf va_start vsnprintf])
 
+AC_SEARCH_LIBS([zmq_ctx_new],[zmq],,[AC_MSG_ERROR(libzmq not installed)] )
+
 AC_CONFIG_HEADERS([src/conf.h])
 
 AC_CONFIG_FILES([Makefile src/Makefile man/Makefile])
