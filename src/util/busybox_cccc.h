@@ -30,6 +30,14 @@
 
 #define ALIGN1 __attribute__((aligned(1)))
 #define NOT_LONE_DASH(s) ((s)[0] != '-' || (s)[1])
+#define isprint_asciionly(a) ((unsigned)((a) - 0x20) <= 0x7e - 0x20)
+#define PRINT_NAME    2
+#define PRINT_OFFSET  4
+#define OFF_FMT "ll"
+
+
+# define FAST_FUNC
+
 
 #if defined(i386) || defined(__x86_64__) || defined(__mips__) || defined(__cris__)
 /* add other arches which benefit from this... */
@@ -71,9 +79,15 @@ llist_t *llist_find_str(llist_t *first, const char *str) FAST_FUNC;
 void * xzalloc(size_t size);
 
 uint32_t FAST_FUNC getopt32(char **argv, const char *applet_opts, ...);
+extern uint32_t option_mask32;
+
 
 extern const char *const bb_argv_dash[];
 extern const char bb_msg_standard_input[] ALIGN1;
+extern const char bb_msg_standard_output[] ALIGN1;
+
+FILE* fopen_or_warn_stdin(const char *filename);
+FILE* fopen_or_warn(const char *path, const char *mode);
 
 int open_or_warn_stdin(const char *filename);
 int open_or_warn(const char *pathname, int flags);
@@ -85,4 +99,6 @@ ssize_t safe_read(int fd, void *buf, size_t count);
 ssize_t full_write(int fd, const void *buf, size_t len);
 ssize_t safe_write(int fd, const void *buf, size_t count);
 
+void fflush_stdout_and_exit(int retval);
+//void FAST_FUNC bb_perror_msg_and_die(const char *s, ...);
 #endif

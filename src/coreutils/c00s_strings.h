@@ -14,13 +14,19 @@
 #define C00S_STRINGS_H
 
 #include "../util/busybox_cccc.h"
-
+#include "../util/c00s_xatonum.h"
 
 #ifdef C00SWITHLINK
 #define STRINGS_MAIN strings_main
 #else
 #define STRINGS_MAIN main
 #endif
+
+#define WHOLE_FILE    1
+#define PRINT_NAME    2
+#define PRINT_OFFSET  4
+#define SIZE          8
+
 
 int STRINGS_MAIN(int UNUSED(argc), char *argv[]);
 /**#####################

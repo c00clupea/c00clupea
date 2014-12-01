@@ -76,6 +76,17 @@ error:
 	return ERROR;
 }
 
+int c00_strtoi_in_range(const char *args, int *val, long min, long max){
+	long v1;
+	if(__basic_strol(args,&v1,min,max) != TRUE){
+		*val = 0;
+		return ERROR;
+	}
+	*val = (int)v1;
+
+	return TRUE;
+}
+
 int c00_strtoi(const char *args, int *val){
 	long v1;
 	if(__basic_strol(args,&v1,INT_MIN,INT_MAX) != TRUE){

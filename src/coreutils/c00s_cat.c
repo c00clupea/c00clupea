@@ -14,6 +14,7 @@
 
 static inline int c00_cat(char **argv);
 
+
 int c00_cat(char **argv){
 	int fd;
 	int retval = TRUE;

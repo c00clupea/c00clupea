@@ -12,7 +12,6 @@
  */
 #include "busybox_cccc.h"
 
-const char bb_msg_standard_input[] ALIGN1 = "standard input";
 
 ssize_t safe_read(int fd, void *buf, size_t count)
 {
@@ -174,4 +173,20 @@ int open_or_warn_stdin(const char *filename){
 	return fd;
 
 	
+}
+
+FILE* fopen_or_warn_stdin(const char *filename){
+	FILE *fp = stdin;
+	if(filename != bb_msg_standard_input && NOT_LONE_DASH(filename)){
+		fp = fopen_or_warn(filename, "r");
+	}
+	return fp;
+}
+
+FILE* fopen_or_warn(const char *path, const char *mode){
+	FILE *fp = fopen(path,mode);
+	if (!fp){
+		//printf("error: %s",path);
+	}
+	return fp;
 }

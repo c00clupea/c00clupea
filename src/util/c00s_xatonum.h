@@ -18,6 +18,6 @@ int c00_strtoi(const char *args, int *val);
 int c00_strtoipos(const char *args, int *val);
 int c00_strtol(const char *args, long *val);
 int c00_strtolpos(const char *args, long *val);
-
+int c00_strtoi_in_range(const char *args, int *val, long min, long max);
 
 #endif /* C00S_XATONUM_H */
