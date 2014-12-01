@@ -45,3 +45,5 @@ feature/c00_01.27
 	implement strings
 feature/c00_01.28
 	implement honeypotserver
+feature/c00_01.29
+	implement honeymaster/uname
