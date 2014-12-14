@@ -138,6 +138,30 @@
 
 #endif
 
+#define C00SYSDEBUG(fmt,...)\
+	syslog(LOG_DEBUG,fmt,__VA_ARGS__)
+
+#define C00SYSINFO(fmt,...)\
+	syslog(LOG_INFO,fmt,__VA_ARGS__)
+
+#define C00SYSERROR(fmt,...)\
+	syslog(LOG_ERR,fmt,__VA_ARGS__)
+
+#define C00SYSALERT(fmt,...)\
+	syslog(LOG_ALERT,fmt,__VA_ARGS__)
+
+#define C00SYSDEBUGN(fmt)\
+	syslog(LOG_DEBUG,fmt,)
+
+#define C00SYSINFON(fmt)\
+	syslog(LOG_INFO,fmt)
+
+#define C00SYSERRORN(fmt)\
+	syslog(LOG_ERR,fmt)
+
+#define C00SYSALERTN(fmt)\
+	syslog(LOG_ALERT,fmt)
+
 #define FLP __FILE__,__LINE__
 
 #define UNUSED __attribute__((unused))

@@ -29,6 +29,9 @@ static int __read_config(char *cfile, struct c00hm_config *config);
 static void *__time_ticker();
 static inline long __milliseconds_to_next_second();
 
+//static inline int __time_as_char(char *fmt, int buffer, char *result);
+static inline int __resolve_loglvl(char *charloglvl);
+
 
 int main( int argc, const char* argv[] ){
 	
@@ -39,19 +42,26 @@ int main( int argc, const char* argv[] ){
        	} else {
 		strcpy(conffile, argv[1]);
 	}
+	
+	openlog ("c00clupea_hm", LOG_CONS | LOG_PID | LOG_NDELAY,LOG_USER);
 
 	struct c00hm_config *config;
 	config = malloc(sizeof(struct c00hm_config));
 
-	check(__read_config(conffile, config),"Problem with parsing %s",conffile);
-	C00DEBUG("Threads: %d",config->workerthreads);
-	
+	if(__read_config(conffile, config) != TRUE){
+		C00SYSERROR("Problem with parsing %s",conffile);
+		exit(1);
+	}
+
+	setlogmask (LOG_UPTO (config->loglvl));
+	C00DEBUG("Starting c00clupea Honeymaster with config: %s | %d threads", conffile, config->workerthreads);
+	C00SYSINFO("Starting c00clupea Honeymaster with config: %s | %d threads", conffile, config->workerthreads);
 	pthread_t *worker_threads;
 
 	buf_rb_hmcmd = c00_ringbuffer_init(MAINHMCMDBUFFER,sizeof(void*));
 	C00DEBUG("Start commandbuffer with size:%d",MAINHMCMDBUFFER);
 
-	worker_threads = malloc(config->workerthreads * sizeof(pthread_t));
+	worker_threads = malloc(sizeof(pthread_t) * config->workerthreads);
 	check(__initworker(worker_threads,config)==TRUE,"Init for %d workerthreads failed",config->workerthreads);
 
 	pthread_t *time_ticker = malloc(sizeof(pthread_t));
@@ -84,29 +94,65 @@ static void *__time_ticker(){
 	while(is_running){
 		C00DEBUG("timetick %lu",count++);
 	       	if(pthread_mutex_lock(&mtx_work_buffer_hm) != 0){
-			syslog(LOG_ERR,"worker not able to lock");
+			C00SYSERRORN("worker not able to lock");
 		}
 		struct c00hm_command *tmp_cmd = malloc(sizeof(struct c00hm_command));
-		tmp_cmd->command = 0x001;
+		tmp_cmd->command = C00_CMD_TIME_TICK;
 		if(c00_ringbuffer_add(buf_rb_hmcmd,tmp_cmd)!= 0){
-			syslog(LOG_ERR,"Sorry we can not add any cmd to ringbuffer");
+			C00SYSERRORN("Sorry we can not add any cmd to ringbuffer");
 		}
-		C00DEBUG("Add to buffer timecommand: %d",tmp_cmd->command);
+		//C00DEBUG("Add to buffer timecommand: %d",tmp_cmd->command);
 		if(pthread_cond_broadcast(&buf_hm_not_empty) != 0){
-			syslog(LOG_ERR,"sorry but broadcast would not work");
+			C00SYSERRORN("sorry but broadcast would not work");
 		}
 		if(pthread_mutex_unlock(&mtx_work_buffer_hm) != 0){
-			syslog(LOG_ERR,"problem with unlock worker");
+			C00SYSERRORN("problem with unlock worker");
 		}
 
-		long interval = __milliseconds_to_next_second() * NANO_SECOND_MULTIPLIER;
-		C00DEBUG("Waiting for %ld ns",interval);
-		nanosleep((struct timespec[]){{0, interval}}, NULL);
+		nanosleep((struct timespec[]){{0, (__milliseconds_to_next_second() * NANO_SECOND_MULTIPLIER)}}, NULL);
 
 	}
 	pthread_exit((void *) 0);
 	return NULL;
 }
+
+int __resolve_loglvl(char *charloglvl){
+	if(strcmp(charloglvl,"DEBUG") == 0){
+		return LOG_DEBUG;
+	}
+	if(strcmp(charloglvl,"INFO") == 0){
+		return LOG_INFO;
+	}
+	if(strcmp(charloglvl,"NOTICE") == 0){
+		return LOG_NOTICE;
+	}
+	if(strcmp(charloglvl,"WARNING") == 0){
+		return LOG_WARNING;
+	}
+	if(strcmp(charloglvl,"ERR") == 0){
+		return LOG_ERR;
+	}
+	if(strcmp(charloglvl,"CRIT") == 0){
+		return LOG_CRIT;
+	}
+	if(strcmp(charloglvl,"ALERT") == 0){
+		return LOG_ALERT;
+	}
+	if(strcmp(charloglvl,"EMERG") == 0){
+		return LOG_EMERG;
+	}
+	return LOG_ERR;
+}
+
+/**int __time_as_char(char *fmt, int buffer, char *result){
+	time_t rawtime;
+	struct tm *info;
+	time( &rawtime );
+
+	info = localtime( &rawtime );
+	strftime(result,buffer,fmt, info);
+	return TRUE;
+	}**/
 
 
 long __milliseconds_to_next_second(){
@@ -116,19 +162,18 @@ long __milliseconds_to_next_second(){
 }
 
 int __read_config(char *cfile, struct c00hm_config *config){
-	int readstat;
+    
 	mem_check(cfile);
 	mem_check(config);
 
 	dictionary *ini;
 
-	int thread_count;
 	ini = iniparser_load(cfile);
 	check(ini!=NULL,"Can not parse config %s",cfile);
 
       	config->workerthreads =  iniparser_getint(ini, "c00clupea:threads", 4);
-
-
+	config->loglvl = __resolve_loglvl(iniparser_getstring(ini,"c00clupea:loglvl","ERR"));
+	return TRUE;
 
 error:
 	return ERROR;
@@ -154,21 +199,21 @@ void *__single_worker(){
 //	C00DEBUG("Started worker %s","work");
 	while(is_running){
 		if(pthread_mutex_lock(&mtx_work_buffer_hm) != 0){
-			syslog(LOG_ERR,"worker not able to lock");
+			C00SYSERRORN("worker not able to lock");
 		}
 		//we do sth
 		while(c00_ringbuffer_is_empty(buf_rb_hmcmd)){
 			if(pthread_cond_wait(&buf_hm_not_empty,&mtx_work_buffer_hm) != 0){
-				syslog(LOG_ERR,"sorry but buffer not mepty makes some error in worker");
+				C00SYSERRORN("sorry but buffer not mepty makes some error in worker");
 			}
 		}
 		struct c00hm_command *tmp_cmd = (struct c00hm_command*)c00_ringbuffer_get(buf_rb_hmcmd);
-		C00DEBUG("Value for cmd: %d",tmp_cmd->command);
+		//C00DEBUG("Value for cmd: %d",tmp_cmd->command);
 		if(pthread_cond_broadcast(&buf_hm_full_cond) !=0){
-			syslog(LOG_ERR,"problem with broadcast in worker");
+			C00SYSERRORN("problem with broadcast in worker");
 		}
 		if(pthread_mutex_unlock(&mtx_work_buffer_hm) != 0){
-			syslog(LOG_ERR,"problem with unlock worker");
+			C00SYSERRORN("problem with unlock worker");
 		}
 
 
@@ -200,11 +245,11 @@ int __handle_signal(void){
 	return TRUE;
 }
 
-void __show_status(int sig){}
+void __show_status(int UNUSED(sig)){}
 
 void __shutdown_regular(int sig){
        	is_running = 0;
-	syslog(STDLOG,"Received signal %d......Terminating",sig);
+	C00SYSINFO("Received signal %d......Terminating",sig);
 }
 
 void __set_signal_mask(){

@@ -18,6 +18,8 @@
 #include "util/ringbuffer.h"
 
 #include "util/c00_iniparser.h"
+
+#include "util/util.h"
 /**
  * init buffer for cmd (ringbuffer)
  * init threadpool
@@ -29,9 +31,11 @@
  **/
 
 #define NANO_SECOND_MULTIPLIER  1000000
+#define C00_CMD_TIME_TICK 0x001
 
 struct c00hm_config{
 	int workerthreads;
+int loglvl;
 };
 
 struct c00hm_command{
