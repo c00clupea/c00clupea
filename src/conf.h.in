@@ -51,6 +51,9 @@
 /* Define to 1 if you have the <arpa/inet.h> header file. */
 #undef HAVE_ARPA_INET_H
 
+/* Define to 1 if you have the <ctype.h> header file. */
+#undef HAVE_CTYPE_H
+
 /* Define to 1 if you have the <errno.h> header file. */
 #undef HAVE_ERRNO_H
 
@@ -147,6 +150,12 @@
 
 /* inet family */
 #undef MAINCONFIG
+
+/* inet family */
+#undef MAINHMCMDBUFFER
+
+/* inet family */
+#undef MAINHMCONFIG
 
 /* main buffer len */
 #undef MAIN_BUFFER_LEN

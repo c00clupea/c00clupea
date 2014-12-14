@@ -13,6 +13,30 @@
 #ifndef C00CLUPEA_HONEYMASTER_H
 #define C00CLUPEA_HONEYMASTER_H
 #include "global.h"
+#include <signal.h>
+#include <sys/time.h>
+#include "util/ringbuffer.h"
+
+#include "util/c00_iniparser.h"
+/**
+ * init buffer for cmd (ringbuffer)
+ * init threadpool
+ * iter thread creation
+ * -->work until signal
+ * end by sig
+ * free evth
+ * destroy ringbuffer
+ **/
+
+#define NANO_SECOND_MULTIPLIER  1000000
+
+struct c00hm_config{
+	int workerthreads;
+};
+
+struct c00hm_command{
+	unsigned short command;
+};
 
 int main( int argc, const char* argv[] );
 

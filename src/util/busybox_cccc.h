@@ -21,7 +21,7 @@
 #include <sys/stat.h>
 #include <sys/mman.h>
 #include <errno.h>
-#include <zmq.h>
+
 
 
 #include "../global.h"

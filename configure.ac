@@ -16,7 +16,7 @@ AM_PROG_CC_C_O
 # Checks for libraries.
 
 # Checks for header files.
-AC_CHECK_HEADERS([arpa/inet.h limits.h netinet/in.h stdlib.h string.h sys/socket.h syslog.h unistd.h stdarg.h limits.h stdio.h sys/types.h sys/utsname.h getopt.h pwd.h stdint.h fcntl.h sys/stat.h sys/mman.h errno.h syslog.h])
+AC_CHECK_HEADERS([arpa/inet.h limits.h netinet/in.h stdlib.h string.h sys/socket.h syslog.h unistd.h stdarg.h limits.h stdio.h sys/types.h sys/utsname.h getopt.h pwd.h stdint.h fcntl.h sys/stat.h sys/mman.h errno.h syslog.h ctype.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_TYPE_SIZE_T
@@ -25,7 +25,7 @@ AC_TYPE_SIZE_T
 AC_FUNC_MALLOC
 AC_CHECK_FUNCS([memset socket strstr pthread_mutex_lock snprintf va_start vsnprintf])
 
-AC_SEARCH_LIBS([zmq_ctx_new],[zmq],,[AC_MSG_ERROR(libzmq not installed)] )
+#AC_SEARCH_LIBS([zmq_ctx_new],[zmq],,[AC_MSG_ERROR(libzmq not installed)] )
 
 AC_CONFIG_HEADERS([src/conf.h])
 
@@ -224,6 +224,24 @@ if test "x${MAINCONFIG}" = "x"; then
 else
 	AC_DEFINE([MAINCONFIG],[x${MAINCONFIG}],[inet family])
 fi
+
+#main config
+AC_ARG_VAR([MAINHMCONFIG],[main config (default is (sysconfdir)/c00clupea/c00clupea_hm.config)])
+
+if test "x${MAINHMCONFIG}" = "x"; then
+	AC_DEFINE([MAINHMCONFIG],["/etc/c00clupea/c00clupea_hm.config"],[inet family])
+else
+	AC_DEFINE([MAINHMCONFIG],[x${MAINHMCONFIG}],[inet family])
+fi
+
+AC_ARG_VAR([MAINHMCMDBUFFER],[hm main command buffer size, default 1024])
+
+if test "x${MAINHMCMDBUFFER}" = "x"; then
+	AC_DEFINE([MAINHMCMDBUFFER],[1024],[inet family])
+else
+	AC_DEFINE([MAINHMCMDBUFFER],[x${MAINHMCMDBUFFER}],[inet family])
+fi
+
 
 #log template
 AC_ARG_VAR([LOG_MAIN_TEMPLATE],[log template (default is (localstatedir)/log/c00clupea/c00clupea_%d.log)])

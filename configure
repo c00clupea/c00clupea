@@ -649,6 +649,8 @@ C00CLUPEABOX_FALSE
 C00CLUPEABOX_TRUE
 STRAT_CONFIG_PATH
 LOG_MAIN_TEMPLATE
+MAINHMCMDBUFFER
+MAINHMCONFIG
 MAINCONFIG
 INET_FAM
 ALLOWED_OPTS
@@ -809,6 +811,8 @@ STD_FLUSH_COUNT
 ALLOWED_OPTS
 INET_FAM
 MAINCONFIG
+MAINHMCONFIG
+MAINHMCMDBUFFER
 LOG_MAIN_TEMPLATE
 STRAT_CONFIG_PATH'
 
@@ -1482,6 +1486,11 @@ Some influential environment variables:
               allowed opts for commandline (default is <<Vhp:b:c:s:>>)
   INET_FAM    inet family for sockets (default is AF_INET)
   MAINCONFIG  main config (default is (sysconfdir)/c00clupea/c00clupea.config)
+  MAINHMCONFIG
+              main config (default is
+              (sysconfdir)/c00clupea/c00clupea_hm.config)
+  MAINHMCMDBUFFER
+              hm main command buffer size, default 1024
   LOG_MAIN_TEMPLATE
               log template (default is
               (localstatedir)/log/c00clupea/c00clupea_%d.log)
@@ -4188,7 +4197,7 @@ fi
 done
 
 
-for ac_header in arpa/inet.h limits.h netinet/in.h stdlib.h string.h sys/socket.h syslog.h unistd.h stdarg.h limits.h stdio.h sys/types.h sys/utsname.h getopt.h pwd.h stdint.h fcntl.h sys/stat.h sys/mman.h errno.h syslog.h
+for ac_header in arpa/inet.h limits.h netinet/in.h stdlib.h string.h sys/socket.h syslog.h unistd.h stdarg.h limits.h stdio.h sys/types.h sys/utsname.h getopt.h pwd.h stdint.h fcntl.h sys/stat.h sys/mman.h errno.h syslog.h ctype.h
 do :
   as_ac_Header=`$as_echo "ac_cv_header_$ac_header" | $as_tr_sh`
 ac_fn_c_check_header_mongrel "$LINENO" "$ac_header" "$as_ac_Header" "$ac_includes_default"
@@ -4296,64 +4305,7 @@ fi
 done
 
 
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for library containing zmq_ctx_new" >&5
-$as_echo_n "checking for library containing zmq_ctx_new... " >&6; }
-if ${ac_cv_search_zmq_ctx_new+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  ac_func_search_save_LIBS=$LIBS
-cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char zmq_ctx_new ();
-int
-main ()
-{
-return zmq_ctx_new ();
-  ;
-  return 0;
-}
-_ACEOF
-for ac_lib in '' zmq; do
-  if test -z "$ac_lib"; then
-    ac_res="none required"
-  else
-    ac_res=-l$ac_lib
-    LIBS="-l$ac_lib  $ac_func_search_save_LIBS"
-  fi
-  if ac_fn_c_try_link "$LINENO"; then :
-  ac_cv_search_zmq_ctx_new=$ac_res
-fi
-rm -f core conftest.err conftest.$ac_objext \
-    conftest$ac_exeext
-  if ${ac_cv_search_zmq_ctx_new+:} false; then :
-  break
-fi
-done
-if ${ac_cv_search_zmq_ctx_new+:} false; then :
-
-else
-  ac_cv_search_zmq_ctx_new=no
-fi
-rm conftest.$ac_ext
-LIBS=$ac_func_search_save_LIBS
-fi
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_search_zmq_ctx_new" >&5
-$as_echo "$ac_cv_search_zmq_ctx_new" >&6; }
-ac_res=$ac_cv_search_zmq_ctx_new
-if test "$ac_res" != no; then :
-  test "$ac_res" = "none required" || LIBS="$ac_res $LIBS"
-
-else
-  as_fn_error $? "libzmq not installed" "$LINENO" 5
-fi
-
+#AC_SEARCH_LIBS([zmq_ctx_new],[zmq],,[AC_MSG_ERROR(libzmq not installed)] )
 
 ac_config_headers="$ac_config_headers src/conf.h"
 
@@ -6237,6 +6189,32 @@ else
 $as_echo "#define MAINCONFIG x\${MAINCONFIG}" >>confdefs.h
 
 fi
+
+#main config
+
+
+if test "x${MAINHMCONFIG}" = "x"; then
+
+$as_echo "#define MAINHMCONFIG \"/etc/c00clupea/c00clupea_hm.config\"" >>confdefs.h
+
+else
+
+$as_echo "#define MAINHMCONFIG x\${MAINHMCONFIG}" >>confdefs.h
+
+fi
+
+
+
+if test "x${MAINHMCMDBUFFER}" = "x"; then
+
+$as_echo "#define MAINHMCMDBUFFER 1024" >>confdefs.h
+
+else
+
+$as_echo "#define MAINHMCMDBUFFER x\${MAINHMCMDBUFFER}" >>confdefs.h
+
+fi
+
 
 #log template
 

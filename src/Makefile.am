@@ -40,11 +40,15 @@ c00clupea_SOURCES = global.h\
 		    strategies/strategy_http_path.c strategies/strategy_http_path.h\
 		    strategies/http_codes.h
 
-add_sources = global.h util/util.c util/util.h util/busybox_cccc.h util/getopt32.c util/c00s_xatonum.h util/c00s_xatonum.c util/bb_iobridge.c util/c00b_sysinfo.h util/c00b_sysinfo.c util/bb_util.c
+connect_sources = util/c00_message.h util/c00_message.c
+
+add_sources = global.h util/util.c util/util.h util/busybox_cccc.h util/getopt32.c util/c00s_xatonum.h util/c00s_xatonum.c util/bb_iobridge.c util/c00b_sysinfo.h util/c00b_sysinfo.c util/bb_util.c ${connect_sources}
+
+
 
 c00clupeabox_SOURCES = c00clupea_sim.c c00clupea_sim.h ${add_sources}
 
-c00clupea_honeymaster_SOURCES = global.h c00clupea_honeymaster.h c00clupea_honeymaster.c
+c00clupea_honeymaster_SOURCES = global.h c00clupea_honeymaster.h c00clupea_honeymaster.c ${connect_sources} util/c00_iniparser.h util/c00_iniparser.c util/c00_dictionary.h util/c00_dictionary.c util/ringbuffer.c util/ringbuffer.h
 
 if C00SWITHPREFIX
 c00spref=c00nb-
