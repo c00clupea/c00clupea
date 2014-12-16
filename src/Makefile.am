@@ -23,6 +23,10 @@ bin_PROGRAMS += c00clupeabox
 endif
 endif
 
+if C00MEASURETOOL
+bin_PROGRAMS += c00clupea_perf
+endif
+
 ##never ever use tabs here...the += commands would not work
 
 c00clupea_SOURCES = global.h\

@@ -273,6 +273,19 @@ AM_CONDITIONAL([C00CLUPEABOX], [test "x$c00clupeabox" = xtrue])
 #AM_CONDITIONAL([C00SUNAME], )
 AS_IF([test "x$c00clupeabox" = xtrue],[AC_DEFINE([C00CLUPEABOX],[],[compile c00clupeabox])])
 
+AC_ARG_ENABLE([c00measuretools],
+[  --disable-c00measuretools    disable measurementtools],
+[case "${enableval}" in
+  yes) c00measuretools=true ;;
+  no)  c00measuretools=false ;;
+  *) AC_MSG_ERROR([bad value ${enableval} for --enable-c00measuretools]) ;;
+esac],[c00measuretools=true])
+AM_CONDITIONAL([CC00MEASURETOOL], [test "x$c00measuretools" = xtrue])
+#AM_CONDITIONAL([C00SUNAME], )
+AS_IF([test "x$c00measuretools" = xtrue],[AC_DEFINE([C00MEASURETOOL],[],[compile measurement tools])])
+
+
+
 AC_ARG_ENABLE([c00clupea],
 [  --disable-c00clupea    disable honeypot compile],
 [case "${enableval}" in
