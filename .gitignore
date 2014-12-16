@@ -33,6 +33,7 @@ install-sh
 c00clupea
 src/c00clupea_honeymaster
 c00clupea_sim
+src/c00clupeaperf
 src/c00clupeabox
 c00_hashmap_test
 val

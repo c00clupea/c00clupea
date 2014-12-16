@@ -645,6 +645,8 @@ C00SUNAME_FALSE
 C00SUNAME_TRUE
 C00CLUPEA_FALSE
 C00CLUPEA_TRUE
+C00MEASURETOOL_FALSE
+C00MEASURETOOL_TRUE
 C00CLUPEABOX_FALSE
 C00CLUPEABOX_TRUE
 STRAT_CONFIG_PATH
@@ -775,6 +777,7 @@ enable_buildtest
 enable_writecrap
 enable_strict_atomic
 enable_c00clupeabox
+enable_c00measuretools
 enable_c00clupea
 enable_c00suname
 enable_c00swhoami
@@ -1444,10 +1447,11 @@ Optional Features:
   --enable-strict-atomic  Enable strict atomic behaviour...It is safe but
                           slow....
   --disable-c00clupeabox    disable box compile
+  --disable-c00measuretools    disable measurementtools
   --disable-c00clupea    disable honeypot compile
   --disable-c00suname    disable uname
   --disable-c00swhoami    disable whoami (simple version)
-  --disable-c00uptime    disable uptime (simple version)
+  --disable-c00suptime    disable uptime (simple version)
   --disable-c00susleep    disable upsleep (simple version)
   --disable-c00scat    disable upsleep (simple version)
   --disable-c00strue    disable true (simple version)
@@ -6269,6 +6273,34 @@ $as_echo "#define C00CLUPEABOX /**/" >>confdefs.h
 
 fi
 
+# Check whether --enable-c00measuretools was given.
+if test "${enable_c00measuretools+set}" = set; then :
+  enableval=$enable_c00measuretools; case "${enableval}" in
+  yes) c00measuretools=true ;;
+  no)  c00measuretools=false ;;
+  *) as_fn_error $? "bad value ${enableval} for --enable-c00measuretools" "$LINENO" 5 ;;
+esac
+else
+  c00measuretools=true
+fi
+
+ if test "x$c00measuretools" = xtrue; then
+  C00MEASURETOOL_TRUE=
+  C00MEASURETOOL_FALSE='#'
+else
+  C00MEASURETOOL_TRUE='#'
+  C00MEASURETOOL_FALSE=
+fi
+
+#AM_CONDITIONAL([C00SUNAME], )
+if test "x$c00measuretools" = xtrue; then :
+
+$as_echo "#define C00MEASURETOOL /**/" >>confdefs.h
+
+fi
+
+
+
 # Check whether --enable-c00clupea was given.
 if test "${enable_c00clupea+set}" = set; then :
   enableval=$enable_c00clupea; case "${enableval}" in
@@ -6739,6 +6771,10 @@ Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${C00CLUPEABOX_TRUE}" && test -z "${C00CLUPEABOX_FALSE}"; then
   as_fn_error $? "conditional \"C00CLUPEABOX\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${C00MEASURETOOL_TRUE}" && test -z "${C00MEASURETOOL_FALSE}"; then
+  as_fn_error $? "conditional \"C00MEASURETOOL\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${C00CLUPEA_TRUE}" && test -z "${C00CLUPEA_FALSE}"; then

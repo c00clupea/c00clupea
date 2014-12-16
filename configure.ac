@@ -280,7 +280,7 @@ AC_ARG_ENABLE([c00measuretools],
   no)  c00measuretools=false ;;
   *) AC_MSG_ERROR([bad value ${enableval} for --enable-c00measuretools]) ;;
 esac],[c00measuretools=true])
-AM_CONDITIONAL([CC00MEASURETOOL], [test "x$c00measuretools" = xtrue])
+AM_CONDITIONAL([C00MEASURETOOL], [test "x$c00measuretools" = xtrue])
 #AM_CONDITIONAL([C00SUNAME], )
 AS_IF([test "x$c00measuretools" = xtrue],[AC_DEFINE([C00MEASURETOOL],[],[compile measurement tools])])
 
@@ -321,7 +321,7 @@ AM_CONDITIONAL([C00SWHOAMI], [test "x$c00swhoami" = xtrue])
 AS_IF([test "x$c00swhoami" = xtrue],[AC_DEFINE([C00SWHOAMI],[],[has whoami])])
 
 AC_ARG_ENABLE([c00suptime],
-[  --disable-c00uptime    disable uptime (simple version)],
+[  --disable-c00suptime    disable uptime (simple version)],
 [case "${enableval}" in
   yes) c00suptime=true ;;
   no)  c00suptime=false ;;
