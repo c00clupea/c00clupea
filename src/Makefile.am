@@ -23,9 +23,6 @@ bin_PROGRAMS += c00clupeabox
 endif
 endif
 
-if C00MEASURETOOL
-bin_PROGRAMS += c00clupeaperf
-endif
 
 ##never ever use tabs here...the += commands would not work
 
@@ -47,13 +44,6 @@ c00clupea_SOURCES = global.h\
 connect_sources = util/c00_message.h util/c00_message.c
 
 add_sources = global.h util/util.c util/util.h util/busybox_cccc.h util/getopt32.c util/c00s_xatonum.h util/c00s_xatonum.c util/bb_iobridge.c util/c00b_sysinfo.h util/c00b_sysinfo.c util/bb_util.c ${connect_sources}
-
-
-c00clupeaperf_SOURCES = c00clupeaperf.h c00clupeaperf.c global.h
-
-if ISDARWIN
-c00clupeaperf_SOURCES += util/macosx_clock.h util/macosx_clock.c
-endif
 
 c00clupeabox_SOURCES = c00clupea_sim.c c00clupea_sim.h ${add_sources}
 
