@@ -43,18 +43,27 @@ AC_MSG_RESULT([$CLANG])
 
 AC_CANONICAL_HOST
 
+AM_CONDITIONAL([ISDARWIN],false)
+
 case $host_os in
   darwin* )
         AM_CONDITIONAL([NEEDPTHREAD],false)
+	AM_CONDITIONAL([ISDARWIN],true)
+	AC_DEFINE([OSDETECTED],[DARWIN],[darwin])
+	AC_DEFINE([CLOCK_REALTIME],[0],[for clock_gettime fake])	
+	AC_DEFINE([CLOCK_MONOTONIC],[0],[for clock_gettime fake])
         ;;
   linux*)
         AM_CONDITIONAL([NEEDPTHREAD],true)
+	AC_DEFINE([OSDETECTED],[LINUX],[linux])	
         ;;
    *BSD*)
         AM_CONDITIONAL([NEEDPTHREAD],true)
+	AC_DEFINE([OSDETECTED],[BSD],[openbsd/freebsd])	
         ;;
    *bsd*)
         AM_CONDITIONAL([NEEDPTHREAD],true)
+	AC_DEFINE([OSDETECTED],[BSD],[openbsd/freebsd])	
         ;;
     *)
 

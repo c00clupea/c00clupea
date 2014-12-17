@@ -674,6 +674,8 @@ CLANG_FALSE
 CLANG_TRUE
 NEEDPTHREAD_FALSE
 NEEDPTHREAD_TRUE
+ISDARWIN_FALSE
+ISDARWIN_TRUE
 host_os
 host_vendor
 host_cpu
@@ -4414,6 +4416,15 @@ case $host_os in *\ *) host_os=`echo "$host_os" | sed 's/ /-/g'`;; esac
 
 
 
+ if false; then
+  ISDARWIN_TRUE=
+  ISDARWIN_FALSE='#'
+else
+  ISDARWIN_TRUE='#'
+  ISDARWIN_FALSE=
+fi
+
+
 case $host_os in
   darwin* )
          if false; then
@@ -4423,6 +4434,23 @@ else
   NEEDPTHREAD_TRUE='#'
   NEEDPTHREAD_FALSE=
 fi
+
+	 if true; then
+  ISDARWIN_TRUE=
+  ISDARWIN_FALSE='#'
+else
+  ISDARWIN_TRUE='#'
+  ISDARWIN_FALSE=
+fi
+
+
+$as_echo "#define OSDETECTED DARWIN" >>confdefs.h
+
+
+$as_echo "#define CLOCK_REALTIME 0" >>confdefs.h
+
+
+$as_echo "#define CLOCK_MONOTONIC 0" >>confdefs.h
 
         ;;
   linux*)
@@ -4434,6 +4462,9 @@ else
   NEEDPTHREAD_FALSE=
 fi
 
+
+$as_echo "#define OSDETECTED LINUX" >>confdefs.h
+
         ;;
    *BSD*)
          if true; then
@@ -4444,6 +4475,9 @@ else
   NEEDPTHREAD_FALSE=
 fi
 
+
+$as_echo "#define OSDETECTED BSD" >>confdefs.h
+
         ;;
    *bsd*)
          if true; then
@@ -4453,6 +4487,9 @@ else
   NEEDPTHREAD_TRUE='#'
   NEEDPTHREAD_FALSE=
 fi
+
+
+$as_echo "#define OSDETECTED BSD" >>confdefs.h
 
         ;;
     *)
@@ -4716,8 +4753,16 @@ if test -z "${am__fastdepCC_TRUE}" && test -z "${am__fastdepCC_FALSE}"; then
   as_fn_error $? "conditional \"am__fastdepCC\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
+if test -z "${ISDARWIN_TRUE}" && test -z "${ISDARWIN_FALSE}"; then
+  as_fn_error $? "conditional \"ISDARWIN\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
 if test -z "${NEEDPTHREAD_TRUE}" && test -z "${NEEDPTHREAD_FALSE}"; then
   as_fn_error $? "conditional \"NEEDPTHREAD\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${ISDARWIN_TRUE}" && test -z "${ISDARWIN_FALSE}"; then
+  as_fn_error $? "conditional \"ISDARWIN\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${NEEDPTHREAD_TRUE}" && test -z "${NEEDPTHREAD_FALSE}"; then
@@ -6741,8 +6786,16 @@ if test -z "${am__fastdepCC_TRUE}" && test -z "${am__fastdepCC_FALSE}"; then
   as_fn_error $? "conditional \"am__fastdepCC\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
+if test -z "${ISDARWIN_TRUE}" && test -z "${ISDARWIN_FALSE}"; then
+  as_fn_error $? "conditional \"ISDARWIN\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
 if test -z "${NEEDPTHREAD_TRUE}" && test -z "${NEEDPTHREAD_FALSE}"; then
   as_fn_error $? "conditional \"NEEDPTHREAD\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${ISDARWIN_TRUE}" && test -z "${ISDARWIN_FALSE}"; then
+  as_fn_error $? "conditional \"ISDARWIN\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${NEEDPTHREAD_TRUE}" && test -z "${NEEDPTHREAD_FALSE}"; then

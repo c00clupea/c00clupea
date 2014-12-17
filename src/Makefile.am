@@ -51,6 +51,10 @@ add_sources = global.h util/util.c util/util.h util/busybox_cccc.h util/getopt32
 
 c00clupeaperf_SOURCES = c00clupeaperf.h c00clupeaperf.c global.h
 
+if ISDARWIN
+c00clupeaperf_SOURCES += util/macosx_clock.h util/macosx_clock.c
+endif
+
 c00clupeabox_SOURCES = c00clupea_sim.c c00clupea_sim.h ${add_sources}
 
 c00clupea_honeymaster_SOURCES = global.h c00clupea_honeymaster.h c00clupea_honeymaster.c ${connect_sources} util/c00_iniparser.h util/c00_iniparser.c util/c00_dictionary.h util/c00_dictionary.c util/ringbuffer.c util/ringbuffer.h util/util.h util/util.c
