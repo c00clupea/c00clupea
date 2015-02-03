@@ -21,6 +21,7 @@
 #include <sys/stat.h>
 #include <sys/mman.h>
 #include <errno.h>
+#include <signal.h>
 
 
 
@@ -28,6 +29,9 @@
 #define type long long
 
 #define FAST_FUNC
+
+# define PUSH_AND_SET_FUNCTION_VISIBILITY_TO_HIDDEN /* nothing */
+# define POP_SAVED_FUNCTION_VISIBILITY /* nothing */
 
 #define ALIGN1 __attribute__((aligned(1)))
 #define NOT_LONE_DASH(s) ((s)[0] != '-' || (s)[1])
@@ -37,8 +41,13 @@
 #define OFF_FMT "ll"
 
 
-# define FAST_FUNC
+#define FAST_FUNC
+#define UNUSED_PARAM __attribute__ ((__unused__))
+/*#define UNUSED_PARAM*/
 
+#define NORETURN __attribute__ ((__noreturn__))
+
+#define ARRAY_SIZE(x) ((unsigned)(sizeof(x) / sizeof((x)[0])))
 
 #if defined(i386) || defined(__x86_64__) || defined(__mips__) || defined(__cris__)
 /* add other arches which benefit from this... */

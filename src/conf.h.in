@@ -21,6 +21,9 @@
 /* has false */
 #undef C00SFalSE
 
+/* has shell */
+#undef C00SSHELL
+
 /* has strings */
 #undef C00SSTRINGS
 

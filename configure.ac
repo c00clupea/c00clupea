@@ -401,6 +401,16 @@ esac],[c00sstrings=true])
 AM_CONDITIONAL([C00SSTRINGS], [test "x$c00sstrings" = xtrue])
 AS_IF([test "x$c00sstrings" = xtrue],[AC_DEFINE([C00SSTRINGS],[],[has strings])])
 
+AC_ARG_ENABLE([c00sshell],
+[  --disable-c00sshell    disable shell (ash - like)],
+[case "${enableval}" in
+  yes) c00sshell=true ;;
+  no)  c00sshell=false ;;
+  *) AC_MSG_ERROR([bad value ${enableval} for --enable-c00sshell]) ;;
+esac],[c00sshell=true])
+AM_CONDITIONAL([C00SSHELL], [test "x$c00sshell" = xtrue])
+AS_IF([test "x$c00sshell" = xtrue],[AC_DEFINE([C00SSHELL],[],[has shell])])
+
 AC_ARG_ENABLE([c00swithlink],
 [  --enable-c00swithlink    enable linked c00clupeabox (simple version)],
 [case "${enableval}" in

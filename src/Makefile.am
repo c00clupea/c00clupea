@@ -138,3 +138,8 @@ bin_PROGRAMS += ${c00spref}strings
 __c00spref_strings_SOURCES = ${add_sources} coreutils/c00s_strings.c coreutils/c00s_strings.h
 endif
 endif
+
+if C00SSHELL
+bin_PROGRAMS += ${c00spref}ash
+__c00spref_ash_SOURCES = ${add_sources} coreutils/c00s_ash.c coreutils/c00s_unicode.h coreutils/c00s_shell_common.h coreutils/c00s_shell_common.c coreutils/c00s_NUM_APPLETS.h
+endif
