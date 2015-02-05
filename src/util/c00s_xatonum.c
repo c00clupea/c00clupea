@@ -15,6 +15,27 @@
 static inline int __in_range(long val,long min, long max);
 static inline int __basic_strol(const char *args, long *val,long min,long max);
 
+static unsigned long long ret_ERANGE(void)
+{
+	errno = ERANGE; /* this ain't as small as it looks (on glibc) */
+	return ULLONG_MAX;
+}
+
+static unsigned long long handle_errors(unsigned long long v, char **endp)
+{
+	char next_ch = **endp;
+
+	/* errno is already set to ERANGE by strtoXXX if value overflowed */
+	if (next_ch) {
+		/* "1234abcg" or out-of-range? */
+		if (isalnum(next_ch) || errno)
+			return ret_ERANGE();
+		/* good number, just suspicious terminator */
+		errno = EINVAL;
+	}
+	return v;
+}
+
 
 int __in_range(long val,long min, long max){
 	if(val >= min && val <= max){
@@ -107,4 +128,20 @@ int c00_strtol(const char *args, long *val){
 	*val = v1;
 
 	return TRUE;
+}
+
+
+unsigned FAST_FUNC bb_strtou(const char *arg, char **endp, int base)
+{
+	unsigned long v;
+	char *endptr;
+
+	if (!endp) endp = &endptr;
+	*endp = (char*) arg;
+
+	if (!isalnum(arg[0])) return ret_ERANGE();
+	errno = 0;
+	v = strtoul(arg, endp, base);
+	if (v > UINT_MAX) return ret_ERANGE();
+	return handle_errors(v, endp);
 }

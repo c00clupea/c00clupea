@@ -13,6 +13,9 @@
 #ifndef C00_MESSAGE_H
 #define C00_MESSAGE_H
 #include "../global.h"
+#include <stdio.h>
+#include <syslog.h>
+
 
 #define T_SENDER short
 #define T_COMMAND short

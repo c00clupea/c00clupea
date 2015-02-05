@@ -26,10 +26,16 @@ error:
 }
 int c00_open_internalfile(struct c00_msg *msg, FILE *fd){
 	mem_check(msg)
+		if(!fd){
+			return TRUE;
+		} 
 	return TRUE;
 error:
 	return ERROR;
 }
 int c00_close_internalfile(struct c00_ident *id, FILE *fd){
+	if(!fd || !id){
+		return TRUE;
+	}
 	return TRUE;
 }

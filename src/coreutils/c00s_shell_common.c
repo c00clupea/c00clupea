@@ -479,7 +479,7 @@ shell_builtin_ulimit(char **argv)
 						limit.rlim_cur = val;
 //bb_error_msg("setrlimit(%d, %lld, %lld)", l->cmd, (long long)limit.rlim_cur, (long long)limit.rlim_max);
 					if (setrlimit(l->cmd, &limit) < 0) {
-						bb_perror_msg("error setting limit");
+//						bb_perror_msg("error setting limit");
 						return EXIT_FAILURE;
 					}
 				} else {

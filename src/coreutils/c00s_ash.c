@@ -43,7 +43,10 @@
 #include <sys/times.h>
 
 #include "../util/busybox_cccc.h" /* for applet_names */
+
+#include "c00s_pwd_.h"
 #include "c00s_unicode.h"
+
 
 #include "c00s_shell_common.h"
 /*
@@ -66,7 +69,7 @@
  *
 
 #if NUM_APPLETS == 1
-/* STANDALONE does not make sense, and won't compile 
+ STANDALONE does not make sense, and won't compile 
 # undef CONFIG_FEATURE_SH_STANDALONE
 # undef ENABLE_FEATURE_SH_STANDALONE
 # undef IF_FEATURE_SH_STANDALONE
@@ -77,6 +80,11 @@
 #endif
 
 **/
+
+
+#ifdef type
+#undef type
+#endif
 
 #ifndef PIPE_BUF
 # define PIPE_BUF 4096           /* amount of buffering in a pipe */
@@ -210,6 +218,38 @@
 
 //kbuild:lib-$(CONFIG_ASH) += ash.o ash_ptr_hack.o shell_common.o
 //kbuild:lib-$(CONFIG_ASH_RANDOM_SUPPORT) += random.o
+
+
+/**#####################
+ * This is a bloody Hack
+ **#####################
+ *  This overrides the configs from busybox...(we use the defaults)
+ * <*))><
+ */
+#define  IF_ASH_EXPAND_PRMT(m) m
+#define ENABLE_ASH_EXPAND_PRMT 1
+#define IF_ASH(m) m
+#define IF_ASH_BASH_COMPAT(m) m
+#define ENABLE_ASH_BASH_COMPAT 1
+#define IF_ASH_IDLE_TIMEOUT(m)
+#define IF_ASH_JOB_CONTROL(m) m
+#define ENABLE_ASH_JOB_CONTROL 1
+#define IF_ASH_ALIAS(m) m
+#define ENABLE_ASH_ALIAS 1
+#define IF_ASH_GETOPTS(m) m
+#define IF_ASH_BUILTIN_ECHO(m) m
+#define ENABLE_ASH_BUILTIN_ECHO 1
+#define IF_ASH_BUILTIN_PRINTF(m) m
+#define IF_ASH_BUILTIN_TEST(m) m
+#define ENABLE_ASH_BUILTIN_TEST 1
+#define IF_ASH_CMDCMD(m) m
+#define ENABLE_ASH_CMDCMD 1
+#define IF_ASH_MAIL(m)
+#define IF_ASH_OPTIMIZE_FOR_SIZE(m) m
+#define IF_ASH_RANDOM_SUPPORT(m)
+#define IF_FEATURE_SH_STANDALONE(...)
+#define ENABLE_FEATURE_EDITING 1
+#define CONFIG_FEATURE_EDITING_MAX_LEN 1024
 
 
 /* ============ Hash table sizes. Configurable. */
@@ -406,6 +446,9 @@ static void trace_vprintf(const char *fmt, va_list va);
 #define is_name(c)      ((c) == '_' || isalpha((unsigned char)(c)))
 #define is_in_name(c)   ((c) == '_' || isalnum((unsigned char)(c)))
 
+
+const char bb_msg_memory_exhausted[] = "out of memory";
+
 static int isdigit_str9(const char *str)
 {
 	int maxlen = 9 + 1; /* max 9 digits: 999999999 */
@@ -500,7 +543,15 @@ raise_interrupt(void)
 } while (0)
 #endif
 
-static IF_ASH_OPTIMIZE_FOR_SIZE(inline) void
+/**#####################
+ * This is a bloody Hack
+ **#####################
+ *  if_ash optimze blah, just do it
+ * <*))><
+ */
+
+/*static IF_ASH_OPTIMIZE_FOR_SIZE(inline) void*/
+static inline void
 int_on(void)
 {
 	xbarrier();
@@ -509,7 +560,15 @@ int_on(void)
 	}
 }
 #define INT_ON int_on()
-static IF_ASH_OPTIMIZE_FOR_SIZE(inline) void
+
+/**#####################
+ * This is a bloody Hack
+ **#####################
+ *  if ash optimze blah....do it
+ * <*))><
+ */
+/*static IF_ASH_OPTIMIZE_FOR_SIZE(inline) void*/
+static inline void
 force_int_on(void)
 {
 	xbarrier();
@@ -4382,7 +4441,7 @@ cmdputs(const char *s)
 	static const char vstype[VSTYPE + 1][3] = {
 		"", "}", "-", "+", "?", "=",
 		"%", "%%", "#", "##"
-		IF_ASH_BASH_COMPAT(, ":", "/", "//")
+		, ":", "/", "//"
 	};
 
 	const char *p, *str;
@@ -6073,7 +6132,7 @@ argstr(char *p, int flags, struct strlist *var_str_list)
 		c = p[length];
 		if (c) {
 			if (!(c & 0x80)
-			IF_SH_MATH_SUPPORT(|| c == CTLENDARI)
+//			IF_SH_MATH_SUPPORT(|| c == CTLENDARI)
 			) {
 				/* c == '=' || c == ':' || c == CTLENDARI */
 				length++;
@@ -6336,8 +6395,19 @@ subevalvar(char *p, char *varname, int strloc, int subtype,
 	char *loc;
 	char *rmesc, *rmescend;
 	char *str;
-	IF_ASH_BASH_COMPAT(const char *repl = NULL;)
-	IF_ASH_BASH_COMPAT(int pos, len, orig_len;)
+/**	IF_ASH_BASH_COMPAT(const char *repl = NULL;)
+		IF_ASH_BASH_COMPAT((int pos, len, orig_len);)
+
+**/
+	/**#####################
+	 * This is a bloody Hack
+	 **#####################
+	 *  will not work with compat do it by hand
+	 * <*))><
+	 */
+	const char *repl = NULL;
+	int pos, len, orig_len;
+
 	int saveherefd = herefd;
 	int amount, resetloc;
 	IF_ASH_BASH_COMPAT(int workloc;)

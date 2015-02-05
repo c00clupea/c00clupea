@@ -12,6 +12,14 @@
  */
 #include "busybox_cccc.h"
 
+#define is_name(c)      ((c) == '_' || isalpha((unsigned char)(c)))
+#define is_in_name(c)   ((c) == '_' || isalnum((unsigned char)(c)))
+
+void FAST_FUNC bb_error_msg(const char *s, ...)
+{
+	//make nothing
+}
+
 
 ssize_t safe_read(int fd, void *buf, size_t count)
 {
@@ -190,3 +198,23 @@ FILE* fopen_or_warn(const char *path, const char *mode){
 	}
 	return fp;
 }
+
+
+const char* FAST_FUNC
+endofname(const char *name)
+{
+	if (!is_name(*name))
+		return name;
+	while (*++name) {
+		if (!is_in_name(*name))
+			break;
+	}
+	return name;
+}
+
+
+void FAST_FUNC bb_show_usage(void)
+{
+	fprintf(stdout,"No help available %s","");
+}
+

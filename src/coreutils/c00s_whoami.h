@@ -12,6 +12,7 @@
  * created: 	Sat Aug 30 12:40:44 2014
  * author:  	Christoph Pohl <c00clupea@gmail.com>
  */
+#include <stdlib.h>
 #include <stdio.h>
 #include <sys/types.h>
 #include <pwd.h>
