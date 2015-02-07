@@ -14,7 +14,6 @@
 #ifndef C00S_USLEEP_H
 #define C00S_USLEEP_H
 #include "../util/busybox_cccc.h"
-#include "../util/c00s_xatonum.h"
 #include <unistd.h>
 
 

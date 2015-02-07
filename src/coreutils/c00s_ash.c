@@ -44,9 +44,16 @@
 
 #include "../util/busybox_cccc.h" /* for applet_names */
 
+#ifdef C00SWITHLINK
+#define ASH_MAIN_METHOD ash_main
+#else
+#define ASH_MAIN_METHOD main
+#endif
+
+
 #include "c00s_pwd_.h"
 #include "c00s_unicode.h"
-
+#include "c00s_echo.h"
 
 #include "c00s_shell_common.h"
 /*
@@ -241,14 +248,13 @@
 #define ENABLE_ASH_BUILTIN_ECHO 1
 #define IF_ASH_BUILTIN_PRINTF(m) m
 #define IF_ASH_BUILTIN_TEST(m) m
-#define ENABLE_ASH_BUILTIN_TEST 1
+#define ENABLE_ASH_BUILTIN_TEST 0
 #define IF_ASH_CMDCMD(m) m
 #define ENABLE_ASH_CMDCMD 1
 #define IF_ASH_MAIL(m)
 #define IF_ASH_OPTIMIZE_FOR_SIZE(m) m
 #define IF_ASH_RANDOM_SUPPORT(m)
 #define IF_FEATURE_SH_STANDALONE(...)
-#define ENABLE_FEATURE_EDITING 1
 #define CONFIG_FEATURE_EDITING_MAX_LEN 1024
 
 
@@ -447,7 +453,7 @@ static void trace_vprintf(const char *fmt, va_list va);
 #define is_in_name(c)   ((c) == '_' || isalnum((unsigned char)(c)))
 
 
-const char bb_msg_memory_exhausted[] = "out of memory";
+//const char bb_msg_memory_exhausted[] = "out of memory";
 
 static int isdigit_str9(const char *str)
 {
@@ -13243,8 +13249,8 @@ extern int etext();
  * exception occurs.  When an exception occurs the variable "state"
  * is used to figure out how far we had gotten.
  */
-int ash_main(int argc, char **argv) MAIN_EXTERNALLY_VISIBLE;
-int ash_main(int argc UNUSED_PARAM, char **argv)
+int ASH_MAIN_METHOD(int argc, char **argv) MAIN_EXTERNALLY_VISIBLE;
+int ASH_MAIN_METHOD(int argc UNUSED_PARAM, char **argv)
 {
 	const char *shinit;
 	volatile smallint state;

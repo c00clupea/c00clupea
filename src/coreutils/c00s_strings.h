@@ -14,7 +14,7 @@
 #define C00S_STRINGS_H
 
 #include "../util/busybox_cccc.h"
-#include "../util/c00s_xatonum.h"
+
 
 #ifdef C00SWITHLINK
 #define STRINGS_MAIN strings_main

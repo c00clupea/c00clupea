@@ -10,7 +10,7 @@
  * created: 	Thu Nov 27 09:10:42 2014
  * author:  	Christoph Pohl <c00clupea@gmail.com>
  */
-#include "c00s_xatonum.h"
+#include "util/busybox_cccc.h"
 
 static inline int __in_range(long val,long min, long max);
 static inline int __basic_strol(const char *args, long *val,long min,long max);
@@ -20,6 +20,8 @@ static unsigned long long ret_ERANGE(void)
 	errno = ERANGE; /* this ain't as small as it looks (on glibc) */
 	return ULLONG_MAX;
 }
+
+
 
 static unsigned long long handle_errors(unsigned long long v, char **endp)
 {
@@ -36,6 +38,44 @@ static unsigned long long handle_errors(unsigned long long v, char **endp)
 	return v;
 }
 
+
+long long bb_strtoll(const char *arg, char **endp, int base)
+{
+	unsigned long long v;
+	char *endptr;
+	char first;
+
+	if (!endp) endp = &endptr;
+	*endp = (char*) arg;
+
+	/* Check for the weird "feature":
+	 * a "-" string is apparently a valid "number" for strto[u]l[l]!
+	 * It returns zero and errno is 0! :( */
+	first = (arg[0] != '-' ? arg[0] : arg[1]);
+	if (!isalnum(first)) return ret_ERANGE();
+
+	errno = 0;
+	v = strtoll(arg, endp, base);
+	return handle_errors(v, endp);
+}
+
+unsigned long long FAST_FUNC bb_strtoull(const char *arg, char **endp, int base)
+{
+	unsigned long long v;
+	char *endptr;
+
+	if (!endp) endp = &endptr;
+	*endp = (char*) arg;
+
+	/* strtoul("  -4200000000") returns 94967296, errno 0 (!) */
+	/* I don't think that this is right. Preventing this... */
+	if (!isalnum(arg[0])) return ret_ERANGE();
+
+	/* not 100% correct for lib func, but convenient for the caller */
+	errno = 0;
+	v = strtoull(arg, endp, base);
+	return handle_errors(v, endp);
+}
 
 int __in_range(long val,long min, long max){
 	if(val >= min && val <= max){
@@ -145,3 +185,10 @@ unsigned FAST_FUNC bb_strtou(const char *arg, char **endp, int base)
 	if (v > UINT_MAX) return ret_ERANGE();
 	return handle_errors(v, endp);
 }
+
+
+int bb_strtoi(const char *arg, char **endp, int base)
+{ return bb_strtoll(arg, endp, base); }
+
+unsigned long bb_strtoul(const char *arg, char **endp, int base)
+{ return bb_strtoull(arg, endp, base); }

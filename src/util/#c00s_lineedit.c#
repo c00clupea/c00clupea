@@ -1,0 +1,610 @@
+/**
+ *
+ * cooclupea Honeypot 
+ * <*))><
+ *
+ * (C) 2014 by Christoph Pohl (c00clupea@googlemail.com)
+ * released under the GPLv.2
+ * 
+ * File:	c00s_lineedit.c
+ * created: 	Fri Feb  6 09:24:36 2015
+ * author:  	Christoph Pohl <c00clupea@gmail.com>
+ */
+#include "util/busybox_cccc.h"
+
+#include "unicode.h"
+#ifndef _POSIX_VDISABLE
+# define _POSIX_VDISABLE '\0'
+#endif
+
+line_input_t* FAST_FUNC new_line_input_t(int flags)
+{
+	line_input_t *n = xzalloc(sizeof(*n));
+	n->flags = flags;
+#if MAX_HISTORY > 0
+	n->max_history = MAX_HISTORY;
+#endif
+	return n;
+}
+
+
+
+int FAST_FUNC read_line_input(line_input_t *st, const char *prompt, char *command, int maxsize, int timeout)
+{
+	int len;
+#if ENABLE_FEATURE_TAB_COMPLETION
+	smallint lastWasTab = 0;
+#endif
+	smallint break_out = 0;
+#if ENABLE_FEATURE_EDITING_VI
+	smallint vi_cmdmode = 0;
+#endif
+	struct termios initial_settings;
+	struct termios new_settings;
+	char read_key_buffer[KEYCODE_BUFFER_SIZE];
+
+	INIT_S();
+
+	if (tcgetattr(STDIN_FILENO, &initial_settings) < 0
+	 || !(initial_settings.c_lflag & ECHO)
+	) {
+		/* Happens when e.g. stty -echo was run before */
+		parse_and_put_prompt(prompt);
+		/* fflush_all(); - done by parse_and_put_prompt */
+		if (fgets(command, maxsize, stdin) == NULL)
+			len = -1; /* EOF or error */
+		else
+			len = strlen(command);
+		DEINIT_S();
+		return len;
+	}
+
+	init_unicode();
+
+// FIXME: audit & improve this
+	if (maxsize > MAX_LINELEN)
+		maxsize = MAX_LINELEN;
+	S.maxsize = maxsize;
+
+	/* With zero flags, no other fields are ever used */
+	state = st ? st : (line_input_t*) &const_int_0;
+#if MAX_HISTORY > 0
+# if ENABLE_FEATURE_EDITING_SAVEHISTORY
+	if (state->hist_file)
+		if (state->cnt_history == 0)
+			load_history(state);
+# endif
+	if (state->flags & DO_HISTORY)
+		state->cur_history = state->cnt_history;
+#endif
+
+	/* prepare before init handlers */
+	cmdedit_y = 0;  /* quasireal y, not true if line > xt*yt */
+	command_len = 0;
+#if ENABLE_UNICODE_SUPPORT
+	command_ps = xzalloc(maxsize * sizeof(command_ps[0]));
+#else
+	command_ps = command;
+	command[0] = '\0';
+#endif
+#define command command_must_not_be_used
+
+	new_settings = initial_settings;
+	/* ~ICANON: unbuffered input (most c_cc[] are disabled, VMIN/VTIME are enabled) */
+	/* ~ECHO, ~ECHONL: turn off echoing, including newline echoing */
+	/* ~ISIG: turn off INTR (ctrl-C), QUIT, SUSP */
+	new_settings.c_lflag &= ~(ICANON | ECHO | ECHONL | ISIG);
+	/* reads would block only if < 1 char is available */
+	new_settings.c_cc[VMIN] = 1;
+	/* no timeout (reads block forever) */
+	new_settings.c_cc[VTIME] = 0;
+	/* Should be not needed if ISIG is off: */
+	/* Turn off CTRL-C */
+	/* new_settings.c_cc[VINTR] = _POSIX_VDISABLE; */
+	tcsetattr_stdin_TCSANOW(&new_settings);
+
+#if ENABLE_USERNAME_OR_HOMEDIR
+	{
+		struct passwd *entry;
+
+		entry = getpwuid(geteuid());
+		if (entry) {
+			user_buf = xstrdup(entry->pw_name);
+			home_pwd_buf = xstrdup(entry->pw_dir);
+		}
+	}
+#endif
+
+#if 0
+	for (i = 0; i <= state->max_history; i++)
+		bb_error_msg("history[%d]:'%s'", i, state->history[i]);
+	bb_error_msg("cur_history:%d cnt_history:%d", state->cur_history, state->cnt_history);
+#endif
+
+	/* Print out the command prompt, optionally ask where cursor is */
+	parse_and_put_prompt(prompt);
+	ask_terminal();
+
+	/* Install window resize handler (NB: after *all* init is complete) */
+//FIXME: save entire sigaction!
+	previous_SIGWINCH_handler = signal(SIGWINCH, win_changed);
+	win_changed(0); /* get initial window size */
+
+	read_key_buffer[0] = 0;
+	while (1) {
+		/*
+		 * The emacs and vi modes share much of the code in the big
+		 * command loop.  Commands entered when in vi's command mode
+		 * (aka "escape mode") get an extra bit added to distinguish
+		 * them - this keeps them from being self-inserted. This
+		 * clutters the big switch a bit, but keeps all the code
+		 * in one place.
+		 */
+		int32_t ic, ic_raw;
+
+		fflush_all();
+		ic = ic_raw = lineedit_read_key(read_key_buffer, timeout);
+
+#if ENABLE_FEATURE_REVERSE_SEARCH
+ again:
+#endif
+#if ENABLE_FEATURE_EDITING_VI
+		newdelflag = 1;
+		if (vi_cmdmode) {
+			/* btw, since KEYCODE_xxx are all < 0, this doesn't
+			 * change ic if it contains one of them: */
+			ic |= VI_CMDMODE_BIT;
+		}
+#endif
+
+		switch (ic) {
+		case '\n':
+		case '\r':
+		vi_case('\n'|VI_CMDMODE_BIT:)
+		vi_case('\r'|VI_CMDMODE_BIT:)
+			/* Enter */
+			goto_new_line();
+			break_out = 1;
+			break;
+		case CTRL('A'):
+		vi_case('0'|VI_CMDMODE_BIT:)
+			/* Control-a -- Beginning of line */
+			input_backward(cursor);
+			break;
+		case CTRL('B'):
+		vi_case('h'|VI_CMDMODE_BIT:)
+		vi_case('\b'|VI_CMDMODE_BIT:) /* ^H */
+		vi_case('\x7f'|VI_CMDMODE_BIT:) /* DEL */
+			input_backward(1); /* Move back one character */
+			break;
+		case CTRL('E'):
+		vi_case('$'|VI_CMDMODE_BIT:)
+			/* Control-e -- End of line */
+			put_till_end_and_adv_cursor();
+			break;
+		case CTRL('F'):
+		vi_case('l'|VI_CMDMODE_BIT:)
+		vi_case(' '|VI_CMDMODE_BIT:)
+			input_forward(); /* Move forward one character */
+			break;
+		case '\b':   /* ^H */
+		case '\x7f': /* DEL */
+			if (!isrtl_str())
+				input_backspace();
+			else
+				input_delete(0);
+			break;
+		case KEYCODE_DELETE:
+			if (!isrtl_str())
+				input_delete(0);
+			else
+				input_backspace();
+			break;
+#if ENABLE_FEATURE_TAB_COMPLETION
+		case '\t':
+			input_tab(&lastWasTab);
+			break;
+#endif
+		case CTRL('K'):
+			/* Control-k -- clear to end of line */
+			command_ps[cursor] = BB_NUL;
+			command_len = cursor;
+			printf(SEQ_CLEAR_TILL_END_OF_SCREEN);
+			break;
+		case CTRL('L'):
+		vi_case(CTRL('L')|VI_CMDMODE_BIT:)
+			/* Control-l -- clear screen */
+			printf(ESC"[H"); /* cursor to top,left */
+			redraw(0, command_len - cursor);
+			break;
+#if MAX_HISTORY > 0
+		case CTRL('N'):
+		vi_case(CTRL('N')|VI_CMDMODE_BIT:)
+		vi_case('j'|VI_CMDMODE_BIT:)
+			/* Control-n -- Get next command in history */
+			if (get_next_history())
+				goto rewrite_line;
+			break;
+		case CTRL('P'):
+		vi_case(CTRL('P')|VI_CMDMODE_BIT:)
+		vi_case('k'|VI_CMDMODE_BIT:)
+			/* Control-p -- Get previous command from history */
+			if (get_previous_history())
+				goto rewrite_line;
+			break;
+#endif
+		case CTRL('U'):
+		vi_case(CTRL('U')|VI_CMDMODE_BIT:)
+			/* Control-U -- Clear line before cursor */
+			if (cursor) {
+				command_len -= cursor;
+				memmove(command_ps, command_ps + cursor,
+					(command_len + 1) * sizeof(command_ps[0]));
+				redraw(cmdedit_y, command_len);
+			}
+			break;
+		case CTRL('W'):
+		vi_case(CTRL('W')|VI_CMDMODE_BIT:)
+			/* Control-W -- Remove the last word */
+			while (cursor > 0 && BB_isspace(command_ps[cursor-1]))
+				input_backspace();
+			while (cursor > 0 && !BB_isspace(command_ps[cursor-1]))
+				input_backspace();
+			break;
+#if ENABLE_FEATURE_REVERSE_SEARCH
+		case CTRL('R'):
+			ic = ic_raw = reverse_i_search();
+			goto again;
+#endif
+
+#if ENABLE_FEATURE_EDITING_VI
+		case 'i'|VI_CMDMODE_BIT:
+			vi_cmdmode = 0;
+			break;
+		case 'I'|VI_CMDMODE_BIT:
+			input_backward(cursor);
+			vi_cmdmode = 0;
+			break;
+		case 'a'|VI_CMDMODE_BIT:
+			input_forward();
+			vi_cmdmode = 0;
+			break;
+		case 'A'|VI_CMDMODE_BIT:
+			put_till_end_and_adv_cursor();
+			vi_cmdmode = 0;
+			break;
+		case 'x'|VI_CMDMODE_BIT:
+			input_delete(1);
+			break;
+		case 'X'|VI_CMDMODE_BIT:
+			if (cursor > 0) {
+				input_backward(1);
+				input_delete(1);
+			}
+			break;
+		case 'W'|VI_CMDMODE_BIT:
+			vi_Word_motion(1);
+			break;
+		case 'w'|VI_CMDMODE_BIT:
+			vi_word_motion(1);
+			break;
+		case 'E'|VI_CMDMODE_BIT:
+			vi_End_motion();
+			break;
+		case 'e'|VI_CMDMODE_BIT:
+			vi_end_motion();
+			break;
+		case 'B'|VI_CMDMODE_BIT:
+			vi_Back_motion();
+			break;
+		case 'b'|VI_CMDMODE_BIT:
+			vi_back_motion();
+			break;
+		case 'C'|VI_CMDMODE_BIT:
+			vi_cmdmode = 0;
+			/* fall through */
+		case 'D'|VI_CMDMODE_BIT:
+			goto clear_to_eol;
+
+		case 'c'|VI_CMDMODE_BIT:
+			vi_cmdmode = 0;
+			/* fall through */
+		case 'd'|VI_CMDMODE_BIT: {
+			int nc, sc;
+
+			ic = lineedit_read_key(read_key_buffer, timeout);
+			if (errno) /* error */
+				goto return_error_indicator;
+			if (ic == ic_raw) { /* "cc", "dd" */
+				input_backward(cursor);
+				goto clear_to_eol;
+				break;
+			}
+
+			sc = cursor;
+			switch (ic) {
+			case 'w':
+			case 'W':
+			case 'e':
+			case 'E':
+				switch (ic) {
+				case 'w':   /* "dw", "cw" */
+					vi_word_motion(vi_cmdmode);
+					break;
+				case 'W':   /* 'dW', 'cW' */
+					vi_Word_motion(vi_cmdmode);
+					break;
+				case 'e':   /* 'de', 'ce' */
+					vi_end_motion();
+					input_forward();
+					break;
+				case 'E':   /* 'dE', 'cE' */
+					vi_End_motion();
+					input_forward();
+					break;
+				}
+				nc = cursor;
+				input_backward(cursor - sc);
+				while (nc-- > cursor)
+					input_delete(1);
+				break;
+			case 'b':  /* "db", "cb" */
+			case 'B':  /* implemented as B */
+				if (ic == 'b')
+					vi_back_motion();
+				else
+					vi_Back_motion();
+				while (sc-- > cursor)
+					input_delete(1);
+				break;
+			case ' ':  /* "d ", "c " */
+				input_delete(1);
+				break;
+			case '$':  /* "d$", "c$" */
+ clear_to_eol:
+				while (cursor < command_len)
+					input_delete(1);
+				break;
+			}
+			break;
+		}
+		case 'p'|VI_CMDMODE_BIT:
+			input_forward();
+			/* fallthrough */
+		case 'P'|VI_CMDMODE_BIT:
+			put();
+			break;
+		case 'r'|VI_CMDMODE_BIT:
+//FIXME: unicode case?
+			ic = lineedit_read_key(read_key_buffer, timeout);
+			if (errno) /* error */
+				goto return_error_indicator;
+			if (ic < ' ' || ic > 255) {
+				beep();
+			} else {
+				command_ps[cursor] = ic;
+				bb_putchar(ic);
+				bb_putchar('\b');
+			}
+			break;
+		case '\x1b': /* ESC */
+			if (state->flags & VI_MODE) {
+				/* insert mode --> command mode */
+				vi_cmdmode = 1;
+				input_backward(1);
+			}
+			/* Handle a few ESC-<key> combinations the same way
+			 * standard readline bindings (IOW: bash) do.
+			 * Often, Alt-<key> generates ESC-<key>.
+			 */
+			ic = lineedit_read_key(read_key_buffer, timeout);
+			switch (ic) {
+				//case KEYCODE_LEFT: - bash doesn't do this
+				case 'b':
+					ctrl_left();
+					break;
+				//case KEYCODE_RIGHT: - bash doesn't do this
+				case 'f':
+					ctrl_right();
+					break;
+				//case KEYCODE_DELETE: - bash doesn't do this
+				case 'd':  /* Alt-D */
+				{
+					/* Delete word forward */
+					int nc, sc = cursor;
+					ctrl_right();
+					nc = cursor - sc;
+					input_backward(nc);
+					while (--nc >= 0)
+						input_delete(1);
+					break;
+				}
+				case '\b':   /* Alt-Backspace(?) */
+				case '\x7f': /* Alt-Backspace(?) */
+				//case 'w': - bash doesn't do this
+				{
+					/* Delete word backward */
+					int sc = cursor;
+					ctrl_left();
+					while (sc-- > cursor)
+						input_delete(1);
+					break;
+				}
+			}
+			break;
+#endif /* FEATURE_COMMAND_EDITING_VI */
+
+#if MAX_HISTORY > 0
+		case KEYCODE_UP:
+			if (get_previous_history())
+				goto rewrite_line;
+			beep();
+			break;
+		case KEYCODE_DOWN:
+			if (!get_next_history())
+				break;
+ rewrite_line:
+			/* Rewrite the line with the selected history item */
+			/* change command */
+			command_len = load_string(state->history[state->cur_history] ?
+					state->history[state->cur_history] : "");
+			/* redraw and go to eol (bol, in vi) */
+			redraw(cmdedit_y, (state->flags & VI_MODE) ? 9999 : 0);
+			break;
+#endif
+		case KEYCODE_RIGHT:
+			input_forward();
+			break;
+		case KEYCODE_LEFT:
+			input_backward(1);
+			break;
+		case KEYCODE_CTRL_LEFT:
+		case KEYCODE_ALT_LEFT: /* bash doesn't do it */
+			ctrl_left();
+			break;
+		case KEYCODE_CTRL_RIGHT:
+		case KEYCODE_ALT_RIGHT: /* bash doesn't do it */
+			ctrl_right();
+			break;
+		case KEYCODE_HOME:
+			input_backward(cursor);
+			break;
+		case KEYCODE_END:
+			put_till_end_and_adv_cursor();
+			break;
+
+		default:
+			if (initial_settings.c_cc[VINTR] != 0
+			 && ic_raw == initial_settings.c_cc[VINTR]
+			) {
+				/* Ctrl-C (usually) - stop gathering input */
+				goto_new_line();
+				command_len = 0;
+				break_out = -1; /* "do not append '\n'" */
+				break;
+			}
+			if (initial_settings.c_cc[VEOF] != 0
+			 && ic_raw == initial_settings.c_cc[VEOF]
+			) {
+				/* Ctrl-D (usually) - delete one character,
+				 * or exit if len=0 and no chars to delete */
+				if (command_len == 0) {
+					errno = 0;
+
+		case -1: /* error (e.g. EIO when tty is destroyed) */
+ IF_FEATURE_EDITING_VI(return_error_indicator:)
+					break_out = command_len = -1;
+					break;
+				}
+				input_delete(0);
+				break;
+			}
+//			/* Control-V -- force insert of next char */
+//			if (c == CTRL('V')) {
+//				if (safe_read(STDIN_FILENO, &c, 1) < 1)
+//					goto return_error_indicator;
+//				if (c == 0) {
+//					beep();
+//					break;
+//				}
+//			}
+			if (ic < ' '
+			 || (!ENABLE_UNICODE_SUPPORT && ic >= 256)
+			 || (ENABLE_UNICODE_SUPPORT && ic >= VI_CMDMODE_BIT)
+			) {
+				/* If VI_CMDMODE_BIT is set, ic is >= 256
+				 * and vi mode ignores unexpected chars.
+				 * Otherwise, we are here if ic is a
+				 * control char or an unhandled ESC sequence,
+				 * which is also ignored.
+				 */
+				break;
+			}
+			if ((int)command_len >= (maxsize - 2)) {
+				/* Not enough space for the char and EOL */
+				break;
+			}
+
+			command_len++;
+			if (cursor == (command_len - 1)) {
+				/* We are at the end, append */
+				command_ps[cursor] = ic;
+				command_ps[cursor + 1] = BB_NUL;
+				put_cur_glyph_and_inc_cursor();
+				if (unicode_bidi_isrtl(ic))
+					input_backward(1);
+			} else {
+				/* In the middle, insert */
+				int sc = cursor;
+
+				memmove(command_ps + sc + 1, command_ps + sc,
+					(command_len - sc) * sizeof(command_ps[0]));
+				command_ps[sc] = ic;
+				/* is right-to-left char, or neutral one (e.g. comma) was just added to rtl text? */
+				if (!isrtl_str())
+					sc++; /* no */
+				put_till_end_and_adv_cursor();
+				/* to prev x pos + 1 */
+				input_backward(cursor - sc);
+			}
+			break;
+		} /* switch (ic) */
+
+		if (break_out)
+			break;
+
+#if ENABLE_FEATURE_TAB_COMPLETION
+		if (ic_raw != '\t')
+			lastWasTab = 0;
+#endif
+	} /* while (1) */
+
+#if ENABLE_FEATURE_EDITING_ASK_TERMINAL
+	if (S.sent_ESC_br6n) {
+		/* "sleep 1; busybox ash" + hold [Enter] to trigger.
+		 * We sent "ESC [ 6 n", but got '\n' first, and
+		 * KEYCODE_CURSOR_POS response is now buffered from terminal.
+		 * It's bad already and not much can be done with it
+		 * (it _will_ be visible for the next process to read stdin),
+		 * but without this delay it even shows up on the screen
+		 * as garbage because we restore echo settings with tcsetattr
+		 * before it comes in. UGLY!
+		 */
+		usleep(20*1000);
+	}
+#endif
+
+/* End of bug-catching "command_must_not_be_used" trick */
+#undef command
+
+#if ENABLE_UNICODE_SUPPORT
+	command[0] = '\0';
+	if (command_len > 0)
+		command_len = save_string(command, maxsize - 1);
+	free(command_ps);
+#endif
+
+	if (command_len > 0) {
+		remember_in_history(command);
+	}
+
+	if (break_out > 0) {
+		command[command_len++] = '\n';
+		command[command_len] = '\0';
+	}
+
+#if ENABLE_FEATURE_TAB_COMPLETION
+	free_tab_completion_data();
+#endif
+
+	/* restore initial_settings */
+	tcsetattr_stdin_TCSANOW(&initial_settings);
+	/* restore SIGWINCH handler */
+	signal(SIGWINCH, previous_SIGWINCH_handler);
+	fflush_all();
+
+	len = command_len;
+	DEINIT_S();
+
+	return len; /* can't return command_len, DEINIT_S() destroys it */
+}

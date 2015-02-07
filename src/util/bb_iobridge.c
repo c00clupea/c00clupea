@@ -20,6 +20,21 @@ void FAST_FUNC bb_error_msg(const char *s, ...)
 	//make nothing
 }
 
+extern void bb_perror_msg(const char *s, ...){
+	//nothing
+}
+
+
+void FAST_FUNC bb_perror_msg_and_die(const char *s, ...)
+{
+	/*va_list p;
+
+	va_start(p, s);
+	* Guard against "<error message>: Success" *
+	(s, p, errno ? strerror(errno) : NULL);
+	va_end(p);*/
+	exit(1);
+}
 
 ssize_t safe_read(int fd, void *buf, size_t count)
 {

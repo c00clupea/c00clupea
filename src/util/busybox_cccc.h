@@ -1,5 +1,7 @@
 #ifndef BUSY_BOX_CCCC_H
 #define BUSY_BOX_CCCC_H
+
+
 /**
  *
  * cooclupea Honeypot 
@@ -27,12 +29,46 @@
 #include <poll.h>
 #include <dirent.h>
 #include <pwd.h>
+#include <wait.h>
+#include <sys/syscall.h>
 
 
 /*some config*/
 #define IF_KILL(...)__VA_ARGS__
 #define IF_FEATURE_SHOW_THREADS(...) __VA_ARGS__
 #define IF_SELINUX(...)
+#define IF_ECHO(...)__VA_ARGS__
+
+
+#define ENABLE_KILLALL 1
+#define ENABLE_KILLALL5 1
+#define ENABLE_PGREP 0
+#define ENABLE_PKILL 1
+#define ENABLE_PIDOF 1
+#define ENABLE_SELINUX 0
+#define ENABLE_SESTATUS 0
+#define ENABLE_FEATURE_TOP_SMP_PROCESS 0
+#define ENABLE_FEATURE_PS_ADDITIONAL_COLUMNS 0
+#define ENABLE_FEATURE_TOPMEM 0
+#define ENABLE_FEATURE_SHOW_THREADS 1
+#define CONFIG_FEATURE_EDITING 0
+#define ENABLE_FEATURE_EDITING 0
+#define ENABLE_ASH 1
+
+#define PROCPS_BUFSIZE 1024
+
+
+/*make them configurable through autoconf, but later...**/
+#ifndef BANNER
+#define BANNER "C00clupea Honeypot"
+#endif
+
+
+#define CONFIG_BUSYBOX_EXEC_PATH "/proc/self/exe"
+#define BB_ADDITIONAL_PATH
+
+/*end refactor target for autoconf*/
+
 
 #ifndef COMM_LEN
 # ifdef TASK_COMM_LEN
@@ -43,11 +79,13 @@ enum { COMM_LEN = 16 };
 # endif
 #endif
 
+#include <unistd.h>
+#define fdprintf dprintf
 
 
 /*Here we will overwrite the libc...*/
 
-
+#define barrier() __asm__ __volatile__("":::"memory")
 
 /*#include "../global.h"*/
 #include "util.h"
@@ -78,6 +116,7 @@ enum { COMM_LEN = 16 };
 #define isalpha(a) ((unsigned char)(((a)|0x20) - 'a') <= ('z' - 'a'))
 #define isalnum(a) bb_ascii_isalnum(a)
 #define isdigit(a) ((unsigned char)((a) - '0') <= 9)
+#define isspace(a) ({ unsigned char bb__isspace = (a) - 9; bb__isspace == (' ' - 9) || bb__isspace <= (13 - 9); })
 static inline int bb_ascii_isalnum(unsigned char a)
 {
 	unsigned char b = a - '0';
@@ -148,7 +187,7 @@ typedef unsigned smalluint;
 #define bb_msg_read_error "read error"
 #define bb_msg_write_error "write error"
 
-#include "util/c00s_xatonum.h"
+/*#include "util/c00s_xatonum.h"*/
 
 extern const char bb_msg_requires_arg[] ALIGN1;
 
@@ -180,6 +219,18 @@ typedef struct llist_t {
 } llist_t;
 
 
+int c00_strtoi(const char *args, int *val);
+int c00_strtoipos(const char *args, int *val);
+int c00_strtol(const char *args, long *val);
+int c00_strtolpos(const char *args, long *val);
+int c00_strtoi_in_range(const char *args, int *val, long min, long max);
+unsigned bb_strtou(const char *arg, char **endp, int base) FAST_FUNC;
+long long bb_strtoll(const char *arg, char **endp, int base) FAST_FUNC;
+int bb_strtoi(const char *arg, char **endp, int base);
+unsigned long long bb_strtoull(const char *arg, char **endp, int base) FAST_FUNC;
+unsigned long bb_strtoul(const char *arg, char **endp, int base);
+
+
 typedef unsigned long long uoff_t;
 
 void llist_add_to(llist_t **old_head, void *data) FAST_FUNC;
@@ -192,11 +243,6 @@ llist_t *llist_find_str(llist_t *first, const char *str) FAST_FUNC;
 void * xzalloc(size_t size);
 
 
-void close_on_exec_on(int fd) FAST_FUNC;
-
-int kill_main(int argc, char **argv) EXTERNALLY_VISIBLE;
-
-uint32_t FAST_FUNC getopt32(char **argv, const char *applet_opts, ...);
 
 # define NOINLINE      __attribute__((__noinline__))
 
@@ -261,9 +307,50 @@ typedef struct procps_status_t {
 #endif
 } procps_status_t;
 
-
+enum {
+	PSSCAN_PID      = 1 << 0,
+	PSSCAN_PPID     = 1 << 1,
+	PSSCAN_PGID     = 1 << 2,
+	PSSCAN_SID      = 1 << 3,
+	PSSCAN_UIDGID   = 1 << 4,
+	PSSCAN_COMM     = 1 << 5,
+	/* PSSCAN_CMD      = 1 << 6, - use read_cmdline instead */
+	PSSCAN_ARGV0    = 1 << 7,
+	PSSCAN_EXE      = 1 << 8,
+	PSSCAN_STATE    = 1 << 9,
+	PSSCAN_VSZ      = 1 << 10,
+	PSSCAN_RSS      = 1 << 11,
+	PSSCAN_STIME    = 1 << 12,
+	PSSCAN_UTIME    = 1 << 13,
+	PSSCAN_TTY      = 1 << 14,
+	PSSCAN_SMAPS	= (1 << 15) * ENABLE_FEATURE_TOPMEM,
+	/* NB: used by find_pid_by_name(). Any applet using it
+	 * needs to be mentioned here. */
+	PSSCAN_ARGVN    = (1 << 16) * (ENABLE_KILLALL
+				|| ENABLE_PGREP || ENABLE_PKILL
+				|| ENABLE_PIDOF
+				|| ENABLE_SESTATUS
+				),
+	PSSCAN_CONTEXT  = (1 << 17) * ENABLE_SELINUX,
+	PSSCAN_START_TIME = 1 << 18,
+	PSSCAN_CPU      = (1 << 19) * ENABLE_FEATURE_TOP_SMP_PROCESS,
+	PSSCAN_NICE     = (1 << 20) * ENABLE_FEATURE_PS_ADDITIONAL_COLUMNS,
+	PSSCAN_RUIDGID  = (1 << 21) * ENABLE_FEATURE_PS_ADDITIONAL_COLUMNS,
+	PSSCAN_TASKS	= (1 << 22) * ENABLE_FEATURE_SHOW_THREADS,
+};
 /*functions*/
 
+procps_status_t* procps_scan(procps_status_t* sp, int flags) FAST_FUNC;
+
+void free_procps_scan(procps_status_t* sp) FAST_FUNC;
+void close_on_exec_on(int fd) FAST_FUNC;
+
+pid_t *find_pid_by_name(const char* procName) FAST_FUNC;
+
+int kill_main(int argc, char **argv) EXTERNALLY_VISIBLE;
+int echo_main(int argc, char** argv) IF_ECHO(MAIN_EXTERNALLY_VISIBLE);
+
+uint32_t FAST_FUNC getopt32(char **argv, const char *applet_opts, ...);
 
 FILE* fopen_or_warn_stdin(const char *filename);
 FILE* fopen_or_warn(const char *path, const char *mode);
@@ -278,19 +365,46 @@ ssize_t safe_read(int fd, void *buf, size_t count);
 ssize_t full_write(int fd, const void *buf, size_t len);
 ssize_t safe_write(int fd, const void *buf, size_t count);
 
+int bb_parse_mode(const char* s, mode_t* theMode) FAST_FUNC;
+
+
+
 void fflush_stdout_and_exit(int retval);
 //void FAST_FUNC bb_perror_msg_and_die(const char *s, ...);
 extern char *strchrnul(const char *s, int c) FAST_FUNC;
 
+char *last_char_is(const char *s, int c) FAST_FUNC;
+
+#define isxdigit(a) bb_ascii_isxdigit(a)
+static inline int bb_ascii_isxdigit(unsigned char a)
+{
+	unsigned char b = a - '0';
+	if (b <= 9)
+		return (b <= 9);
+	b = (a|0x20) - 'a';
+	return b <= 'f' - 'a';
+}
+
 
 void FAST_FUNC bb_error_msg(const char *s, ...);
 
+extern void bb_perror_msg(const char *s, ...) __attribute__ ((format (printf, 1, 2))) FAST_FUNC;
+extern void bb_perror_msg_and_die(const char *s, ...) __attribute__ ((noreturn, format (printf, 1, 2))) FAST_FUNC;
+
 extern void bb_show_usage(void) NORETURN FAST_FUNC;
+
+const char *bb_basename(const char *name) FAST_FUNC;
+
+extern char bb_process_escape_sequence(const char **ptr) FAST_FUNC;
 
 int fflush_all(void) FAST_FUNC;
 
 void *xmalloc(size_t size) FAST_FUNC RETURNS_MALLOC;
 void *xrealloc(void *old, size_t size) FAST_FUNC;
+#define xrealloc_vector(vector, shift, idx) \
+	xrealloc_vector_helper((vector), (sizeof((vector)[0]) << 8) + (shift), (idx))
+void* xrealloc_vector_helper(void *vector, unsigned sizeof_and_shift, int idx) FAST_FUNC;
+char *xmalloc_readlink(const char *path) FAST_FUNC RETURNS_MALLOC;
 
 int sigprocmask_allsigs(int how) FAST_FUNC;
 
@@ -303,6 +417,8 @@ int sigaction_set(int sig, const struct sigaction *act) FAST_FUNC;
 void print_signames(void) FAST_FUNC;
 
 char *xstrdup(const char *s) FAST_FUNC RETURNS_MALLOC;
+
+char *safe_strncpy(char *dst, const char *src, size_t size) FAST_FUNC;
 
 #if defined __GLIBC__ \
  || defined __UCLIBC__ \
@@ -319,8 +435,27 @@ const char* endofname(const char *name) FAST_FUNC;
 char *itoa(int n) FAST_FUNC;
 char *itoa_to_buf(int n, char *buf, unsigned buflen) FAST_FUNC;
 
+char *utoa(unsigned n) FAST_FUNC;
 char *utoa_to_buf(unsigned n, char *buf, unsigned buflen) FAST_FUNC;
 
+unsigned long long monotonic_ms(void) FAST_FUNC;
 
-procps_status_t* procps_scan(procps_status_t* sp, int flags) FAST_FUNC;
+DIR *xopendir(const char *path) FAST_FUNC;
+
+char *concat_path_file(const char *path, const char *filename) FAST_FUNC;
+
+extern ssize_t nonblock_immune_read(int fd, void *buf, size_t count, int loop_on_EINTR) FAST_FUNC;
+
+int safe_poll(struct pollfd *ufds, nfds_t nfds, int timeout_ms) FAST_FUNC;
+
+
+char *xasprintf(const char *format, ...) __attribute__ ((format(printf, 1, 2))) FAST_FUNC RETURNS_MALLOC;
+
+line_input_t *new_line_input_t(int flags) FAST_FUNC;
+
+/*int read_line_input(line_input_t *st, const char *prompt, char *command, int maxsize, int timeout) FAST_FUNC;*/
+int read_line_input(const char* prompt, char* command, int maxsize) FAST_FUNC;
+#define read_line_input(state, prompt, command, maxsize, timeout) \
+	read_line_input(prompt, command, maxsize)
+
 #endif

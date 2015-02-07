@@ -13,6 +13,48 @@
 
 #include "util/busybox_cccc.h"
 
+static procps_status_t* FAST_FUNC alloc_procps_scan(void)
+{
+	unsigned n = getpagesize();
+	procps_status_t* sp = xzalloc(sizeof(procps_status_t));
+	sp->dir = xopendir("/proc");
+	while (1) {
+		n >>= 1;
+		if (!n) break;
+		sp->shift_pages_to_bytes++;
+	}
+	sp->shift_pages_to_kb = sp->shift_pages_to_bytes - 10;
+	return sp;
+}
+static int read_to_buf(const char *filename, void *buf)
+{
+	int fd;
+	/* open_read_close() would do two reads, checking for EOF.
+	 * When you have 10000 /proc/$NUM/stat to read, it isn't desirable */
+	ssize_t ret = -1;
+	fd = open(filename, O_RDONLY);
+	if (fd >= 0) {
+		ret = read(fd, buf, PROCPS_BUFSIZE-1);
+		close(fd);
+	}
+	((char *)buf)[ret > 0 ? ret : 0] = '\0';
+	return ret;
+}
+
+
+void FAST_FUNC free_procps_scan(procps_status_t* sp)
+{
+	closedir(sp->dir);
+#if ENABLE_FEATURE_SHOW_THREADS
+	if (sp->task_dir)
+		closedir(sp->task_dir);
+#endif
+	free(sp->argv0);
+	free(sp->exe);
+
+	free(sp);
+}
+
 void BUG_comm_size(void);
 procps_status_t* FAST_FUNC procps_scan(procps_status_t* sp, int flags)
 {
