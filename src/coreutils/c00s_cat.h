@@ -1,11 +1,11 @@
 /**
  *
- * cooclupea Honeypot 
+ * cooclupea Honeypot
  * <*))><
  *
  * (C) 2014 by Christoph Pohl (c00clupea@googlemail.com)
  * released under the GPLv.2
- * 
+ *
  * File:	c00s_cat.h
  * created: 	Thu Nov 27 12:20:53 2014
  * author:  	Christoph Pohl <c00clupea@gmail.com>

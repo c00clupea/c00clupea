@@ -1,11 +1,11 @@
 /**
  *
- * cooclupea Honeypot 
+ * cooclupea Honeypot
  * <*))><
  *
  * (C) 2014 by Christoph Pohl (c00clupea@googlemail.com)
  * released under the GPLv.2
- * 
+ *
  * File:	c00s_NUM_APPLETS.h
  * created: 	Tue Feb  3 06:38:49 2015
  * author:  	Christoph Pohl <c00clupea@gmail.com>

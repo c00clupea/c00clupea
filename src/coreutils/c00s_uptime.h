@@ -2,7 +2,7 @@
 #define C00S_UPTIME_H
 /**
  *
- * cooclupea Honeypot 
+ * cooclupea Honeypot
  * <*))><
  *
  * (C) 2014 by Christoph Pohl (c00clupea@googlemail.com)

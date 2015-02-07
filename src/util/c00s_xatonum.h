@@ -1,11 +1,11 @@
 /**
  *
- * cooclupea Honeypot 
+ * cooclupea Honeypot
  * <*))><
  *
  * (C) 2014 by Christoph Pohl (c00clupea@googlemail.com)
  * released under the GPLv.2
- * 
+ *
  * File:	c00s_xatonum.h
  * created: 	Thu Nov 27 09:09:54 2014
  * author:  	Christoph Pohl <c00clupea@gmail.com>

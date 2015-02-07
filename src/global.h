@@ -194,8 +194,8 @@ C00DEBUG("found %s",V);\
 
 #define check_argv(M,N,O)		\
 	(strcmp(argv[M],N) == 0) || (strcmp(argv[M],O) == 0)	\
-	
-	
+
+
 
 
 //Some ideas from http://c.learncodethehardway.org/book/ex20.html
@@ -203,7 +203,7 @@ C00DEBUG("found %s",V);\
 
 #define echocheck(A,M,...)if(!(A)) { C00DEBUG(M, __VA_ARGS__); fprintf(stderr,M,__VA_ARGS__);goto error; }
 
-#define echoerror(M,...) C00DEBUG(M, __VA_ARGS__); fprintf(stderr,M,__VA_ARGS__);goto error; 
+#define echoerror(M,...) C00DEBUG(M, __VA_ARGS__); fprintf(stderr,M,__VA_ARGS__);goto error;
 
 #define mem_check(A) check((A), "%d Out of memory.",-1)
 

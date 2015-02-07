@@ -1,11 +1,11 @@
 /**
  *
- * cooclupea Honeypot 
+ * cooclupea Honeypot
  * <*))><
  *
  * (C) 2014 by Christoph Pohl (c00clupea@googlemail.com)
  * released under the GPLv.2
- * 
+ *
  * File:	c00s_unicode.h
  * created: 	Fri Feb  6 09:35:09 2015
  * author:  	Christoph Pohl <c00clupea@gmail.com>
@@ -20,9 +20,9 @@
 PUSH_AND_SET_FUNCTION_VISIBILITY_TO_HIDDEN
 
 enum {
-	UNICODE_UNKNOWN = 0,
-	UNICODE_OFF = 1,
-	UNICODE_ON = 2,
+    UNICODE_UNKNOWN = 0,
+    UNICODE_OFF = 1,
+    UNICODE_ON = 2,
 };
 
 #define unicode_bidi_isrtl(wc) 0
@@ -63,13 +63,13 @@ size_t FAST_FUNC unicode_strlen(const char *string);
 /* Width on terminal */
 size_t FAST_FUNC unicode_strwidth(const char *string);
 enum {
-	UNI_FLAG_PAD = (1 << 0),
+    UNI_FLAG_PAD = (1 << 0),
 };
 //UNUSED: unsigned FAST_FUNC unicode_padding_to_width(unsigned width, const char *src);
 //UNUSED: char* FAST_FUNC unicode_conv_to_printable2(uni_stat_t *stats, const char *src, unsigned width, int flags);
-char* FAST_FUNC unicode_conv_to_printable(uni_stat_t *stats, const char *src);
+char *FAST_FUNC unicode_conv_to_printable(uni_stat_t *stats, const char *src);
 //UNUSED: char* FAST_FUNC unicode_conv_to_printable_maxwidth(uni_stat_t *stats, const char *src, unsigned maxwidth);
-char* FAST_FUNC unicode_conv_to_printable_fixedwidth(/*uni_stat_t *stats,*/ const char *src, unsigned width);
+char *FAST_FUNC unicode_conv_to_printable_fixedwidth(/*uni_stat_t *stats,*/ const char *src, unsigned width);
 
 # if ENABLE_UNICODE_USING_LOCALE
 
@@ -107,7 +107,7 @@ void reinit_unicode(const char *LANG) FAST_FUNC;
 
 typedef int32_t wint_t;
 typedef struct {
-	char bogus;
+    char bogus;
 } mbstate_t;
 
 size_t mbstowcs(wchar_t *dest, const char *src, size_t n) FAST_FUNC;

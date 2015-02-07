@@ -1,11 +1,11 @@
 /**
  *
- * cooclupea Honeypot 
+ * cooclupea Honeypot
  * <*))><
  *
  * (C) 2014 by Christoph Pohl (c00clupea@googlemail.com)
  * released under the GPLv.2
- * 
+ *
  * File:	c00s_usleep.h
  * created: 	Thu Nov 27 06:28:38 2014
  * author:  	Christoph Pohl <c00clupea@gmail.com>

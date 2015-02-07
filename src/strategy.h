@@ -1,11 +1,11 @@
 /**
  *
- * cooclupea Honeypot 
+ * cooclupea Honeypot
  * <*))><
  *
  * (C) 2014 by Christoph Pohl (c00clupea@googlemail.com)
  * released under the GPLv.2
- * 
+ *
  * File:	strategy.h
  * created: 	Wed Sep 10 23:18:49 2014
  * author:  	Christoph Pohl <c00clupea@gmail.com>

@@ -4,7 +4,7 @@
  * See the original license and developers below this header
  * However other parts in this sourcefile are adopted for the c00clupea Honeypot
  *
- * cooclupea Honeypot 
+ * cooclupea Honeypot
  * <*))><
  *
  * (C) 2014 by Christoph Pohl (c00clupea@googlemail.com)
@@ -58,9 +58,9 @@ extern "C" {
 typedef struct _dictionary_ {
     int             n ;     /** Number of entries in dictionary */
     int             size ;  /** Storage size */
-    char        **  val ;   /** List of string values */
-    char        **  key ;   /** List of string keys */
-    unsigned     *  hash ;  /** List of hash values for keys */
+    char          **val ;   /** List of string values */
+    char          **key ;   /** List of string keys */
+    unsigned       *hash ;  /** List of hash values for keys */
 } dictionary ;
 
 
@@ -80,7 +80,7 @@ typedef struct _dictionary_ {
   by comparing the key itself in last resort.
  */
 /*--------------------------------------------------------------------------*/
-unsigned dictionary_hash(const char * key);
+unsigned dictionary_hash(const char *key);
 
 /*-------------------------------------------------------------------------*/
 /**
@@ -93,7 +93,7 @@ unsigned dictionary_hash(const char * key);
   dictionary, give size=0.
  */
 /*--------------------------------------------------------------------------*/
-dictionary * dictionary_new(size_t size);
+dictionary *dictionary_new(size_t size);
 
 /*-------------------------------------------------------------------------*/
 /**
@@ -104,7 +104,7 @@ dictionary * dictionary_new(size_t size);
   Deallocate a dictionary object and all memory associated to it.
  */
 /*--------------------------------------------------------------------------*/
-void dictionary_del(dictionary * vd);
+void dictionary_del(dictionary *vd);
 
 /*-------------------------------------------------------------------------*/
 /**
@@ -120,7 +120,7 @@ void dictionary_del(dictionary * vd);
   dictionary object, you should not try to free it or modify it.
  */
 /*--------------------------------------------------------------------------*/
-char * dictionary_get(dictionary * d, const char * key, char * def);
+char *dictionary_get(dictionary *d, const char *key, char *def);
 
 
 /*-------------------------------------------------------------------------*/
@@ -149,7 +149,7 @@ char * dictionary_get(dictionary * d, const char * key, char * def);
   This function returns non-zero in case of failure.
  */
 /*--------------------------------------------------------------------------*/
-int dictionary_set(dictionary * vd, const char * key, const char * val);
+int dictionary_set(dictionary *vd, const char *key, const char *val);
 
 /*-------------------------------------------------------------------------*/
 /**
@@ -162,7 +162,7 @@ int dictionary_set(dictionary * vd, const char * key, const char * val);
   key cannot be found.
  */
 /*--------------------------------------------------------------------------*/
-void dictionary_unset(dictionary * d, const char * key);
+void dictionary_unset(dictionary *d, const char *key);
 
 
 /*-------------------------------------------------------------------------*/
@@ -177,7 +177,7 @@ void dictionary_unset(dictionary * d, const char * key);
   output file pointers.
  */
 /*--------------------------------------------------------------------------*/
-void dictionary_dump(dictionary * d, FILE * out);
+void dictionary_dump(dictionary *d, FILE *out);
 
 /*-------------------------------------------------------------------------*/
 /**
@@ -189,7 +189,7 @@ void dictionary_dump(dictionary * d, FILE * out);
   for systems that do not have it.
  */
 /*--------------------------------------------------------------------------*/
-char * xstrdup(const char * s);
+char *xstrdup(const char *s);
 
 #ifdef __cplusplus
 }

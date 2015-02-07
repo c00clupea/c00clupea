@@ -1,11 +1,11 @@
 /**
  *
- * cooclupea Honeypot 
+ * cooclupea Honeypot
  * <*))><
  *
  * (C) 2014 by Christoph Pohl (c00clupea@googlemail.com)
  * released under the GPLv.2
- * 
+ *
  * File:	c00_linked_list.h
  * created: 	Thu Sep 11 08:32:11 2014
  * author:  	Christoph Pohl <c00clupea@gmail.com>
@@ -19,18 +19,18 @@
 
 
 
-struct c00_linked_list{
-	int size;
-	struct c00_linked_list_bucket *first;
-       	struct c00_linked_list_bucket *last;
-       	struct c00_linked_list_bucket *actual;
-	int idx;
+struct c00_linked_list {
+    int size;
+    struct c00_linked_list_bucket *first;
+    struct c00_linked_list_bucket *last;
+    struct c00_linked_list_bucket *actual;
+    int idx;
 };
 
-struct c00_linked_list_bucket{
-	struct c00_linked_list_bucket *left;
-	struct c00_linked_list_bucket *right;
-	void *val;
+struct c00_linked_list_bucket {
+    struct c00_linked_list_bucket *left;
+    struct c00_linked_list_bucket *right;
+    void *val;
 };
 
 int c00_linked_list_init(struct c00_linked_list *ptr);
@@ -48,6 +48,6 @@ int c00_linked_list_imove(struct c00_linked_list *ptr, signed int range);
 int c00_linked_list_iget(struct c00_linked_list *ptr, void **val);
 int c00_linked_list_iset(struct c00_linked_list *ptr, void *val);
 int c00_linked_list_iremove(struct c00_linked_list *ptr, void **val);
-int c00_linked_list_destroy_dlg_free(struct c00_linked_list *ptr,int (*dtor)(void *));
+int c00_linked_list_destroy_dlg_free(struct c00_linked_list *ptr, int (*dtor)(void *));
 
 #endif

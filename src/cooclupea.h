@@ -1,6 +1,6 @@
 /**
  *
- * cooclupea Honeypot 
+ * cooclupea Honeypot
  * <*))><
  *
  * (C) 2014 by Christoph Pohl (c00clupea@googlemail.com)
@@ -31,11 +31,11 @@
 #include "util/config.h"
 #include "util/ringbuffer.h"
 
-struct c00_consumer_command{
-	int peer_socket;
-	struct sockaddr_in client;
-  	unsigned int client_len;
-  	server *serverConfig;	
+struct c00_consumer_command {
+    int peer_socket;
+    struct sockaddr_in client;
+    unsigned int client_len;
+    server *serverConfig;
 };
 
 int	main(int argc, char *argv[]);

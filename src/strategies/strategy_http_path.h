@@ -1,11 +1,11 @@
 /**
  *
- * cooclupea Honeypot 
+ * cooclupea Honeypot
  * <*))><
  *
  * (C) 2014 by Christoph Pohl (c00clupea@googlemail.com)
  * released under the GPLv.2
- * 
+ *
  * File:	strategy_http_path.h
  * created: 	Thu Sep 11 08:35:22 2014
  * author:  	Christoph Pohl <c00clupea@gmail.com>
@@ -31,19 +31,19 @@
 
 #define HTTP_PATH_MIME_LEN 30
 
-struct c00_http_path_header_cmd{
-	char key[HTTP_PATH_LINE_LEN];
-	char val[HTTP_PATH_LINE_LEN];
+struct c00_http_path_header_cmd {
+    char key[HTTP_PATH_LINE_LEN];
+    char val[HTTP_PATH_LINE_LEN];
 };
 
-struct c00_http_path_request{
-	char 	http_path	[PATH_MAX];
-	char 	http_method	[HTTP_PATH_METHOD_LEN];
-	int 	minor_version;
-	int 	major_version;
-	int	http_response;    
-	struct c00_array_list *header;  
-	char	addr[INET_ADDRSTRLEN];
+struct c00_http_path_request {
+    char 	http_path	[PATH_MAX];
+    char 	http_method	[HTTP_PATH_METHOD_LEN];
+    int 	minor_version;
+    int 	major_version;
+    int	http_response;
+    struct c00_array_list *header;
+    char	addr[INET_ADDRSTRLEN];
 };
 
 
@@ -53,15 +53,15 @@ struct c00_http_path_request{
 //strategy 2 == header from similar file *.header
 //strategy 200 -900 == standard header with error code
 
-struct c00_http_path_single_path{
-	char	path		[PATH_MAX];
-	int	header_strategy;
-	char	mime		[HTTP_PATH_MIME_LEN];
+struct c00_http_path_single_path {
+    char	path		[PATH_MAX];
+    int	header_strategy;
+    char	mime		[HTTP_PATH_MIME_LEN];
 };
 
-struct c00_http_path_globals{
-	struct 	c00_hashmap 	*path_whitelist;
-	char			htdocs_root[PATH_MAX];
+struct c00_http_path_globals {
+    struct 	c00_hashmap 	*path_whitelist;
+    char			htdocs_root[PATH_MAX];
 };
 
 
