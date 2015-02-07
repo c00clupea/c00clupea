@@ -10,7 +10,8 @@
  * created: 	Wed Feb  4 16:11:53 2015
  * author:  	Christoph Pohl <c00clupea@gmail.com>
  */
-#include "util/busybox_cccc.h"
+
+#include "include/c00s_libcu.h"
 
 
 static const char signals[][7] = {

@@ -13,7 +13,8 @@
 
 #ifndef C00S_USLEEP_H
 #define C00S_USLEEP_H
-#include "../util/busybox_cccc.h"
+
+#include "include/c00s_libcu.h"
 #include <unistd.h>
 
 

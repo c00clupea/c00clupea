@@ -13,7 +13,8 @@
  * author:  	Christoph Pohl <c00clupea@gmail.com>
  */
 
-#include "../util/busybox_cccc.h"
+
+#include "include/c00s_libcu.h"
 #include <time.h>
 
 #include "../util/c00b_sysinfo.h"

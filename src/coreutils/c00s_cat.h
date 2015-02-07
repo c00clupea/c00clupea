@@ -12,7 +12,7 @@
  */
 #ifndef C00S_CAT_H
 #define C00S_CAT_H
-#include "../util/busybox_cccc.h"
+#include "include/c00s_libcu.h"
 
 #ifdef C00SWITHLINK
 #define CAT_MAIN cat_main

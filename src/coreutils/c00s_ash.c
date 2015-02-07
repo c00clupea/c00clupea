@@ -42,7 +42,7 @@
 #include <fnmatch.h>
 #include <sys/times.h>
 
-#include "../util/busybox_cccc.h" /* for applet_names */
+#include "include/c00s_libcu.h" /* for applet_names */
 
 #ifdef C00SWITHLINK
 #define ASH_MAIN_METHOD ash_main

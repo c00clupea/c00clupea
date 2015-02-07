@@ -12,8 +12,8 @@
  */
 #ifndef C00S_FALSE_H
 #define C00S_FALSE_H
-#include "../util/busybox_cccc.h"
 
+#include "include/c00s_libcu.h"
 
 #ifdef C00SWITHLINK
 #define FALSE_MAIN false_main

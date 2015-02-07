@@ -20,7 +20,8 @@
  * Licensed under GPLv2 or later, see file LICENSE in this source tree.
  */
 
-#include "busybox_cccc.h"
+
+#include "include/c00s_libcu.h"
 
 void *FAST_FUNC xzalloc(size_t size)
 {

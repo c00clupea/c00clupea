@@ -23,7 +23,8 @@
 
 #ifndef C00S_UNAME_H
 #define C00S_UNAME_H
-#include "../util/busybox_cccc.h"
+
+#include "include/c00s_libcu.h"
 #include <stddef.h>
 #include <sys/utsname.h>
 

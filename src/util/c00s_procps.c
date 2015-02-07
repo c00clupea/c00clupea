@@ -11,7 +11,8 @@
  * author:  	Christoph Pohl <c00clupea@gmail.com>
  */
 
-#include "util/busybox_cccc.h"
+
+#include "include/c00s_libcu.h"
 
 static procps_status_t *FAST_FUNC alloc_procps_scan(void)
 {

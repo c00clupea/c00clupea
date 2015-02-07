@@ -12,7 +12,8 @@
  */
 #ifndef C00S_XATONUM_H
 #define C00S_XATONUM_H
-#include "busybox_cccc.h"
+
+#include "include/c00s_libcu.h"
 
 int c00_strtoi(const char *args, int *val);
 int c00_strtoipos(const char *args, int *val);

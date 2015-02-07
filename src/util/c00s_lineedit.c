@@ -61,7 +61,8 @@
  * It stems from simplistic "cmdedit_y = cmdedit_prmt_len / cmdedit_termw"
  * calculation of how many lines the prompt takes.
  */
-#include "util/busybox_cccc.h"
+
+#include "include/c00s_libcu.h"
 #include "util/c00s_unicode.h"
 #ifndef _POSIX_VDISABLE
 # define _POSIX_VDISABLE '\0'

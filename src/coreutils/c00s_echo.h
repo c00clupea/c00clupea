@@ -13,7 +13,7 @@
 #ifndef C00S_ECHO_H
 #define C00S_ECHO_H
 
-#include "../util/busybox_cccc.h"
+#include "include/c00s_libcu.h"
 
 int echo_main(int argc, char **argv);
 

@@ -15,7 +15,9 @@
 
 #include <stdarg.h>
 
-#include "../util/busybox_cccc.h"
+
+#include "include/c00s_libcu.h"
+
 
 #ifdef C00SWITHLINK
 #define YES_MAIN yes_main

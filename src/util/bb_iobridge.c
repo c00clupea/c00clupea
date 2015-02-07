@@ -10,7 +10,8 @@
  * created: 	Thu Nov 27 13:53:21 2014
  * author:  	Christoph Pohl <c00clupea@gmail.com>
  */
-#include "busybox_cccc.h"
+
+#include "include/c00s_libcu.h"
 
 #define is_name(c)      ((c) == '_' || isalpha((unsigned char)(c)))
 #define is_in_name(c)   ((c) == '_' || isalnum((unsigned char)(c)))

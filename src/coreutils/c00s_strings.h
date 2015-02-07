@@ -13,8 +13,8 @@
 #ifndef C00S_STRINGS_H
 #define C00S_STRINGS_H
 
-#include "../util/busybox_cccc.h"
 
+#include "include/c00s_libcu.h"
 
 #ifdef C00SWITHLINK
 #define STRINGS_MAIN strings_main

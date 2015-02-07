@@ -10,7 +10,8 @@
  * created: 	Sat Feb  7 11:13:26 2015
  * author:  	Christoph Pohl <c00clupea@gmail.com>
  */
-#include "busybox_cccc.h"
+
+#include "include/c00s_libcu.h"
 
 const char bb_banner[] ALIGN1 = BANNER;
 const char bb_busybox_exec_path[] ALIGN1 = CONFIG_BUSYBOX_EXEC_PATH;

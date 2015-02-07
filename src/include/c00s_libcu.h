@@ -88,7 +88,7 @@ enum { COMM_LEN = 16 };
 #define barrier() __asm__ __volatile__("":::"memory")
 
 /*#include "../global.h"*/
-#include "util.h"
+#include "c00s_util.h"
 #define type long long
 
 #define FAST_FUNC

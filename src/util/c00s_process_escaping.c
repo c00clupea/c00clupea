@@ -10,8 +10,8 @@
  * created: 	Sat Feb  7 10:11:27 2015
  * author:  	Christoph Pohl <c00clupea@gmail.com>
  */
-#include "util/busybox_cccc.h"
 
+#include "include/c00s_libcu.h"
 
 #define WANT_HEX_ESCAPES 1
 

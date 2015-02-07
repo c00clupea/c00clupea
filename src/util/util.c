@@ -11,7 +11,7 @@
  * author:  	Christoph Pohl <c00clupea@gmail.com>
  */
 
-#include "util.h"
+#include "include/c00s_util.h"
 
 static int 	_c00_seek_file(FILE *fp, int offset);
 static void 	_c00_flush_log(struct c00_safe_log *logger);

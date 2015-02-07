@@ -10,8 +10,8 @@
  * created: 	Mon Dec  1 08:01:38 2014
  * author:  	Christoph Pohl <c00clupea@gmail.com>
  */
-#include "busybox_cccc.h"
 
+#include "include/c00s_libcu.h"
 
 
 void fflush_stdout_and_exit(int retval)

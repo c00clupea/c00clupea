@@ -19,7 +19,7 @@
 
 #include "util/c00_iniparser.h"
 
-#include "util/util.h"
+#include "include/c00s_util.h"
 /**
  * init buffer for cmd (ringbuffer)
  * init threadpool

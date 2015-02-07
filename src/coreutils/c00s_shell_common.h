@@ -19,8 +19,8 @@
 #ifndef SHELL_COMMON_H
 #define SHELL_COMMON_H 1
 
-#include "../util/busybox_cccc.h"
 
+#include "include/c00s_libcu.h"
 PUSH_AND_SET_FUNCTION_VISIBILITY_TO_HIDDEN
 
 extern const char defifsvar[] ALIGN1; /* "IFS= \t\n" */

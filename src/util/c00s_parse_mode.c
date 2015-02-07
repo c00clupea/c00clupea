@@ -10,7 +10,8 @@
  * created: 	Fri Feb  6 09:13:20 2015
  * author:  	Christoph Pohl <c00clupea@gmail.com>
  */
-#include "util/busybox_cccc.h"
+
+#include "include/c00s_libcu.h"
 
 #define FILEMODEBITS (S_ISUID | S_ISGID | S_ISVTX | S_IRWXU | S_IRWXG | S_IRWXO)
 

@@ -10,7 +10,8 @@
  * created: 	Thu Feb  5 16:51:17 2015
  * author:  	Christoph Pohl <c00clupea@gmail.com>
  */
-#include "busybox_cccc.h"
+
+#include "include/c00s_libcu.h"
 
 static int comm_match(procps_status_t *p, const char *procName)
 {

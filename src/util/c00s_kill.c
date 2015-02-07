@@ -10,7 +10,8 @@
  * created: 	Thu Feb  5 14:10:28 2015
  * author:  	Christoph Pohl <c00clupea@gmail.com>
  */
-#include "util/busybox_cccc.h"
+
+#include "include/c00s_libcu.h"
 
 
 int kill_main(int argc UNUSED_PARAM, char **argv)

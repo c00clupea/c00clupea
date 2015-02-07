@@ -10,7 +10,8 @@
  * created: 	Thu Nov 27 09:10:42 2014
  * author:  	Christoph Pohl <c00clupea@gmail.com>
  */
-#include "util/busybox_cccc.h"
+
+#include "include/c00s_libcu.h"
 
 static inline int __in_range(long val, long min, long max);
 static inline int __basic_strol(const char *args, long *val, long min, long max);

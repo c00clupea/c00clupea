@@ -32,7 +32,7 @@ c00clupea_SOURCES = global.h\
 		    strategy.c strategy.h\
 		    util/config.c util/config.h\
 		    util/ringbuffer.c util/ringbuffer.h\
-		    util/util.c util/util.h\
+		    util/util.c include/c00s_util.h\
 		    util/c00_hashmap.c util/c00_hashmap.h\
 		    util/c00_array_list.c util/c00_array_list.h\
 		    util/c00_linked_list.c util/c00_linked_list.h\
@@ -43,11 +43,11 @@ c00clupea_SOURCES = global.h\
 
 connect_sources = util/c00_message.h util/c00_message.c
 
-add_sources = global.h util/util.c util/util.h util/busybox_cccc.h util/c00s_preset.c util/c00s_ash_ptr_hack.c  util/getopt32.c util/c00s_xatonum.c util/bb_iobridge.c util/c00b_sysinfo.h util/c00b_sysinfo.c util/bb_util.c util/bb_signals.c util/c00s_kill.c util/c00s_procps.c util/c00s_find_pid_by_name.c util/c00s_parse_mode.c util/c00s_lineedit.c util/c00s_unicode.h util/c00s_process_escaping.c  ${connect_sources}
+add_sources = global.h util/util.c include/c00s_util.h include/c00s_libcu.h util/c00s_preset.c util/c00s_ash_ptr_hack.c  util/getopt32.c util/c00s_xatonum.c util/bb_iobridge.c util/c00b_sysinfo.h util/c00b_sysinfo.c util/bb_util.c util/bb_signals.c util/c00s_kill.c util/c00s_procps.c util/c00s_find_pid_by_name.c util/c00s_parse_mode.c util/c00s_lineedit.c util/c00s_unicode.h util/c00s_process_escaping.c  ${connect_sources}
 
 c00clupeabox_SOURCES = c00clupea_sim.c c00clupea_sim.h ${add_sources}
 
-c00clupea_honeymaster_SOURCES = global.h c00clupea_honeymaster.h c00clupea_honeymaster.c ${connect_sources} util/c00_iniparser.h util/c00_iniparser.c util/c00_dictionary.h util/c00_dictionary.c util/ringbuffer.c util/ringbuffer.h util/util.h util/util.c
+c00clupea_honeymaster_SOURCES = global.h c00clupea_honeymaster.h c00clupea_honeymaster.c ${connect_sources} util/c00_iniparser.h util/c00_iniparser.c util/c00_dictionary.h util/c00_dictionary.c util/ringbuffer.c util/ringbuffer.h include/c00s_util.h util/util.c
 
 if C00SWITHPREFIX
 c00spref=c00nb-
