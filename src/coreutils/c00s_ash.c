@@ -52,7 +52,7 @@
 
 
 #include "c00s_pwd_.h"
-#include "c00s_unicode.h"
+#include "include/c00s_unicode.h"
 #include "c00s_echo.h"
 
 #include "c00s_shell_common.h"

@@ -63,7 +63,7 @@
  */
 
 #include "include/c00s_libcu.h"
-#include "util/c00s_unicode.h"
+#include "include/c00s_unicode.h"
 #ifndef _POSIX_VDISABLE
 # define _POSIX_VDISABLE '\0'
 #endif
