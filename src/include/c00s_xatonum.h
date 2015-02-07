@@ -1,14 +1,15 @@
 /**
  *
- * cooclupea Honeypot
+ * Some sourcecode in this file is shamelessly copied from another open source software
+ * See the original license and developers below this header
+ * However other parts in this sourcefile are adopted for the c00clupea Honeypot
+ *
+ * cooclupea Honeypot 
  * <*))><
  *
  * (C) 2014 by Christoph Pohl (c00clupea@googlemail.com)
  * released under the GPLv.2
  *
- * File:	c00s_xatonum.h
- * created: 	Thu Nov 27 09:09:54 2014
- * author:  	Christoph Pohl <c00clupea@gmail.com>
  */
 #ifndef C00S_XATONUM_H
 #define C00S_XATONUM_H

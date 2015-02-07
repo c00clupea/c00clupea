@@ -1,14 +1,19 @@
 /**
  *
- * cooclupea Honeypot
+ * Some sourcecode in this file is shamelessly copied from another open source software
+ * See the original license and developers below this header
+ * However other parts in this sourcefile are adopted for the c00clupea Honeypot
+ *
+ * cooclupea Honeypot 
  * <*))><
  *
  * (C) 2014 by Christoph Pohl (c00clupea@googlemail.com)
  * released under the GPLv.2
  *
- * File:	c00s_unicode.h
- * created: 	Fri Feb  6 09:35:09 2015
- * author:  	Christoph Pohl <c00clupea@gmail.com>
+ */
+/* vi: set sw=4 ts=4: */
+/*
+ * Licensed under GPLv2, see file LICENSE in this source tree.
  */
 #ifndef C00S_UNICODE_H
 #define C00S_UNICODE_H
