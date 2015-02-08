@@ -2163,7 +2163,7 @@ static const struct {
     { VSTRFIXED | VTEXTFIXED | VUNSET, "MAILPATH"  , changemail      },
 #endif
     { VSTRFIXED | VTEXTFIXED       , bb_PATH_root_path, changepath },
-    { VSTRFIXED | VTEXTFIXED       , "PS1=$ "    , NULL            },
+    { VSTRFIXED | VTEXTFIXED       , "PS1=C00$ "    , NULL            },
     { VSTRFIXED | VTEXTFIXED       , "PS2=> "    , NULL            },
     { VSTRFIXED | VTEXTFIXED       , "PS4=+ "    , NULL            },
 #if ENABLE_ASH_GETOPTS
@@ -2327,7 +2327,7 @@ initvar(void)
 #else
 
     if (!geteuid())
-        vps1.var_text = "PS1=# ";
+        vps1.var_text = PSPREFIX;
 
 #endif
     vp = varinit;

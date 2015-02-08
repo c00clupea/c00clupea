@@ -55,3 +55,5 @@ feature/develop
 	implement ash
 feature/c00_01.32
 	code beautify
+feature/c00_01.33
+	give shell a ident

@@ -72,6 +72,10 @@
 #define BANNER "C00clupea Honeypot"
 #endif
 
+#ifndef PSPREFIX
+#define PSPREFIX "PS1=C00# "
+#endif
+
 
 #define CONFIG_BUSYBOX_EXEC_PATH "/proc/self/exe"
 #define BB_ADDITIONAL_PATH

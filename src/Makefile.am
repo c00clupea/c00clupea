@@ -140,6 +140,6 @@ endif
 endif
 
 if C00SSHELL
-bin_PROGRAMS += ${c00spref}ash
-__c00spref_ash_SOURCES = ${add_sources} coreutils/c00s_ash.c coreutils/c00s_shell_common.h coreutils/c00s_shell_common.c coreutils/c00s_NUM_APPLETS.h coreutils/c00s_pwd_.h coreutils/c00s_pwd_.c coreutils/c00s_echo.h coreutils/c00s_echo.c
+bin_PROGRAMS += ${c00spref}shell
+__c00spref_shell_SOURCES = ${add_sources} coreutils/c00s_ash.c coreutils/c00s_shell_common.h coreutils/c00s_shell_common.c coreutils/c00s_NUM_APPLETS.h coreutils/c00s_pwd_.h coreutils/c00s_pwd_.c coreutils/c00s_echo.h coreutils/c00s_echo.c
 endif
