@@ -9916,11 +9916,7 @@ setinteractive(int on)
 
         if (!did_banner) {
             /* note: ash and hush share this string */
-            out1fmt("\n\n%s %s\n"
-                    "Enter 'help' for a list of built-in commands."
-                    "\n\n",
-                    bb_banner,
-                    "built-in shell (ash)"
+            out1fmt("%s\n",bb_banner
                    );
             did_banner = 1;
         }
