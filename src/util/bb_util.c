@@ -236,7 +236,11 @@ char *FAST_FUNC safe_strncpy(char *dst, const char *src, size_t size)
 
 static void get_mono(struct timespec *ts)
 {
+#if OSDETECTED == LINUX
     if (syscall(__NR_clock_gettime, CLOCK_MONOTONIC, ts)) {
+#else
+    if (syscall(SYS_clock_gettime, CLOCK_MONOTONIC, ts)) {
+#endif
         fprintf(stderr, "clock_gettime(MONOTONIC) failed %s", "");
         exit(1);
         //	bb_error_msg_and_die("clock_gettime(MONOTONIC) failed");

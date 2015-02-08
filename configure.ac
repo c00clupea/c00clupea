@@ -45,6 +45,10 @@ AC_CANONICAL_HOST
 
 AM_CONDITIONAL([ISDARWIN],false)
 
+AC_DEFINE([DARWIN],[1],[darwin])
+AC_DEFINE([LINUX],[2],[linux])
+AC_DEFINE([BSD],[3],[bsd])
+
 case $host_os in
   darwin* )
         AM_CONDITIONAL([NEEDPTHREAD],false)

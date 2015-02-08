@@ -11,6 +11,8 @@
  * released under the GPLv.2
  *
  */
+
+#include "c00s_util.h"
 #if ENABLE_LONG_OPTS || ENABLE_FEATURE_GETOPT_LONG
 # include <getopt.h>
 #endif
@@ -29,7 +31,14 @@
 #include <poll.h>
 #include <dirent.h>
 #include <pwd.h>
+#if OSDETECTED == LINUX
 #include <wait.h>
+#elif OSDETECTED == BSD
+#include <sys/wait.h>
+#else
+#include <wait.h> /*do another elif for other OS*/
+#endif
+
 #include <sys/syscall.h>
 
 
@@ -88,7 +97,7 @@ enum { COMM_LEN = 16 };
 #define barrier() __asm__ __volatile__("":::"memory")
 
 /*#include "../global.h"*/
-#include "c00s_util.h"
+
 #define type long long
 
 #define FAST_FUNC

@@ -4429,6 +4429,16 @@ else
 fi
 
 
+
+$as_echo "#define DARWIN 1" >>confdefs.h
+
+
+$as_echo "#define LINUX 2" >>confdefs.h
+
+
+$as_echo "#define BSD 3" >>confdefs.h
+
+
 case $host_os in
   darwin* )
          if false; then
