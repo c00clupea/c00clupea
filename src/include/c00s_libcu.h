@@ -73,7 +73,7 @@
 #endif
 
 #ifndef PSPREFIX
-#define PSPREFIX "PS1=C00# "
+#define PSPREFIX "PS1=C00\$ "
 #endif
 
 
