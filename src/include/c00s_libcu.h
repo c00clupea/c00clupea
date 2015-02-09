@@ -40,6 +40,7 @@
 #endif
 
 #include <sys/syscall.h>
+#include <sys/time.h>
 
 #include "include/c00s_hm_api.h"
 

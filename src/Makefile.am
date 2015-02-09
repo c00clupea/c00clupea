@@ -155,9 +155,9 @@ endif
 
 if C00STOUCH
 if C00SWITHLINK
-c00clupeabox_SOURCES += coreutils/c00s_touch.c c00s_touch.h
+c00clupeabox_SOURCES += coreutils/c00s_touch.c coreutils/c00s_touch.h
 else
 bin_PROGRAMS += ${c00spref}touch
-__c00spref_touch_SOURCES = ${add_sources} coreutils/c00s_touch.c c00s_touch.h
+__c00spref_touch_SOURCES = ${add_sources} coreutils/c00s_touch.c coreutils/c00s_touch.h
 endif
 endif

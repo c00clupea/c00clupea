@@ -33,6 +33,9 @@
 /* has strings */
 #undef C00SSTRINGS
 
+/* has touch */
+#undef C00STOUCH
+
 /* has true */
 #undef C00STRUE
 
