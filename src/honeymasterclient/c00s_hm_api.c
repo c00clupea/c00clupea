@@ -49,3 +49,12 @@ int c00h_changepassword(uid_t uid, char *newp)
 {
 	return TRUE;
 }
+
+int c00h_actualpwd(char *pwd)
+{
+	mem_check(pwd);
+	strcpy(pwd,"/ein/tolles/verzeichnis");
+	return TRUE;
+error:
+	return ERROR;
+}

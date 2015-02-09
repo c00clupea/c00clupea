@@ -627,6 +627,8 @@ C00SWITHLINK_FALSE
 C00SWITHLINK_TRUE
 C00SSHELL_FALSE
 C00SSHELL_TRUE
+C00SPWD_FALSE
+C00SPWD_TRUE
 C00STOUCH_FALSE
 C00STOUCH_TRUE
 C00SPASSWD_FALSE
@@ -798,6 +800,7 @@ enable_c00syes
 enable_c00sstrings
 enable_c00spasswd
 enable_c00stouch
+enable_c00spwd
 enable_c00sshell
 enable_c00swithlink
 enable_c00swithprefix
@@ -1471,6 +1474,7 @@ Optional Features:
   --disable-c00sstrings    disable strings (simple version)
   --disable-c00spasswd    disable passwd (simple version)
   --disable-c00stouch    disable touch (simple version)
+  --disable-c00spwd    disable pwd (simple version)
   --disable-c00sshell    disable shell (ash - like)
   --enable-c00swithlink    enable linked c00clupeabox (simple version)
   --disable-c00swithprefix    disable prefix for coreutils
@@ -6675,6 +6679,31 @@ $as_echo "#define C00STOUCH /**/" >>confdefs.h
 
 fi
 
+# Check whether --enable-c00spwd was given.
+if test "${enable_c00spwd+set}" = set; then :
+  enableval=$enable_c00spwd; case "${enableval}" in
+  yes) c00spwd=true ;;
+  no)  c00spwd=false ;;
+  *) as_fn_error $? "bad value ${enableval} for --enable-c00spwd" "$LINENO" 5 ;;
+esac
+else
+  c00spwd=true
+fi
+
+ if test "x$c00spwd" = xtrue; then
+  C00SPWD_TRUE=
+  C00SPWD_FALSE='#'
+else
+  C00SPWD_TRUE='#'
+  C00SPWD_FALSE=
+fi
+
+if test "x$c00spwd" = xtrue; then :
+
+$as_echo "#define C00SPWD /**/" >>confdefs.h
+
+fi
+
 
 # Check whether --enable-c00sshell was given.
 if test "${enable_c00sshell+set}" = set; then :
@@ -6975,6 +7004,10 @@ Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${C00STOUCH_TRUE}" && test -z "${C00STOUCH_FALSE}"; then
   as_fn_error $? "conditional \"C00STOUCH\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${C00SPWD_TRUE}" && test -z "${C00SPWD_FALSE}"; then
+  as_fn_error $? "conditional \"C00SPWD\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${C00SSHELL_TRUE}" && test -z "${C00SSHELL_FALSE}"; then

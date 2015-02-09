@@ -426,6 +426,16 @@ esac],[c00stouch=true])
 AM_CONDITIONAL([C00STOUCH], [test "x$c00stouch" = xtrue])
 AS_IF([test "x$c00stouch" = xtrue],[AC_DEFINE([C00STOUCH],[],[has touch])])
 
+AC_ARG_ENABLE([c00spwd],
+[  --disable-c00spwd    disable pwd (simple version)],
+[case "${enableval}" in
+  yes) c00spwd=true ;;
+  no)  c00spwd=false ;;
+  *) AC_MSG_ERROR([bad value ${enableval} for --enable-c00spwd]) ;;
+esac],[c00spwd=true])
+AM_CONDITIONAL([C00SPWD], [test "x$c00spwd" = xtrue])
+AS_IF([test "x$c00spwd" = xtrue],[AC_DEFINE([C00SPWD],[],[has pwd])])
+
 
 AC_ARG_ENABLE([c00sshell],
 [  --disable-c00sshell    disable shell (ash - like)],

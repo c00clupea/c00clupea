@@ -161,3 +161,12 @@ bin_PROGRAMS += ${c00spref}touch
 __c00spref_touch_SOURCES = ${add_sources} coreutils/c00s_touch.c coreutils/c00s_touch.h
 endif
 endif
+
+if C00SPWD
+if C00SWITHLINK
+c00clupeabox_SOURCES += coreutils/c00s_pwd.c coreutils/c00s_pwd.h
+else
+bin_PROGRAMS += ${c00spref}pwd
+__c00spref_pwd_SOURCES = ${add_sources} coreutils/c00s_pwd.c coreutils/c00s_pwd.h
+endif
+endif

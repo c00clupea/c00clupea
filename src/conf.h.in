@@ -27,6 +27,9 @@
 /* has passwd */
 #undef C00SPASSWD
 
+/* has pwd */
+#undef C00SPWD
+
 /* has shell */
 #undef C00SSHELL
 

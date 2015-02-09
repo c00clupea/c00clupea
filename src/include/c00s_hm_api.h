@@ -19,6 +19,10 @@
 
 /*User pwd and more user staff*/
 int c00h_actualuser(struct passwd *pw);
+int c00h_actualpwd(char *pwd);
 int c00h_userbyname(struct passwd *pw, char *name);
 int c00h_changepassword(uid_t uid, char *newp);
+
+
+
 #endif /* C00S_HM_API_H */
