@@ -41,6 +41,8 @@
 
 #include <sys/syscall.h>
 
+#include "include/c00s_hm_api.h"
+
 
 /*some config*/
 #define IF_KILL(...)__VA_ARGS__
@@ -469,6 +471,10 @@ int safe_poll(struct pollfd *ufds, nfds_t nfds, int timeout_ms) FAST_FUNC;
 char *xasprintf(const char *format, ...) __attribute__ ((format(printf, 1, 2))) FAST_FUNC RETURNS_MALLOC;
 
 line_input_t *new_line_input_t(int flags) FAST_FUNC;
+
+
+char* FAST_FUNC c00_ask(const int fd, int timeout, const char *prompt);
+char* FAST_FUNC c00_ask_stdin(const char *prompt);
 
 /*int read_line_input(line_input_t *st, const char *prompt, char *command, int maxsize, int timeout) FAST_FUNC;*/
 int read_line_input(const char *prompt, char *command, int maxsize) FAST_FUNC;

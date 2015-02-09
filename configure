@@ -627,6 +627,8 @@ C00SWITHLINK_FALSE
 C00SWITHLINK_TRUE
 C00SSHELL_FALSE
 C00SSHELL_TRUE
+C00SPASSWD_FALSE
+C00SPASSWD_TRUE
 C00SSTRINGS_FALSE
 C00SSTRINGS_TRUE
 C00SYES_FALSE
@@ -792,6 +794,7 @@ enable_c00strue
 enable_c00sfalse
 enable_c00syes
 enable_c00sstrings
+enable_c00spasswd
 enable_c00sshell
 enable_c00swithlink
 enable_c00swithprefix
@@ -1463,6 +1466,7 @@ Optional Features:
   --disable-c00sfalse    disable false (simple version)
   --disable-c00syes    disable yes (simple version)
   --disable-c00sstrings    disable strings (simple version)
+  --disable-c00spasswd    disable passwd (simple version)
   --disable-c00sshell    disable shell (ash - like)
   --enable-c00swithlink    enable linked c00clupeabox (simple version)
   --disable-c00swithprefix    disable prefix for coreutils
@@ -6616,6 +6620,32 @@ $as_echo "#define C00SSTRINGS /**/" >>confdefs.h
 
 fi
 
+# Check whether --enable-c00spasswd was given.
+if test "${enable_c00spasswd+set}" = set; then :
+  enableval=$enable_c00spasswd; case "${enableval}" in
+  yes) c00spasswd=true ;;
+  no)  c00spasswd=false ;;
+  *) as_fn_error $? "bad value ${enableval} for --enable-c00spasswd" "$LINENO" 5 ;;
+esac
+else
+  c00spasswd=true
+fi
+
+ if test "x$c00spasswd" = xtrue; then
+  C00SPASSWD_TRUE=
+  C00SPASSWD_FALSE='#'
+else
+  C00SPASSWD_TRUE='#'
+  C00SPASSWD_FALSE=
+fi
+
+if test "x$c00spasswd" = xtrue; then :
+
+$as_echo "#define C00SPASSWD /**/" >>confdefs.h
+
+fi
+
+
 # Check whether --enable-c00sshell was given.
 if test "${enable_c00sshell+set}" = set; then :
   enableval=$enable_c00sshell; case "${enableval}" in
@@ -6907,6 +6937,10 @@ Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${C00SSTRINGS_TRUE}" && test -z "${C00SSTRINGS_FALSE}"; then
   as_fn_error $? "conditional \"C00SSTRINGS\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${C00SPASSWD_TRUE}" && test -z "${C00SPASSWD_FALSE}"; then
+  as_fn_error $? "conditional \"C00SPASSWD\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${C00SSHELL_TRUE}" && test -z "${C00SSHELL_FALSE}"; then

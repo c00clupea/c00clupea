@@ -57,3 +57,5 @@ feature/c00_01.32
 	code beautify
 feature/c00_01.33
 	give shell a ident
+feature/c00_01.34
+	implement passwd

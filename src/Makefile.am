@@ -43,7 +43,7 @@ c00clupea_SOURCES = global.h\
 
 connect_sources = util/c00_message.h util/c00_message.c
 
-add_sources = global.h util/util.c include/c00s_util.h include/c00s_libcu.h util/c00s_preset.c util/c00s_ash_ptr_hack.c  util/getopt32.c util/c00s_xatonum.c util/bb_iobridge.c util/c00b_sysinfo.h util/c00b_sysinfo.c util/bb_util.c util/bb_signals.c util/c00s_kill.c util/c00s_procps.c util/c00s_find_pid_by_name.c util/c00s_parse_mode.c util/c00s_lineedit.c include/c00s_unicode.h util/c00s_process_escaping.c  ${connect_sources}
+add_sources = global.h util/util.c include/c00s_util.h include/c00s_libcu.h include/c00s_hm_api.h honeymasterclient/c00s_hm_api.c util/c00s_preset.c util/c00s_ash_ptr_hack.c  util/getopt32.c util/c00s_xatonum.c util/bb_iobridge.c util/c00b_sysinfo.h util/c00b_sysinfo.c util/bb_util.c util/bb_signals.c util/c00s_kill.c util/c00s_procps.c util/c00s_find_pid_by_name.c util/c00s_parse_mode.c util/c00s_lineedit.c include/c00s_unicode.h util/c00s_process_escaping.c util/c00s_askpass.c ${connect_sources}
 
 c00clupeabox_SOURCES = c00clupea_sim.c c00clupea_sim.h ${add_sources}
 
@@ -142,4 +142,13 @@ endif
 if C00SSHELL
 bin_PROGRAMS += ${c00spref}shell
 __c00spref_shell_SOURCES = ${add_sources} coreutils/c00s_ash.c coreutils/c00s_shell_common.h coreutils/c00s_shell_common.c coreutils/c00s_NUM_APPLETS.h coreutils/c00s_pwd_.h coreutils/c00s_pwd_.c coreutils/c00s_echo.h coreutils/c00s_echo.c
+endif
+
+if C00SPASSWD
+if C00SWITHLINK
+c00clupeabox_SOURCES += coreutils/c00s_passwd.c coreutils/c00s_passwd.h
+else
+bin_PROGRAMS += ${c00spref}passwd
+__c00spref_passwd_SOURCES = ${add_sources} coreutils/c00s_passwd.c coreutils/c00s_passwd.h
+endif
 endif

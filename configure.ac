@@ -405,6 +405,17 @@ esac],[c00sstrings=true])
 AM_CONDITIONAL([C00SSTRINGS], [test "x$c00sstrings" = xtrue])
 AS_IF([test "x$c00sstrings" = xtrue],[AC_DEFINE([C00SSTRINGS],[],[has strings])])
 
+AC_ARG_ENABLE([c00spasswd],
+[  --disable-c00spasswd    disable passwd (simple version)],
+[case "${enableval}" in
+  yes) c00spasswd=true ;;
+  no)  c00spasswd=false ;;
+  *) AC_MSG_ERROR([bad value ${enableval} for --enable-c00spasswd]) ;;
+esac],[c00spasswd=true])
+AM_CONDITIONAL([C00SPASSWD], [test "x$c00spasswd" = xtrue])
+AS_IF([test "x$c00spasswd" = xtrue],[AC_DEFINE([C00SPASSWD],[],[has passwd])])
+
+
 AC_ARG_ENABLE([c00sshell],
 [  --disable-c00sshell    disable shell (ash - like)],
 [case "${enableval}" in

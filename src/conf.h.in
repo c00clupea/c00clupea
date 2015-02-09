@@ -24,6 +24,9 @@
 /* has false */
 #undef C00SFalSE
 
+/* has passwd */
+#undef C00SPASSWD
+
 /* has shell */
 #undef C00SSHELL
 

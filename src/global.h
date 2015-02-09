@@ -162,6 +162,20 @@
 #define C00SYSALERTN(fmt)\
 	syslog(LOG_ALERT,fmt)
 
+#define C00STDOUTN(fmt)\
+	printf(fmt)
+
+#define C00STDOUTEXITN(fmt,code)			\
+	printf(fmt);exit(code)
+
+#define C00STDOUT(fmt,...)				\
+	printf(fmt,__VA_ARGS__)
+
+#define C00STDOUTEXIT(fmt,code,...)		\
+	printf(fmt,__VA_ARGS__);exit(code)
+
+
+
 #define FLP __FILE__,__LINE__
 
 #define UNUSED __attribute__((unused))
