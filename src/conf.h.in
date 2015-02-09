@@ -24,6 +24,9 @@
 /* has false */
 #undef C00SFalSE
 
+/* has nice */
+#undef C00SNICE
+
 /* has passwd */
 #undef C00SPASSWD
 

@@ -170,3 +170,13 @@ bin_PROGRAMS += ${c00spref}pwd
 __c00spref_pwd_SOURCES = ${add_sources} coreutils/c00s_pwd.c coreutils/c00s_pwd.h
 endif
 endif
+
+
+if C00SNICE
+if C00SWITHLINK
+c00clupeabox_SOURCES += coreutils/c00s_nice.c coreutils/c00s_nice.h
+else
+bin_PROGRAMS += ${c00spref}nice
+__c00spref_nice_SOURCES = ${add_sources} coreutils/c00s_nice.c coreutils/c00s_nice.h
+endif
+endif

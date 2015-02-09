@@ -437,6 +437,16 @@ AM_CONDITIONAL([C00SPWD], [test "x$c00spwd" = xtrue])
 AS_IF([test "x$c00spwd" = xtrue],[AC_DEFINE([C00SPWD],[],[has pwd])])
 
 
+AC_ARG_ENABLE([c00snice],
+[  --disable-c00snice    disable nice (simple version)],
+[case "${enableval}" in
+  yes) c00snice=true ;;
+  no)  c00snice=false ;;
+  *) AC_MSG_ERROR([bad value ${enableval} for --enable-c00snice]) ;;
+esac],[c00snice=true])
+AM_CONDITIONAL([C00SNICE], [test "x$c00snice" = xtrue])
+AS_IF([test "x$c00snice" = xtrue],[AC_DEFINE([C00SNICE],[],[has nice])])
+
 AC_ARG_ENABLE([c00sshell],
 [  --disable-c00sshell    disable shell (ash - like)],
 [case "${enableval}" in
