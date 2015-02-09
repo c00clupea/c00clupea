@@ -17,7 +17,7 @@
 #include <sys/types.h>
 #include <pwd.h>
 #include <unistd.h>
-#include "../global.h"
+#include "include/c00s_libcu.h"
 
 #ifdef C00SWITHLINK
 #define WHOAMI_MAIN whoami_main

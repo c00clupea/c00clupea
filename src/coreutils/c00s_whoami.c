@@ -11,17 +11,22 @@
 
 int WHOAMI_MAIN(int UNUSED(argc), char UNUSED(*argv[]))
 {
-    uid_t uid = geteuid();
-    struct passwd *pw = getpwuid(uid);
 
-    if(argv[1]) {
-        printf("Usage: whoami");
-    }
+	struct passwd *pw = malloc(sizeof(struct passwd));
 
-    if (pw) {
-        puts(pw->pw_name);
-        return TRUE;
-    }
+	check(c00h_actualuser(pw),"check returned %d",ERROR);
 
-    exit(1);
+	if(argv[1]) {
+		C00STDOUTN("Usage: whoami\n");
+		
+	}
+
+	if (pw) {
+		puts(pw->pw_name);
+	}
+	free(pw);
+	return TRUE;
+error:
+	free(pw);
+	return ERROR;
 }
