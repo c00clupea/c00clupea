@@ -63,3 +63,5 @@ feature/c00_01.35
 	whoami with fake user
 feature/c00_01.36
 	create touch
+feature/c00_01.38
+	create kernel split language
