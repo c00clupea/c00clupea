@@ -46,13 +46,49 @@ extern int yydebug;
    /* Put the tokens into the symbol table, so that GDB and other debuggers
       know about them.  */
    enum yytokentype {
-     VAR = 258,
-     NUMBER = 259
+     NUM = 258,
+     ID = 259,
+     STR = 260,
+     PP = 261,
+     MM = 262,
+     GEQ = 263,
+     LEQ = 264,
+     EQ = 265,
+     NEQ = 266,
+     OR = 267,
+     AND = 268,
+     NOT = 269,
+     SR = 270,
+     SL = 271,
+     IF = 272,
+     ELSE = 273,
+     STEP = 274,
+     LET = 275,
+     BE = 276,
+     FIN = 277
    };
 #endif
 /* Tokens.  */
-#define VAR 258
-#define NUMBER 259
+#define NUM 258
+#define ID 259
+#define STR 260
+#define PP 261
+#define MM 262
+#define GEQ 263
+#define LEQ 264
+#define EQ 265
+#define NEQ 266
+#define OR 267
+#define AND 268
+#define NOT 269
+#define SR 270
+#define SL 271
+#define IF 272
+#define ELSE 273
+#define STEP 274
+#define LET 275
+#define BE 276
+#define FIN 277
 
 
 
@@ -60,14 +96,14 @@ extern int yydebug;
 typedef union YYSTYPE
 {
 /* Line 2053 of yacc.c  */
-#line 11 "guardian_bison.y"
+#line 21 "guardian_bison.y"
 
-  int number;
-  int var;
+char *string;
+int integer;
 
 
 /* Line 2053 of yacc.c  */
-#line 71 "guardian_bison.h"
+#line 107 "guardian_bison.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

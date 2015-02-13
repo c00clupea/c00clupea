@@ -54,3 +54,4 @@ src/c00nb-true
 src/c00nb-yes
 src/c00nb-strings
 clang_output_*
+kernel/src/guardian/guardianl

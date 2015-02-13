@@ -15,6 +15,12 @@
 int main(int argc, char *argv[]){
 	  int i;
 	  for (i=0; i<26; i++) sym[i] = 0;
-	  yyparse();
+
+	  FILE *myfile = fopen("test.guard", "r");
+	  yyin = myfile;
+do {
+		yyparse();
+	} while (!feof(yyin));
+
 	  return 0;
 }

@@ -16,7 +16,10 @@
 #define TRUE 1
 #define FALSE 0
 #define ERROR -1
+#include <stdio.h>
 
+
+extern FILE *yyin;
 int yyparse(void);
 extern int sym[26];
 
