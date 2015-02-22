@@ -18,6 +18,12 @@ AM_CFLAGS += -Wno-extended-offsetof
 endif
 
 
+EXTRA_PROGRAMS = guardian_mod
+
+guardian_mod_SOURCES = guardian_mod.c
+module_DATA = guardian_mod.o
+include ../../Makefile.common
+
 bin_PROGRAMS =
 
 if C00WITHGUARDIAN

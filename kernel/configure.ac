@@ -5,7 +5,7 @@ AC_INIT([c00clupeakernel], [01], [christoph.pohl0@hm.edu])
 AM_INIT_AUTOMAKE([subdir-objects])
 # Checks for programs.
 
-AC_PROG_CC(clang gcc)
+AC_PROG_CC(gcc)
 
 AC_PROG_YACC
 AC_PROG_LEX
@@ -19,6 +19,22 @@ AM_PROG_CC_C_O
 AC_TYPE_SIZE_T
 
 AC_FUNC_MALLOC
+
+AC_CHECK_FUNCS([memset])
+AC_CHECK_HEADERS([libintl.h])
+AC_CHECK_HEADERS([malloc.h])
+AC_CHECK_HEADERS([stddef.h])
+AC_FUNC_ALLOCA
+AC_FUNC_REALLOC
+AC_TYPE_INT16_T
+AC_TYPE_INT32_T
+AC_TYPE_INT8_T
+AC_TYPE_UINT16_T
+AC_TYPE_UINT32_T
+AC_TYPE_UINT64_T
+AC_TYPE_UINT8_T
+
+AC_PATH_KERNEL_SOURCE
 
 AC_CONFIG_HEADERS([src/conf.h])
 
