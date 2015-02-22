@@ -60,6 +60,11 @@ int integer;
 %token LET
 %token BE
 %token FIN
+%token RETID
+%token RETNUM
+%token RETSTRING
+%token RETEXIT
+%token RETVOID
 
 
 
@@ -85,13 +90,54 @@ line:	'\n'
 	| definition			
 ;
 
-definition:	LET ID BE ID FIN {		
-		writefmt("def(id): %s<-%s\n",$2,$4);
+definition:	LET returnal ID BE ID FIN {		
+		writefmt("def(id): %s<-%s\n",$3,$5);
 }
-		|LET ID BE NUM FIN {
-		writefmt("def(int): %s<-%d\n",$2,$4);
+		|LET returnal ID BE NUM FIN {
+		writefmt("def(int): %s<-%d\n",$3,$5);
 }
-		|LET ID BE STR FIN {
-		writefmt("def(string): %s<-%s\n",$2,$4);
+		|LET returnal ID BE STR FIN {
+		writefmt("def(string): %s<-%s\n",$3,$5);
 }
+		|LET returnal ID param BE '{' innerdef '}' FIN {
+		writefmt("(func)%s",$3);
+}
+
+returnal :	'('RETID')'	{
+	 	write("return ID\n");
+}
+		|'('RETSTRING')'	{
+	 	write("return String\n");
+}		|'('RETNUM')'	{
+	 	write("return NUM\n");
+}
+		|'('RETEXIT')'	{
+	 	write("return EXIT\n");
+}
+
+innerdef :	'\n'
+	 	|ID	{writefmt("idef -> %s\n",$1);}
+
+param :		emptyparam
+      		|singleparam
+      		|singleparam singleparam
+
+emptyparam :	'('')'		{write("param void\n");}		
+
+singleparam :	'('RETID')'ID		{writefmt("param id -> %s\n",$4);}
+	    	|'('RETNUM')'ID		{writefmt("param num -> %s\n",$4);}
+		|'('RETSTRING')'ID	{writefmt("param string -> %s\n",$4);}
+
+funccall :	ID funcparam
+
+funcparam : 	'('fparam')'
+	  	|'('')'
+		|'('fparam sparam')'
+		
+fparam :		ID
+		|NUM
+		|STR
+
+sparam	:	','fparam
+		|sparam sparam
 ;

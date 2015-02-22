@@ -1,3 +1,12 @@
-let abc be xyz;
-let abcd be 213;
-let abcde be "hallo";
+let (id)abc be xyz;
+let (num)abcd be 213;
+let (string)abcde be "hallo";
+let (exit)myname be 222;
+let (exit) myname2 (num) test (string) test2 be {
+
+    hallo
+};
+let (exit) myname2 () be {
+
+    hallo
+};

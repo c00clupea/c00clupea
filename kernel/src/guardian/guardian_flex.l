@@ -80,10 +80,11 @@ strncpy(yylval.string, yytext, strlen(yytext));
 "be"			 act(BE);			 
 "..."			 act(STEP);
 ";"			 act(FIN);
-
-
-
-
+"id"			 act(RETID);
+"num"			 act(RETNUM);
+"string"		 act(RETSTRING);
+"exit"			 act(RETEXIT);
+"void"			 act(RETVOID);
 
 . 			actc(yytext);
 

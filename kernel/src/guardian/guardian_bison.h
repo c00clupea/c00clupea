@@ -65,7 +65,12 @@ extern int yydebug;
      STEP = 274,
      LET = 275,
      BE = 276,
-     FIN = 277
+     FIN = 277,
+     RETID = 278,
+     RETNUM = 279,
+     RETSTRING = 280,
+     RETEXIT = 281,
+     RETVOID = 282
    };
 #endif
 /* Tokens.  */
@@ -89,6 +94,11 @@ extern int yydebug;
 #define LET 275
 #define BE 276
 #define FIN 277
+#define RETID 278
+#define RETNUM 279
+#define RETSTRING 280
+#define RETEXIT 281
+#define RETVOID 282
 
 
 
@@ -103,7 +113,7 @@ int integer;
 
 
 /* Line 2053 of yacc.c  */
-#line 107 "guardian_bison.h"
+#line 117 "guardian_bison.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
