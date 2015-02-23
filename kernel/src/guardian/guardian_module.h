@@ -19,9 +19,14 @@
 #include <linux/init.h>  
 #include <linux/proc_fs.h>
 #include <linux/sched.h>
-
+#include <generated/autoconf.h>
 #include "../conf.h"
 
+#define TRUE 1
+#define FALSE 0
+#define ERROR -1
+
+#define P_FLAG 0x10000
 
 #ifdef C00VERBOSE
 #define C00TRACE(fmt,...) printk(fmt, ##__VA_ARGS__)
@@ -46,6 +51,10 @@ struct {
 extern unsigned long *ia32_syscalltable;
 #endif
 extern unsigned long *syscalltable;
+
+/*The syscalls*/
+extern asmlinkage long (*org_sys_write)(unsigned int fd, const char __user *buf, size_t count);
+extern asmlinkage long (*org_sys_read)(unsigned int fd, char __user *buf, size_t count);
 
 void *memmem ( const void *haystack, size_t haystack_size, const void *needle, size_t needle_size );
 
