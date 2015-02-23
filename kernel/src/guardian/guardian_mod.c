@@ -118,7 +118,7 @@ unsigned long *obtain_syscalltable(void)
 static inline int disable_write_protection(void){
   unsigned long b;
   __asm__("mov %%cr0, %0" : "=r" (b));
-  __asm__("mov %0, %%cr0" : : "r" (b | -P_FLAG));
+  __asm__("mov %0, %%cr0" : : "r" (b | ~P_FLAG));
   return TRUE;
 }
 
