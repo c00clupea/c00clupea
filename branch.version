@@ -65,3 +65,5 @@ feature/c00_01.36
 	create touch
 feature/c00_01.38
 	create kernel split language
+feature/c00_01.39
+	create kernel hooks
