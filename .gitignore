@@ -1,3 +1,6 @@
+kernel/src/guardian/.c00clupeaguard.ko.cmd
+kernel/src/guardian/c00clupeaguard.mod.c
+kernel/src/guardian/Makefile.automake
 kernel/src/guardian/guardianl
 kernel/src/guardian/modules.order
 kernel/src/guardian/.tmp_versions/

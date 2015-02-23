@@ -1,6 +1,6 @@
 #  Makefile.kernel
 obj-m=$(module_DATA)
-MI_OBJS=$(module_DATA)
+MI_OBJS=$(guardian_objs)
 
 all clean:
 	mv Makefile.automake Makefile

@@ -24,11 +24,26 @@ unsigned long *ia32_syscalltable;
 #endif
 unsigned long *syscalltable;
 
-asmlinkage long (*org_sys_write)(unsigned int fd, const char __user *buf, size_t count);
-asmlinkage long (*org_sys_read)(unsigned int fd, char __user *buf, size_t count);
-asmlinkage int (*org_sys_open)(const char* file, int flags, int mode);
 
-asmlinkage int (*hook_sys_open)(const char* file, int flags, int mode);
+/*Some code from https://github.com/mncoppola/suterusu/blob/master/main.c*/
+struct {
+  unsigned short limit;
+  unsigned long base;
+} __attribute__ ((packed))idtr;
+struct {
+  unsigned short off1;
+  unsigned short sel;
+  unsigned char none, flags;
+  unsigned short off2;
+} __attribute__ ((packed))idt;
+
+
+
+asmlinkage long (*org_sys_write)(unsigned int, const char __user* , size_t);
+asmlinkage long (*org_sys_read)(unsigned int, char __user*, size_t);
+asmlinkage int (*org_sys_open)(const char*, int, int);
+
+asmlinkage int (*hook_sys_open)(const char*, int, int);
 
 
 
@@ -139,14 +154,7 @@ static inline int enable_write_protection(void){
 }
 
 
-static asmlinkage int concrete_hook_sys_open(const char* file, int flags, int mode)
-{
-  int ret;
-  printk("open file %s\n",file);
 
-  ret = org_sys_open(file,flags,mode);
-  return ret;
-}
 
 static int store_syscall_ptr(void)
 {
@@ -158,6 +166,7 @@ static int store_syscall_ptr(void)
   
   C00TRACE("read at %p\n",org_sys_read);
   C00TRACE("write at %p\n",org_sys_write);
+  C00TRACE("open at %p\n",org_sys_open);
   return TRUE;
 }
 
@@ -183,7 +192,9 @@ static int __init guardian_init(void)
     return 1;
   }
   disable_write_protection();
-  syscalltable[__NR_open] = (void *)hook_sys_open;
+  printk("Address of hook open %p\n",hook_sys_open);
+  printk("Address of hook open %p\n",&hook_sys_open);
+  syscalltable[__NR_open] = hook_sys_open;
   enable_write_protection();
   
   return 0;   
@@ -192,7 +203,7 @@ static int __init guardian_init(void)
 static void __exit guardian_cleanup(void)
 {
   disable_write_protection();
-  syscalltable[__NR_open] = (void *)org_sys_open;
+  syscalltable[__NR_open] = org_sys_open;
   enable_write_protection();
   
   C00TRACE("Cleaning up guardian_mod.\n");

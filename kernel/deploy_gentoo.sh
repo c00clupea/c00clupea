@@ -1,8 +1,8 @@
 #!/bin/bash
 
-if lsmod | grep "guardian_mod" &> /dev/null ; then
+if lsmod | grep "modguardian" &> /dev/null ; then
     echo "Delete guardian_mod"
-    sudo rmmod guardian_mod
+    sudo rmmod modguardian
 fi
 
 make distclean
@@ -13,6 +13,6 @@ make
 
 cd src/guardian
 
-sudo insmod guardian_mod.ko
+sudo insmod modguardian.ko
 
 cd ../../

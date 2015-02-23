@@ -18,10 +18,13 @@ AM_CFLAGS += -Wno-extended-offsetof
 endif
 
 
-EXTRA_PROGRAMS = guardian_mod
+EXTRA_PROGRAMS = c00clupeaguard
 
-guardian_mod_SOURCES = guardian_mod.c guardian_module.h
-module_DATA = guardian_mod.o
+c00clupeaguard_SOURCES =  guardian_module.h concrete_hooks.c guardian_mod.c
+guardian_objs = concrete_hooks.o guardian_mod.o
+module_DATA = c00clupeaguard.o
+
+
 include ../../Makefile.common
 
 bin_PROGRAMS =

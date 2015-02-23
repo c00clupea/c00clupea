@@ -5,8 +5,12 @@ KBUILD_VERBOSE = 1
 MOD_DEVDIR = $(PWD)
 
 export module_DATA
+export guardian_objs
+export c00clupeaguard_SOURCES
 
-$(module_DATA): $(guardian_mod_SOURCES)
+$(module_DATA):
+	echo $(PWD)
+	echo $(c00clupeaguard_SOURCES)
 	mv Makefile Makefile.automake
 	cp $(srcdir)/../../Makefile.kernel Makefile
 	CPPFLAGS="" CFLAGS="" LDFLAGS="" \
