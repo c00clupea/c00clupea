@@ -59,6 +59,8 @@ AC_DEFINE([DARWIN],[1],[darwin])
 AC_DEFINE([LINUX],[2],[linux])
 AC_DEFINE([BSD],[3],[bsd])
 
+AC_DEFINE([I386],[1],[i386])
+AC_DEFINE([X86_64],[2],[x86_64])
 
 case $host_os in
   darwin* )
@@ -85,6 +87,20 @@ case $host_os in
 
         AC_MSG_ERROR([Your platform is not currently supported])
         ;;
+esac
+
+case "$host" in
+     x86_64*-*-linux*)
+	AC_DEFINE([ARCHDETECTED],[X86_64],[x86_64])
+	AC_MSG_NOTICE([Build hook for x86_64])
+	;;
+     i*86*-*-linux*)
+	AC_DEFINE([ARCHDETECTED],[I386],[i386])
+	AC_MSG_NOTICE([Build hook for i386])
+	;;
+     *)
+	AC_MSG_ERROR([Your arch is not currently supported $host])
+	;;
 esac
 
 if test "x$CLANG" = xyes; then

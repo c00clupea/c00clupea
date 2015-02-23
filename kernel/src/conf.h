@@ -1,6 +1,9 @@
 /* src/conf.h.  Generated from conf.h.in by configure.  */
 /* src/conf.h.in.  Generated from configure.ac by autoheader.  */
 
+/* i386 */
+#define ARCHDETECTED X86_64
+
 /* bsd */
 #define BSD 3
 
@@ -78,6 +81,9 @@
 /* Define to 1 if you have the <unistd.h> header file. */
 #define HAVE_UNISTD_H 1
 
+/* i386 */
+#define I386 1
+
 /* linux */
 #define LINUX 2
 
@@ -124,6 +130,9 @@
 
 /* write really verbose stdouts */
 /* #undef WRITEC00CRAP */
+
+/* x86_64 */
+#define X86_64 2
 
 /* Define to 1 if `lex' declares `yytext' as a `char *' by default, not a
    `char[]'. */
