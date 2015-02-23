@@ -26,7 +26,7 @@
 #define FALSE 0
 #define ERROR -1
 
-#define P_FLAG 0x10000
+#define P_FLAG 0x00010000 /*same than X86_CR0_WP see http://www.cs.fsu.edu/~baker/devices/lxr/http/source/linux/include/asm-x86/processor-flags.h?v=2.6.25.8#L35*/
 
 #ifdef C00VERBOSE
 #define C00TRACE(fmt,...) printk(fmt, ##__VA_ARGS__)
