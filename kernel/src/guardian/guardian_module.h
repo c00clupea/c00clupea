@@ -21,7 +21,7 @@
 #include <linux/proc_fs.h>
 #include <linux/sched.h>
 #include <generated/autoconf.h>
-#include "../conf.h"
+
 
 #define TRUE 1
 #define FALSE 0
@@ -29,7 +29,7 @@
 
 #define P_FLAG 0x00010000 /*same than X86_CR0_WP see http://www.cs.fsu.edu/~baker/devices/lxr/http/source/linux/include/asm-x86/processor-flags.h?v=2.6.25.8#L35*/
 
-#ifdef C00VERBOSE
+#ifdef _C00_VERBOSE_
 #define C00TRACE(fmt,...) printk(fmt, ##__VA_ARGS__)
 #else
 #define C00TRACE(fmt,...)
@@ -37,7 +37,7 @@
 
 
 
-#if ARCHDETECTED == X86_64
+#ifdef _X86_64_
 extern unsigned long *ia32_syscalltable;
 #endif
 extern unsigned long *syscalltable;
@@ -59,7 +59,7 @@ asmlinkage int concrete_hook_sys_open(const char* file, int flags, int mode);
 
 unsigned long *obtain_syscalltable(void);
 
-#if ARCHDETECTED == X86_64
+#ifdef _X86_64_
 unsigned long *obtain_ia32_syscalltable(void);
 #endif
 /*

@@ -1,18 +1,14 @@
 #!/bin/bash
 
-if lsmod | grep "modguardian" &> /dev/null ; then
-    echo "Delete guardian_mod"
-    sudo rmmod modguardian
+if lsmod | grep "c00clupeaguard" &> /dev/null ; then
+    echo "Delete c00clupeaguard"
+    sudo rmmod c00clupeaguard
 fi
-
-make distclean
-
-./configure --enable-c00verbose
-
-make
 
 cd src/guardian
 
-sudo insmod modguardian.ko
+make x86_64 VERBOSE=y
+
+sudo insmod c00clupeaguard.ko
 
 cd ../../

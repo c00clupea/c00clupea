@@ -17,9 +17,9 @@ MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Christoph Pohl");
 MODULE_DESCRIPTION("C00clupea guardian");
 
+/*Whenever some shit happens here (hooking and so on) you will have kernel poo (oops)*/
 
-
-#if ARCHDETECTED == X86_64
+#ifdef _X86_64_
 unsigned long *ia32_syscalltable;
 #endif
 unsigned long *syscalltable;
@@ -38,11 +38,12 @@ struct {
 } __attribute__ ((packed))idt;
 
 
-
+/*origs*/
 asmlinkage long (*org_sys_write)(unsigned int, const char __user* , size_t);
 asmlinkage long (*org_sys_read)(unsigned int, char __user*, size_t);
 asmlinkage int (*org_sys_open)(const char*, int, int);
 
+/*hooks*/
 asmlinkage int (*hook_sys_open)(const char*, int, int);
 
 
@@ -60,7 +61,7 @@ void *memmem ( const void *haystack, size_t haystack_size, const void *needle, s
 }
 
 
-#if ARCHDETECTED == X86_64
+#ifdef _X86_64_
 /*Idea from http://www.exploit-db.com/papers/13146/*/
 /*And from http://phrack.org/archives/issues/58/7.txt*/
 unsigned long *obtain_ia32_syscalltable(void) {
@@ -111,7 +112,7 @@ unsigned long *obtain_syscalltable(void) {
 }
 #endif
 
-#if ARCHDETECTED == I386
+#ifdef _I386_
 /*See http://phrack.org/archives/issues/58/7.txt*/
 unsigned long *obtain_syscalltable(void)
 {
@@ -153,9 +154,6 @@ static inline int enable_write_protection(void){
   return TRUE;
 }
 
-
-
-
 static int store_syscall_ptr(void)
 {
   org_sys_read = (void *)syscalltable[__NR_read];
@@ -163,26 +161,38 @@ static int store_syscall_ptr(void)
   org_sys_open = (void *)syscalltable[__NR_open];
 
   hook_sys_open = &concrete_hook_sys_open;
-  
-  C00TRACE("read at %p\n",org_sys_read);
-  C00TRACE("write at %p\n",org_sys_write);
-  C00TRACE("open at %p\n",org_sys_open);
+
   return TRUE;
 }
 
+static int hook_syscalls(void)
+{
+  disable_write_protection();
+  syscalltable[__NR_open] = hook_sys_open;
+  enable_write_protection();
+  return TRUE;
+}
+
+static int dehook_syscalls(void)
+{
+  disable_write_protection();
+  syscalltable[__NR_open] = org_sys_open;
+  enable_write_protection();
+  return TRUE;
+}
 
 
 static int __init guardian_init(void)
 {
 
-#if ARCHDETECTED == X86_64
+#ifdef _X86_64_
   ia32_syscalltable = obtain_ia32_syscalltable();
 #endif
   syscalltable = obtain_syscalltable();
   C00TRACE("Starting guardian_mod!\n");
 
   C00TRACE("found syscall_table at %p\n",syscalltable);
-#if ARCHDETECTED == X86_64
+#ifdef _X86_64_
   C00TRACE("found syscall_table ia32 at %p\n",ia32_syscalltable);
 #endif
 
@@ -191,21 +201,19 @@ static int __init guardian_init(void)
     C00TRACE("Can not store syscall table");
     return 1;
   }
-  disable_write_protection();
-  printk("Address of hook open %p\n",hook_sys_open);
-  printk("Address of hook open %p\n",&hook_sys_open);
-  syscalltable[__NR_open] = hook_sys_open;
-  enable_write_protection();
-  
+  if(hook_syscalls() != TRUE){
+    /*This will not happen, instead we have a big kernel poo*/
+    return 1;
+  }
   return 0;   
 }
 
 static void __exit guardian_cleanup(void)
 {
-  disable_write_protection();
-  syscalltable[__NR_open] = org_sys_open;
-  enable_write_protection();
-  
+  /*Never ever forget to bring them back, or you will have some big kernel poo*/
+  if(dehook_syscalls() != TRUE){
+    /*This will not happen, instead we have a big kernel poo*/
+  }  
   C00TRACE("Cleaning up guardian_mod.\n");
 }
 
