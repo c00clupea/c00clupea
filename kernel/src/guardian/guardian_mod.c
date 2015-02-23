@@ -13,6 +13,12 @@
 #include "guardian_module.h"
 
 #define MODULE_NAME "c00clupeaguardian"
+MODULE_LICENSE("GPL");
+MODULE_AUTHOR("Christoph Pohl");
+MODULE_DESCRIPTION("C00clupea guardian");
+
+
+
 #if ARCHDETECTED == X86_64
 unsigned long *ia32_syscalltable;
 #endif
@@ -20,11 +26,10 @@ unsigned long *syscalltable;
 
 asmlinkage long (*org_sys_write)(unsigned int fd, const char __user *buf, size_t count);
 asmlinkage long (*org_sys_read)(unsigned int fd, char __user *buf, size_t count);
+asmlinkage int (*org_sys_open)(const char* file, int flags, int mode);
 
+asmlinkage int (*hook_sys_open)(const char* file, int flags, int mode);
 
-MODULE_LICENSE("GPL");
-MODULE_AUTHOR("Christoph Pohl");
-MODULE_DESCRIPTION("C00clupea guardian");
 
 
 /*Borrowed from https://github.com/mncoppola/suterusu/blob/master/util.c*/
@@ -99,7 +104,7 @@ unsigned long *obtain_syscalltable(void)
   unsigned char c[255];
   char **p;
 
-  asm("sidt %0":"=m"(idtr));
+  __asm__ volatile("sidt %0":"=m"(idtr));
   memcpy(&idt, (void *)(idtr.base + 8 * 0x80), sizeof(idt));  
   res_offset = (idt.off2 << 16) | idt.off1;
   memcpy(c, (void *)res_offset, sizeof(c));
@@ -115,30 +120,48 @@ unsigned long *obtain_syscalltable(void)
 }
 #endif
 
+
+/*see http://badishi.com/kernel-writing-to-read-only-memory/*/
 static inline int disable_write_protection(void){
   unsigned long b;
-  __asm__("mov %%cr0, %0" : "=r" (b));
-  __asm__("mov %0, %%cr0" : : "r" (b & ~P_FLAG));
+  __asm__ volatile("mov %%cr0, %0" : "=r" (b));
+  __asm__ volatile("mov %0, %%cr0" : : "r" (b & ~P_FLAG));
+  C00TRACE("Disable Write Protection\n");
   return TRUE;
 }
 
 static inline int enable_write_protection(void){
   unsigned long b;
-  __asm__("mov %%cr0, %0" : "=r" (b));
-  __asm__("mov %0, %%cr0" : : "r" (b | P_FLAG));
+  __asm__ volatile("mov %%cr0, %0" : "=r" (b));
+  __asm__ volatile("mov %0, %%cr0" : : "r" (b | P_FLAG));
+  C00TRACE("Enable Write Protection\n");
   return TRUE;
 }
 
+
+static asmlinkage int concrete_hook_sys_open(const char* file, int flags, int mode)
+{
+  int ret;
+  printk("open file %s\n",file);
+
+  ret = org_sys_open(file,flags,mode);
+  return ret;
+}
 
 static int store_syscall_ptr(void)
 {
   org_sys_read = (void *)syscalltable[__NR_read];
   org_sys_write = (void *)syscalltable[__NR_write];
+  org_sys_open = (void *)syscalltable[__NR_open];
 
+  hook_sys_open = &concrete_hook_sys_open;
+  
   C00TRACE("read at %p\n",org_sys_read);
   C00TRACE("write at %p\n",org_sys_write);
   return TRUE;
 }
+
+
 
 static int __init guardian_init(void)
 {
@@ -160,6 +183,7 @@ static int __init guardian_init(void)
     return 1;
   }
   disable_write_protection();
+  syscalltable[__NR_open] = (void *)hook_sys_open;
   enable_write_protection();
   
   return 0;   
@@ -167,7 +191,10 @@ static int __init guardian_init(void)
 
 static void __exit guardian_cleanup(void)
 {
-
+  disable_write_protection();
+  syscalltable[__NR_open] = (void *)org_sys_open;
+  enable_write_protection();
+  
   C00TRACE("Cleaning up guardian_mod.\n");
 }
 

@@ -55,6 +55,12 @@ extern unsigned long *syscalltable;
 /*The syscalls*/
 extern asmlinkage long (*org_sys_write)(unsigned int fd, const char __user *buf, size_t count);
 extern asmlinkage long (*org_sys_read)(unsigned int fd, char __user *buf, size_t count);
+extern asmlinkage int (*org_sys_open)(const char* file, int flags, int mode);
+
+/*The hooks*/
+extern asmlinkage long (*hook_sys_write)(unsigned int fd, const char __user *buf, size_t count);
+extern asmlinkage long (*hook_sys_read)(unsigned int fd, char __user *buf, size_t count);
+extern asmlinkage int (*hook_sys_open)(const char* file, int flags, int mode);
 
 void *memmem ( const void *haystack, size_t haystack_size, const void *needle, size_t needle_size );
 
