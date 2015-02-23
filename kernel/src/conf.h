@@ -7,6 +7,9 @@
 /* bsd */
 #define BSD 3
 
+/* is not really silent */
+#define C00VERBOSE /**/
+
 /* has guardian */
 #define C00WITHGUARDIAN /**/
 

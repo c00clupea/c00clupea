@@ -10,43 +10,39 @@
  * created: 	Sun Feb 22 21:05:56 2015
  * author:  	Christoph Pohl <c00clupea@gmail.com>
  */
-
-
-#include <linux/module.h>
-#include <linux/kernel.h>
-#include <linux/init.h>  
-#include <linux/proc_fs.h>
-#include <linux/sched.h>
-
-#include "../conf.h"
+#include "guardian_module.h"
 
 #define MODULE_NAME "c00clupeaguardian"
-
-
-/*Some code from https://github.com/mncoppola/suterusu/blob/master/main.c*/
-struct {
-  unsigned short limit;
-  unsigned long base;
-} __attribute__ ((packed))idtr;
-struct {
-  unsigned short off1;
-  unsigned short sel;
-  unsigned char none, flags;
-  unsigned short off2;
-} __attribute__ ((packed))idt;
-
+#if ARCHDETECTED == X86_64
+unsigned long *ia32_syscalltable;
+#endif
+unsigned long *syscalltable;
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Christoph Pohl");
 MODULE_DESCRIPTION("C00clupea guardian");
 
 
+/*Borrowed from https://github.com/mncoppola/suterusu/blob/master/util.c*/
+void *memmem ( const void *haystack, size_t haystack_size, const void *needle, size_t needle_size )
+{
+  char *p;
+
+  for ( p = (char *)haystack; p <= ((char *)haystack - needle_size + haystack_size); p++ )
+    if ( memcmp(p, needle, needle_size) == 0 )
+      return (void *)p;
+
+  return NULL;
+}
+
+
+#if ARCHDETECTED == X86_64
 /*Idea from http://www.exploit-db.com/papers/13146/*/
 /*And from http://phrack.org/archives/issues/58/7.txt*/
 unsigned long *obtain_ia32_syscalltable(void) {
   unsigned long res_offset = 0;
   unsigned char c[512];
-  char **p:
+  char **p;
 
   asm("sidt %0":"=m"(idtr));
   memcpy(&idt, (void *)(idtr.base + 16 * 0x80), sizeof(idt));
@@ -70,7 +66,7 @@ unsigned long *obtain_ia32_syscalltable(void) {
 unsigned long *obtain_syscalltable(void) {
   unsigned long res_offset = 0;
   unsigned char c[512];
-  char **p:
+  char **p;
 
   rdmsrl(MSR_LSTAR, res_offset);
   memcpy(c, (void *)res_offset, sizeof(c));
@@ -89,18 +85,48 @@ unsigned long *obtain_syscalltable(void) {
     }
 
 }
+#endif
 
+#if ARCHDETECTED == I386
+unsigned long *obtain_syscalltable(void)
+{
+  unsigned long res_offset = 0;
+  unsigned char c[255];
+  char **p;
+
+  asm("sidt %0":"=m"(idtr));
+  memcpy(&idt, (void *)(idtr.base + 8 * 0x80), sizeof(idt));  
+  res_offset = (idt.off2 << 16) | idt.off1;
+  memcpy(c, (void *)res_offset, sizeof(c));
+  p = (char **)memmem(c, sizeof(c), "\xff\x14\x85", 3);
+  if(p)
+    {
+      return *(unsigned long **)((char *)p+3);
+    }
+  else {
+    return NULL;
+  }
+
+}
+#endif
 
 static int __init guardian_init(void)
 {
-  printk(KERN_INFO "Starting kernel module!\n");
+
+#if ARCHDETECTED == X86_64
+  ia32_syscalltable = obtain_ia32_syscalltable();
+#endif
+  syscalltable = obtain_syscalltable();
+  C00TRACE("Starting guardian_mod!\n");
+  C00TRACE("found syscall_table at %p\n",syscalltable);
+  C00TRACE("found syscall_table ia32 at %p\n",ia32_syscalltable);
   return 0;   
 }
 
 static void __exit guardian_cleanup(void)
 {
 
-  printk(KERN_INFO "Cleaning up module.\n");
+  C00TRACE("Cleaning up guardian_mod.\n");
 }
 
 

@@ -19,6 +19,8 @@ __used
 __attribute__((section("__versions"))) = {
 	{ 0xbb5b38d2, __VMLINUX_SYMBOL_STR(module_layout) },
 	{ 0x27e1a049, __VMLINUX_SYMBOL_STR(printk) },
+	{ 0x4bd58686, __VMLINUX_SYMBOL_STR(pv_cpu_ops) },
+	{ 0x449ad0a7, __VMLINUX_SYMBOL_STR(memcmp) },
 };
 
 static const char __module_depends[]

@@ -626,6 +626,8 @@ am__EXEEXT_TRUE
 LTLIBOBJS
 C00WITHGUARDIAN_FALSE
 C00WITHGUARDIAN_TRUE
+C00VERBOSE_FALSE
+C00VERBOSE_TRUE
 CLANG_FALSE
 CLANG_TRUE
 NEEDPTHREAD_FALSE
@@ -745,6 +747,7 @@ enable_silent_rules
 enable_dependency_tracking
 with_kerneldir
 enable_writecrap
+enable_c00verbose
 enable_c00guardian
 '
       ac_precious_vars='build_alias
@@ -1383,6 +1386,7 @@ Optional Features:
   --disable-dependency-tracking
                           speeds up one-time build
   --enable-writecrap      Enable really verbose output
+  --enable-c00verbose write sth to dmesg
   --disable-c00guardian    disable guardian
 
 Optional Packages:
@@ -5378,6 +5382,32 @@ fi
 
 
 
+# Check whether --enable-c00verbose was given.
+if test "${enable_c00verbose+set}" = set; then :
+  enableval=$enable_c00verbose; case "${enableval}" in
+  yes) c00verbose=true ;;
+  no)  c00verbose=false ;;
+  *) as_fn_error $? "bad value ${enableval} for --enable-c00verbose" "$LINENO" 5 ;;
+esac
+else
+  c00verbose=false
+fi
+
+ if test "x$c00verbose" = xtrue; then
+  C00VERBOSE_TRUE=
+  C00VERBOSE_FALSE='#'
+else
+  C00VERBOSE_TRUE='#'
+  C00VERBOSE_FALSE=
+fi
+
+if test "x$c00verbose" = xtrue; then :
+
+$as_echo "#define C00VERBOSE /**/" >>confdefs.h
+
+fi
+
+
 
 # Check whether --enable-c00guardian was given.
 if test "${enable_c00guardian+set}" = set; then :
@@ -5577,6 +5607,10 @@ Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${CLANG_TRUE}" && test -z "${CLANG_FALSE}"; then
   as_fn_error $? "conditional \"CLANG\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${C00VERBOSE_TRUE}" && test -z "${C00VERBOSE_FALSE}"; then
+  as_fn_error $? "conditional \"C00VERBOSE\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${C00WITHGUARDIAN_TRUE}" && test -z "${C00WITHGUARDIAN_FALSE}"; then

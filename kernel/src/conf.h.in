@@ -6,6 +6,9 @@
 /* bsd */
 #undef BSD
 
+/* is not really silent */
+#undef C00VERBOSE
+
 /* has guardian */
 #undef C00WITHGUARDIAN
 

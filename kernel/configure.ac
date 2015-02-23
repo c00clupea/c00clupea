@@ -118,6 +118,17 @@ AS_IF([test "$enable_writecrap" = "yes"], [
 
 
 
+AC_ARG_ENABLE([c00verbose],
+[  --enable-c00verbose write sth to dmesg],
+[case "${enableval}" in
+  yes) c00verbose=true ;;
+  no)  c00verbose=false ;;
+  *) AC_MSG_ERROR([bad value ${enableval} for --enable-c00verbose]) ;;
+esac],[c00verbose=false])
+AM_CONDITIONAL([C00VERBOSE], [test "x$c00verbose" = xtrue])
+AS_IF([test "x$c00verbose" = xtrue],[AC_DEFINE([C00VERBOSE],[],[is not really silent])])
+
+
 
 AC_ARG_ENABLE([c00guardian],
 [  --disable-c00guardian    disable guardian],

@@ -20,7 +20,7 @@ endif
 
 EXTRA_PROGRAMS = guardian_mod
 
-guardian_mod_SOURCES = guardian_mod.c
+guardian_mod_SOURCES = guardian_mod.c guardian_module.h
 module_DATA = guardian_mod.o
 include ../../Makefile.common
 
