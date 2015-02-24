@@ -46,7 +46,7 @@ asmlinkage int (*org_sys_open)(const char*, int, int);
 /*hooks*/
 asmlinkage int (*hook_sys_open)(const char*, int, int);
 asmlinkage long (*hook_sys_read)(unsigned int, char __user*, size_t);
-asmlinkage long (*hook_sys_write)(unsigned int, char __user*, size_t);
+asmlinkage long (*hook_sys_write)(unsigned int,const char __user*, size_t);
 
 
 

@@ -15,9 +15,10 @@
 asmlinkage int concrete_hook_sys_open(const char* file, int flags, int mode)
 {
   int ret;
-  printk("open file %s\n",file);
 
+  printk("open file %s as %d\n",file,ret);
   ret = org_sys_open(file,flags,mode);
+
   return ret;
 }
 
