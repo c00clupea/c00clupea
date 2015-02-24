@@ -33,7 +33,7 @@ asmlinkage long concrete_hook_sys_read(unsigned int fd, char __user *buf, size_t
 asmlinkage long concrete_hook_sys_write(unsigned int fd, char __user *buf, size_t count)
 {
   long ret;
-  printk("Write %d, c: %d\n",fd,count);
+  //  printk("Write %d, c: %d\n",fd,count);
   ret = org_sys_write(fd,buf,count);
   return ret;
 }
