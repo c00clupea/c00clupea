@@ -45,6 +45,9 @@ asmlinkage int (*org_sys_open)(const char*, int, int);
 
 /*hooks*/
 asmlinkage int (*hook_sys_open)(const char*, int, int);
+asmlinkage long (*hook_sys_read)(unsigned int, char __user*, size_t);
+asmlinkage long (*hook_sys_write)(unsigned int, char __user*, size_t);
+
 
 
 
@@ -161,7 +164,8 @@ static int store_syscall_ptr(void)
   org_sys_open = (void *)syscalltable[__NR_open];
 
   hook_sys_open = &concrete_hook_sys_open;
-
+  hook_sys_read = &concrete_hook_sys_read;
+  hook_sys_write = &concrete_hook_sys_write;
   return TRUE;
 }
 
@@ -169,6 +173,8 @@ static int hook_syscalls(void)
 {
   disable_write_protection();
   syscalltable[__NR_open] = hook_sys_open;
+  syscalltable[__NR_read] = hook_sys_read;
+  syscalltable[__NR_write] = hook_sys_write;
   enable_write_protection();
   return TRUE;
 }
@@ -177,6 +183,8 @@ static int dehook_syscalls(void)
 {
   disable_write_protection();
   syscalltable[__NR_open] = org_sys_open;
+  syscalltable[__NR_read] = org_sys_read;
+  syscalltable[__NR_write] = org_sys_write;
   enable_write_protection();
   return TRUE;
 }

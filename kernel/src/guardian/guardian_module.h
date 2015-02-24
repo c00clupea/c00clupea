@@ -55,6 +55,8 @@ extern asmlinkage int (*hook_sys_open)(const char* file, int flags, int mode);
 void *memmem ( const void *haystack, size_t haystack_size, const void *needle, size_t needle_size );
 
 asmlinkage int concrete_hook_sys_open(const char* file, int flags, int mode);
+asmlinkage long concrete_hook_sys_read(unsigned int fd, char __user *buf, size_t count);
+asmlinkage long concrete_hook_sys_write(unsigned int fd, char __user *buf, size_t count);
 
 
 unsigned long *obtain_syscalltable(void);

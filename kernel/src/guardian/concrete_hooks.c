@@ -20,3 +20,19 @@ asmlinkage int concrete_hook_sys_open(const char* file, int flags, int mode)
   ret = org_sys_open(file,flags,mode);
   return ret;
 }
+
+asmlinkage long concrete_hook_sys_read(unsigned int fd, char __user *buf, size_t count)
+{
+  long ret;
+  printk("Read %d, c: %d\n",fd,count);
+  ret = org_sys_read(fd,buf,count);
+  return ret;
+}
+
+asmlinkage long concrete_hook_sys_write(unsigned int fd, char __user *buf, size_t count)
+{
+  long ret;
+  printk("Write %d, c: %d\n",fd,count);
+  ret = org_sys_write(fd,buf,count);
+  return ret;
+}

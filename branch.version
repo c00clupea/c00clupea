@@ -67,3 +67,5 @@ feature/c00_01.38
 	create kernel split language
 feature/c00_01.39
 	create kernel hooks
+feature/c00_01.40
+	create hooks for write, read, close
