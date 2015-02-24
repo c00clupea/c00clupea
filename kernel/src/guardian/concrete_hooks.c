@@ -16,16 +16,16 @@ asmlinkage int concrete_hook_sys_open(const char* file, int flags, int mode)
 {
   int ret;
 
-  printk("open file %s as %d\n",file,ret);
+  
   ret = org_sys_open(file,flags,mode);
-
+  printk("open file %s as %d with f: %d\n",file,ret,flags);
   return ret;
 }
 
 asmlinkage long concrete_hook_sys_read(unsigned int fd, char __user *buf, size_t count)
 {
   long ret;
-  printk("Read %d, c: %d\n",fd,count);
+  //printk("Read %d, c: %ul\n",fd,count);
   ret = org_sys_read(fd,buf,count);
   return ret;
 }
