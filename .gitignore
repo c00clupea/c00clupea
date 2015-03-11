@@ -1,3 +1,13 @@
+kernel/src/guardian/.c00clupeaguard.ko.cmd
+kernel/src/guardian/c00clupeaguard.mod.c
+kernel/src/guardian/Makefile.automake
+kernel/src/guardian/guardianl
+kernel/src/guardian/modules.order
+kernel/src/guardian/.tmp_versions/
+*.ko
+src/c00nb-*
+kernel/src/guardian/.guardian_mod.ko.cmd
+*.symvers
 src/c00clupea
 htdocs.tar.gz
 c00clupea-01.tar.gz
@@ -55,3 +65,4 @@ src/c00nb-yes
 src/c00nb-strings
 clang_output_*
 kernel/src/guardian/guardianl
+*.o.cmd

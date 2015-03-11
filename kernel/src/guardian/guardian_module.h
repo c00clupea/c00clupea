@@ -46,12 +46,16 @@ extern unsigned long *syscalltable;
 extern asmlinkage long (*org_sys_write)(unsigned int fd, const char __user *buf, size_t count);
 extern asmlinkage long (*org_sys_read)(unsigned int fd, char __user *buf, size_t count);
 extern asmlinkage int (*org_sys_open)(const char* file, int flags, int mode);
+<<<<<<< HEAD
 extern asmlinkage int (*org_sys_close)(int fd);
+=======
+>>>>>>> 5be9bdb5b127731429b15a1424b1401c00f7999d
 
 /*The hooks*/
 extern asmlinkage long (*hook_sys_write)(unsigned int fd, const char __user *buf, size_t count);
 extern asmlinkage long (*hook_sys_read)(unsigned int fd, char __user *buf, size_t count);
 extern asmlinkage int (*hook_sys_open)(const char* file, int flags, int mode);
+<<<<<<< HEAD
 extern asmlinkage int (*hook_sys_close)(int fd);
 void *memmem ( const void *haystack, size_t haystack_size, const void *needle, size_t needle_size );
 
@@ -59,6 +63,12 @@ asmlinkage int concrete_hook_sys_open(const char* file, int flags, int mode);
 asmlinkage long concrete_hook_sys_read(unsigned int fd, char __user *buf, size_t count);
 asmlinkage long concrete_hook_sys_write(unsigned int fd, char __user *buf, size_t count);
 asmlinkage int concrete_hook_sys_close(int fd);
+=======
+
+void *memmem ( const void *haystack, size_t haystack_size, const void *needle, size_t needle_size );
+
+asmlinkage int concrete_hook_sys_open(const char* file, int flags, int mode);
+>>>>>>> 5be9bdb5b127731429b15a1424b1401c00f7999d
 
 
 unsigned long *obtain_syscalltable(void);
