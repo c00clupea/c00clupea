@@ -20,7 +20,7 @@
 #include <linux/init.h>  
 #include <linux/proc_fs.h>
 #include <linux/sched.h>
-#include <generated/autoconf.h>
+/*#include <generated/autoconf.h>*/
 
 
 #define TRUE 1
@@ -43,23 +43,23 @@ extern unsigned long *ia32_syscalltable;
 extern unsigned long *syscalltable;
 
 /*The syscalls*/
-extern asmlinkage long (*org_sys_write)(unsigned int fd, const char __user *buf, size_t count);
-extern asmlinkage long (*org_sys_read)(unsigned int fd, char __user *buf, size_t count);
+extern asmlinkage long (*org_sys_write)(unsigned int fd, const void __user *buf, size_t count);
+extern asmlinkage long (*org_sys_read)(unsigned int fd, void __user *buf, size_t count);
 extern asmlinkage int (*org_sys_open)(const char* file, int flags, int mode);
 
 extern asmlinkage int (*org_sys_close)(int fd);
 
 /*The hooks*/
-extern asmlinkage long (*hook_sys_write)(unsigned int fd, const char __user *buf, size_t count);
-extern asmlinkage long (*hook_sys_read)(unsigned int fd, char __user *buf, size_t count);
+extern asmlinkage long (*hook_sys_write)(unsigned int fd, const void __user *buf, size_t count);
+extern asmlinkage long (*hook_sys_read)(unsigned int fd, void __user *buf, size_t count);
 extern asmlinkage int (*hook_sys_open)(const char* file, int flags, int mode);
 
 extern asmlinkage int (*hook_sys_close)(int fd);
 void *memmem ( const void *haystack, size_t haystack_size, const void *needle, size_t needle_size );
 
 asmlinkage int concrete_hook_sys_open(const char* file, int flags, int mode);
-asmlinkage long concrete_hook_sys_read(unsigned int fd, char __user *buf, size_t count);
-asmlinkage long concrete_hook_sys_write(unsigned int fd, char __user *buf, size_t count);
+asmlinkage long concrete_hook_sys_read(unsigned int fd, void __user *buf, size_t count);
+asmlinkage long concrete_hook_sys_write(unsigned int fd, const void __user *buf, size_t count);
 asmlinkage int concrete_hook_sys_close(int fd);
 
 

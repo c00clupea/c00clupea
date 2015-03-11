@@ -22,7 +22,7 @@ asmlinkage int concrete_hook_sys_open(const char* file, int flags, int mode)
   return ret;
 }
 
-asmlinkage long concrete_hook_sys_read(unsigned int fd, char __user *buf, size_t count)
+asmlinkage long concrete_hook_sys_read(unsigned int fd, void __user *buf, size_t count)
 {
   long ret;
   //printk("Read %d, c: %ul\n",fd,count);
@@ -30,7 +30,7 @@ asmlinkage long concrete_hook_sys_read(unsigned int fd, char __user *buf, size_t
   return ret;
 }
 
-asmlinkage long concrete_hook_sys_write(unsigned int fd, char __user *buf, size_t count)
+asmlinkage long concrete_hook_sys_write(unsigned int fd, const void __user *buf, size_t count)
 {
   long ret;
   //  printk("Write %d, c: %d\n",fd,count);

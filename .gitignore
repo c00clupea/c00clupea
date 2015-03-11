@@ -4,6 +4,7 @@ kernel/src/guardian/Makefile.automake
 kernel/src/guardian/guardianl
 kernel/src/guardian/modules.order
 kernel/src/guardian/.tmp_versions/
+kernel/src/guardian.tar.gz
 *.ko
 src/c00nb-*
 kernel/src/guardian/.guardian_mod.ko.cmd

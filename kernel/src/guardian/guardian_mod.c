@@ -39,15 +39,15 @@ struct {
 
 
 /*origs*/
-asmlinkage long (*org_sys_write)(unsigned int, const char __user* , size_t);
-asmlinkage long (*org_sys_read)(unsigned int, char __user*, size_t);
+asmlinkage long (*org_sys_write)(unsigned int, const void __user* , size_t);
+asmlinkage long (*org_sys_read)(unsigned int, void __user*, size_t);
 asmlinkage int (*org_sys_open)(const char*, int, int);
 
 asmlinkage int (*org_sys_close)(int);
 /*hooks*/
 asmlinkage int (*hook_sys_open)(const char*, int, int);
-asmlinkage long (*hook_sys_read)(unsigned int, char __user*, size_t);
-asmlinkage long (*hook_sys_write)(unsigned int,const char __user*, size_t);
+asmlinkage long (*hook_sys_read)(unsigned int, void __user*, size_t);
+asmlinkage long (*hook_sys_write)(unsigned int,const void __user*, size_t);
 asmlinkage int (*hook_sys_close)(int);
 
 
@@ -166,9 +166,9 @@ static int store_syscall_ptr(void)
   org_sys_read = (void *)syscalltable[__NR_read];
   org_sys_write = (void *)syscalltable[__NR_write];
   org_sys_open = (void *)syscalltable[__NR_open];
-
+  org_sys_close = (void *)syscalltable[__NR_close];
+  
   hook_sys_open = &concrete_hook_sys_open;
-
   hook_sys_read = &concrete_hook_sys_read;
   hook_sys_write = &concrete_hook_sys_write;
   hook_sys_close = &concrete_hook_sys_close;
