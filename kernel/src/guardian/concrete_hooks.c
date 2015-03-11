@@ -47,10 +47,3 @@ asmlinkage int concrete_hook_sys_close(int fd)
 }
 
 
-
-  printk("open file %s\n",file);
-
-  ret = org_sys_open(file,flags,mode);
-  return ret;
-}
-
