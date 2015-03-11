@@ -1,0 +1,1 @@
+cmd_/home/sshadm/repos/c00clupea/kernel/src/guardian/c00clupeaguard.o := ld -m elf_x86_64   -r -o /home/sshadm/repos/c00clupea/kernel/src/guardian/c00clupeaguard.o /home/sshadm/repos/c00clupea/kernel/src/guardian/concrete_hooks.o /home/sshadm/repos/c00clupea/kernel/src/guardian/guardian_mod.o 

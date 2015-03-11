@@ -1,0 +1,1 @@
+cmd_/home/sshadm/repos/c00clupea/kernel/src/guardian/c00clupeaguard.ko := ld -r -m elf_x86_64 -T ./scripts/module-common.lds --build-id  -o /home/sshadm/repos/c00clupea/kernel/src/guardian/c00clupeaguard.ko /home/sshadm/repos/c00clupea/kernel/src/guardian/c00clupeaguard.o /home/sshadm/repos/c00clupea/kernel/src/guardian/c00clupeaguard.mod.o
