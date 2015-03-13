@@ -9,6 +9,10 @@ tar -xzvf guardian.tar.gz
 
 cd guardian
 
+echo "use preconfig? (y|n)"
+read PRECONF
+
+
 
 make x86_64 VERBOSE=y GENTOO=y IFDEV="eno16777728" EXTIP="192.168.101.146" LOCIP="192.168.101.129"
 

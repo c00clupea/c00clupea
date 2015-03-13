@@ -256,6 +256,7 @@ static void __exit guardian_cleanup(void)
     /*This will not happen, instead we have a big kernel poo*/
   }  
   C00TRACE("Cleaning up guardian_mod.\n");
+  C00LOG(1,"exit guardian");
 }
 
 
