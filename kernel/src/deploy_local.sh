@@ -10,7 +10,7 @@ tar -xzvf guardian.tar.gz
 cd guardian
 
 
-make x86_64 VERBOSE=y GENTOO=y
+make x86_64 VERBOSE=y GENTOO=y IFDEV="eno16777728"
 
 echo "installieren? (y|n)"
 read TOINSTALL

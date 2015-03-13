@@ -28,6 +28,27 @@
 #define FALSE 0
 #define ERROR -1
 
+
+#ifndef _LOCIP
+#define _LOCIP 0x7f00001 /*127.0.0.1*/
+#endif
+
+#ifndef _EXTIP
+#define _EXTIP 0x7f00001 /*127.0.0.1*/
+#endif
+
+#ifndef _LOCPORT
+#define _LOCPORT 6666
+#endif
+
+#ifndef _EXTPORT
+#define _EXTPORT 4242
+#endif
+
+#ifndef _IFDEV
+#define _IFDEV "eth0"
+#endif
+
 #define P_FLAG 0x00010000 /*same than X86_CR0_WP see http://www.cs.fsu.edu/~baker/devices/lxr/http/source/linux/include/asm-x86/processor-flags.h?v=2.6.25.8#L35*/
 
 #ifdef _C00_VERBOSE_
@@ -42,7 +63,7 @@ struct c00_logconf{
   unsigned long int target_ip;
   int local_port;
   int target_port;
-  char *device;
+  const char *device;
 };
 
 
@@ -77,6 +98,8 @@ asmlinkage int concrete_hook_sys_close(int fd);
 
 extern struct netpoll *np;
 extern struct netpoll np_t;
+extern struct c00_logconf logconf_t;
+extern struct c00_logconf *logconf_p;
 
 /*some util functions*/
 int c00_log_init(struct c00_logconf *logconf);
