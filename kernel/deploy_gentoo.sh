@@ -16,9 +16,15 @@ tar -zcvf guardian.tar.gz guardian
 
 cd ../
 
-scp src/guardian.tar.gz gentoobuild:/home/c00clupea/build
-#scp src/deploy_local.sh gentoobuild:/home/c00clupea/build
 
+if [ "$EXT" == "y" ]
+then
+    scp src/guardian.tar.gz gentoobuild:/home/c00clupea/build
+    scp src/deploy_local.sh gentoobuild:/home/c00clupea/build
+else
+    scp src/guardian.tar.gz gentoo1:/home/c00clupea/build
+    scp src/deploy_local.sh gentoo1:/home/c00clupea/build
+fi
 
 
 

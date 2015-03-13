@@ -20,6 +20,7 @@
 #include <linux/init.h>  
 #include <linux/proc_fs.h>
 #include <linux/sched.h>
+#include <linux/netpoll.h>
 /*#include <generated/autoconf.h>*/
 
 
@@ -35,6 +36,14 @@
 #define C00TRACE(fmt,...)
 #endif
 
+
+struct c00_logconf{
+  unsigned long int local_ip;
+  unsigned long int target_ip;
+  int local_port;
+  int target_port;
+  char *device;
+};
 
 
 #ifdef _X86_64_
@@ -63,6 +72,15 @@ asmlinkage long concrete_hook_sys_write(unsigned int fd, const void __user *buf,
 asmlinkage int concrete_hook_sys_close(int fd);
 
 
+/*some convenience globals*/
+
+
+extern struct netpoll *np;
+extern struct netpoll np_t;
+
+/*some util functions*/
+int c00_log_init(struct c00_logconf *logconf);
+int c00_log(unsigned int lvl,const char* buf);
 
 
 

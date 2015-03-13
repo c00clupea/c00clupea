@@ -1,3 +1,4 @@
+
 /**
  *
  * cooclupea Honeypot 
@@ -42,6 +43,7 @@ asmlinkage int concrete_hook_sys_close(int fd)
 {
   int ret;
   //  printk("Write %d, c: %d\n",fd,count);
+  printk("Close %d\n",fd);
   ret = org_sys_close(fd);
   return ret;
 }

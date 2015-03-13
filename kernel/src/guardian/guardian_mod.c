@@ -179,11 +179,11 @@ static int store_syscall_ptr(void)
 static int hook_syscalls(void)
 {
   disable_write_protection();
-  syscalltable[__NR_open] = hook_sys_open;
+  syscalltable[__NR_open] = (long)hook_sys_open;
 
-  syscalltable[__NR_read] = hook_sys_read;
-  syscalltable[__NR_write] = hook_sys_write;
-  syscalltable[__NR_close] = hook_sys_close;
+  syscalltable[__NR_read] = (long)hook_sys_read;
+  syscalltable[__NR_write] = (long)hook_sys_write;
+  syscalltable[__NR_close] = (long)hook_sys_close;
 
   enable_write_protection();
   return TRUE;
@@ -192,11 +192,11 @@ static int hook_syscalls(void)
 static int dehook_syscalls(void)
 {
   disable_write_protection();
-  syscalltable[__NR_open] = org_sys_open;
+  syscalltable[__NR_open] = (long)org_sys_open;
 
-  syscalltable[__NR_read] = org_sys_read;
-  syscalltable[__NR_write] = org_sys_write;
-  syscalltable[__NR_close] = org_sys_close;
+  syscalltable[__NR_read] = (long)org_sys_read;
+  syscalltable[__NR_write] = (long)org_sys_write;
+  syscalltable[__NR_close] = (long)org_sys_close;
 
   enable_write_protection();
   return TRUE;
