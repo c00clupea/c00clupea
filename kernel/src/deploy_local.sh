@@ -10,7 +10,7 @@ tar -xzvf guardian.tar.gz
 cd guardian
 
 
-make x86_64 VERBOSE=y GENTOO=y IFDEV="eno16777728"
+make x86_64 VERBOSE=y GENTOO=y IFDEV="eno16777728" EXTIP="192.168.101.146" LOCIP="192.168.101.129"
 
 echo "installieren? (y|n)"
 read TOINSTALL

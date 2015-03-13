@@ -225,8 +225,8 @@ static int __init guardian_init(void)
   C00TRACE("found syscall_table ia32 at %p\n",ia32_syscalltable);
 #endif
 
-  logconf_t.local_ip = htonl((unsigned long int)_LOCIP);
-  logconf_t.target_ip = htonl((unsigned long int)_EXTIP);
+  logconf_t.local_ip = _LOCIP;
+  logconf_t.target_ip = _EXTIP;
   logconf_t.local_port = _LOCPORT;
   logconf_t.target_port = _EXTPORT;
 
@@ -235,6 +235,8 @@ static int __init guardian_init(void)
   logconf_p = &logconf_t;
   c00_log_init(logconf_p);
 
+  C00LOG(1,"init guardian");
+  
   if(store_syscall_ptr() != TRUE){
     C00TRACE("Can not store syscall table");
     return 1;

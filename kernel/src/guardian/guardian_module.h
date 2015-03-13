@@ -21,6 +21,7 @@
 #include <linux/proc_fs.h>
 #include <linux/sched.h>
 #include <linux/netpoll.h>
+#include <linux/inet.h>
 /*#include <generated/autoconf.h>*/
 
 
@@ -30,11 +31,11 @@
 
 
 #ifndef _LOCIP
-#define _LOCIP 0x7f00001 /*127.0.0.1*/
+#define _LOCIP "127.0.0.1" /*127.0.0.1*/
 #endif
 
 #ifndef _EXTIP
-#define _EXTIP 0x7f00001 /*127.0.0.1*/
+#define _EXTIP "127.0.0.1" /*127.0.0.1*/
 #endif
 
 #ifndef _LOCPORT
@@ -57,10 +58,13 @@
 #define C00TRACE(fmt,...)
 #endif
 
+#define C00LOG(lvl,msg) c00_log(lvl,msg)
+
+
 
 struct c00_logconf{
-  unsigned long int local_ip;
-  unsigned long int target_ip;
+  const char *local_ip;
+  const char *target_ip;
   int local_port;
   int target_port;
   const char *device;

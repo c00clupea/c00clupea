@@ -19,10 +19,10 @@ struct netpoll np_t;
 int c00_log_init(struct c00_logconf *logconf){
   np_t.name = "LRNG";
   strlcpy(np_t.dev_name,logconf->device,IFNAMSIZ);
-  np_t.local_ip.ip = htonl(logconf->local_ip);
-  np_t.local_ip.in.s_addr = htonl(logconf->local_ip);
-  np_t.remote_ip.ip = htonl(logconf->target_ip);
-  np_t.remote_ip.in.s_addr = htonl(logconf->target_ip);
+  np_t.local_ip.ip = in_aton(logconf->local_ip);
+  np_t.local_ip.in.s_addr = in_aton(logconf->local_ip);
+  np_t.remote_ip.ip = in_aton(logconf->target_ip);
+  np_t.remote_ip.in.s_addr = in_aton(logconf->target_ip);
   np_t.ipv6 = 0;
   np_t.local_port = logconf->local_port;
   np_t.remote_port = logconf->target_port;
