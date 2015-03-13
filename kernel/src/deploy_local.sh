@@ -16,7 +16,7 @@ read PRECONF
 
 make x86_64 VERBOSE=y GENTOO=y IFDEV="eno16777728" EXTIP="192.168.101.146" LOCIP="192.168.101.129"
 
-echo "installieren? (y|n)"
+echo "install? (y|n)"
 read TOINSTALL
 
 if [ "$TOINSTALL" == "y" ]
