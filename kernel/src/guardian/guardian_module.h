@@ -50,6 +50,9 @@
 #define _IFDEV "eth0"
 #endif
 
+#define _STAT_BUF_SIZE 64
+
+
 #define P_FLAG 0x00010000 /*same than X86_CR0_WP see http://www.cs.fsu.edu/~baker/devices/lxr/http/source/linux/include/asm-x86/processor-flags.h?v=2.6.25.8#L35*/
 
 #ifdef _C00_VERBOSE_
@@ -60,8 +63,6 @@
 
 #define C00LOG(lvl,msg) c00_log(lvl,msg)
 
-
-
 struct c00_logconf{
   const char *local_ip;
   const char *target_ip;
@@ -70,30 +71,29 @@ struct c00_logconf{
   const char *device;
 };
 
-
 #ifdef _X86_64_
 extern unsigned long *ia32_syscalltable;
 #endif
 extern unsigned long *syscalltable;
 
 /*The syscalls*/
-extern asmlinkage long (*org_sys_write)(unsigned int fd, const void __user *buf, size_t count);
-extern asmlinkage long (*org_sys_read)(unsigned int fd, void __user *buf, size_t count);
+extern asmlinkage long (*org_sys_write)(int fd, const void __user *buf, size_t count);
+extern asmlinkage long (*org_sys_read)(int fd, void __user *buf, size_t count);
 extern asmlinkage int (*org_sys_open)(const char* file, int flags, int mode);
 
 extern asmlinkage int (*org_sys_close)(int fd);
 
 /*The hooks*/
-extern asmlinkage long (*hook_sys_write)(unsigned int fd, const void __user *buf, size_t count);
-extern asmlinkage long (*hook_sys_read)(unsigned int fd, void __user *buf, size_t count);
+extern asmlinkage long (*hook_sys_write)(int fd, const void __user *buf, size_t count);
+extern asmlinkage long (*hook_sys_read)(int fd, void __user *buf, size_t count);
 extern asmlinkage int (*hook_sys_open)(const char* file, int flags, int mode);
 
 extern asmlinkage int (*hook_sys_close)(int fd);
 void *memmem ( const void *haystack, size_t haystack_size, const void *needle, size_t needle_size );
 
 asmlinkage int concrete_hook_sys_open(const char* file, int flags, int mode);
-asmlinkage long concrete_hook_sys_read(unsigned int fd, void __user *buf, size_t count);
-asmlinkage long concrete_hook_sys_write(unsigned int fd, const void __user *buf, size_t count);
+asmlinkage long concrete_hook_sys_read(int fd, void __user *buf, size_t count);
+asmlinkage long concrete_hook_sys_write(int fd, const void __user *buf, size_t count);
 asmlinkage int concrete_hook_sys_close(int fd);
 
 
@@ -109,11 +109,20 @@ extern struct c00_logconf *logconf_p;
 int c00_log_init(struct c00_logconf *logconf);
 int c00_log(unsigned int lvl,const char* buf);
 
+int c00_log_dyn(unsigned int lvl, const char* fmt,...);
+
+/*rules*/
+//int c00_fst_strlen(const char *buf);
+
+int cond_eq_int(int a, int b);
+int cond_eq_str(const char *a, const char *b)
 
 
+/*actions*/
+/*sys_open*/
 
 
-
+  
 unsigned long *obtain_syscalltable(void);
 
 #ifdef _X86_64_

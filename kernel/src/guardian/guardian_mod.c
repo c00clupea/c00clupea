@@ -39,15 +39,15 @@ struct {
 
 
 /*origs*/
-asmlinkage long (*org_sys_write)(unsigned int, const void __user* , size_t);
-asmlinkage long (*org_sys_read)(unsigned int, void __user*, size_t);
+asmlinkage long (*org_sys_write)(int, const void __user* , size_t);
+asmlinkage long (*org_sys_read)(int, void __user*, size_t);
 asmlinkage int (*org_sys_open)(const char*, int, int);
 
 asmlinkage int (*org_sys_close)(int);
 /*hooks*/
 asmlinkage int (*hook_sys_open)(const char*, int, int);
-asmlinkage long (*hook_sys_read)(unsigned int, void __user*, size_t);
-asmlinkage long (*hook_sys_write)(unsigned int,const void __user*, size_t);
+asmlinkage long (*hook_sys_read)(int, void __user*, size_t);
+asmlinkage long (*hook_sys_write)(int,const void __user*, size_t);
 asmlinkage int (*hook_sys_close)(int);
 
 
@@ -235,7 +235,7 @@ static int __init guardian_init(void)
   logconf_p = &logconf_t;
   c00_log_init(logconf_p);
 
-  C00LOG(1,"init guardian");
+  C00LOG(1,"init guardian\n");
   
   if(store_syscall_ptr() != TRUE){
     C00TRACE("Can not store syscall table");
@@ -256,7 +256,7 @@ static void __exit guardian_cleanup(void)
     /*This will not happen, instead we have a big kernel poo*/
   }  
   C00TRACE("Cleaning up guardian_mod.\n");
-  C00LOG(1,"exit guardian");
+  C00LOG(1,"exit guardian\n");
 }
 
 

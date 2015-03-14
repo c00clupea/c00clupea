@@ -40,3 +40,33 @@ int c00_log(unsigned int lvl,const char* buf){
   return TRUE;
 }
 
+int c00_log_dyn(unsigned int lvl, const char *fmt,...)
+{
+  int len;
+  char buf[_STAT_BUF_SIZE];
+  char *buffer;
+  va_list args;
+  va_start(args,fmt);
+  len = vsnprintf(NULL,0,fmt,args);
+  va_end(args); //Looks creepy but according to C99 one must stop and restart va_args when passwd as argument
+  if((len+1)>_STAT_BUF_SIZE){
+    buffer = kmalloc((len+1)*sizeof(char),GFP_KERNEL);
+    if(!buffer){
+      goto error;
+    }
+  }
+  else{
+    buffer = buf;
+  }
+  va_start(args,fmt);
+  vsnprintf(buffer,len+1,fmt,args);
+  C00LOG(lvl,buffer);
+  va_end(args);
+  
+  if((len+1)>_STAT_BUF_SIZE){
+    kfree(buffer);
+  }
+  return TRUE;
+ error:
+  return ERROR;
+}
