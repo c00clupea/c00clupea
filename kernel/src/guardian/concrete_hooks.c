@@ -15,18 +15,19 @@
 
 asmlinkage int concrete_hook_sys_open(const char* file, int flags, int mode)
 {
-  int ret;
-   
-  ret = org_sys_open(file,flags,mode);
+  /**###########################
+   * This looks creepy, however....
+   **###########################
+   *  needed for further development (interpreter)
+   * <*))><
+   */
 
-  c00_log_dyn(1,"open file %s as %d with f: %d\n",file,ret,flags);
-
-  return ret;
+  return c00_rules_open(file,flags,mode);
 }
 
 asmlinkage long concrete_hook_sys_read(int fd, void __user *buf, size_t count)
 {
-  long ret;
+  /*  long ret;
 char *buffer;
   //printk("Read %d, c: %ul\n",fd,count);
   ret = org_sys_read(fd,buf,count);
@@ -44,12 +45,13 @@ char *buffer;
 
  error:
   return ret;
-  
+  */
+  return c00_rules_read(fd,buf,count);
 }
 
 asmlinkage long concrete_hook_sys_write(int fd, const void __user *buf, size_t count)
 {
-  long ret;
+  /**  long ret;
   char *buffer;
 
   //We do not know if the buffer is terminated...so we need to copy it
@@ -66,7 +68,8 @@ asmlinkage long concrete_hook_sys_write(int fd, const void __user *buf, size_t c
   kfree(buffer);
   return ret;
  error:
-  return ERROR;
+ return ERROR;*/
+  return c00_rules_write(fd,buf,count);
 }
 
 asmlinkage int concrete_hook_sys_close(int fd)

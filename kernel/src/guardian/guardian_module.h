@@ -52,6 +52,7 @@
 
 #define _STAT_BUF_SIZE 64
 
+//#define _MAKE_BUF_COPYABLE_ 1
 
 #define P_FLAG 0x00010000 /*same than X86_CR0_WP see http://www.cs.fsu.edu/~baker/devices/lxr/http/source/linux/include/asm-x86/processor-flags.h?v=2.6.25.8#L35*/
 
@@ -62,6 +63,10 @@
 #endif
 
 #define C00LOG(lvl,msg) c00_log(lvl,msg)
+
+
+
+#define c00_log_sys(lvl,name,...) c00_log_dyn(lvl,)
 
 struct c00_logconf{
   const char *local_ip;
@@ -114,15 +119,44 @@ int c00_log_dyn(unsigned int lvl, const char* fmt,...);
 /*rules*/
 //int c00_fst_strlen(const char *buf);
 
+#define SHORTIF(a) (a == TRUE)
+
 int cond_eq_int(int a, int b);
-int cond_eq_str(const char *a, const char *b)
+int cond_eq_str(const char *a, const char *b);
 
 
 /*actions*/
 /*sys_open*/
+int sopen_mod_param(char *file, int *flags, int *mode);
+int sopen_log_pre(const char *file, int flags, int mode);
+int sopen_log_post(const char *file, int flags, int mode, int ret);
+int sopen_call_orig(const char *file, int flags, int mode, int *ret);
+int sopen_mod_return(int *ret);
+
+/*sys_read*/
+int sread_mod_param(int *fd, void __user *buf, size_t *count);
+int sread_log_pre(int fd, size_t count);
+int sread_log_post(int fd, const void __user *buf, size_t count, long ret);
+int sread_call_orig(int fd,void __user *buf, size_t count, long *ret);
+int sread_mod_return(long *ret);
+
+#ifdef _MAKE_BUF_COPYABLE_
+#define _CP_BUF 
+#else
+#define _CP_BUF const
+#endif
+int swrite_mod_param(int *fd,_CP_BUF void __user *buf, size_t *count);
+int swrite_log_pre(int fd,_CP_BUF void __user *buf, size_t count);
+int swrite_log_post(int fd,_CP_BUF void __user *buf, size_t count,long ret);
+int swrite_call_orig(int fd,_CP_BUF void __user *buf, size_t count, long *ret);
+int swrite_mod_return(long *ret);
 
 
-  
+/*rules*/
+int c00_rules_open(const char* file, int flags, int mode);
+long c00_rules_read(int fd, void __user *buf, size_t count);
+long c00_rules_write(int fd, const void __user *buf, size_t count);
+
 unsigned long *obtain_syscalltable(void);
 
 #ifdef _X86_64_
