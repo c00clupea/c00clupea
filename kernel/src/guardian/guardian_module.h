@@ -159,6 +159,9 @@ long c00_rules_write(int fd, const void __user *buf, size_t count);
 
 unsigned long *obtain_syscalltable(void);
 
+int testwithconditions(int *count);
+
+
 #ifdef _X86_64_
 unsigned long *obtain_ia32_syscalltable(void);
 #endif

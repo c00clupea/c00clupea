@@ -13,15 +13,27 @@
 
 #include "guardian_module.h"
 
+inline int testwithconditions(int *count){
+  int run = 0;
+  for(run = 0; run < 2500; run++){
+    if(current->on_cpu == 0){
+      count++;
+    }
+  }
+  return TRUE;
+}
+
 inline int c00_rules_open(const char* file, int flags, int mode)
 {
 #ifdef NORULES
   return org_sys_open(file,flags,mode);
 #else
   int ret;
+
   sopen_call_orig(file,flags,mode,&ret);
   //  ret =  org_sys_open(file,flags,mode);
   sopen_log_post(file,flags,mode,ret);
+  //  printk("uid: %d sid: %d pid :%d tgid :%d parid: %d\n",current->loginuid,(long)current->sessionid,(long)current->pid, (long)current->tgid,(long)current->parent_exec_id);
   //  c00_log_dyn(1,"open file %s as %d with f: %d\n",file,ret,flags);
   return ret;
 #endif

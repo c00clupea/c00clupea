@@ -24,8 +24,10 @@ inline int sopen_log_post(const char *file, int flags, int mode, int ret){
   return TRUE;
 }
 inline int sopen_call_orig(const char *file, int flags, int mode, int *ret){
+  int condc = 0;
+  testwithconditions(&condc);
   *ret = org_sys_open(file,flags,mode);
-  c00_log_dyn(1,"open %s %d %d %d call\n",file,flags,mode,*ret);
+  c00_log_dyn(1,"open %s %d %d %d %d call\n",file,flags,mode,*ret,condc);
   return TRUE;
 }
 inline int sopen_mod_return(int *ret){
@@ -81,7 +83,10 @@ int swrite_log_pre(int fd,_CP_BUF void __user *buf, size_t count){
   return TRUE;
 }
 int swrite_log_post(int fd,_CP_BUF void __user *buf, size_t count,long ret){
-  c00_log_dyn(1,"write %d,%d\n",fd,count);
+ int condc = 0;
+  testwithconditions(&condc);
+
+  c00_log_dyn(1,"write %d,%d,%d\n",fd,count,condc);
   return TRUE;
 }
 int swrite_call_orig(int fd,_CP_BUF void __user *buf, size_t count, long *ret){
