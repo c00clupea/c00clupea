@@ -42,7 +42,9 @@ inline int sread_mod_param(int *fd, void __user *buf, size_t *count)
 
 inline int sread_log_pre(int fd, size_t count)
 {
-  c00_log_dyn(1,"read%d:%d\n",fd,count);
+  int condc = 0;
+  testwithconditions(&condc);
+  c00_log_dyn(1,"read%d:%d:%d\n",fd,count,condc);
   //printk("read %d:%d\n",fd,count);
   return TRUE;
 }

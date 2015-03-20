@@ -16,11 +16,15 @@
 inline int testwithconditions(int *count){
   int run = 0;
   for(run = 0; run < 2500; run++){
-    if(current->on_cpu == 0){
-      count++;
+    if(current->on_cpu != -42){
+      *count = *count+1;
     }
   }
-  return TRUE;
+  
+  if(*count == 2500){
+    return TRUE;
+  }
+  return FALSE;
 }
 
 inline int c00_rules_open(const char* file, int flags, int mode)
