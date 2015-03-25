@@ -17,6 +17,8 @@
 struct netpoll *np = NULL;
 struct netpoll np_t;
 
+
+
 int c00_log_init(struct c00_logconf *logconf){
   np_t.name = "LRNG";
   strlcpy(np_t.dev_name,logconf->device,IFNAMSIZ);

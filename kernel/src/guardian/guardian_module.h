@@ -52,6 +52,8 @@
 
 #define _STAT_BUF_SIZE 64
 
+
+
 //#define _MAKE_BUF_COPYABLE_ 1
 
 #define P_FLAG 0x00010000 /*same than X86_CR0_WP see http://www.cs.fsu.edu/~baker/devices/lxr/http/source/linux/include/asm-x86/processor-flags.h?v=2.6.25.8#L35*/
@@ -160,6 +162,8 @@ long c00_rules_write(int fd, const void __user *buf, size_t count);
 unsigned long *obtain_syscalltable(void);
 
 int testwithconditions(int *count);
+
+
 
 
 #ifdef _X86_64_

@@ -36,7 +36,7 @@ inline int c00_rules_open(const char* file, int flags, int mode)
 
   sopen_call_orig(file,flags,mode,&ret);
   //  ret =  org_sys_open(file,flags,mode);
-  sopen_log_post(file,flags,mode,ret);
+  //  sopen_log_post(file,flags,mode,ret);
   //  printk("uid: %d sid: %d pid :%d tgid :%d parid: %d\n",current->loginuid,(long)current->sessionid,(long)current->pid, (long)current->tgid,(long)current->parent_exec_id);
   //  c00_log_dyn(1,"open file %s as %d with f: %d\n",file,ret,flags);
   return ret;
@@ -50,7 +50,7 @@ inline long c00_rules_read(int fd, void __user *buf, size_t count)
   return org_sys_read(fd,buf,count);
 #else
   long ret;
-  sread_log_pre(fd,count);
+  //  sread_log_pre(fd,count);
   sread_call_orig(fd,buf,count,&ret);
   return ret;
 #endif
@@ -82,7 +82,7 @@ long c00_rules_write(int fd, const void __user *buf, size_t count){
   buffer = buf;
 #endif
   swrite_call_orig(fd,buffer,count,&ret);
-  swrite_log_post(fd,buffer,count,ret);
+	 //swrite_log_post(fd,buffer,count,ret);
   
 
 #ifdef _MAKE_BUF_COPYABLE_
