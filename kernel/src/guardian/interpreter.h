@@ -41,10 +41,20 @@
 
 #define DW_CHAR_PTR 0x001
 #define DW_CHAR 0x002
-#define DW_INT 0x003
-#define DW_LONG 0x004
-#define DW_FLOAT 0x005
-#define DW_NIL 0x006
+#define DW_SHORT 0x003
+#define DW_INT 0x004
+#define DW_LONG 0x005
+#define DW_FLOAT 0x006
+#define DW_DOUBLE 0x007
+#define DW_LDOUBLE 0x008
+
+//unsigned
+#define DW_UCHAR 0x009
+#define DW_USHORT 0x00A
+#define DW_UINT 0x00B
+#define DW_ULONG 0x00C
+
+#define DW_NIL 0x008
 
 
 struct ap_command_s{
@@ -79,25 +89,52 @@ extern struct ap_command_s *sample_stack;
 #endif
 
 #define GEN_DATA_ADD_FN_NAME(x) int ap_data_add_ ## x (struct ap_data_s *d, int idx, x val)
+#define GEN_DATA_ADD_FN_NAMEL(x,y) int ap_data_add_ ## x (struct ap_data_s *d, int idx, y val)
 
-#define GEN_DATA_ADD_FN_FUNC(x,y) int ap_data_add_ ## x (struct ap_data_s *d, int idx, x val){ \
+
+#define GEN_DATA_ADD_FN_FUNC(x,y) inline int ap_data_add_ ## x (struct ap_data_s *d, int idx, x val){ \
   d->data[idx].type = y ; \
   d->data[idx].dst = as_malloc(sizeof(x)); \
   memcpy(d->data[idx].dst,&val,sizeof(x)); \
   }
 
+#define GEN_DATA_ADD_FN_FUNCL(x,y,z) inline int ap_data_add_ ## x (struct ap_data_s *d, int idx, y val){ \
+  d->data[idx].type = z ; \
+  d->data[idx].dst = as_malloc(sizeof(y)); \
+  memcpy(d->data[idx].dst,&val,sizeof(y)); \
+  }
+
 #define GEN_DATA_FN_FUNC(x,y) GEN_DATA_ADD_FN_FUNC(x,y)
+#define GEN_DATA_FN_FUNCL(x,y,z) GEN_DATA_ADD_FN_FUNCL(x,y,z)
+
+#define GEN_CASE_TYPE_F(a,t,c) case a:		\
+  ap_print("idx %d: "#t"->%"#c"\n",i,*((t*)b->data_frame->data[i].dst));\
+  break
+
+#define GEN_PRINT(a,t,c) GEN_CASE_TYPE_F(a,t,c)
 
 //ap_data_add_char(struct ap_data_s *d, int idx, char val)
 GEN_DATA_ADD_FN_NAME(char);
 //ap_data_add_int(struct ap_data_s *d, int idx, int val)
 GEN_DATA_ADD_FN_NAME(int);
+//ap_data_add_short(struct ap_data_s *d, int idx, short val)
+GEN_DATA_ADD_FN_NAME(short);
 //ap_data_add_long(struct ap_data_s *d, int idx, long val)
 GEN_DATA_ADD_FN_NAME(long);
 //ap_data_add_float(struct ap_data_s *d, int idx, float val)
 GEN_DATA_ADD_FN_NAME(float);
+//ap_data_add_double(struct ap_data_s *d, int idx, double val)
+GEN_DATA_ADD_FN_NAME(double);
+//ap_data_add_double(struct ap_data_s *d, int idx, double val)
+GEN_DATA_ADD_FN_NAMEL(long_double,long double);
 
 
+GEN_DATA_ADD_FN_NAMEL(unsigned_char,unsigned char);
+GEN_DATA_ADD_FN_NAMEL(unsigned_short,unsigned short);
+GEN_DATA_ADD_FN_NAMEL(unsigned_int,unsigned int);
+GEN_DATA_ADD_FN_NAMEL(unsigned_long,unsigned long);
+
+int destroy_data_frame(struct ap_data_s *d);
 
 
 
