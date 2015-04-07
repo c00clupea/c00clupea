@@ -1,0 +1,5 @@
+#!/bin/bash
+
+
+
+echo "obase=16; $@"|bc
