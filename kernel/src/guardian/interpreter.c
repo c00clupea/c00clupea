@@ -33,17 +33,14 @@ for(long i = 0; i < d->datalen;i++){
       case DW_NIL:
 	ap_print("idx %d: NIL-> NULL\n",i);	
 	break;
-	GEN_PRINT(DW_CHAR,char,c);
-	GEN_PRINT(DW_SHORT,short,d);
-	GEN_PRINT(DW_INT,int,d);
-	GEN_PRINT(DW_LONG,long,ld);
-	GEN_PRINT(DW_UCHAR,unsigned char,c);
-	GEN_PRINT(DW_USHORT,unsigned short,d);
-	GEN_PRINT(DW_UINT,unsigned int,d);
-	GEN_PRINT(DW_ULONG,unsigned long,ld);
-	GEN_PRINT(DW_FLOAT,float,f);
-	GEN_PRINT(DW_DOUBLE,double,lf);
-	GEN_PRINT(DW_LDOUBLE,long double,LF);
+	GEN_PRINT(DW_CHAR,char,c,dw_char);
+	GEN_PRINT(DW_SHORT,short,d,dw_short);
+	GEN_PRINT(DW_INT,int,d,dw_int);
+	GEN_PRINT(DW_LONG,long,ld,dw_long);
+	GEN_PRINT(DW_UCHAR,unsigned char,c,dw_uchar);
+	GEN_PRINT(DW_USHORT,unsigned short,d,dw_ushort);
+	GEN_PRINT(DW_UINT,unsigned int,d,dw_uint);
+	GEN_PRINT(DW_ULONG,unsigned long,ld,dw_ulong);
       default:
 	ap_print("idx %d: Type unknown-> NIL\n",i);
 	break;
@@ -95,18 +92,18 @@ static int print_bytecode(struct ap_bytecode_s *b)
   return 0;
 }
 
-GEN_DATA_FN_FUNC(char,DW_CHAR);
-GEN_DATA_FN_FUNC(short,DW_SHORT);
-GEN_DATA_FN_FUNC(int,DW_INT);
-GEN_DATA_FN_FUNC(long,DW_LONG);
-GEN_DATA_FN_FUNC(float,DW_FLOAT);
-GEN_DATA_FN_FUNC(double,DW_DOUBLE);
-GEN_DATA_FN_FUNCL(long_double,long double,DW_LDOUBLE);
+GEN_DATA_FN_FUNC(char,DW_CHAR,dw_char);
+GEN_DATA_FN_FUNC(short,DW_SHORT,dw_short);
+GEN_DATA_FN_FUNC(int,DW_INT,dw_int);
+GEN_DATA_FN_FUNC(long,DW_LONG,dw_long);
+//GEN_DATA_FN_FUNC(float,DW_FLOAT);
+//GEN_DATA_FN_FUNC(double,DW_DOUBLE);
+//GEN_DATA_FN_FUNCL(long_double,long double,DW_LDOUBLE);
 
-GEN_DATA_FN_FUNCL(unsigned_char,unsigned char,DW_UCHAR);
-GEN_DATA_FN_FUNCL(unsigned_short,unsigned short,DW_USHORT);
-GEN_DATA_FN_FUNCL(unsigned_int,unsigned int,DW_UINT);
-GEN_DATA_FN_FUNCL(unsigned_long,unsigned long,DW_ULONG);
+GEN_DATA_FN_FUNCL(unsigned_char,unsigned char,DW_UCHAR,dw_uchar);
+GEN_DATA_FN_FUNCL(unsigned_short,unsigned short,DW_USHORT,dw_ushort);
+GEN_DATA_FN_FUNCL(unsigned_int,unsigned int,DW_UINT,dw_uint);
+GEN_DATA_FN_FUNCL(unsigned_long,unsigned long,DW_ULONG,dw_ulong);
 
 GEN_OPCODE_FUNC(hello,CW_HELLO);
 GEN_OPCODE_FUNC(goodbye,CW_GOODBYE);
@@ -117,8 +114,8 @@ inline int ap_data_add_chars(struct ap_data_s *d, int idx, char *val,int len){
     return 1;
   }
   d->data[idx].type = DW_CHAR_PTR;
-  d->data[idx].dst = (void *)as_malloc(len);
-  strncpy(d->data[idx].dst,val,len-1);
+  d->data[idx].dst.dw_ptr = (void *)as_malloc(len);
+  strncpy(d->data[idx].dst.dw_ptr,val,len-1);
   return 0;
 }
 
@@ -128,16 +125,21 @@ inline int ap_data_add_NULL(struct ap_data_s *d, int idx)
     return 1;
   }
   d->data[idx].type = DW_NIL;
-  d->data[idx].dst = NULL;
+  d->data[idx].dst.dw_ptr = NULL;
   return 0;
 }
 
 int destroy_data_frame(struct ap_data_s *d){
+
+  char to_free[] = {MUST_BE_FREED};
   if(d != NULL){
     long c = 0;
     for(c= 0; c < d->datalen;c++){
-      as_free(d->data[c].dst);
-
+      for(int i = 0; i < MUST_BE_FREED_LEN; i++){
+	if(d->data[c].type == to_free[i]){
+	  as_free(d->data[c].dst.dw_ptr);
+	}
+      }	
     }
     as_free(d->data);
     as_free(d);
@@ -208,9 +210,9 @@ static int fill_test_data_section(struct ap_data_s *d)
   ap_data_add_int(d,2,42);
   ap_data_add_short(d,10,42);
   ap_data_add_long(d,3,424242);
-  ap_data_add_float(d,4,42.42);
-  ap_data_add_double(d,5,4243);
-  ap_data_add_long_double(d,6,4243);
+  //ap_data_add_float(d,4,42.42);
+  //ap_data_add_double(d,5,4243);
+  //ap_data_add_long_double(d,6,4243);
   
   ap_data_add_unsigned_char(d,7,'b');
   ap_data_add_unsigned_int(d,8,42);
