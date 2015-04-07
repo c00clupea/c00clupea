@@ -66,8 +66,16 @@
   d->data[idx].dst.a = val; \
   }
 
+#define GEN_DATA_ADD_FN_FUNCLP(x,y,z) inline int ap_data_add_ ## x (struct ap_data_s *d, int idx, y val){\
+  d->data[idx].type = z;\
+  d->data[idx].dst.dw_ptr = as_malloc(sizeof(y));\
+  memcpy(d->data[idx].dst.dw_ptr,&val,sizeof(y));\
+  return 0;\
+}
+
 #define GEN_DATA_FN_FUNC(x,y,z) GEN_DATA_ADD_FN_FUNC(x,y,z)
 #define GEN_DATA_FN_FUNCL(x,y,z,a) GEN_DATA_ADD_FN_FUNCL(x,y,z,a)
+#define GEN_DATA_FN_FUNCLP(x,y,z) GEN_DATA_ADD_FN_FUNCLP(x,y,z)
   
 #define GEN_OPCODE_FUNC(a,b) GEN_OPCODE_ADD_OC_FUNC(a,b)
 #define GEN_OPCODE_DST_FUNC(a,b,c,d) GEN_OPCODE_ADD_OC_FUNC_DST(a,b,c,d)
@@ -79,6 +87,12 @@
   break
 
 #define GEN_PRINT(a,t,c,x) GEN_CASE_TYPE_F(a,t,c,x)
+
+#define GEN_CASE_TYPE_P(a,t,c,x) case a:			\
+  ap_print("idx %d: "#t"->%"#c"\n",i,*(t*)d->data[i].dst.x);	\
+  break
+
+#define GEN_PRINT_P(a,t,c,x) GEN_CASE_TYPE_P(a,t,c,x)
 
 #define GEN_CASE_OP_TYPE_F1(a) case a:		\
   ap_print("idx %05d:%-14s->%10s%10s\n",i,#a,"NULL","NULL");	\

@@ -41,6 +41,9 @@ for(long i = 0; i < d->datalen;i++){
 	GEN_PRINT(DW_USHORT,unsigned short,d,dw_ushort);
 	GEN_PRINT(DW_UINT,unsigned int,d,dw_uint);
 	GEN_PRINT(DW_ULONG,unsigned long,ld,dw_ulong);
+	GEN_PRINT_P(DW_FLOAT,float,f,dw_ptr);
+	GEN_PRINT_P(DW_DOUBLE,double,f,dw_ptr);
+	GEN_PRINT_P(DW_LDOUBLE,long double,lf,dw_ptr);
       default:
 	ap_print("idx %d: Type unknown-> NIL\n",i);
 	break;
@@ -96,9 +99,10 @@ GEN_DATA_FN_FUNC(char,DW_CHAR,dw_char);
 GEN_DATA_FN_FUNC(short,DW_SHORT,dw_short);
 GEN_DATA_FN_FUNC(int,DW_INT,dw_int);
 GEN_DATA_FN_FUNC(long,DW_LONG,dw_long);
-//GEN_DATA_FN_FUNC(float,DW_FLOAT);
-//GEN_DATA_FN_FUNC(double,DW_DOUBLE);
-//GEN_DATA_FN_FUNCL(long_double,long double,DW_LDOUBLE);
+
+GEN_DATA_FN_FUNCLP(float,float,DW_FLOAT);
+GEN_DATA_FN_FUNCLP(double,double,DW_DOUBLE);
+GEN_DATA_FN_FUNCLP(long_double,long double,DW_LDOUBLE);
 
 GEN_DATA_FN_FUNCL(unsigned_char,unsigned char,DW_UCHAR,dw_uchar);
 GEN_DATA_FN_FUNCL(unsigned_short,unsigned short,DW_USHORT,dw_ushort);
@@ -210,9 +214,9 @@ static int fill_test_data_section(struct ap_data_s *d)
   ap_data_add_int(d,2,42);
   ap_data_add_short(d,10,42);
   ap_data_add_long(d,3,424242);
-  //ap_data_add_float(d,4,42.42);
-  //ap_data_add_double(d,5,4243);
-  //ap_data_add_long_double(d,6,4243);
+  ap_data_add_float(d,4,42.42);
+  ap_data_add_double(d,5,4243);
+  ap_data_add_long_double(d,6,4243);
   
   ap_data_add_unsigned_char(d,7,'b');
   ap_data_add_unsigned_int(d,8,42);
