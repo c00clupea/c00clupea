@@ -179,10 +179,13 @@ inline int run_system(struct ap_bytecode_s *b)
      OOB_PROTECTION;
      break;
    case CW_GOODBYE:
+    remline = idx;
     goto breakout;
     break;
   default:
+    remline = idx;
     idx++;
+    OOB_PROTECTION;
     break;
   }
 
@@ -222,7 +225,7 @@ static int fill_test_opcode_section(struct ap_opcode_s *o)
 {
   ap_opcode_hello(o,0);
   ap_opcode_goodbye(o,39);
-  ap_opcode_jmp(o,1,4243);
+  ap_opcode_jmp(o,1,38);
 }
 
 static struct ap_data_s *init_test_data_section(){
