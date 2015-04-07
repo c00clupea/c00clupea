@@ -78,8 +78,8 @@ union datatype_u{
 
 
 #define ERR_OOB 0x001,"Index out of range"
-#define PRINTERR_FN(a,b) ap_print("ERROR: 0x%.8X %s \n",a,b);	\
-  print_opcode(b->opcode_frame,remline)
+#define PRINTERR_FN(a,c) ap_print("ERROR: 0x%.8X %s \n",a,c);	\
+  print_opcode(b->opcode_frame,remline);
 
 
 #define PRINTERR(a) PRINTERR_FN(a)
@@ -204,7 +204,7 @@ extern struct ap_command_s *sample_stack;
 
 #define OOB_PROTECTION \
   if(idx >= b->opcode_frame->stacklen){\
-    PRINTERR(ERR_OOB);\
+    PRINTERR(ERR_OOB);		  \
     goto error;\
 }
   
