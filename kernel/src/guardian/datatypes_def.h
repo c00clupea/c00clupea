@@ -13,7 +13,9 @@
 #ifndef _DATATYPES_DEF_H_
 #define _DATATYPES_DEF_H_
 
+#define CWCOUNT 6
 
+#define CW_NOP 0x000
 #define CW_HELLO 0x001
 #define CW_GOODBYE 0x002
 #define CW_JMP 0x003
@@ -44,6 +46,15 @@
 #define MUST_BE_FREED DW_CHAR_PTR,DW_FLOAT,DW_DOUBLE,DW_LDOUBLE
 #define MUST_BE_FREED_LEN 4
 
+
+#define REAX 0
+#define REBX 1
+#define RECX 2
+#define REDX 3
+#define REEX 4
+#define REFX 5
+#define REGX 6
+#define REHX 7
 
 
 

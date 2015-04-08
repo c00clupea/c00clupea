@@ -51,6 +51,11 @@ struct ap_dword_s{
   //  void *dst;
 };
 
+struct ap_register_s{
+  unsigned int reglen;
+  struct ap_dword_s reg[6];
+};
+
 struct ap_data_s{
   struct ap_dword_s *data;
   unsigned long datalen;
@@ -104,6 +109,7 @@ GEN_DATA_ADD_FN_NAMEL(unsigned_int,unsigned int);
 GEN_DATA_ADD_FN_NAMEL(unsigned_long,unsigned long);
 
 GEN_OPCODE_ADD_SCMD(hello);
+GEN_OPCODE_ADD_SCMD(nop);
 GEN_OPCODE_ADD_SCMD(goodbye);
 GEN_OPCODE_ADD_CMD(jmp,int);
 GEN_OPCODE_ADD_CMD(ret,int);
@@ -115,5 +121,10 @@ int destroy_data_frame(struct ap_data_s *d);
 struct ap_data_s *create_data_section(int len);
 struct ap_opcode_s *create_opcode_section(int len);
 int run_system(struct ap_bytecode_s *b);
+
+/*opcodes*/
+
+INT_OC_OP_H(nop);
+INT_OC_OP_H(hello);
 
 #endif /* _INTERPRETER_H_ */

@@ -116,6 +116,10 @@
 
 #define PRINTERR(a) PRINTERR_FN(a)
 
+#define INT_OC_OP_H(a) void oc_fn_## a(struct ap_command_s *c, long *idx, struct ap_register_s *r, struct ap_data_s *cdat) 
 
+#define INT_OC_S(a) oc_fn_##a
+
+#define INT_OC_OP(a) inline INT_OC_OP_H(a)
 
 #endif /* _GEN_METHODS_H_ */

@@ -23,6 +23,13 @@
 #endif
 #endif
 
+void (*sys_map[CWCOUNT])(struct ap_command_s *c, long *idx, struct ap_register_s *r, struct ap_data_s *cdat) = {
+  INT_OC_S(nop),//0x000
+  INT_OC_S(hello),//0x001
+};
+
+
+
 static int print_dataframe(struct ap_data_s *d)
 {
 for(long i = 0; i < d->datalen;i++){
@@ -109,6 +116,7 @@ GEN_DATA_FN_FUNCL(unsigned_short,unsigned short,DW_USHORT,dw_ushort);
 GEN_DATA_FN_FUNCL(unsigned_int,unsigned int,DW_UINT,dw_uint);
 GEN_DATA_FN_FUNCL(unsigned_long,unsigned long,DW_ULONG,dw_ulong);
 
+GEN_OPCODE_FUNC(nop,CW_NOP);
 GEN_OPCODE_FUNC(hello,CW_HELLO);
 GEN_OPCODE_FUNC(goodbye,CW_GOODBYE);
 GEN_OPCODE_DST_FUNC(jmp,CW_JMP,int,dw_int);
@@ -166,17 +174,26 @@ inline struct ap_opcode_s *create_opcode_section(int len)
   return o;
 }
 
+INT_OC_OP(nop){
+  (*idx)++;
+}
+
+INT_OC_OP(hello){
+  (*idx)++;
+}
 
 
 inline int run_system(struct ap_bytecode_s *b)
 {
   long idx = 0;
   long remline = 0;
+  struct ap_register_s func_reg;
+  /**
   while(1){
    switch(b->opcode_frame->stack[idx].cmd){
    case CW_HELLO:
     remline = idx;
-    idx++;
+    oc_fn_hello(&b->opcode_frame->stack[idx],&idx,&func_reg,b->data_frame);
     OOB_PROTECTION;
     break;
    case CW_JMP:
@@ -194,8 +211,9 @@ inline int run_system(struct ap_bytecode_s *b)
     OOB_PROTECTION;
     break;
   }
-
-  }
+}
+  **/
+  
  breakout:
   ap_print("Goodbye at %d\n",remline);
     return 0;
